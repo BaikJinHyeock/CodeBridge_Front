@@ -1,0 +1,86 @@
+.App {
+  margin: 0 auto;
+}
+#header {
+  width: 100%;
+  background-color: #f1f1f1;
+}
+nav {
+  width: 1320px;
+  height: 65px;
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+}
+nav > div:nth-child(2) {
+  display: flex;
+}
+nav > div:nth-child(2) > div {
+  padding: 10px 14px;
+  font-weight: bold;
+  border-radius: 10px;
+  color: white;
+}
+.login {
+  background-color: #008bcd;
+  margin-right: 16px;
+}
+.join {
+  background-color: #999999;
+}
+main {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+aside > ul > li {
+  list-style: none;
+}
+aside > ul {
+  padding: 16px;
+}
+aside {
+  width: 10%;
+}
+.main {
+  width: 75%;
+}
+.main > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.main > div > h3 {
+  font-size: 20px;
+  font-weight: bold;
+}
+.main > div svg {
+  width: 28px;
+  height: 28px;
+  margin-left: 12px;
+}
+.chat {
+  width: 15%;
+}
+#sec-widget-1 {
+  min-height: 70vh !important;
+}
+#footer {
+  display: none;
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #f1f1f1;
+  display: flex;
+  justify-content: flex-end;
+}
+footer > img {
+  width: 8%;
+  padding: 12px 32px;
+}
