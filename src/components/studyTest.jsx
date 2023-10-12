@@ -1,4 +1,4 @@
-import "./studyTest.css";
+import "../css/studyTest.css";
 import WidgetComponent from "./WidgetComponent";
 
 function App() {
