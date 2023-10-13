@@ -6,6 +6,7 @@ import Main from "./components/Main";
 import Login from "./components/Login";
 import Join from "./components/Join";
 import StudyTest from "./components/StudyTest";
+import ClassWrite from "./components/ClassWrite";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/StudyTest" element={<StudyTest />}></Route>
         <Route path="/Login" element={<Login />}></Route>
         <Route path="/Join" element={<Join />}></Route>
+        <Route path="/classWrite" element={<ClassWrite />}></Route>
       </Routes>
     </div>
   );

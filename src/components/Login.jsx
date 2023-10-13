@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 import style from "../SCSS/pages/_login.module.scss";
 
@@ -29,7 +30,7 @@ const Login = () => {
               <span>OR</span>
             </div>
           </div>
-          <button type="submit">회원가입</button>
+          <Link to={"Join"}>회원가입</Link>
         </form>
       </div>
     </div>
