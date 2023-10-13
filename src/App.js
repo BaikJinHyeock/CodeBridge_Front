@@ -1,5 +1,7 @@
-import "./App.css";
 import { Route, Routes } from "react-router-dom";
+
+import "./main.css";
+
 import Main from "./components/Main";
 import Login from "./components/Login";
 import Join from "./components/Join";
