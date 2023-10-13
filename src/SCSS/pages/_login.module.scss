@@ -2,7 +2,7 @@
 
 .wrap_container {
   display: flex;
-  height: 100vh;
+  height: 90vh;
   align-items: center;
   //   justify-items: center;
 
@@ -10,12 +10,101 @@
     width: 100%;
     max-width: 440px;
     margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #999999;
+    border-radius: 5px;
+    padding: 64px 12px;
 
-    h1 {
-      font-size: 24px;
-      font-weight: 600;
-      color: $sub-color;
-      text-align: center;
+    form {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+
+      h1 {
+        font-size: 24px;
+        font-weight: 600;
+        color: $sub-color;
+        text-align: center;
+        margin: 36px 0;
+      }
+      input {
+        margin-bottom: 16px;
+        width: 300px;
+        font-size: 16px;
+        font-weight: 400;
+        color: $font-sub-color2;
+        border: $border;
+        padding: 8px 12px;
+        outline: none;
+        border-radius: 5px;
+      }
+      .login_button {
+        margin: 18px 0;
+        width: 350px;
+        border-radius: 15px;
+        background-color: $main-color;
+        font-size: 16px;
+        font-weight: 600;
+        color: #ffffff;
+        outline: none;
+        border: none;
+        padding: 12px;
+        cursor: pointer;
+        transition-duration: 200ms;
+
+        &:hover {
+          background-color: $sub-color;
+        }
+      }
+
+      // OR 라인
+      .division_line {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        margin: 16px 0;
+
+        &::after {
+          content: "";
+          display: block;
+          position: absolute;
+          inset: 50% 0;
+          background-color: $base-color;
+          height: 0.5px;
+        }
+        div {
+          background-color: #ffffff;
+          color: $sub-color;
+          display: inline-block;
+          z-index: 9;
+          padding: 0 8px;
+          font-weight: 600;
+          font-size: 16px;
+        }
+      }
+      // OR 라인 끝
+
+      .join_button {
+        width: 250px;
+        border: $border-bold;
+        outline: none;
+        background-color: #ffffff;
+        border-radius: 15px;
+        font-size: 14px;
+        font-weight: 600;
+        color: $font-sub-color1;
+        padding: 12px;
+        margin: 16px auto;
+        cursor: pointer;
+        transition-duration: 200ms;
+
+        &:hover {
+          background-color: #999999;
+          color: #ffffff;
+          border: 2px solid white;
+        }
+      }
     }
   }
 }

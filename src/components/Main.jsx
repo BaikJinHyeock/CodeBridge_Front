@@ -12,6 +12,9 @@ const Main = () => {
       <button>
         <Link to={"Join"}>회원가입</Link>
       </button>
+      <button>
+        <Link to={"/ClassWrite"}>ClassWrite</Link>
+      </button>
     </div>
   );
 };
