@@ -3,57 +3,48 @@ import React, { useState } from "react";
 
 const ClassWrite = () => {
   const [title, setTitle] = useState("");
-  const [start, setStart] = useState("");
-  const [end, setEnd] = useState("");
+  const [target, setTarget] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [content, setContent] = useState("");
-  const [week, setWeek] = useState("");
-  const [weekContent, setWeekContent] = useState("");
-  const [weekList, setWeekList] = useState([0]);
+  const [additionalInputs, setAdditionalInputs] = useState([{ week: '', content: '' }]);
 
-  const List = () => (
-    <div>
-      {weekList.map((item, index) => (
-        <div key={index}>
-          <input
-            type="text"
-            value={item.week}
-            placeholder="주차"
-            onChange={(e) => handleWeekChange(e, index)}
-          ></input>
-          <input
-            type="text"
-            value={item.weekContent}
-            placeholder="주차 별 내용"
-            onChange={(e) => handleWeekContentChange(e, index)}
-          ></input>
-        </div>
-      ))}
-    </div>
-  );
 
-  const CreateList = () => {
-    setWeekList([...weekList, { week, weekContent }]);
-    setWeek(""); // Clear the week input
-    setWeekContent(""); // Clear the weekContent input
+  const handleAddInput = () => {
+    setAdditionalInputs([...additionalInputs, { week: '', content: '' }]);
   };
 
-  // Update the week at the specified index
-  const handleWeekChange = (e, index) => {
-    const updatedList = [...weekList];
-    updatedList[index].week = e.target.value;
-    setWeekList(updatedList);
+  const handleInputChange = (index, event) => {
+    const updatedInputs = [...additionalInputs];
+    updatedInputs[index][event.target.name] = event.target.value;
+    setAdditionalInputs(updatedInputs);
   };
 
-  // Update the weekContent at the specified index
-  const handleWeekContentChange = (e, index) => {
-    const updatedList = [...weekList];
-    updatedList[index].weekContent = e.target.value;
-    setWeekList(updatedList);
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    // 주차와 내용을 ":"로 구분하고, 각 쌍을 ","로 구분하여 문자열로 만듦
+    const curriculumString = additionalInputs.map(input => `${input.week}|${input.content}`).join('` ');
+  
+    let ClassList = {
+      title: title,
+      target: target,
+      startDate: startDate,
+      endDate: endDate,
+      content: content,
+      curriculum: curriculumString, // curriculum에 문자열을 할당
+    }
+  
+    console.log('값 확인', ClassList);
+  
+    // 여기에 axios를 사용하여 서버로 데이터를 보내는 코드를 작성하면 됩니다.
+  }
+  
+
 
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           value={title}
@@ -64,25 +55,25 @@ const ClassWrite = () => {
         <br />
         <input
           type="text"
-          value={subject}
+          value={target}
           placeholder="교육대상"
-          onChange={(e) => setSubject(e.target.value)}
+          onChange={(e) => setTarget(e.target.value)}
         ></input>
         <br />
         <br />
 
         <input
           type="date"
-          value={start}
-          onChange={(e) => setStart(e.target.value)}
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
         ></input>
 
         <br />
         <br />
         <input
           type="date"
-          value={end}
-          onChange={(e) => setEnd(e.target.value)}
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
         ></input>
 
         <br />
@@ -97,18 +88,32 @@ const ClassWrite = () => {
         <br />
         <br />
         <div>
-          <List />
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-plus-circle-fill"
-            viewBox="0 0 16 16"
-            onClick={CreateList}
-          >
+
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16"
+            onClick={handleAddInput}>
             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
           </svg>
+
+          {additionalInputs.map((input, index) => (
+            <div key={index}>
+              <input
+                type="text"
+                name="week"
+                value={input.week}
+                placeholder="주차"
+                onChange={(e) => handleInputChange(index, e)}
+              />
+              <input
+                type="text"
+                name="content"
+                value={input.content}
+                placeholder="주차 별 내용"
+                onChange={(e) => handleInputChange(index, e)}
+              />
+            </div>
+          ))}
+
+          {/* <List /> */}
         </div>
         <hr />
 
