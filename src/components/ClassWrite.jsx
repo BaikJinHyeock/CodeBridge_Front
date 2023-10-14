@@ -3,12 +3,31 @@ import React, { useState } from "react";
 
 const ClassWrite = () => {
   const [title, setTitle] = useState("");
+  const [subject, setSubject] = useState("");
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
   const [content, setContent] = useState("");
   const [week, setWeek] = useState("");
   const [weekContent, setWeekContent] = useState("");
-  const [weekList, setWeekList] = useState([0]);
+  const [weekList, setWeekList] = useState([]);
+
+  const ClassWrite = async (e) => {
+    e.preventDefault();
+    let clas ={
+      class_title: title,
+      class_intro: content,
+      target: subject,
+      class_start: start,
+      class_end: end,
+
+
+    };
+    const response = await axios.post(
+      "http://localhost:8085/CodeBridge/ClassWrite.do",
+      clas
+    );
+    console.log("리스폰스 확인", response);
+  };
 
   const List = () => (
     <div>
@@ -33,8 +52,8 @@ const ClassWrite = () => {
 
   const CreateList = () => {
     setWeekList([...weekList, { week, weekContent }]);
-    setWeek(""); // Clear the week input
-    setWeekContent(""); // Clear the weekContent input
+    // setWeek(""); // Clear the week input
+    // setWeekContent(""); // Clear the weekContent input
   };
 
   // Update the week at the specified index
@@ -53,7 +72,7 @@ const ClassWrite = () => {
 
   return (
     <div>
-      <form>
+      <form onSubmit={ClassWrite}>
         <input
           type="text"
           value={title}
@@ -104,6 +123,8 @@ const ClassWrite = () => {
             height="16"
             fill="currentColor"
             class="bi bi-plus-circle-fill"
+
+            
             viewBox="0 0 16 16"
             onClick={CreateList}
           >
