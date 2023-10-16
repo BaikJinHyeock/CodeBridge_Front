@@ -1,6 +1,8 @@
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css");
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css");
+@import url("https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css");
 * {
-  font-family: "Pretendard";
+  font-family: "Pretendard Variable";
+  font-family: "SUIT", sans-serif;
 }
 
 /* http://meyerweb.com/eric/tools/css/reset/ 

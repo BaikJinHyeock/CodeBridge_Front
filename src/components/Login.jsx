@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-
 import style from "../SCSS/pages/_login.module.scss";
 // import "../main.css";
 
@@ -39,7 +38,11 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           ></input>
-          <button type="submit" className={style.login_button} id="submit_login">
+          <button
+            type="submit"
+            className={style.login_button}
+            id="submit_login"
+          >
             로그인
           </button>
           <div className={style.division_line}>
@@ -53,9 +56,7 @@ const Login = () => {
         </form>
       </div>
     </div>
-    
   );
 };
-
 
 export default Login;

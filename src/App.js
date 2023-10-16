@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import "./main.css";
 
 import Main from "./components/Main";
+import Nav from "./components/Nav";
 import Login from "./components/Login";
 import Join from "./components/Join";
 import StudyTest from "./components/StudyTest";
@@ -13,6 +14,7 @@ import ContainerTest from "./components/ContainerTest";
 function App() {
   return (
     <div className="App">
+      <Nav />
       <Routes>
         <Route path="/" element={<Main />}></Route>
         <Route path="/StudyTest" element={<StudyTest />}></Route>

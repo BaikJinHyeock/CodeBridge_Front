@@ -2,7 +2,7 @@
 
 .wrap_container {
   display: flex;
-  height: 90vh;
+  height: 80vh;
   align-items: center;
   //   justify-items: center;
 
@@ -93,7 +93,7 @@
         border-radius: 15px;
         font-size: 14px;
         font-weight: 600;
-        color: $font-sub-color1;
+        color: $font-color;
         padding: 12px;
         margin: 16px auto;
         cursor: pointer;
