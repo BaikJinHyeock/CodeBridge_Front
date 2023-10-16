@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
+import { log } from "console";
 
 
 const Join = () => {
@@ -11,32 +12,52 @@ const Join = () => {
   const [phone, setPhone] = useState("");
   const [type, setType] = useState("type");
 
-  const [idErrMsg, setIdErrMsg] = useState(""); // id 에러 메세지
-  const [idCheckMsg, setIdCheckMsg] = useState(""); // id 사용가능 메세지
-  const [pwErrMsg, setPwErrMsg] = useState(""); // id 에러 메세지
-  const [pwCheckMsg, setPwCheckMsg] = useState(""); // id 사용가능 메세지
+  const [idErrMsg, setIdErrMsg] = useState(""); // 아이디(이메일)형식 에러 메세지
+  const [idCheckMsg, setIdCheckMsg] = useState(""); // 아이디 사용가능 메세지
+  const [pwErrMsg, setPwErrMsg] = useState(""); // 패스워드형식 에러 메세지
+  const [pwCheckMsg, setPwCheckMsg] = useState(""); // 패스워드 일치 사용가능 메세지
+  const [nameCheckMsg, setNameCheckMsg] = useState(""); // 패스워드 일치 사용가능 메세지
+  const [nickCheckMsg, setNickCheckMsg] = useState(""); // 패스워드 일치 사용가능 메세지
+  const [phoneCheckMsg, setphoneCheckMsg] = useState(""); // 휴대폰번호 사용가능 메세지
+
+  let check1 = "";
+  let check2 = "";
+  let check3 = "";
+  let check4 = "";
+  let check5 = "";
+  let check6 = "";
+
 
 
   const JoinMember = async (e) => {
-    e.preventDefault();
-    let member = {
-      user_id: id,
-      user_pw: password,
-      user_name: name1,
-      user_nick: nick,
-      user_phone: phone,
-      user_type: type,
-    };
-    const response = await axios.post(
-      "http://localhost:8085/CodeBridge/MemberJoin.do",
-      member
-    );
-    console.log("리스폰스 확인", response);
+
+    if (check1 === 1 && check2 === 1 && check3 === 1 && check4 === 1 && check5 === 1 && check6 === 1) {
+
+      e.preventDefault();
+      let member = {
+        user_id: id,
+        user_pw: password,
+        user_name: name1,
+        user_nick: nick,
+        user_phone: phone,
+        user_type: type,
+      };
+      const response = await axios.post(
+        "http://localhost:8085/CodeBridge/MemberJoin.do",
+        member
+      );
+      alert("회원가입 성공");
+      //console.log("리스폰스 확인", response);
+    } else {
+      alert("잘못입력된 정보가 있습니다.");
+      
+
+    }
   };
 
 
   const idValidation = async (e) => {
-    console.log('id 확인', id);
+    //console.log('id 확인', id);
     const regExp = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     if (!regExp.test(e.target.value)) {
       setIdErrMsg("잘못된 형식의 이메일 주소입니다.");
@@ -53,6 +74,7 @@ const Join = () => {
           if (resMessge === "O") {
             setIdErrMsg("");
             setIdCheckMsg("사용 가능한 아이디입니다.");
+            check1 = 1;
           } else if (resMessge === "X") {
             setIdErrMsg("이미 사용중인 아이디입니다.");
             setIdCheckMsg("");
@@ -62,22 +84,48 @@ const Join = () => {
   };
 
   const pw1check = async (e) => {
-  const pwch  = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,20}$/;
-  if (!pwch.test(e.target.value)) {
-    setPwErrMsg("비밀번호는 영문+숫자, 6자리이상이여야합니다.");
-  } else {
-    setPwErrMsg("사용할수 있는 비밀번호 입니다.");
-  };
-};
-
-  const pw2check = async (e) => {
-    const pwch  = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,20}$/;
+    const pwch = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,20}$/;
     if (!pwch.test(e.target.value)) {
-      setPwCheckMsg("비밀번호가 일치하지 않습니다.");
+      setPwErrMsg("비밀번호는 영문+숫자, 6자리이상이여야합니다.");
     } else {
-      setPwCheckMsg("비밀번호가 일치합니다.");
+      setPwErrMsg("사용할수 있는 비밀번호 입니다.");
+      check2 = 1;
     };
   };
+
+  const pw2check = async (e) => {
+
+    if (password != password_check) {
+      setPwCheckMsg("비밀번호가 일치하지 않습니다.");
+    } else if (password == password_check) {
+      setPwCheckMsg("비밀번호가 일치합니다.");
+      check3 = 1;
+    };
+  };
+
+  const phonecheck = async (e) => {
+
+    const phcheck = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+    if (!phcheck.test(e.target.value)) {
+      setphoneCheckMsg("휴대폰번호 형식에 어긋납니다.")
+    } else { setphoneCheckMsg("옳바른 휴대폰번호 형식입니다.") }
+    check4 = 1;
+  };
+
+  const namecheck = async (e) => {
+    if (name1.length < 2) {
+      setNameCheckMsg("이름을 옳바르게 입력하세요.")
+    } else { setNameCheckMsg("이름입력 완료!.") }
+    check5 = 1;
+  };
+
+  const nickcheck = async (e) => {
+    if (nick.length < 1) {
+      setNickCheckMsg("닉네임을 옳바르게 입력하세요.")
+    } else { setNickCheckMsg("닉네임입력 완료!.") }
+    check6 = 1;
+  };
+
 
   return (
     <div>
@@ -87,10 +135,15 @@ const Join = () => {
         <div id="idErrMsg">{idErrMsg}</div>
         <div>{idCheckMsg}</div>
         <input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} onBlur={pw1check} /> <br />
-        <input type="password" placeholder="password_check" value={password_check} onChange={(e) => setPassword(e.target.value)} onBlur={pw2check} /> <br />
-        <input type="text" placeholder="Your name" value={name1} onChange={(e) => setName1(e.target.value)} /> <br />
-        <input type="text" placeholder="Your nickname" value={nick} onChange={(e) => setNick(e.target.value)} /> <br />
-        <input type="number" placeholder="Your number" value={phone} onChange={(e) => setPhone(e.target.value)} /> <br />
+        <div>{pwErrMsg}</div>
+        <input type="password" placeholder="password_check" value={password_check} onChange={(e) => setPassword_check(e.target.value)} onBlur={pw2check} /> <br />
+        <div>{pwCheckMsg}</div>
+        <input type="text" placeholder="Your name" value={name1} onChange={(e) => setName1(e.target.value)} onBlur={namecheck} /> <br />
+        <div>{nameCheckMsg}</div>
+        <input type="text" placeholder="Your nickname" value={nick} onChange={(e) => setNick(e.target.value)} onBlur={nickcheck} /> <br />
+        <div>{nickCheckMsg}</div>
+        <input type="text" placeholder="Your number" value={phone} onChange={(e) => setPhone(e.target.value)} onBlur={phonecheck} /> <br />
+        <div>{phoneCheckMsg}</div>
         <select name="type" value={type} onChange={(e) => setType(e.target.value)}>
           <option value="type">학생 or 선생 타입선택</option>
           <option value="0">Student</option>
