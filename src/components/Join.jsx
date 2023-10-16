@@ -25,11 +25,14 @@ const Join = () => {
       user_name: name1,
       user_nick: nick,
       user_phone: phone,
-      user_type: type
+      user_type: type,
     };
-    const response = await axios.post("http://localhost:8085/CodeBridge/MemberJoin.do", member);
-    console.log('리스폰스 확인', response);
-  }
+    const response = await axios.post(
+      "http://localhost:8085/CodeBridge/MemberJoin.do",
+      member
+    );
+    console.log("리스폰스 확인", response);
+  };
 
 
   const idValidation = async (e) => {
@@ -94,7 +97,7 @@ const Join = () => {
           <option value="1">Teacher</option>
         </select>
         <br />
-        <button type="submit">로그인</button>
+        <button type="submit">회원가입</button>
       </form>
       <div id="error">
         <div id="iderror"></div>
