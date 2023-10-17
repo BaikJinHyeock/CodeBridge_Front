@@ -40,7 +40,7 @@ const ClassWrite = () => {
     };
     console.log("값 확인", ClassList);
     const response = await axios.post(
-      "http://localhost:8085/CodeBridge/ClassWirte.do",
+      "http://localhost:8085/CodeBridge/Class/write",
       ClassList
     );
     console.log("리스폰스 확인", response.data);

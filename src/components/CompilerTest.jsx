@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import $ from "jquery";
 
-function App() {
+function CompilerTest({submittedCode}) {
   useEffect(() => {
     const SEC_HTTPS = true;
     const SEC_BASE = "compilers.widgets.sphere-engine.com";
@@ -13,7 +13,7 @@ function App() {
           "> submissionSource: <br>" + data.submissionSource + "<br><br>"
         );
       const testCode = data.submissionSource;
-      console.log("테스트코드?", testCode);
+      submittedCode(testCode);
 
       return {
         customData:
@@ -35,20 +35,17 @@ function App() {
 
   return (
     <div id="board">
-      <h1>테스트중</h1>
-
+      <h1>테스트 페이지</h1>
       <div
         data-id="example-widget"
         className="sec-widget"
         data-widget="71018ef2073563d3edb9a241b7c03ae3"
-      ></div>
-      <button id="submitButton">제출하기</button>
+      />
 
-      <pre id="result" style={{ height: "300px" }}>
-        Submit submission to see the result
-      </pre>
+
+
     </div>
   );
 }
 
-export default App;
+export default CompilerTest;
