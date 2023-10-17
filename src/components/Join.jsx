@@ -22,17 +22,22 @@ const Join = () => {
   const [nickCheckMsg, setNickCheckMsg] = useState(""); // 패스워드 일치 사용가능 메세지
   const [phoneCheckMsg, setphoneCheckMsg] = useState(""); // 휴대폰번호 사용가능 메세지
 
-  let check1 = "";
-  let check2 = "";
-  let check3 = "";
-  let check4 = "";
-  let check5 = "";
-  let check6 = "";
+
+  const [check1, setCheck1] = useState();
+  const [check2, setCheck2] = useState();
+  const [check3, setCheck3] = useState();
+  const [check4, setCheck4] = useState();
+  const [check5, setCheck5] = useState();
+  const [check6, setCheck6] = useState();
+
 
 
   const JoinMember = async (e) => {
 
+
+    console.log('check1 확인', check1);
     if (check1 === 1 && check2 === 1 && check3 === 1 && check4 === 1 && check5 === 1 && check6 === 1) {
+      console.log('진입완료1');
 
       e.preventDefault();
       let member = {
@@ -43,16 +48,11 @@ const Join = () => {
         user_phone: phone,
         user_type: type,
       };
-      const response = await axios.post(
-        "http://localhost:8085/CodeBridge/MemberJoin.do",
-        member
-      );
+      const response = await axios.post("http://localhost:8085/CodeBridge/MemberJoin.do", member);
       alert("회원가입 성공");
-      //console.log("리스폰스 확인", response);
+      console.log("리스폰스 확인", response);
     } else {
       alert("잘못입력된 정보가 있습니다.");
-      
-
     }
   };
 
@@ -79,7 +79,7 @@ const Join = () => {
           if (resMessge === "O") {
             setIdErrMsg("");
             setIdCheckMsg("사용 가능한 아이디입니다.");
-            check1 = 1;
+            setCheck1(1);
           } else if (resMessge === "X") {
             setIdErrMsg("이미 사용중인 아이디입니다.");
             setIdCheckMsg("");
@@ -97,11 +97,11 @@ const Join = () => {
     } else {
 
       setPwErrMsg("사용할수 있는 비밀번호 입니다.");
-      check2 = 1;
+      setCheck2(1);
     };
 
-      setPwCheckMsg("비밀번호가 일치합니다.");
-    }
+    setPwCheckMsg("비밀번호가 일치합니다.");
+  }
 
 
   const pw2check = async (e) => {
@@ -110,7 +110,7 @@ const Join = () => {
       setPwCheckMsg("비밀번호가 일치하지 않습니다.");
     } else if (password == password_check) {
       setPwCheckMsg("비밀번호가 일치합니다.");
-      check3 = 1;
+      setCheck3(1);
     };
   };
 
@@ -120,21 +120,21 @@ const Join = () => {
     if (!phcheck.test(e.target.value)) {
       setphoneCheckMsg("휴대폰번호 형식에 어긋납니다.")
     } else { setphoneCheckMsg("옳바른 휴대폰번호 형식입니다.") }
-    check4 = 1;
+    setCheck4(1);
   };
 
   const namecheck = async (e) => {
     if (name1.length < 2) {
       setNameCheckMsg("이름을 옳바르게 입력하세요.")
     } else { setNameCheckMsg("이름입력 완료!.") }
-    check5 = 1;
+    setCheck5(1);
   };
 
   const nickcheck = async (e) => {
     if (nick.length < 1) {
       setNickCheckMsg("닉네임을 옳바르게 입력하세요.")
     } else { setNickCheckMsg("닉네임입력 완료!.") }
-    check6 = 1;
+    setCheck6(1);
   };
 
 
@@ -191,8 +191,8 @@ const Join = () => {
           <br />
           <div>{nickCheckMsg}</div>
           <input
-            type="number"
-            placeholder="Your number"
+            type="text"
+            placeholder="(-)뺀 휴대폰번호"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             onBlur={phonecheck}
@@ -220,6 +220,6 @@ const Join = () => {
       </div>
     </div>
   );
-  };
+};
 
 export default Join;
