@@ -181,4 +181,8 @@ p {
 
 .nickname {
   font-family: "Pretendard Variable";
+}
+
+.App {
+  display: flex;
 }/*# sourceMappingURL=main.css.map */
