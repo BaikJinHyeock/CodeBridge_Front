@@ -19,11 +19,8 @@
     gap: 20px;
 
     a {
-      // font-size: 28px;
       font-weight: 900;
-      // color: #333;
       cursor: pointer;
-      text-decoration: none;
       transition-duration: 150ms;
 
       &:hover {
@@ -37,10 +34,7 @@
 
       li {
         a {
-          font-size: 16px;
           font-weight: 800;
-          text-decoration: none;
-          // color: $font-color;
           display: block;
           padding: 8px 12px;
           transition-duration: 150ms;
@@ -92,7 +86,6 @@
             padding: 8px 12px;
             background-color: $main-color;
             border-radius: 10px;
-            text-decoration: none;
             transition-duration: 150ms;
 
             &:hover {

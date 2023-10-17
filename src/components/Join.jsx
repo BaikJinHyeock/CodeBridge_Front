@@ -21,12 +21,12 @@ const Join = () => {
   const [nickCheckMsg, setNickCheckMsg] = useState(""); // 패스워드 일치 사용가능 메세지
   const [phoneCheckMsg, setphoneCheckMsg] = useState(""); // 휴대폰번호 사용가능 메세지
 
-  const [check1, setCheck1] = useState();
-  const [check2, setCheck2] = useState();
-  const [check3, setCheck3] = useState();
-  const [check4, setCheck4] = useState();
-  const [check5, setCheck5] = useState();
-  const [check6, setCheck6] = useState();
+  const [check1, setCheck1] = useState("0");
+  const [check2, setCheck2] = useState("0");
+  const [check3, setCheck3] = useState("0");
+  const [check4, setCheck4] = useState("0");
+  const [check5, setCheck5] = useState("0");
+  const [check6, setCheck6] = useState("0");
 
   const JoinMember = async (e) => {
     console.log("check1 확인", check1);
@@ -122,8 +122,8 @@ const Join = () => {
       setCheck4(0);
     } else {
       setphoneCheckMsg("옳바른 휴대폰번호 형식입니다.");
+      setCheck4(1);
     }
-    setCheck4(1);
   };
 
   const namecheck = async (e) => {
@@ -132,8 +132,8 @@ const Join = () => {
       setCheck5(0);
     } else {
       setNameCheckMsg("이름입력 완료!");
+      setCheck5(1);
     }
-    setCheck5(1);
   };
 
   const nickcheck = async (e) => {
@@ -142,8 +142,8 @@ const Join = () => {
       setCheck6(0);
     } else {
       setNickCheckMsg("닉네임입력 완료!");
+      setCheck6(1);
     }
-    setCheck6(1);
   };
 
   return (

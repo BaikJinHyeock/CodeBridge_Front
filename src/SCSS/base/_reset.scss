@@ -161,7 +161,12 @@ p {
 .nickname {
   font-family: "Pretendard Variable";
 }
-
-.App{
+button {
+  border: none;
+  outline: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+.App {
   display: flex;
 }
