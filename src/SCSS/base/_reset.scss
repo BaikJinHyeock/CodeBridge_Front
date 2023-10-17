@@ -156,17 +156,23 @@ h4 {
 }
 p {
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 500;
 }
+tr {
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
 .nickname {
   font-family: "Pretendard Variable";
 }
 button {
   border: none;
   outline: none;
-  padding: 8px 16px;
+  padding: 10px 16px;
   border-radius: 8px;
 }
 .App {
   display: flex;
+  justify-content: space-between;
 }

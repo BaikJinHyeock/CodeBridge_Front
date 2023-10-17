@@ -19,11 +19,13 @@ import TestWrite from "./components/TestWrite";
 import TestDetail from "./components/TestDetail";
 
 function App() {
-
-
   const location = useLocation();
   const RenderHeaderAndFooter = () => {
-    return location.pathname !== "/";
+    return (
+      location.pathname !== "/" &&
+      location.pathname !== "/Login" &&
+      location.pathname !== "/Join"
+    );
   };
 
   return (
