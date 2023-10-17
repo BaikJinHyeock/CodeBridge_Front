@@ -188,4 +188,8 @@ button {
   outline: none;
   padding: 8px 16px;
   border-radius: 8px;
+}
+
+.App {
+  display: flex;
 }/*# sourceMappingURL=main.css.map */
