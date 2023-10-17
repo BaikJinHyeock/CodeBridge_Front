@@ -7,7 +7,9 @@ const Nav = () => {
   return (
     <div className={style.Wrap_container}>
       <div className={style.left_container}>
-        <Link to={"/"}>Code Bridge</Link>
+        <h1>
+          <Link to={"/"}>Code Bridge</Link>
+        </h1>
         <ul>
           <li>
             <Link to={"#"}>교육과정</Link>

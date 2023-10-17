@@ -15,11 +15,20 @@ const Login = () => {
       user_id: id,
       user_pw: password,
     };
+    console.log("member 확인", member);
     const response = await axios.post(
-      "http://localhost:8085/CodeBridge/MemberLogin.do",
+      "http://localhost:8085/CodeBridge/Login",
       member
     );
     console.log("리스폰스 확인", response);
+    console.log(response.data);
+    if (response.data === "Y") {
+      sessionStorage.setItem("memberId", response.data);
+      window.location.href = "/";
+      alert("로그인성공!");
+    } else if (response.data === "N") {
+      return alert("입력하신 정보가 없습니다.");
+    }
   };
   return (
     <div className={style.wrap_container}>

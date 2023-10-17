@@ -1,0 +1,16 @@
+@import "../abstracts/variables";
+
+.left_wrap_container {
+  background-color: $font-sub-color1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100vh - 4rem);
+
+  a {
+    &:hover {
+      color: $main-color;
+    }
+  }
+}

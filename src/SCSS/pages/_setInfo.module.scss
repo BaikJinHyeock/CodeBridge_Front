@@ -1,0 +1,47 @@
+@import "../abstracts/variables";
+
+.wrap_container {
+  background-color: $wrap-bg;
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+
+  .right_container {
+    width: 100%;
+    padding: 36px;
+
+    .first_box {
+      display: flex;
+      justify-content: space-between;
+      margin: 36px 0;
+    }
+
+    .second_box {
+      display: flex;
+      justify-content: flex-start;
+      margin: 36px 0;
+    }
+
+    .third_box {
+      margin: 36px 0;
+
+      h4 {
+        margin: 16px 0;
+        color: $font-color;
+      }
+      p {
+        margin: 16px 0;
+        color: $font-sub-color2;
+      }
+      .setTable_userId {
+        border-collapse: collapse;
+
+        .setTable_userId_originId {
+          display: flex;
+          justify-content: flex-start;
+          gap: 8px;
+          align-items: center;
+        }
+      }
+    }
+  }
+}

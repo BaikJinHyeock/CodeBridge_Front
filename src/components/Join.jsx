@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-
 import style from "../SCSS/pages/_join.module.scss";
 
 const Join = () => {
@@ -22,7 +21,6 @@ const Join = () => {
   const [nickCheckMsg, setNickCheckMsg] = useState(""); // 패스워드 일치 사용가능 메세지
   const [phoneCheckMsg, setphoneCheckMsg] = useState(""); // 휴대폰번호 사용가능 메세지
 
-
   const [check1, setCheck1] = useState();
   const [check2, setCheck2] = useState();
   const [check3, setCheck3] = useState();
@@ -30,16 +28,19 @@ const Join = () => {
   const [check5, setCheck5] = useState();
   const [check6, setCheck6] = useState();
 
-
-
   const JoinMember = async (e) => {
+    console.log("check1 확인", check1);
+    e.preventDefault();
+    if (
+      check1 === 1 &&
+      check2 === 1 &&
+      check3 === 1 &&
+      check4 === 1 &&
+      check5 === 1 &&
+      check6 === 1
+    ) {
+      console.log("진입완료1");
 
-
-    console.log('check1 확인', check1);
-    if (check1 === 1 && check2 === 1 && check3 === 1 && check4 === 1 && check5 === 1 && check6 === 1) {
-      console.log('진입완료1');
-
-      e.preventDefault();
       let member = {
         user_id: id,
         user_pw: password,
@@ -48,17 +49,21 @@ const Join = () => {
         user_phone: phone,
         user_type: type,
       };
-      const response = await axios.post("http://localhost:8085/CodeBridge/MemberJoin.do", member);
+      const response = await axios.post(
+        "http://localhost:8085/CodeBridge/MemberJoin.do",
+        member
+      );
+
       alert("회원가입 성공");
       console.log("리스폰스 확인", response);
+      window.location.href = "/login";
     } else {
-      alert("잘못입력된 정보가 있습니다.");
+      return alert("잘못입력된 정보가 있습니다.");
     }
   };
 
+  //아이디중복확인,형식 메소드
   const idValidation = async (e) => {
-
-
     console.log("id 확인", id);
     const regExp =
       /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -88,58 +93,60 @@ const Join = () => {
     }
   };
 
-
   const pw1check = async (e) => {
     const pwch = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,20}$/;
 
     if (!pwch.test(e.target.value)) {
       setPwErrMsg("비밀번호는 영문+숫자, 6자리이상이여야합니다.");
+      setCheck2(0);
     } else {
-
       setPwErrMsg("사용할수 있는 비밀번호 입니다.");
       setCheck2(1);
-    };
-
-    setPwCheckMsg("비밀번호가 일치합니다.");
-  }
-
+    }
+  };
 
   const pw2check = async (e) => {
-
     if (password != password_check) {
       setPwCheckMsg("비밀번호가 일치하지 않습니다.");
+      setCheck3(0);
     } else if (password == password_check) {
       setPwCheckMsg("비밀번호가 일치합니다.");
       setCheck3(1);
-    };
+    }
   };
 
   const phonecheck = async (e) => {
-
     const phcheck = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
     if (!phcheck.test(e.target.value)) {
-      setphoneCheckMsg("휴대폰번호 형식에 어긋납니다.")
-    } else { setphoneCheckMsg("옳바른 휴대폰번호 형식입니다.") }
+      setphoneCheckMsg("휴대폰번호 형식에 어긋납니다.");
+      setCheck4(0);
+    } else {
+      setphoneCheckMsg("옳바른 휴대폰번호 형식입니다.");
+    }
     setCheck4(1);
   };
 
   const namecheck = async (e) => {
     if (name1.length < 2) {
-      setNameCheckMsg("이름을 옳바르게 입력하세요.")
-    } else { setNameCheckMsg("이름입력 완료!.") }
+      setNameCheckMsg("이름을 옳바르게 입력하세요.");
+      setCheck5(0);
+    } else {
+      setNameCheckMsg("이름입력 완료!");
+    }
     setCheck5(1);
   };
 
   const nickcheck = async (e) => {
     if (nick.length < 1) {
-      setNickCheckMsg("닉네임을 옳바르게 입력하세요.")
-    } else { setNickCheckMsg("닉네임입력 완료!.") }
+      setNickCheckMsg("닉네임을 옳바르게 입력하세요.");
+      setCheck6(0);
+    } else {
+      setNickCheckMsg("닉네임입력 완료!");
+    }
     setCheck6(1);
   };
 
-
   return (
-
     <div className={style.wrap_container}>
       <div className={style.input_box}>
         <form onSubmit={JoinMember}>
