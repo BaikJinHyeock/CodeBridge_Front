@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import style from "../SCSS/pages/_nav.module.scss";
 
 const Nav = () => {
+  const [loginOk, setLoginOk] = useState(false);
+
+
+  useEffect(() => {
+    const id = sessionStorage.getItem("memberId");
+
+    if (id) {
+      setLoginOk(true);
+    }
+  });
+
+
   return (
     <div className={style.Wrap_container}>
       <div className={style.left_container}>
@@ -29,7 +41,7 @@ const Nav = () => {
       <div className={style.right_container}>
         <ul>
           <li>
-            <Link to={"/Login"}>로그인</Link>
+            {loginOk ? <Link to={"/Setinfo"}>마이페이지</Link> : <Link to={"/Login"}>로그인</Link>}
           </li>
           <li>
             <Link to={"/Join"}>회원가입</Link>
@@ -41,3 +53,31 @@ const Nav = () => {
 };
 
 export default Nav;
+
+
+
+
+/* 
+  const { myInfo, setMyInfo } = useContext(QuillContext)
+
+  const [loginOk, setLoginOk] = useState(false);
+
+
+useEffect(() => {
+  const id = sessionStorage.getItem("memberId");
+  memberSearching();
+  if (id) {
+    setLoginOk(true);
+  }
+  showMessageListDetail();
+}, []);
+
+  const goLogout = () => {
+    sessionStorage.removeItem("memberId");
+    setLoginOk(false);
+    setMyInfo({ profileImg: null });
+  };
+
+   {loginOk ? <Member_profile /> : <Link to={"/join"}>회원가입</Link>}
+
+ */
