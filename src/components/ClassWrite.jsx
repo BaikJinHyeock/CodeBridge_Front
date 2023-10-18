@@ -54,7 +54,11 @@ const ClassWrite = () => {
     <div className={style.wrap_container}>
       <div className={style.left_container}>
         <span>Application for Class Opening</span>
-        <h1>강사님의 교육과정에 대해 소개해주세요</h1>
+        <h1>
+          강사님의 교육과정에 대해
+          <br />
+          소개해주세요
+        </h1>
       </div>
 
       <div className={style.right_container}>
@@ -112,15 +116,14 @@ const ClassWrite = () => {
 
           <div className={style.input_box}>
             <span>교육 설명</span>
-            <input
-              type="text"
+            <textarea
               value={content}
               placeholder="Description of education"
               class="form-control"
               aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default"
               onChange={(e) => setContent(e.target.value)}
-            ></input>
+            ></textarea>
           </div>
 
           <div className={style.input_box}>
