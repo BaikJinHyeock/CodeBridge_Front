@@ -2,8 +2,9 @@
 
 .wrap_container {
   background-color: $wrap-bg;
-  display: grid;
-  grid-template-columns: 5rem 1fr;
+  width: 100%;
+  overflow: scroll;
+  height: calc(100vh - 4rem);
 
   .right_container {
     width: 100%;
@@ -23,6 +24,9 @@
 
     .third_box {
       margin: 36px 0;
+      background-color: white;
+      padding: 1.5rem 2rem;
+      width: 100%;
 
       h4 {
         margin: 16px 0;
@@ -32,14 +36,111 @@
         margin: 16px 0;
         color: $font-sub-color2;
       }
-      .setTable_userId {
-        border-collapse: collapse;
+      .setTable {
+        margin: 36px 0;
+        tr {
+          &:nth-child(4) {
+            td {
+              &:last-child {
+                button {
+                  background-color: #d32f2f;
+                  color: $font-sub-color1;
+                  font-size: 12px;
+                }
+              }
+            }
+          }
 
-        .setTable_userId_originId {
-          display: flex;
-          justify-content: flex-start;
-          gap: 8px;
-          align-items: center;
+          td {
+            padding: 0.5rem 2rem;
+            border-collapse: collapse;
+
+            &:first-child {
+              border-right: 1px solid rgba(0, 0, 0, 0.06);
+            }
+
+            // 회원 이름 변경
+            .setTable_userId {
+              border-collapse: collapse;
+
+              .setTable_userId_originId {
+                display: flex;
+                justify-content: flex-start;
+                gap: 8px;
+                align-items: center;
+
+                svg {
+                  cursor: pointer;
+                }
+              }
+
+              form {
+                width: 20rem;
+              }
+            }
+            // 회원 이름 변경완료
+
+            // 회원 비밀번호 변경
+            .setTable_userPw {
+              border-collapse: collapse;
+
+              .setTable_userPw_originId {
+                display: flex;
+                justify-content: flex-start;
+                gap: 8px;
+                align-items: center;
+
+                svg {
+                  cursor: pointer;
+                }
+              }
+
+              form {
+                width: 20rem;
+              }
+            }
+            // 회원 비밀번호 변경완료
+
+            // 회원 휴대폰번호 변경
+            .setTable_userNum {
+              border-collapse: collapse;
+
+              .setTable_userNum_originId {
+                display: flex;
+                justify-content: flex-start;
+                gap: 8px;
+                align-items: center;
+
+                svg {
+                  cursor: pointer;
+                }
+              }
+
+              form {
+                width: 20rem;
+              }
+            }
+            // 회원 휴대폰번호 변경완료
+          }
+        }
+      }
+      .buttons {
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
+
+        button {
+          &:first-child {
+            background-color: $bg-grayScale;
+            font-size: 12px;
+            font-weight: 600;
+          }
+          &:last-child {
+            background-color: $main-color;
+            color: $font-sub-color1;
+            font-size: 12px;
+            font-weight: 600;
+          }
         }
       }
     }

@@ -1,8 +1,11 @@
 @import "../abstracts/variables";
 
 .wrap_container {
-  background-color: $font-sub-color1;
-  display: grid;
-  grid-template-columns: 5rem 1fr;
   background-color: $wrap-bg;
+  width: 100%;
+
+  .right_container {
+    width: 100%;
+    padding: 36px;
+  }
 }

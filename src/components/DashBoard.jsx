@@ -6,8 +6,9 @@ import style from "../SCSS/pages/_dashBoard.module.scss";
 const DashBoard = () => {
   return (
     <div className={style.wrap_container}>
-      <DashLeftBox />
-      <div></div>
+      <div className={style.right_container}>
+        <h1>DashBoard</h1>
+      </div>
     </div>
   );
 };

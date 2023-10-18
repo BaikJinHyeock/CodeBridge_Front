@@ -17,13 +17,13 @@ const Login = () => {
     };
     console.log("member 확인", member);
     const response = await axios.post(
-      "http://localhost:8085/CodeBridge/Login",
+      "http://localhost:8085/CodeBridge/Member/login",
       member
     );
     console.log("리스폰스 확인", response);
     console.log(response.data);
     if (response.data === "Y") {
-      sessionStorage.setItem("memberId", response.data);
+      sessionStorage.setItem("memberId", id);
       window.location.href = "/";
       alert("로그인성공!");
     } else if (response.data === "N") {
