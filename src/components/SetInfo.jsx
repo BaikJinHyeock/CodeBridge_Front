@@ -1,10 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DashLeftBox from "./DashLeftBox";
 
 import style from "../SCSS/pages/_setInfo.module.scss";
+import axios from "axios";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 const SetInfo = () => {
+
+  const [username, setUsername] = useState("");
+  const [userphone, setUserphone] = useState("");
+
+  const id = sessionStorage.getItem("memberId");
+  useEffect(() => {
+    if (id) {
+      memberSearching();
+    }
+  }, []);
+
+
+  // 회원정보 조회
+  const memberSearching = async () => {
+
+    console.log("로그인이 되어있나", id);
+    let mem = {
+      user_id: id
+    };
+    const response = await axios.post("http://localhost:8085/CodeBridge/Member/memcheck", mem);
+    console.log(response.data[0].user_name);
+    setUsername(response.data[0].user_name);
+    setUserphone(response.data[0].user_name);
+  };
+
+
   return (
     <div className={style.wrap_container}>
       <div className={style.right_container}>
@@ -16,7 +43,12 @@ const SetInfo = () => {
         </div>
 
         <div className={style.second_box}>
-          <p>선동욱님 화녕합미다</p>
+          <div>
+            <div>
+              <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTAzMjJfMjkg/MDAxNjE2Mzg4ODI0NzI5.uBHIwocqtEiKlHbUpds05YCDMe6Arw0o_l-p3PdJFZEg.GqEQvSTGKySHJrOTOE2nLGnlbZx3Cb9xfllMFlCRWdMg.JPEG.chooddingg/PHOTO_0020.JPG?type=w800" alt="#" />
+            </div>
+            <p>{username}님 환영합니다.</p>
+          </div>
           <h1>데이터 디자ㅣㄴ 양성 과정</h1>
         </div>
 
@@ -31,7 +63,7 @@ const SetInfo = () => {
                   <td>
                     <div className={style.setTable_userId}>
                       <div className={style.setTable_userId_originId}>
-                        <p>선동욱</p>
+                        <p>{username}</p>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
@@ -106,7 +138,7 @@ const SetInfo = () => {
                   <td>
                     <div className={style.setTable_userNum}>
                       <div className={style.setTable_userNum_originId}>
-                        <p>휴대폰 번호</p>
+                        <p>{userphone}</p>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"

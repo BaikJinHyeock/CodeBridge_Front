@@ -5,28 +5,28 @@ import axios from "axios";
 
 const Nav = () => {
   const [loginOk, setLoginOk] = useState(false);
+  const [userpic, setUserpic] = useState("");
 
-  //로그인했으면 상단 로그인,회원가입변경
+  // 로그인했으면 상단 로그인,회원가입변경
+  const id = sessionStorage.getItem("memberId");
   useEffect(() => {
-    const id = sessionStorage.getItem("memberId");
-    memberSearching();
     if (id) {
       setLoginOk(true);
-      console.log("memberId", id);
+      memberSearching();
     }
   }, []);
 
   // 회원정보 조회
   const memberSearching = async () => {
-    const id = sessionStorage.getItem("memberId");
-    await axios
-      .get("http://localhost:8085/CodeBridge/Member/join", id)
-      .then((res) => {
-        /* setMemberInfo(res.data.member); */
-      })
-      .catch((err) => {
-        console.log("err :", err);
-      });
+    console.log("로그인이 되어있나", id);
+    let mem = {
+      user_id: id,
+    };
+    const response = await axios.post(
+      "http://localhost:8085/CodeBridge/Member/memcheck",
+      mem
+    );
+    setUserpic(response.data[0].user_pic);
   };
 
   return (
@@ -61,8 +61,7 @@ const Nav = () => {
             )}
           </li>
           <li>
-            {/* ${memberId} */}
-            {/*  {loginOk ?  : <Link to={"/Join"}>회원가입</Link>} */}
+            {loginOk ? <p>{userpic}</p> : <Link to={"/Join"}>회원가입</Link>}
           </li>
         </ul>
       </div>
@@ -71,28 +70,3 @@ const Nav = () => {
 };
 
 export default Nav;
-
-/* 
-  const { myInfo, setMyInfo } = useContext(QuillContext)
-
-  const [loginOk, setLoginOk] = useState(false);
-
-
-useEffect(() => {
-  const id = sessionStorage.getItem("memberId");
-  memberSearching();
-  if (id) {
-    setLoginOk(true);
-  }
-  showMessageListDetail();
-}, []);
-
-  const goLogout = () => {
-    sessionStorage.removeItem("memberId");
-    setLoginOk(false);
-    setMyInfo({ profileImg: null });
-  };
-
-   {loginOk ? <Member_profile /> : <Link to={"/join"}>회원가입</Link>}
-
- */
