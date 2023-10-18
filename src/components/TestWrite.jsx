@@ -21,7 +21,7 @@ const TestWrite = () => {
         };
         console.log('test데이터 확인', test);
         const response = await axios.post(
-            "http://localhost:8085/CodeBridge/Testtt", test);
+            "http://localhost:8085/CodeBridge/Test/write", test);
         console.log("리스폰스 확인", response);
 
         if (response.data == "1") {
