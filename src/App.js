@@ -11,9 +11,11 @@ import Join from "./components/Join";
 // import StudyTest from "./components/StudyTest";
 import DashBoard from "./components/DashBoard";
 import DashLeftBox from "./components/DashLeftBox";
+import { ClassRoom } from "./components/ClassRoom";
 import ClassWrite from "./components/ClassWrite";
 import CompilerTest from "./components/CompilerTest";
 import ContainerTest from "./components/ContainerTest";
+import MarkList from "./components/MarkList";
 import TestList from "./components/TestList";
 import TestWrite from "./components/TestWrite";
 import TestDetail from "./components/TestDetail";
@@ -45,9 +47,11 @@ function App() {
           <Route path="/DashBoard" element={<DashBoard />}></Route>
           <Route path="/DashLeftBox" element={<DashLeftBox />}></Route>
           {/* <Route path="/StudyTest" element={<StudyTest />}></Route> */}
+          <Route path="/ClassRoom" element={<ClassRoom />}></Route>
           <Route path="/ClassWrite" element={<ClassWrite />}></Route>
           <Route path="/CompilerTest" element={<CompilerTest />}></Route>
           <Route path="/ContainerTest" element={<ContainerTest />}></Route>
+          <Route path="/MarkList" element={<MarkList />}></Route>
           <Route path="/TestList" element={<TestList />}></Route>
           <Route path="/TestWrite" element={<TestWrite />}></Route>
           <Route path="/TestDetail" element={<TestDetail />}></Route>

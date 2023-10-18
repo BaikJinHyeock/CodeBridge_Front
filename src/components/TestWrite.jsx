@@ -4,16 +4,16 @@ import axios from 'axios';
 
 const TestWrite = () => {
 
-    const [test_name, setTest_name] = useState("");
-    const [test_level, setTest_level] = useState("");
-    const [test_lang, setTest_lang] = useState("");
+    const [test_title, setTest_title] = useState("");
+    const [test_level, setTest_level] = useState("상");
+    const [test_lang, setTest_lang] = useState("Java");
     const [test_contents, setTest_contents] = useState("");
     const [test_condition, setTest_condition] = useState("");
 
     const testSub = async (e) => {
         e.preventDefault();
         let test = {
-            test_name: test_name,
+            test_title: test_title,
             test_level: test_level,
             test_lang: test_lang,
             test_contents: test_contents,
@@ -42,8 +42,8 @@ const TestWrite = () => {
 
                 <form onSubmit={testSub}>
                     <h4>테스트 제목</h4>
-                    <input type="text" className='form-control' value={test_name}
-                        onChange={(e) => setTest_name(e.target.value)} />
+                    <input type="text" className='form-control' value={test_title}
+                        onChange={(e) => setTest_title(e.target.value)} />
                     <h4>테스트 난이도</h4>
                     <select className='form-control' value={test_level}
                         onChange={(e) => setTest_level(e.target.value)} >
