@@ -22,7 +22,7 @@ import TestDetail from "./components/TestDetail";
 
 function App() {
   const location = useLocation();
-  const RenderHeaderAndFooter = () => {
+  const RenderLeftBox = () => {
     return (
       location.pathname !== "/" &&
       location.pathname !== "/Login" &&
@@ -32,11 +32,15 @@ function App() {
     );
   };
 
+  const RenderHeader = () => {
+    return location.pathname !== "/Login" && location.pathname !== "/Join";
+  };
+
   return (
     <>
-      <Nav />
+      {RenderHeader() && <Nav />}
       <div className="App">
-        {RenderHeaderAndFooter() && <DashLeftBox />}
+        {RenderLeftBox() && <DashLeftBox />}
         <Routes>
           <Route path="/" element={<Main />}></Route>
           <Route path="/SetInfo" element={<SetInfo />}></Route>
