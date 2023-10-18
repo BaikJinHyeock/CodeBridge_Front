@@ -21,11 +21,12 @@ const MarkDetail = () => {
         
         console.log('response확', response.data);
 
-        
+        console.time("걸린시간")
         
         const response_py = await axios.post("http://127.0.0.1:5000/", response.data);
-
-        console.log('파이썬 응답 확인', response_py);
+        
+        console.log('파이썬 응답 확인', response_py.data);
+        console.timeEnd("걸린시간")
 
     }
 
