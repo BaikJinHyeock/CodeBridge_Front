@@ -7,42 +7,70 @@
   flex-direction: column;
   justify-content: space-between;
   height: calc(100vh - 4rem);
-  padding: 4px;
+  padding: 8px 4px;
 
-  ul {
+  .left_top {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    li {
+    justify-content: flex-start;
+    gap: 8px;
+
+    button {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 6px;
+      padding: 8px 4px;
+      background-color: $font-sub-color1;
+      transition-duration: 150ms;
 
-      svg {
-        width: 24px;
-        height: 24px;
+      &:hover {
+        background-color: $base-color;
       }
 
-      a {
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      span {
         font-size: 12px;
-        font-weight: 800;
+        font-weight: 700;
       }
     }
   }
-  div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 
-    svg {
-      width: 24px;
-      height: 24px;
-    }
+  .left_bottom {
+    button {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      background-color: $font-sub-color1;
+      transition-duration: 150ms;
 
-    a {
-      font-size: 12px;
-      font-weight: 800;
+      &:hover {
+        background-color: $base-color;
+      }
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      span {
+        font-size: 12px;
+        font-weight: 700;
+      }
     }
+  }
+}
+
+.active {
+  svg {
+    fill: $main-color;
+  }
+  span {
+    color: $main-color;
   }
 }
