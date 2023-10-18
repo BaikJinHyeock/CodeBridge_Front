@@ -20,7 +20,8 @@ import TestList from "./components/TestList";
 import TestWrite from "./components/TestWrite";
 import TestDetail from "./components/TestDetail";
 import MarkDetail from "./components/MarkDetail";
-
+import Title from "./components/Title";
+import Profile from "./components/Profile";
 
 function App() {
   const location = useLocation();
@@ -45,6 +46,8 @@ function App() {
         {RenderLeftBox() && <DashLeftBox />}
         <Routes>
           <Route path="/" element={<Main />}></Route>
+          <Route path="/Title" element={<Title />}></Route>
+          <Route path="/Profile" element={<Profile />}></Route>
           <Route path="/SetInfo" element={<SetInfo />}></Route>
           <Route path="/Login" element={<Login />}></Route>
           <Route path="/Join" element={<Join />}></Route>
