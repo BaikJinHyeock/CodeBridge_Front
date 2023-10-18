@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import style from "../SCSS/pages/_nav.module.scss";
-import axios from 'axios'
+import axios from "axios";
 
 const Nav = () => {
   const [loginOk, setLoginOk] = useState(false);
-
 
   //로그인했으면 상단 로그인,회원가입변경
   useEffect(() => {
@@ -30,8 +29,6 @@ const Nav = () => {
       });
   };
 
-
-
   return (
     <div className={style.Wrap_container}>
       <div className={style.left_container}>
@@ -46,7 +43,7 @@ const Nav = () => {
             <Link to={"#"}>회사소개</Link>
           </li>
           <li>
-            <Link to={"#"}>강의실 생성</Link>
+            <Link to={"/ClassWrite"}>강의실 생성</Link>
           </li>
           <li>
             <Link to={"#"}>테스트 관리자</Link>
@@ -57,7 +54,11 @@ const Nav = () => {
       <div className={style.right_container}>
         <ul>
           <li>
-            {loginOk ? <Link to={"/DashBoard"}>대쉬보드</Link> : <Link to={"/Login"}>로그인</Link>}
+            {loginOk ? (
+              <Link to={"/DashBoard"}>대쉬보드</Link>
+            ) : (
+              <Link to={"/Login"}>로그인</Link>
+            )}
           </li>
           <li>
             {/* ${memberId} */}
@@ -70,9 +71,6 @@ const Nav = () => {
 };
 
 export default Nav;
-
-
-
 
 /* 
   const { myInfo, setMyInfo } = useContext(QuillContext)

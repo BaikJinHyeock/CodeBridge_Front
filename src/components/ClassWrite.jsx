@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
 
+import style from "../SCSS/pages/_classWrite.module.scss";
+
 const ClassWrite = () => {
   const [title, setTitle] = useState("");
   const [target, setTarget] = useState("");
@@ -49,88 +51,95 @@ const ClassWrite = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={title}
-          placeholder="제목"
-          onChange={(e) => setTitle(e.target.value)}
-        ></input>
-        <br />
-        <br />
-        <input
-          type="text"
-          value={target}
-          placeholder="교육대상"
-          onChange={(e) => setTarget(e.target.value)}
-        ></input>
-        <br />
-        <br />
+    <div className={style.wrap_container}>
+      <div className={style.left_container}>
+        <span>Application for Class Opening</span>
+        <h1>강사님의 교육과정에 대해 소개해주세요</h1>
+      </div>
 
-        <input
-          type="date"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-        ></input>
+      <div className={style.right_container}>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            value={title}
+            placeholder="제목"
+            onChange={(e) => setTitle(e.target.value)}
+          ></input>
+          <br />
+          <br />
+          <input
+            type="text"
+            value={target}
+            placeholder="교육대상"
+            onChange={(e) => setTarget(e.target.value)}
+          ></input>
+          <br />
+          <br />
 
-        <br />
-        <br />
-        <input
-          type="date"
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
-        ></input>
+          <input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          ></input>
 
-        <br />
-        <br />
-        <input
-          type="text"
-          value={content}
-          placeholder="교육설명"
-          onChange={(e) => setContent(e.target.value)}
-        ></input>
+          <br />
+          <br />
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          ></input>
 
-        <br />
-        <br />
-        <div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-plus-circle-fill"
-            viewBox="0 0 16 16"
-            onClick={handleAddInput}
-          >
-            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
-          </svg>
+          <br />
+          <br />
+          <input
+            type="text"
+            value={content}
+            placeholder="교육설명"
+            onChange={(e) => setContent(e.target.value)}
+          ></input>
 
-          {additionalInputs.map((input, index) => (
-            <div key={index}>
-              <input
-                type="text"
-                name="week"
-                value={input.week}
-                placeholder="주차"
-                onChange={(e) => handleInputChange(index, e)}
-              />
-              <input
-                type="text"
-                name="content"
-                value={input.content}
-                placeholder="주차 별 내용"
-                onChange={(e) => handleInputChange(index, e)}
-              />
-            </div>
-          ))}
+          <br />
+          <br />
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-plus-circle-fill"
+              viewBox="0 0 16 16"
+              onClick={handleAddInput}
+            >
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+            </svg>
 
-          {/* <List /> */}
-        </div>
-        <hr />
+            {additionalInputs.map((input, index) => (
+              <div key={index}>
+                <input
+                  type="text"
+                  name="week"
+                  value={input.week}
+                  placeholder="주차"
+                  onChange={(e) => handleInputChange(index, e)}
+                />
+                <input
+                  type="text"
+                  name="content"
+                  value={input.content}
+                  placeholder="주차 별 내용"
+                  onChange={(e) => handleInputChange(index, e)}
+                />
+              </div>
+            ))}
 
-        <button type="submit">교육개설</button>
-      </form>
+            {/* <List /> */}
+          </div>
+          <hr />
+
+          <button type="submit">교육개설</button>
+        </form>
+      </div>
     </div>
   );
 };
