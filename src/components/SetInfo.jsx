@@ -41,7 +41,7 @@ const SetInfo = () => {
   const memberSearching = async () => {
     console.log("로그인이 되어있나", id);
     let mem = {
-      user_id: id,
+      user_id: id
     };
     const response = await axios.post(
       "http://localhost:8085/CodeBridge/Member/memcheck",
@@ -54,7 +54,7 @@ const SetInfo = () => {
   };
 
   const namecheck = async (e) => {
-    if (name1.length == 1 || name1.length > 5) {
+    if (name1.length === 1 || name1.length > 5) {
       setNameCheckMsg("이름을 정확하게 입력해주세요");
       setCheck5(0);
     } else {
@@ -66,13 +66,14 @@ const SetInfo = () => {
     e.preventDefault();
     if (check5 === 1) {
       let mem = {
-        user_name: name1,
+        user_id: id,
+        user_name: name1
       };
       const response = await axios.post(
-        "http://localhost:8085/CodeBridge/Member/memcheck",
+        "http://localhost:8085/CodeBridge/Member/nameedit",
         mem
       );
-      if (response.data == "Y") {
+      if (response.data === 1) {
         window.location.href = "/";
         alert("이름수정완료!");
       }
@@ -82,7 +83,7 @@ const SetInfo = () => {
   };
 
   const nickcheck = async (e) => {
-    if (name1.length == 1 || name1.length > 10) {
+    if (name1.length === 1 || name1.length > 10) {
       setNickCheckMsg("닉네임을 입력해주세요");
       setCheck6(0);
     } else {
@@ -94,13 +95,14 @@ const SetInfo = () => {
     e.preventDefault();
     if (check6 === 1) {
       let mem = {
-        user_nick: nick,
+        user_id: id,
+        user_nick: nick
       };
       const response = await axios.post(
-        "http://localhost:8085/CodeBridge/Member/memcheck",
+        "http://localhost:8085/CodeBridge/Member/nickedit",
         mem
       );
-      if (response.data == "Y") {
+      if (response.data === 1) {
         window.location.href = "/";
         alert("닉네임수정완료!");
       }
@@ -123,18 +125,72 @@ const SetInfo = () => {
     e.preventDefault();
     if (check4 === 1) {
       let mem = {
-        user_phone: phone,
+        user_id: id,
+        user_phone: phone
       };
       const response = await axios.post(
-        "http://localhost:8085/CodeBridge/Member/memcheck",
+        "http://localhost:8085/CodeBridge/Member/phoneedit",
         mem
       );
-      if (response.data == "Y") {
+      if (response.data === 1) {
         window.location.href = "/";
         alert("번호수정완료!");
       }
     } else {
       return alert("잘못입력된 정보가 있습니다.");
+    }
+  };
+
+  const pw1check = async (e) => {
+    const pwch = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,20}$/;
+
+    if (!pwch.test(e.target.value)) {
+      setPwErrMsg("비밀번호는 6 ~ 20자로 영문, 숫자를 조합해서 사용하세요.");
+      setCheck2(0);
+    } else {
+      setPwErrMsg("사용 가능한 비밀번호 입니다.");
+      setCheck2(1);
+    }
+  };
+
+  const pw2check = async (e) => {
+    if (password != password_check) {
+      setPwCheckMsg("비밀번호가 일치하지 않습니다.");
+      setCheck3(0);
+    } else if (password.length > 1 && password == password_check) {
+      setPwCheckMsg("비밀번호가 일치합니다.");
+      setCheck3(1);
+    }
+  };
+
+  const pw_edit = async (e) => {
+    e.preventDefault();
+    if (check2 === 1 && check2 === 1) {
+      let mem = {
+        user_id: id,
+        user_pw: password
+      };
+      const response = await axios.post(
+        "http://localhost:8085/CodeBridge/Member/passwordedit",
+        mem
+      );
+      if (response.data === 1) {
+        window.location.href = "/";
+        alert("비밀번호수정완료!");
+      }
+    } else {
+      return alert("잘못입력된 정보가 있습니다.");
+    }
+  };
+
+  const idDelete = async (e) => {
+    e.preventDefault();
+    const confirmDelete = window.confirm("삭제하시겠습니까?");
+    if(confirmDelete){
+
+    }
+    else{
+
     }
   };
 
@@ -186,8 +242,8 @@ const SetInfo = () => {
               </div>
             </div>
             <p>
-              {/* <span>{username}</span> */}
-              <span>선동욱</span>
+              <span>{username}</span>
+              
               <br />님 환영합니다.
             </p>
           </div>
@@ -205,8 +261,8 @@ const SetInfo = () => {
                   <td>
                     <div className={style.setTable_userId}>
                       <div className={style.setTable_userId_originId}>
-                        {/* <p>{username}</p> */}
-                        <p>선동욱</p>
+                        <p>{username}</p>
+                        
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
@@ -322,7 +378,7 @@ const SetInfo = () => {
                         </svg>
                       </div>
                       <div className={style.setTable_userPw_editId}>
-                        <form>
+                        <form onSubmit={pw_edit}>
                           <div class="input-group mb-3">
                             <input
                               type="text"
@@ -330,8 +386,12 @@ const SetInfo = () => {
                               placeholder="새 비밀번호"
                               aria-label="Sizing example input"
                               aria-describedby="inputGroup-sizing-default"
+                              value={password}
+                              onChange={(e) => setPassword(e.target.value)}
+                              onBlur={pw1check}
                             />
                           </div>
+                          <span>{pwErrMsg}</span>
                           <div class="input-group mb-3">
                             <input
                               type="text"
@@ -339,8 +399,12 @@ const SetInfo = () => {
                               placeholder="비밀번호 확인"
                               aria-label="Sizing example input"
                               aria-describedby="inputGroup-sizing-default"
+                              value={password_check}
+                              onChange={(e) => setPassword_check(e.target.value)}
+                              onBlur={pw2check}
                             />
                           </div>
+                          <span>{pwCheckMsg}</span>
                           <div>
                             <button type="button">취소</button>
                             <button type="submit" className={style.join_button}>
@@ -401,7 +465,7 @@ const SetInfo = () => {
                 <tr>
                   <td>계정 삭제</td>
                   <td>
-                    <button type="button">삭제</button>
+                    <button type="button" onClick={idDelete}>삭제</button>
                   </td>
                 </tr>
               </tbody>
