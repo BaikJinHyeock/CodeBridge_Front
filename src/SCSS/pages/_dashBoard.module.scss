@@ -3,9 +3,29 @@
 .wrap_container {
   background-color: $wrap-bg;
   width: 100%;
+  overflow: scroll;
+  height: calc(100vh - 4rem);
 
   .right_container {
     width: 100%;
-    padding: 36px;
+    padding: 32px 64px;
+
+    .main_content {
+      display: flex;
+      justify-content: space-between;
+      gap: 36px;
+
+      .main_content_left {
+        background-color: $font-sub-color1;
+        width: 25%;
+        padding: 20px;
+      }
+
+      .main_content_right {
+        background-color: $font-sub-color1;
+        width: 75%;
+        padding: 20px;
+      }
+    }
   }
 }

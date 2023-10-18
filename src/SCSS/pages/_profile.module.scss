@@ -1,0 +1,70 @@
+@import "../abstracts/variables";
+
+.profile_box {
+  display: flex;
+  justify-content: flex-start;
+  gap: 64px;
+  align-items: center;
+  margin: 36px 0;
+  background-color: $font-sub-color1;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: $box-shadow;
+
+  .profile_box_after {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+
+    &:first-child:after {
+      content: "";
+      clear: both;
+      width: 3px;
+      height: 100%;
+      background-color: $sub-color;
+      position: absolute;
+      right: -2rem;
+    }
+    .profile_wrap_container {
+      position: relative;
+
+      .profile_img {
+        width: 75px;
+        height: 75px;
+        border-radius: 50%;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .profile_img_edit {
+        width: 32px;
+        height: 32px;
+        background-color: #999;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #eeeeee;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        cursor: pointer;
+      }
+    }
+    p {
+      span {
+        font-size: 24px;
+        font-weight: 800;
+        color: $sub-color;
+      }
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 28px;
+    }
+  }
+}

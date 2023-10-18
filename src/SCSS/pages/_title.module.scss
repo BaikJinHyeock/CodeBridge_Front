@@ -1,0 +1,60 @@
+@import "../abstracts/variables";
+
+.info_box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 36px;
+
+  h2 {
+    color: $sub-color;
+  }
+  .info_box_attend {
+    display: flex;
+    gap: 36px;
+    background-color: $font-sub-color1;
+    padding: 12px 24px;
+    border-radius: 8px;
+    box-shadow: $box-shadow;
+    position: relative;
+
+    div {
+      &:nth-child(1)::after {
+        content: "";
+        clear: both;
+        height: 3rem;
+        width: 2px;
+        background-color: $base-color;
+        position: absolute;
+        left: 33%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      &:nth-child(2)::after {
+        content: "";
+        clear: both;
+        height: 3rem;
+        width: 2px;
+        background-color: $base-color;
+        position: absolute;
+        right: 33%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      display: flex;
+      gap: 6px;
+      flex-direction: column;
+
+      h4 {
+        color: #999999;
+      }
+      p {
+        font-size: 24px;
+        color: $sub-color;
+        text-align: right;
+        font-weight: 800;
+      }
+    }
+  }
+}
