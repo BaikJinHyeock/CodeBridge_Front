@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
 import style from "../SCSS/pages/_nav.module.scss";
+import axios from 'axios'
 
 const Nav = () => {
   const [loginOk, setLoginOk] = useState(false);
@@ -13,23 +13,23 @@ const Nav = () => {
     memberSearching();
     if (id) {
       setLoginOk(true);
-      console.log("memberId",id);
+      console.log("memberId", id);
     }
   }, []);
 
-    // 회원정보 조회
-    const memberSearching = async () => {
-      const id = sessionStorage.getItem("memberId");
-      await axios
-        .get("http://localhost:8085/CodeBridge/Member/join",id)
-        .then((res) => {
-          setMemberInfo(res.data.member);
-        })
-        .catch((err) => {
-          console.log("err :", err);
-        });
-    };
-  
+  // 회원정보 조회
+  const memberSearching = async () => {
+    const id = sessionStorage.getItem("memberId");
+    await axios
+      .get("http://localhost:8085/CodeBridge/Member/join", id)
+      .then((res) => {
+        /* setMemberInfo(res.data.member); */
+      })
+      .catch((err) => {
+        console.log("err :", err);
+      });
+  };
+
 
 
   return (
@@ -60,8 +60,8 @@ const Nav = () => {
             {loginOk ? <Link to={"/DashBoard"}>대쉬보드</Link> : <Link to={"/Login"}>로그인</Link>}
           </li>
           <li>
-   ${memberId}
-         {/*  {loginOk ?  : <Link to={"/Join"}>회원가입</Link>} */}
+            {/* ${memberId} */}
+            {/*  {loginOk ?  : <Link to={"/Join"}>회원가입</Link>} */}
           </li>
         </ul>
       </div>
