@@ -2,34 +2,35 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import style from "../SCSS/pages/_nav.module.scss";
+import axios from "axios";
 
 const Nav = () => {
   const [loginOk, setLoginOk] = useState(false);
+  const [userpic, setUserpic] = useState("");
 
 
-  //로그인했으면 상단 로그인,회원가입변경
+  // 로그인했으면 상단 로그인,회원가입변경
+  const id = sessionStorage.getItem("memberId");
   useEffect(() => {
-    const id = sessionStorage.getItem("memberId");
-    memberSearching();
     if (id) {
       setLoginOk(true);
-      console.log("memberId",id);
+      memberSearching();
     }
   }, []);
 
-    // 회원정보 조회
-    const memberSearching = async () => {
-      const id = sessionStorage.getItem("memberId");
-      await axios
-        .get("http://localhost:8085/CodeBridge/Member/join",id)
-        .then((res) => {
-          setMemberInfo(res.data.member);
-        })
-        .catch((err) => {
-          console.log("err :", err);
-        });
+
+  // 회원정보 조회
+  const memberSearching = async () => {
+
+    console.log("로그인이 되어있나", id);
+    let mem = {
+      user_id: id
     };
-  
+    const response = await axios.post("http://localhost:8085/CodeBridge/Member/memcheck", mem);
+    setUserpic(response.data[0].user_pic)
+
+  };
+
 
 
   return (
@@ -60,8 +61,7 @@ const Nav = () => {
             {loginOk ? <Link to={"/DashBoard"}>대쉬보드</Link> : <Link to={"/Login"}>로그인</Link>}
           </li>
           <li>
-   ${memberId}
-         {/*  {loginOk ?  : <Link to={"/Join"}>회원가입</Link>} */}
+            {loginOk ? <p>{userpic}</p> : <Link to={"/Join"}>회원가입</Link>}
           </li>
         </ul>
       </div>
