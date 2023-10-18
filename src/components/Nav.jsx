@@ -7,13 +7,29 @@ const Nav = () => {
   const [loginOk, setLoginOk] = useState(false);
 
 
+  //로그인했으면 상단 로그인,회원가입변경
   useEffect(() => {
     const id = sessionStorage.getItem("memberId");
-
+    memberSearching();
     if (id) {
       setLoginOk(true);
+      console.log("memberId",id);
     }
-  });
+  }, []);
+
+    // 회원정보 조회
+    const memberSearching = async () => {
+      const id = sessionStorage.getItem("memberId");
+      await axios
+        .get("http://localhost:8085/CodeBridge/Member/join",id)
+        .then((res) => {
+          setMemberInfo(res.data.member);
+        })
+        .catch((err) => {
+          console.log("err :", err);
+        });
+    };
+  
 
 
   return (
@@ -41,10 +57,11 @@ const Nav = () => {
       <div className={style.right_container}>
         <ul>
           <li>
-            {loginOk ? <Link to={"/Setinfo"}>마이페이지</Link> : <Link to={"/Login"}>로그인</Link>}
+            {loginOk ? <Link to={"/DashBoard"}>대쉬보드</Link> : <Link to={"/Login"}>로그인</Link>}
           </li>
           <li>
-            <Link to={"/Join"}>회원가입</Link>
+   ${memberId}
+         {/*  {loginOk ?  : <Link to={"/Join"}>회원가입</Link>} */}
           </li>
         </ul>
       </div>
