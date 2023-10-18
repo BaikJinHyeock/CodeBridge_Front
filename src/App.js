@@ -24,7 +24,9 @@ function App() {
     return (
       location.pathname !== "/" &&
       location.pathname !== "/Login" &&
-      location.pathname !== "/Join"
+      location.pathname !== "/Join" &&
+      location.pathname !== "/ClassWrite" &&
+      location.pathname !== "/TestWrite"
     );
   };
 
