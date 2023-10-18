@@ -3,7 +3,7 @@
 .wrap_container {
   display: flex;
   width: 100%;
-  height: 90vh;
+  height: 95vh;
   align-items: center;
   //   justify-items: center;
 
@@ -21,10 +21,10 @@
       display: flex;
       justify-content: center;
       flex-direction: column;
+      align-items: center;
 
       h1 {
         font-size: 24px;
-        font-weight: 600;
         color: $sub-color;
         text-align: center;
         margin: 36px 0;
@@ -32,7 +32,7 @@
       input {
         margin-bottom: 16px;
         width: 300px;
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 400;
         color: $font-sub-color2;
         border: $border;
@@ -65,6 +65,7 @@
         display: flex;
         justify-content: center;
         margin: 16px 0;
+        width: 100%;
 
         &::after {
           content: "";

@@ -19,10 +19,12 @@ import MarkList from "./components/MarkList";
 import TestList from "./components/TestList";
 import TestWrite from "./components/TestWrite";
 import TestDetail from "./components/TestDetail";
+import MarkDetail from "./components/MarkDetail";
+
 
 function App() {
   const location = useLocation();
-  const RenderHeaderAndFooter = () => {
+  const RenderLeftBox = () => {
     return (
       location.pathname !== "/" &&
       location.pathname !== "/Login" &&
@@ -32,11 +34,15 @@ function App() {
     );
   };
 
+  const RenderHeader = () => {
+    return location.pathname !== "/Login" && location.pathname !== "/Join";
+  };
+
   return (
     <>
-      <Nav />
+      {RenderHeader() && <Nav />}
       <div className="App">
-        {RenderHeaderAndFooter() && <DashLeftBox />}
+        {RenderLeftBox() && <DashLeftBox />}
         <Routes>
           <Route path="/" element={<Main />}></Route>
           <Route path="/SetInfo" element={<SetInfo />}></Route>
@@ -53,6 +59,7 @@ function App() {
           <Route path="/TestList" element={<TestList />}></Route>
           <Route path="/TestWrite" element={<TestWrite />}></Route>
           <Route path="/TestDetail" element={<TestDetail />}></Route>
+          <Route path="/MarkDetail" element={<MarkDetail />}></Route>
         </Routes>
       </div>
     </>

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
 import style from "../SCSS/pages/_nav.module.scss";
 import axios from "axios";
+
+
 
 const Nav = () => {
   const [loginOk, setLoginOk] = useState(false);
@@ -28,7 +29,6 @@ const Nav = () => {
     };
     const response = await axios.post("http://localhost:8085/CodeBridge/Member/memcheck", mem);
     setUserpic(response.data[0].user_pic)
-
   };
 
 
@@ -62,6 +62,7 @@ const Nav = () => {
           </li>
           <li>
             {loginOk ? <p>{userpic}</p> : <Link to={"/Join"}>회원가입</Link>}
+
           </li>
         </ul>
       </div>
@@ -70,31 +71,3 @@ const Nav = () => {
 };
 
 export default Nav;
-
-
-
-
-/* 
-  const { myInfo, setMyInfo } = useContext(QuillContext)
-
-  const [loginOk, setLoginOk] = useState(false);
-
-
-useEffect(() => {
-  const id = sessionStorage.getItem("memberId");
-  memberSearching();
-  if (id) {
-    setLoginOk(true);
-  }
-  showMessageListDetail();
-}, []);
-
-  const goLogout = () => {
-    sessionStorage.removeItem("memberId");
-    setLoginOk(false);
-    setMyInfo({ profileImg: null });
-  };
-
-   {loginOk ? <Member_profile /> : <Link to={"/join"}>회원가입</Link>}
-
- */

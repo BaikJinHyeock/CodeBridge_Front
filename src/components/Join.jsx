@@ -11,7 +11,7 @@ const Join = () => {
   const [name1, setName1] = useState("");
   const [nick, setNick] = useState("");
   const [phone, setPhone] = useState("");
-  const [type, setType] = useState("type");
+  // const [type, setType] = useState("type");
 
   const [idErrMsg, setIdErrMsg] = useState(""); // 아이디(이메일)형식 에러 메세지
   const [idCheckMsg, setIdCheckMsg] = useState(""); // 아이디 사용가능 메세지
@@ -47,7 +47,7 @@ const Join = () => {
         user_name: name1,
         user_nick: nick,
         user_phone: phone,
-        user_type: type,
+        // user_type: type,
       };
       const response = await axios.post(
         "http://localhost:8085/CodeBridge/Member/join",
@@ -86,7 +86,7 @@ const Join = () => {
             setIdCheckMsg("사용 가능한 아이디입니다.");
             setCheck1(1);
           } else if (resMessge === "X") {
-            setIdErrMsg("이미 사용중인 아이디입니다.");
+            setIdErrMsg("이미 사용 중인 아이디입니다.");
             setIdCheckMsg("");
           }
         });
@@ -97,10 +97,10 @@ const Join = () => {
     const pwch = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,20}$/;
 
     if (!pwch.test(e.target.value)) {
-      setPwErrMsg("비밀번호는 영문+숫자, 6자리이상이여야합니다.");
+      setPwErrMsg("비밀번호는 6 ~ 20자로 영문, 숫자를 조합해서 사용하세요.");
       setCheck2(0);
     } else {
-      setPwErrMsg("사용할수 있는 비밀번호 입니다.");
+      setPwErrMsg("사용 가능한 비밀번호 입니다.");
       setCheck2(1);
     }
   };
@@ -109,7 +109,7 @@ const Join = () => {
     if (password != password_check) {
       setPwCheckMsg("비밀번호가 일치하지 않습니다.");
       setCheck3(0);
-    } else if (password == password_check) {
+    } else if (password.length > 1 && password == password_check) {
       setPwCheckMsg("비밀번호가 일치합니다.");
       setCheck3(1);
     }
@@ -127,96 +127,113 @@ const Join = () => {
   };
 
   const namecheck = async (e) => {
-    if (name1.length < 2) {
-      setNameCheckMsg("이름을 옳바르게 입력하세요.");
+    if (name1.length == 1 || name1.length > 5) {
+      setNameCheckMsg("이름을 정확하게 입력해주세요");
       setCheck5(0);
     } else {
-      setNameCheckMsg("이름입력 완료!");
+      setNameCheckMsg("");
       setCheck5(1);
     }
   };
 
   const nickcheck = async (e) => {
-    if (nick.length < 1) {
-      setNickCheckMsg("닉네임을 옳바르게 입력하세요.");
+    if (name1.length == 1 || name1.length > 10) {
+      setNickCheckMsg("닉네임을 입력해주세요");
       setCheck6(0);
     } else {
-      setNickCheckMsg("닉네임입력 완료!");
+      setNickCheckMsg("");
       setCheck6(1);
     }
   };
 
   return (
     <div className={style.wrap_container}>
-      <div className={style.input_box}>
+      <div className={style.input_container}>
         <form onSubmit={JoinMember}>
-          <h1>JoinPage</h1>
-          <input
-            type="email"
-            placeholder="email"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
-            onBlur={idValidation}
-          />{" "}
-          <br />
-          <div id="idErrMsg">{idErrMsg}</div>
-          <div>{idCheckMsg}</div>
-          <input
-            type="password"
-            placeholder="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            onBlur={pw1check}
-          />{" "}
-          <br />
-          <div>{pwErrMsg}</div>
-          <input
-            type="password"
-            placeholder="password_check"
-            value={password_check}
-            onChange={(e) => setPassword_check(e.target.value)}
-            onBlur={pw2check}
-          />{" "}
-          <br />
-          <div>{pwCheckMsg}</div>
-          <input
-            type="text"
-            placeholder="Your name"
-            value={name1}
-            onChange={(e) => setName1(e.target.value)}
-            onBlur={namecheck}
-          />{" "}
-          <br />
-          <div>{nameCheckMsg}</div>
-          <input
-            type="text"
-            placeholder="Your nickname"
-            value={nick}
-            onChange={(e) => setNick(e.target.value)}
-            onBlur={nickcheck}
-          />{" "}
-          <br />
-          <div>{nickCheckMsg}</div>
-          <input
-            type="text"
-            placeholder="(-)뺀 휴대폰번호"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            onBlur={phonecheck}
-          />{" "}
-          <br />
-          <div>{phoneCheckMsg}</div>
-          <select
-            name="type"
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-          >
-            <option value="type">학생 or 선생 타입선택</option>
-            <option value="0">Student</option>
-            <option value="1">Teacher</option>
-          </select>
-          <br />
-          <button type="submit">회원가입</button>
+          <h1>Join to Code Bridge</h1>
+
+          <div>
+            <div className={style.input_box}>
+              <input
+                type="email"
+                placeholder="이메일"
+                value={id}
+                onChange={(e) => setId(e.target.value)}
+                onBlur={idValidation}
+              />
+              <span>{idErrMsg}</span>
+              <span>{idCheckMsg}</span>
+            </div>
+
+            <div className={style.input_box}>
+              <input
+                type="password"
+                placeholder="비밀번호"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onBlur={pw1check}
+              />
+              <span>{pwErrMsg}</span>
+            </div>
+
+            <div className={style.input_box}>
+              <input
+                type="password"
+                placeholder="비밀번호 확인"
+                value={password_check}
+                onChange={(e) => setPassword_check(e.target.value)}
+                onBlur={pw2check}
+              />
+              <span>{pwCheckMsg}</span>
+            </div>
+
+            <div className={style.input_box}>
+              <input
+                type="text"
+                placeholder="이름"
+                value={name1}
+                onChange={(e) => setName1(e.target.value)}
+                onBlur={namecheck}
+              />
+              <span>{nameCheckMsg}</span>
+            </div>
+
+            <div className={style.input_box}>
+              <input
+                type="text"
+                placeholder="닉네임"
+                value={nick}
+                onChange={(e) => setNick(e.target.value)}
+                onBlur={nickcheck}
+              />
+              <span>{nickCheckMsg}</span>
+            </div>
+
+            <div className={style.input_box}>
+              <input
+                type="text"
+                placeholder="휴대폰"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                onBlur={phonecheck}
+              />
+              <span>{phoneCheckMsg}</span>
+            </div>
+
+            {/* <select
+              name="type"
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+            >
+              <option value="type">학생 or 선생 타입선택</option>
+              <option value="0">Student</option>
+              <option value="1">Teacher</option>
+            </select> */}
+
+            <button type="submit" className={style.join_button}>
+              회원가입
+            </button>
+          </div>
         </form>
       </div>
 

@@ -12,7 +12,6 @@ const DashLeftBox = () => {
     navigate("/DashBoard");
   };
   const moveMyClass = () => {
-    console.log("여기까지");
     setActiveButton("classRoom"); // "dashboard" 버튼을 활성화
     navigate("/ClassRoom");
   };
