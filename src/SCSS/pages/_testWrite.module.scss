@@ -1,7 +1,99 @@
 @import "../abstracts/variables";
 
-.main_container {
-    padding-top: 64px;
-    display: flex;
-}
+.wrap_container {
+  max-width: 1320px;
+  width: 1320px;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 64px;
+  margin: 0 auto;
 
+  .left_container {
+    width: 30%;
+    padding: 36px;
+    span {
+      color: $main-color;
+      font-size: 1rem;
+      padding-bottom: 16px;
+    }
+    h1 {
+      font-size: 30px;
+      font-weight: 700;
+      margin: 16px 0;
+    }
+  }
+  .right_container {
+    width: 70%;
+    padding: 36px;
+
+    h5 {
+      font-weight: bold;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 32px 0;
+
+      .input_box {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        span {
+          font-size: 14px;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+
+          svg {
+            cursor: pointer;
+            transition-duration: 100ms;
+
+            &:hover {
+              fill: $main-color;
+            }
+          }
+        }
+
+        .input_date {
+          display: flex;
+          justify-content: flex-start;
+          gap: 16px;
+
+          input {
+            cursor: pointer;
+          }
+        }
+
+        .input_cur {
+          display: flex;
+          justify-content: flex-start;
+          gap: 16px;
+
+          input {
+            &:first-child {
+              width: 20%;
+            }
+          }
+        }
+      }
+    }
+    button {
+      color: $font-sub-color1;
+      font-size: 14px;
+      font-weight: bold;
+      display: block;
+      background-color: $main-color;
+      transition-duration: 150ms;
+      float: right;
+
+      &:hover {
+        background-color: $sub-color;
+      }
+    }
+  }
+}

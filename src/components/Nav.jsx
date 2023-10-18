@@ -46,7 +46,7 @@ const Nav = () => {
             <Link to={"/ClassWrite"}>강의실 생성</Link>
           </li>
           <li>
-            <Link to={"#"}>테스트 관리자</Link>
+            <Link to={"/TestWrite"}>테스트 관리자</Link>
           </li>
         </ul>
       </div>
