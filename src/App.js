@@ -17,6 +17,8 @@ import ContainerTest from "./components/ContainerTest";
 import TestList from "./components/TestList";
 import TestWrite from "./components/TestWrite";
 import TestDetail from "./components/TestDetail";
+import MarkDetail from "./components/MarkDetail";
+
 
 function App() {
   const location = useLocation();
@@ -49,6 +51,7 @@ function App() {
           <Route path="/TestList" element={<TestList />}></Route>
           <Route path="/TestWrite" element={<TestWrite />}></Route>
           <Route path="/TestDetail" element={<TestDetail />}></Route>
+          <Route path="/MarkDetail" element={<MarkDetail />}></Route>
         </Routes>
       </div>
     </>

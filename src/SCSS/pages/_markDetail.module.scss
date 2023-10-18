@@ -1,0 +1,35 @@
+@import "../abstracts/variables";
+
+.main_container {
+    width: 100%;
+}
+
+
+.title_wrapper {
+    display: flex;
+
+    div {
+        background-color: aqua;
+
+        img {
+            width: 80px;
+            height: 80px;
+        }
+    }
+}
+
+
+.mark_item_box {
+    background-color: aliceblue;
+    margin: 1rem;
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+
+    .mark_btn {
+        background-color: brown;
+        padding: 8px;
+        cursor: pointer;
+    }
+
+}
