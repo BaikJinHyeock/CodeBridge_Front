@@ -6,7 +6,6 @@ import axios from "axios";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 const SetInfo = () => {
-
   const [username, setUsername] = useState("");
   const [userphone, setUserphone] = useState("");
 
@@ -17,20 +16,20 @@ const SetInfo = () => {
     }
   }, []);
 
-
   // 회원정보 조회
   const memberSearching = async () => {
-
     console.log("로그인이 되어있나", id);
     let mem = {
-      user_id: id
+      user_id: id,
     };
-    const response = await axios.post("http://localhost:8085/CodeBridge/Member/memcheck", mem);
+    const response = await axios.post(
+      "http://localhost:8085/CodeBridge/Member/memcheck",
+      mem
+    );
     console.log(response.data[0].user_name);
     setUsername(response.data[0].user_name);
     setUserphone(response.data[0].user_name);
   };
-
 
   return (
     <div className={style.wrap_container}>
@@ -44,12 +43,31 @@ const SetInfo = () => {
 
         <div className={style.second_box}>
           <div>
-            <div>
-              <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTAzMjJfMjkg/MDAxNjE2Mzg4ODI0NzI5.uBHIwocqtEiKlHbUpds05YCDMe6Arw0o_l-p3PdJFZEg.GqEQvSTGKySHJrOTOE2nLGnlbZx3Cb9xfllMFlCRWdMg.JPEG.chooddingg/PHOTO_0020.JPG?type=w800" alt="#" />
+            <div className={style.profile_img}>
+              <img
+                src="https://mblogthumb-phinf.pstatic.net/MjAyMTAzMjJfMjkg/MDAxNjE2Mzg4ODI0NzI5.uBHIwocqtEiKlHbUpds05YCDMe6Arw0o_l-p3PdJFZEg.GqEQvSTGKySHJrOTOE2nLGnlbZx3Cb9xfllMFlCRWdMg.JPEG.chooddingg/PHOTO_0020.JPG?type=w800"
+                alt="#"
+              />
+            </div>
+            <div className={style.profile_img_edit}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                fill="white"
+                class="bi bi-pencil-square"
+                viewBox="0 0 16 16"
+              >
+                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path
+                  fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+                />
+              </svg>
             </div>
             <p>{username}님 환영합니다.</p>
           </div>
-          <h1>데이터 디자ㅣㄴ 양성 과정</h1>
+          <h1>데이터 디자인 양성 과정</h1>
         </div>
 
         <div className={style.third_box}>
