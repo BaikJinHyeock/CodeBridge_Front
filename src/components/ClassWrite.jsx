@@ -58,69 +58,97 @@ const ClassWrite = () => {
       </div>
 
       <div className={style.right_container}>
+        <h5>교육과정 정보</h5>
+
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={title}
-            placeholder="제목"
-            onChange={(e) => setTitle(e.target.value)}
-          ></input>
-          <br />
-          <br />
-          <input
-            type="text"
-            value={target}
-            placeholder="교육대상"
-            onChange={(e) => setTarget(e.target.value)}
-          ></input>
-          <br />
-          <br />
+          <div className={style.input_box}>
+            <span>교육 명</span>
+            <input
+              type="text"
+              value={title}
+              placeholder="Title"
+              class="form-control"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default"
+              onChange={(e) => setTitle(e.target.value)}
+            ></input>
+          </div>
 
-          <input
-            type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-          ></input>
+          <div className={style.input_box}>
+            <span>교육 대상</span>
+            <input
+              type="text"
+              value={target}
+              placeholder="Education target audience"
+              class="form-control"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default"
+              onChange={(e) => setTarget(e.target.value)}
+            ></input>
+          </div>
 
-          <br />
-          <br />
-          <input
-            type="date"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-          ></input>
+          <div className={style.input_box}>
+            <span>교육 기간</span>
+            <div className={style.input_date}>
+              <input
+                type="date"
+                value={startDate}
+                class="form-control"
+                aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default"
+                onChange={(e) => setStartDate(e.target.value)}
+              ></input>
 
-          <br />
-          <br />
-          <input
-            type="text"
-            value={content}
-            placeholder="교육설명"
-            onChange={(e) => setContent(e.target.value)}
-          ></input>
+              <input
+                type="date"
+                value={endDate}
+                class="form-control"
+                aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default"
+                onChange={(e) => setEndDate(e.target.value)}
+              ></input>
+            </div>
+          </div>
 
-          <br />
-          <br />
-          <div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-plus-circle-fill"
-              viewBox="0 0 16 16"
-              onClick={handleAddInput}
-            >
-              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
-            </svg>
+          <div className={style.input_box}>
+            <span>교육 설명</span>
+            <input
+              type="text"
+              value={content}
+              placeholder="Description of education"
+              class="form-control"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default"
+              onChange={(e) => setContent(e.target.value)}
+            ></input>
+          </div>
+
+          <div className={style.input_box}>
+            <span>
+              커리큘럼
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-plus-circle-fill"
+                viewBox="0 0 16 16"
+                onClick={handleAddInput}
+              >
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+              </svg>
+            </span>
 
             {additionalInputs.map((input, index) => (
-              <div key={index}>
+              <div key={index} className={style.input_cur}>
                 <input
                   type="text"
                   name="week"
                   value={input.week}
                   placeholder="주차"
+                  class="form-control"
+                  aria-label="Sizing example input"
+                  aria-describedby="inputGroup-sizing-default"
                   onChange={(e) => handleInputChange(index, e)}
                 />
                 <input
@@ -128,6 +156,9 @@ const ClassWrite = () => {
                   name="content"
                   value={input.content}
                   placeholder="주차 별 내용"
+                  class="form-control"
+                  aria-label="Sizing example input"
+                  aria-describedby="inputGroup-sizing-default"
                   onChange={(e) => handleInputChange(index, e)}
                 />
               </div>
@@ -135,10 +166,8 @@ const ClassWrite = () => {
 
             {/* <List /> */}
           </div>
-          <hr />
-
-          <button type="submit">교육개설</button>
         </form>
+        <button type="submit">교육 개설</button>
       </div>
     </div>
   );

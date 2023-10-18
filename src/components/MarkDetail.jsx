@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import style from "../SCSS/pages/_markDetail.module.scss";
 import Image from "react-bootstrap/Image";
 import axios from 'axios';
 
 
 const MarkDetail = () => {
+
+
 
     const markSubmit = async (e) => {
         e.preventDefault();
@@ -16,8 +18,15 @@ const MarkDetail = () => {
         console.log('subTest확', subTest);
 
         const response = await axios.post("http://localhost:8085/CodeBridge/Test/mark", subTest);
+        
+        console.log('response확', response.data);
 
-        console.log('response확', response);
+        
+        
+        const response_py = await axios.post("http://127.0.0.1:5000/", response.data);
+
+        console.log('파이썬 응답 확인', response_py);
+
     }
 
 
