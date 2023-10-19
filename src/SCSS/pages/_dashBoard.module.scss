@@ -17,14 +17,72 @@
 
       .main_content_left {
         background-color: $font-sub-color1;
-        width: 25%;
-        padding: 20px;
+        padding: 12px 24px;
+        border-radius: 8px;
+        box-shadow: $box-shadow;
+        width: 30%;
+        padding: 12px;
+
+        h4 {
+          padding: 6px;
+          margin-bottom: 12px;
+        }
+
+        .main_content_left_curriList {
+          display: flex;
+          flex-direction: column;
+        }
       }
 
       .main_content_right {
         background-color: $font-sub-color1;
-        width: 75%;
+        padding: 12px 24px;
+        border-radius: 8px;
+        box-shadow: $box-shadow;
+        width: 70%;
         padding: 20px;
+      }
+    }
+  }
+}
+
+.curriList_item {
+  display: flex;
+  padding: 12px 6px;
+  gap: 6px;
+  align-items: center;
+  // transition-duration: 100ms;
+  cursor: pointer;
+  border-radius: 10px;
+
+  &:hover {
+    background-color: $main-color;
+    div {
+      &:first-child {
+        span {
+          color: $font-sub-color1;
+        }
+      }
+      &:last-child {
+        span {
+          color: $font-sub-color1;
+        }
+      }
+    }
+  }
+
+  div {
+    padding: 4px 12px;
+
+    &:first-child {
+      span {
+        font-weight: 600;
+        color: #999999;
+      }
+    }
+    &:last-child {
+      span {
+        font-weight: 800;
       }
     }
   }

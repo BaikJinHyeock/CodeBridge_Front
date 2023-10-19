@@ -43,15 +43,15 @@ const Main = () => {
         <h2>강의실 둘러보기</h2>
         <Slider {...settings}>
           <img
-            src="https://i.pinimg.com/564x/75/53/60/7553605dba4e890c46da5ba4fcb931c0.jpg"
+            src="https://smhrd.or.kr/wp-content/uploads/2023/08/%EB%8C%80%EC%A7%80-1-%EC%82%AC%EB%B3%B8.png"
             alt=""
           />
           <img
-            src="https://i.pinimg.com/564x/75/53/60/7553605dba4e890c46da5ba4fcb931c0.jpg"
+            src="https://smhrd.or.kr/wp-content/uploads/2023/08/%EB%8C%80%EC%A7%80-1-%EC%82%AC%EB%B3%B8-2.png"
             alt=""
           />
           <img
-            src="https://i.pinimg.com/564x/75/53/60/7553605dba4e890c46da5ba4fcb931c0.jpg"
+            src="https://smhrd.or.kr/wp-content/uploads/2023/08/%EB%8C%80%EC%A7%80-1.png"
             alt=""
           />
           <img
