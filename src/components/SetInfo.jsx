@@ -166,7 +166,7 @@ const SetInfo = () => {
 
   const pw_edit = async (e) => {
     e.preventDefault();
-    if (check2 === 1 && check2 === 1) {
+    if (check2 === 1 && check3 === 1) {
       let mem = {
         user_id: id,
         user_pw: password
@@ -188,10 +188,19 @@ const SetInfo = () => {
     e.preventDefault();
     const confirmDelete = window.confirm("삭제하시겠습니까?");
     if(confirmDelete){
-
+      let mem = {
+        user_id: id
+      };
+      const response = await axios.post(
+        "http://localhost:8085/CodeBridge/Member/iddelete",mem);
+        if (response.data === 1){
+          sessionStorage.removeItem("memberId")
+          window.location.href = "/";
+          alert("회원삭제완료!");
+        }
     }
     else{
-
+      return alert("회원삭제실패!");
     }
   };
 
