@@ -4,7 +4,7 @@ import axios from "axios";
 
 const TestWrite = () => {
   const [test_title, setTest_title] = useState("");
-  const [test_level, setTest_level] = useState("하");
+  const [test_level, setTest_level] = useState("0");
   const [test_lang, setTest_lang] = useState("Java");
   const [test_contents, setTest_contents] = useState("");
   const [test_condition, setTest_condition] = useState("");
@@ -45,7 +45,7 @@ const TestWrite = () => {
       <div className={style.right_container}>
         <h5>테스트 정보</h5>
 
-        <form onSubmit={testSub}>
+        <form >
           <div className={style.input_box}>
             <span>테스트 제목</span>
             <input
@@ -64,9 +64,9 @@ const TestWrite = () => {
               value={test_level}
               onChange={(e) => setTest_level(e.target.value)}
             >
-              <option>하</option>
-              <option>중</option>
-              <option>상</option>
+              <option>0</option>
+              <option>1</option>
+              <option>2</option>
             </select>
           </div>
 
@@ -105,8 +105,8 @@ const TestWrite = () => {
             />
           </div>
         </form>
+        <button type="submit" onClick={testSub}>시험등록</button>
 
-        <button type="submit">시험등록</button>
       </div>
     </div>
   );
