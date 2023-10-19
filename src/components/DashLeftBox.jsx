@@ -12,17 +12,17 @@ const DashLeftBox = () => {
     navigate("/DashBoard");
   };
   const moveMyClass = () => {
-    setActiveButton("classRoom"); // "dashboard" 버튼을 활성화
+    setActiveButton("classRoom"); // "classRoom" 버튼을 활성화
     navigate("/ClassRoom");
   };
 
   const moveTest = () => {
-    setActiveButton("testList"); // "setInfo" 버튼을 활성화
+    setActiveButton("testList"); // "testList" 버튼을 활성화
     navigate("/TestList");
   };
 
   const moveMark = () => {
-    setActiveButton("markList"); // "setInfo" 버튼을 활성화
+    setActiveButton("markList"); // "markList" 버튼을 활성화
     navigate("/MarkList");
   };
   const moveSetInfo = () => {

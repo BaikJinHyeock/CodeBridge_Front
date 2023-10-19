@@ -121,7 +121,7 @@ const Join = () => {
       setphoneCheckMsg("휴대폰번호 형식에 어긋납니다.");
       setCheck4(0);
     } else {
-      setphoneCheckMsg("옳바른 휴대폰번호 형식입니다.");
+      setphoneCheckMsg("");
       setCheck4(1);
     }
   };

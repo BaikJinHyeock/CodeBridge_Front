@@ -25,7 +25,6 @@ const Login = () => {
     if (response.data === "Y") {
       sessionStorage.setItem("memberId", id);
       window.location.href = "/";
-      alert("로그인성공!");
     } else if (response.data === "N") {
       return alert("입력하신 정보가 없습니다.");
     }

@@ -1,7 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
 import style from "../SCSS/pages/_profile.module.scss";
 
 const Profile = ({ showEditButton }) => {
+  const [username, setUsername] = useState("");
+
+  const id = sessionStorage.getItem("memberId");
+  useEffect(() => {
+    if (id) {
+      memberSearching();
+    }
+  }, []);
+
+  // 회원정보 조회
+  const memberSearching = async () => {
+    console.log("로그인이 되어있나", id);
+    let mem = {
+      user_id: id,
+    };
+    const response = await axios.post(
+      "http://localhost:8085/CodeBridge/Member/memcheck",
+      mem
+    );
+    console.log(response.data[0].user_name);
+    setUsername(response.data[0].user_name);
+  };
+
   return (
     <div className={style.profile_box}>
       <div className={style.profile_box_after}>
@@ -33,8 +58,8 @@ const Profile = ({ showEditButton }) => {
           )}
         </div>
         <p>
-          {/* <span>{username}</span> */}
-          <span>선동욱</span>
+          <span>{username}</span>
+          {/* <span>선동욱</span> */}
           <br />님 환영합니다.
         </p>
       </div>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Title from "./Title";
 import Profile from "./Profile";
 
 import style from "../SCSS/pages/_setInfo.module.scss";
@@ -42,7 +41,7 @@ const SetInfo = () => {
   const memberSearching = async () => {
     console.log("로그인이 되어있나", id);
     let mem = {
-      user_id: id
+      user_id: id,
     };
     const response = await axios.post(
       "http://localhost:8085/CodeBridge/Member/memcheck",
@@ -68,7 +67,7 @@ const SetInfo = () => {
     if (check5 === 1) {
       let mem = {
         user_id: id,
-        user_name: name1
+        user_name: name1,
       };
       const response = await axios.post(
         "http://localhost:8085/CodeBridge/Member/nameedit",
@@ -97,7 +96,7 @@ const SetInfo = () => {
     if (check6 === 1) {
       let mem = {
         user_id: id,
-        user_nick: nick
+        user_nick: nick,
       };
       const response = await axios.post(
         "http://localhost:8085/CodeBridge/Member/nickedit",
@@ -115,10 +114,10 @@ const SetInfo = () => {
   const phonecheck = async (e) => {
     const phcheck = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
     if (!phcheck.test(e.target.value)) {
-      setphoneCheckMsg("휴대폰번호 형식에 어긋납니다.");
+      setphoneCheckMsg("번호를 올바르게 입력해주세요.");
       setCheck4(0);
     } else {
-      setphoneCheckMsg("옳바른 휴대폰번호 형식입니다.");
+      setphoneCheckMsg("");
       setCheck4(1);
     }
   };
@@ -127,7 +126,7 @@ const SetInfo = () => {
     if (check4 === 1) {
       let mem = {
         user_id: id,
-        user_phone: phone
+        user_phone: phone,
       };
       const response = await axios.post(
         "http://localhost:8085/CodeBridge/Member/phoneedit",
@@ -169,7 +168,7 @@ const SetInfo = () => {
     if (check2 === 1 && check3 === 1) {
       let mem = {
         user_id: id,
-        user_pw: password
+        user_pw: password,
       };
       const response = await axios.post(
         "http://localhost:8085/CodeBridge/Member/passwordedit",
@@ -187,30 +186,45 @@ const SetInfo = () => {
   const idDelete = async (e) => {
     e.preventDefault();
     const confirmDelete = window.confirm("삭제하시겠습니까?");
-    if(confirmDelete){
+    if (confirmDelete) {
       let mem = {
-        user_id: id
+        user_id: id,
       };
       const response = await axios.post(
-        "http://localhost:8085/CodeBridge/Member/iddelete",mem);
-        if (response.data === 1){
-          sessionStorage.removeItem("memberId")
-          window.location.href = "/";
-          alert("회원삭제완료!");
-        }
-    }
-    else{
+        "http://localhost:8085/CodeBridge/Member/iddelete",
+        mem
+      );
+      if (response.data === 1) {
+        sessionStorage.removeItem("memberId");
+        window.location.href = "/";
+        alert("회원삭제완료!");
+      }
+    } else {
       return alert("회원삭제실패!");
     }
+  };
+
+  // 수정버튼 클릭시 div박스 display : flex 변경함수
+  const [onButton, setOnButton] = useState("");
+  const onId = () => {
+    setOnButton("userId");
+  };
+  const onNick = () => {
+    setOnButton("userNick");
+  };
+  const onPw = () => {
+    setOnButton("userPw");
+  };
+  const onNum = () => {
+    setOnButton("userNum");
   };
 
   return (
     <div className={style.wrap_container}>
       <div className={style.right_container}>
-        <Title pageName="계정 관리" />
         <Profile showEditButton={true} />
 
-        <div className={style.third_box}>
+        <div className={style.main_content}>
           <h4>기본 정보</h4>
           <p>사용자의 정보를 수정할 수 있습니다.</p>
           <div className={style.reWrite}>
@@ -222,7 +236,7 @@ const SetInfo = () => {
                     <div className={style.setTable_userId}>
                       <div className={style.setTable_userId_originId}>
                         <p>{username}</p>
-                        
+
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
@@ -230,6 +244,7 @@ const SetInfo = () => {
                           fill="currentColor"
                           class="bi bi-pencil-square"
                           viewBox="0 0 16 16"
+                          onClick={onId}
                         >
                           <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                           <path
@@ -239,27 +254,30 @@ const SetInfo = () => {
                         </svg>
                       </div>
                       <div className={style.setTable_userId_editId}>
-                        <form onSubmit={name_deit}>
+                        <form
+                          onSubmit={name_deit}
+                          className={onButton === "userId" ? style.active : ""}
+                        >
                           <div class="input-group mb-3">
                             <input
                               type="text"
                               class="form-control"
                               aria-label="Sizing example input"
                               aria-describedby="inputGroup-sizing-default"
+                              placeholder="새 이름"
                               value={name1}
                               onChange={(e) => setName1(e.target.value)}
                               onBlur={namecheck}
                             />
                             <span>{nameCheckMsg}</span>
-                            <div>
-                              <button type="button">취소</button>
-                              <button
-                                type="submit"
-                                className={style.join_button}
-                              >
-                                수정 완료
-                              </button>
-                            </div>
+                          </div>
+                          <div>
+                            <button
+                              type="submit"
+                              className={style.accept_button}
+                            >
+                              수정 완료
+                            </button>
                           </div>
                         </form>
                       </div>
@@ -280,6 +298,7 @@ const SetInfo = () => {
                           fill="currentColor"
                           class="bi bi-pencil-square"
                           viewBox="0 0 16 16"
+                          onClick={onNick}
                         >
                           <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                           <path
@@ -289,7 +308,12 @@ const SetInfo = () => {
                         </svg>
                       </div>
                       <div className={style.setTable_userPw_editId}>
-                        <form onSubmit={nick_edit}>
+                        <form
+                          onSubmit={nick_edit}
+                          className={
+                            onButton === "userNick" ? style.active : ""
+                          }
+                        >
                           <div class="input-group mb-3">
                             <input
                               type="text"
@@ -301,12 +325,14 @@ const SetInfo = () => {
                               onChange={(e) => setNick(e.target.value)}
                               onBlur={nickcheck}
                             />
+                            <span>{nickCheckMsg}</span>
                           </div>
-                          <span>{nickCheckMsg}</span>
 
                           <div>
-                            <button type="button">취소</button>
-                            <button type="submit" className={style.join_button}>
+                            <button
+                              type="submit"
+                              className={style.accept_button}
+                            >
                               수정 완료
                             </button>
                           </div>
@@ -329,6 +355,7 @@ const SetInfo = () => {
                           fill="currentColor"
                           class="bi bi-pencil-square"
                           viewBox="0 0 16 16"
+                          onClick={onPw}
                         >
                           <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                           <path
@@ -338,7 +365,10 @@ const SetInfo = () => {
                         </svg>
                       </div>
                       <div className={style.setTable_userPw_editId}>
-                        <form onSubmit={pw_edit}>
+                        <form
+                          onSubmit={pw_edit}
+                          className={onButton === "userPw" ? style.active : ""}
+                        >
                           <div class="input-group mb-3">
                             <input
                               type="text"
@@ -350,8 +380,8 @@ const SetInfo = () => {
                               onChange={(e) => setPassword(e.target.value)}
                               onBlur={pw1check}
                             />
+                            <span>{pwErrMsg}</span>
                           </div>
-                          <span>{pwErrMsg}</span>
                           <div class="input-group mb-3">
                             <input
                               type="text"
@@ -360,14 +390,18 @@ const SetInfo = () => {
                               aria-label="Sizing example input"
                               aria-describedby="inputGroup-sizing-default"
                               value={password_check}
-                              onChange={(e) => setPassword_check(e.target.value)}
+                              onChange={(e) =>
+                                setPassword_check(e.target.value)
+                              }
                               onBlur={pw2check}
                             />
+                            <span>{pwCheckMsg}</span>
                           </div>
-                          <span>{pwCheckMsg}</span>
                           <div>
-                            <button type="button">취소</button>
-                            <button type="submit" className={style.join_button}>
+                            <button
+                              type="submit"
+                              className={style.accept_button}
+                            >
                               수정 완료
                             </button>
                           </div>
@@ -390,6 +424,7 @@ const SetInfo = () => {
                           fill="currentColor"
                           class="bi bi-pencil-square"
                           viewBox="0 0 16 16"
+                          onClick={onNum}
                         >
                           <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                           <path
@@ -399,7 +434,10 @@ const SetInfo = () => {
                         </svg>
                       </div>
                       <div className={style.setTable_userNum_editId}>
-                        <form onSubmit={phone_edit}>
+                        <form
+                          onSubmit={phone_edit}
+                          className={onButton === "userNum" ? style.active : ""}
+                        >
                           <div class="input-group mb-3">
                             <input
                               type="text"
@@ -411,11 +449,16 @@ const SetInfo = () => {
                               onChange={(e) => setPhone(e.target.value)}
                               onBlur={phonecheck}
                             />
+                            <span>{phoneCheckMsg}</span>
                           </div>
-                          <span>{phoneCheckMsg}</span>
-                          <button type="submit" className={style.join_button}>
-                            번호수정
-                          </button>
+                          <div>
+                            <button
+                              type="submit"
+                              className={style.accept_button}
+                            >
+                              수정 완료
+                            </button>
+                          </div>
                         </form>
                       </div>
                     </div>
@@ -425,14 +468,15 @@ const SetInfo = () => {
                 <tr>
                   <td>계정 삭제</td>
                   <td>
-                    <button type="button" onClick={idDelete}>삭제</button>
+                    <button type="button" onClick={idDelete}>
+                      삭제
+                    </button>
                   </td>
                 </tr>
               </tbody>
             </table>
 
             <div className={style.buttons}>
-              <button type="button">취소</button>
               <button type="submit">변경 완료</button>
             </div>
           </div>
