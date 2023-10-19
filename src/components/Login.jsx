@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import style from "../SCSS/pages/_login.module.scss";
 // import "../main.css";
@@ -8,6 +8,7 @@ import style from "../SCSS/pages/_login.module.scss";
 const Login = () => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const LoginMember = async (e) => {
     e.preventDefault();
@@ -29,6 +30,11 @@ const Login = () => {
       return alert("입력하신 정보가 없습니다.");
     }
   };
+
+  const moveJoin = () => {
+    navigate("/Join");
+  };
+
   return (
     <div className={style.wrap_container}>
       <div className={style.input_box}>
@@ -58,7 +64,11 @@ const Login = () => {
               <span>OR</span>
             </div>
           </div>
-          <button type="submit" className={style.join_button}>
+          <button
+            type="submit"
+            className={style.join_button}
+            onClick={moveJoin}
+          >
             회원가입
           </button>
         </form>

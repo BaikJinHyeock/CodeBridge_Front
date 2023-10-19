@@ -1,18 +1,24 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import "swiper/css";
+import "swiper/css/free-mode";
+import { FreeMode } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 import style from "../SCSS/pages/_main.module.scss";
 
 const Main = () => {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
+  const ClassContent = () => {
+    return (
+      <div className={style.main_slide_content_box}>
+        <img
+          src="https://smhrd.or.kr/wp-content/uploads/2023/08/%EB%8C%80%EC%A7%80-1-%EC%82%AC%EB%B3%B8.png"
+          alt="#"
+        />
+        <h5>[A-1코스] 빅데이터 분석서비스 개발자과정</h5>
+        <span>개강일 | 2023년 4월 27일</span>
+        <p>박수현 선임</p>
+      </div>
+    );
   };
 
   return (
@@ -35,38 +41,48 @@ const Main = () => {
         </div>
       </div>
 
-      <button>
-        <Link to={"/DashBoard"}>대쉬보드 이동</Link>
-      </button>
+      <div className={style.main_container}>
+        <div className={style.main_slide}>
+          <h2>강의실 둘러보기</h2>
+          <Swiper
+            slidesPerView={4.5}
+            spaceBetween={36}
+            freeMode={true}
+            modules={[FreeMode]}
+            className="mySwiper"
+            direction="horizontal"
+          >
+            <SwiperSlide>
+              <ClassContent />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ClassContent />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ClassContent />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ClassContent />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ClassContent />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ClassContent />
+            </SwiperSlide>
+          </Swiper>
+        </div>
 
-      <div className={style.main_slide}>
-        <h2>강의실 둘러보기</h2>
-        <Slider {...settings}>
-          <img
-            src="https://smhrd.or.kr/wp-content/uploads/2023/08/%EB%8C%80%EC%A7%80-1-%EC%82%AC%EB%B3%B8.png"
-            alt=""
-          />
-          <img
-            src="https://smhrd.or.kr/wp-content/uploads/2023/08/%EB%8C%80%EC%A7%80-1-%EC%82%AC%EB%B3%B8-2.png"
-            alt=""
-          />
-          <img
-            src="https://smhrd.or.kr/wp-content/uploads/2023/08/%EB%8C%80%EC%A7%80-1.png"
-            alt=""
-          />
-          <img
-            src="https://i.pinimg.com/564x/75/53/60/7553605dba4e890c46da5ba4fcb931c0.jpg"
-            alt=""
-          />
-          <img
-            src="https://i.pinimg.com/564x/75/53/60/7553605dba4e890c46da5ba4fcb931c0.jpg"
-            alt=""
-          />
-          <img
-            src="https://i.pinimg.com/564x/75/53/60/7553605dba4e890c46da5ba4fcb931c0.jpg"
-            alt=""
-          />
-        </Slider>
+        <div className={style.main_grid}>
+          <div>
+            <h2>스마트인재개발원에서 제작한 온라인 코딩 에듀케이션</h2>
+
+            <div>
+              <p>Learning Ma</p>
+            </div>
+          </div>
+          <div></div>
+        </div>
       </div>
     </div>
   );
