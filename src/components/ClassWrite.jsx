@@ -57,7 +57,12 @@ const ClassWrite = () => {
   // 모달 관련
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+
+  const [selectedWeekIndex, setSelectedWeekIndex] = useState(null);
+  const handleShow = (index) => {
+    setSelectedWeekIndex(index);
+    setShow(true);
+  }
   // 모달 관련
 
 
@@ -77,15 +82,34 @@ const ClassWrite = () => {
     getSubList();
   }, []);
 
-  const SubItem = ({ props }) => {
+  const SubItem = ({ props, handleSubItemClick }) => {
+    const handleItemClick = () => {
+      handleSubItemClick(props); // 클릭 시 부모 컴포넌트의 함수 호출
+    }
     return (
-      <div className={style.sub_item_box}>
+      <div className={style.sub_item_box} onClick={handleItemClick}>
         <span>언어 : {props.sub_lang}</span>
         <span>강사 : {props.user_id}</span>
         <span>강의 명 : {props.sub_title}</span>
       </div>
     );
   }
+
+  const [selectedSubItem, setSelectedSubItem] = useState(null);
+
+  console.log('배열 확인', additionalInputs);
+
+  // ...
+  const handleSubItemClick = (item, index) => {
+    const updatedInputs = [...additionalInputs];
+    updatedInputs[index].content = `언어: ${item.sub_lang}, 강사: ${item.user_id}, 강의 명: ${item.sub_title}`;
+    setAdditionalInputs(updatedInputs);
+    setSelectedSubItem(item);
+    handleClose(); // 모달 닫기
+  }
+
+
+
 
   return (
     <div className={style.wrap_container}>
@@ -207,9 +231,17 @@ const ClassWrite = () => {
                     aria-describedby="inputGroup-sizing-default"
                     onChange={(e) => handleInputChange(index, e)}
                   /> */}
-                  <div onClick={handleShow}>
-                    과목 선택
-                  </div>
+
+
+                  {input.content ? (
+                    <div className={style.selectedSubItem} onClick={() => handleShow(index)}>
+                      <span>{input.content}</span>
+                    </div>
+                  ) : (
+                    <div onClick={() => handleShow(index)}>
+                      과목 선택
+                    </div>
+                  )}
                   <Modal
                     show={show}
                     onHide={handleClose}
@@ -223,13 +255,7 @@ const ClassWrite = () => {
                         {`.modal-content {width: 600px;}`}
                       </style>
                       {subList.map((item, index) => (
-                        <SubItem key={index} props={item} />
-                      ))}
-                      {subList.map((item, index) => (
-                        <SubItem key={index} props={item} />
-                      ))}
-                      {subList.map((item, index) => (
-                        <SubItem key={index} props={item} />
+                        <SubItem key={index} props={item} handleSubItemClick={(item) => handleSubItemClick(item, selectedWeekIndex)} />
                       ))}
 
                     </Modal.Body>
