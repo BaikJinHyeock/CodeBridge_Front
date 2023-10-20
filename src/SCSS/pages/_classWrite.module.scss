@@ -4,96 +4,232 @@
   max-width: 1320px;
   width: 1320px;
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
+  flex-direction: column;
   padding-top: 64px;
   margin: 0 auto;
 
-  .left_container {
-    width: 30%;
-    padding: 36px;
-    span {
-      color: $main-color;
-      font-size: 1rem;
-      padding-bottom: 16px;
-    }
-    h1 {
-      font-size: 30px;
-      font-weight: 700;
-      margin: 16px 0;
-    }
-  }
-  .right_container {
-    width: 70%;
-    padding: 36px;
+  ul {
+    display: flex;
+    // padding: 12px 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 
-    h5 {
-      font-weight: bold;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 16px;
-      margin: 32px 0;
-
-      .input_box {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-
-        .span_tag {
-          font-size: 14px;
-          font-weight: 600;
-          display: flex;
-          align-items: center;
-          gap: 6px;
-
-          svg {
-            cursor: pointer;
-            transition-duration: 100ms;
-
-            &:hover {
-              fill: $main-color;
-            }
-          }
-        }
-
-        .input_date {
-          display: flex;
-          justify-content: flex-start;
-          gap: 16px;
-
-          input {
-            cursor: pointer;
-          }
-        }
-
-        .input_cur {
-          display: flex;
-          justify-content: flex-start;
-          gap: 16px;
-
-          input {
-            &:first-child {
-              width: 20%;
-            }
-          }
-        }
-      }
-    }
-    .submit_button {
-      color: $font-sub-color1;
-      font-size: 14px;
-      font-weight: bold;
+    li {
       display: block;
-      background-color: $main-color;
+      padding: 16px 12px;
+      font-size: 16px;
+      font-weight: 600;
+      position: relative;
+      cursor: pointer;
       transition-duration: 150ms;
-      float: right;
 
       &:hover {
-        background-color: $sub-color;
+        color: $main-color;
+      }
+
+      span {
+        display: block;
+        width: 80%;
+        height: 3px;
+        background-color: #06aed5;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
       }
     }
   }
+
+  .first_container {
+    display: none;
+    width: 100%;
+
+    .left_container {
+      width: 30%;
+      padding: 36px;
+
+      span {
+        color: $main-color;
+        font-size: 1rem;
+        padding-bottom: 16px;
+      }
+      h1 {
+        font-size: 30px;
+        font-weight: 700;
+        margin: 16px 0;
+      }
+    }
+    .right_container {
+      width: 70%;
+      padding: 36px;
+
+      h5 {
+        font-weight: bold;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 32px;
+
+        .input_box {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+
+          .span_tag {
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            svg {
+              cursor: pointer;
+              transition-duration: 100ms;
+
+              &:hover {
+                fill: $main-color;
+              }
+            }
+          }
+
+          .input_date {
+            display: flex;
+            justify-content: flex-start;
+            gap: 16px;
+
+            input {
+              cursor: pointer;
+            }
+          }
+
+          .input_cur {
+            display: flex;
+            justify-content: flex-start;
+            gap: 16px;
+
+            input {
+              &:first-child {
+                width: 20%;
+              }
+            }
+          }
+        }
+      }
+      .submit_button {
+        color: $font-sub-color1;
+        font-size: 14px;
+        font-weight: bold;
+        display: block;
+        background-color: $main-color;
+        transition-duration: 150ms;
+        float: right;
+
+        &:hover {
+          background-color: $sub-color;
+        }
+      }
+    }
+  }
+  .second_container {
+    display: none;
+    width: 100%;
+
+    .left_container {
+      width: 30%;
+      padding: 36px;
+
+      span {
+        color: $main-color;
+        font-size: 1rem;
+        padding-bottom: 16px;
+      }
+      h1 {
+        font-size: 30px;
+        font-weight: 700;
+        margin: 16px 0;
+      }
+    }
+    .right_container {
+      width: 70%;
+      padding: 36px;
+
+      h5 {
+        font-weight: bold;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 32px;
+
+        .input_box {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+
+          .span_tag {
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            svg {
+              cursor: pointer;
+              transition-duration: 100ms;
+
+              &:hover {
+                fill: $main-color;
+              }
+            }
+          }
+
+          .input_date {
+            display: flex;
+            justify-content: flex-start;
+            gap: 16px;
+
+            input {
+              cursor: pointer;
+            }
+          }
+
+          .input_cur {
+            display: flex;
+            justify-content: flex-start;
+            gap: 16px;
+
+            input {
+              &:first-child {
+                width: 20%;
+              }
+            }
+          }
+        }
+      }
+      .submit_button {
+        color: $font-sub-color1;
+        font-size: 14px;
+        font-weight: bold;
+        display: block;
+        background-color: $main-color;
+        transition-duration: 150ms;
+        float: right;
+
+        &:hover {
+          background-color: $sub-color;
+        }
+      }
+    }
+  }
+}
+
+.active {
+  display: flex !important;
 }
