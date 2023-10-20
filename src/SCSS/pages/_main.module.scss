@@ -111,8 +111,17 @@
 
       .main_grid_leftBox {
         padding: 90px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        margin-left: auto;
+        margin-right: auto;
+
         h1 {
           margin-bottom: 16px;
+          span {
+            color: $main-color;
+          }
         }
         div {
           display: flex;
@@ -124,6 +133,7 @@
             align-items: center;
             gap: 6px;
             font-size: 18px;
+            font-weight: 700;
             cursor: pointer;
             transition-duration: 150ms;
 
