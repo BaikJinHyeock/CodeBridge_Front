@@ -46,6 +46,7 @@ const QuillTest = ({ update }) => {
                         setImageUrl(url);
                     });
                 });
+                
             } catch (error) {
                 console.log(error);
             }
