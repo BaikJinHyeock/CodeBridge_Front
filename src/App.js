@@ -22,6 +22,7 @@ import TestDetail from "./components/TestDetail";
 import MarkDetail from "./components/MarkDetail";
 import Title from "./components/Title";
 import Profile from "./components/Profile";
+import SubWrite from "./components/SubWrite";
 
 function App() {
   const location = useLocation();
@@ -32,7 +33,8 @@ function App() {
       location.pathname !== "/Join" &&
       location.pathname !== "/ClassWrite" &&
       location.pathname !== "/TestWrite" &&
-      location.pathname !== "/SetInfo"
+      location.pathname !== "/SetInfo" &&
+      location.pathname !== "/SubWrite"
     );
   };
 
@@ -64,6 +66,7 @@ function App() {
           <Route path="/TestWrite" element={<TestWrite />}></Route>
           <Route path="/TestDetail" element={<TestDetail />}></Route>
           <Route path="/MarkDetail" element={<MarkDetail />}></Route>
+          <Route path="/SubWrite" element={<SubWrite />}></Route>
         </Routes>
       </div>
     </>

@@ -41,7 +41,7 @@
   }
 
   .first_container {
-    display: none;
+    /* display: none; */
     width: 100%;
 
     .left_container {
@@ -135,7 +135,7 @@
     }
   }
   .second_container {
-    display: none;
+    /* display: none; */
     width: 100%;
 
     .left_container {
@@ -233,3 +233,4 @@
 .active {
   display: flex !important;
 }
+
