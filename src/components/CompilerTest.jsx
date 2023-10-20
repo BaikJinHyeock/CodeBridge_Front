@@ -39,7 +39,7 @@ function CompilerTest({submittedCode}) {
       <div
         data-id="example-widget"
         className="sec-widget"
-        data-widget="73790058f8775b1af6f4866d53ab7e3b"
+        data-widget="7ec2c1d1a075cf56ec2f9ef8f205db1b"
       />
 
 
