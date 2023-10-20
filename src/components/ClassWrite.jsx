@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
-
 import style from "../SCSS/pages/_classWrite.module.scss";
+import QuillCompo from "../components/QuillCompo";
 
 const ClassWrite = () => {
   const [title, setTitle] = useState("");
@@ -30,7 +30,7 @@ const ClassWrite = () => {
     const curriculumString = additionalInputs
       .map((input) => `${input.week}::${input.content}`)
       .join(",, ");
-      
+
     let ClassList = {
       user_id: sessionStorage.getItem("memberId"),
       class_title: title,
@@ -65,9 +65,9 @@ const ClassWrite = () => {
       <div className={style.right_container}>
         <h5>교육과정 정보</h5>
 
-        <form >
+        <form>
           <div className={style.input_box}>
-            <span>교육 명</span>
+            <span className={style.span_tag}>교육 명</span>
             <input
               type="text"
               value={title}
@@ -80,7 +80,7 @@ const ClassWrite = () => {
           </div>
 
           <div className={style.input_box}>
-            <span>교육 대상</span>
+            <span className={style.span_tag}>교육 대상</span>
             <input
               type="text"
               value={target}
@@ -93,7 +93,7 @@ const ClassWrite = () => {
           </div>
 
           <div className={style.input_box}>
-            <span>교육 기간</span>
+            <span className={style.span_tag}>교육 기간</span>
             <div className={style.input_date}>
               <input
                 type="date"
@@ -116,19 +116,20 @@ const ClassWrite = () => {
           </div>
 
           <div className={style.input_box}>
-            <span>교육 설명</span>
-            <textarea
+            <span className={style.span_tag}>교육 설명</span>
+            {/*             <textarea
               value={content}
               placeholder="Description of education"
               class="form-control"
               aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default"
               onChange={(e) => setContent(e.target.value)}
-            ></textarea>
+            ></textarea> */}
+            <QuillCompo />
           </div>
 
           <div className={style.input_box}>
-            <span>
+            <span className={style.span_tag}>
               커리큘럼
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -171,7 +172,13 @@ const ClassWrite = () => {
             {/* <List /> */}
           </div>
         </form>
-        <button type="submit" onClick={handleSubmit}>교육 개설</button>
+        <button
+          type="submit"
+          className={style.submit_button}
+          onClick={handleSubmit}
+        >
+          교육 개설
+        </button>
       </div>
     </div>
   );

@@ -43,10 +43,10 @@ const Nav = () => {
             <Link to={"#"}>회사소개</Link>
           </li>
           <li>
-            <Link to={"/ClassWrite"}>강의실 생성</Link>
+            <Link to={"/ClassWrite"}>강의실/과목</Link>
           </li>
           <li>
-            <Link to={"/TestWrite"}>테스트 관리자</Link>
+            <Link to={"/TestWrite"}>테스트</Link>
           </li>
         </ul>
       </div>
