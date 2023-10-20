@@ -54,18 +54,6 @@ const ClassWrite = () => {
     // 여기에 axios를 사용하여 서버로 데이터를 보내는 코드를 작성하면 됩니다.
   };
 
-  // tab버튼 관련
-  const [isClassSectionActive, setClassSectionActive] = useState(true);
-  const [isSubjectSectionActive, setSubjectSectionActive] = useState(false);
-
-  const activateClassSection = () => {
-    setClassSectionActive(true);
-    setSubjectSectionActive(false);
-  };
-  const activateSubjectSection = () => {
-    setClassSectionActive(false);
-    setSubjectSectionActive(true);
-  };
 
 
   // 모달 관련
@@ -92,10 +80,7 @@ const ClassWrite = () => {
         </Link>
       </ul>
 
-      <div
-        className={`${style.first_container} ${isClassSectionActive ? style.active : ""
-          }`}
-      >
+      <div className={style.first_container}>
         <div className={style.left_container}>
           <span>Application for Class Opening</span>
           <h1>
