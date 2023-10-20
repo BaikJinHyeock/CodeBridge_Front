@@ -30,8 +30,9 @@ const ClassWrite = () => {
     const curriculumString = additionalInputs
       .map((input) => `${input.week}::${input.content}`)
       .join(",, ");
-
+      
     let ClassList = {
+      user_id: sessionStorage.getItem("memberId"),
       class_title: title,
       class_content: content,
       class_target: target,

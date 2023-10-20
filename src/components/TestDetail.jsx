@@ -1,9 +1,30 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import style from "../SCSS/pages/_testDetail.module.scss";
 import CompilerTest from "../components/CompilerTest";
 import axios from "axios";
 
 const TestDetail = () => {
+
+
+  const getTestList = async (e) => {
+    
+
+
+  }
+
+
+
+
+  useEffect(() => {
+
+  }, []);
+
+
+
+
+
+
+
 
   const [testCode, setTestCode] = useState("");
 
@@ -27,6 +48,9 @@ const TestDetail = () => {
     console.log('리스폰스 확인', response);
 
   }
+
+
+
 
 
   return (
