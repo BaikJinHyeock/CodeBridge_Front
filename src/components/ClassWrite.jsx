@@ -51,73 +51,100 @@ const ClassWrite = () => {
     // 여기에 axios를 사용하여 서버로 데이터를 보내는 코드를 작성하면 됩니다.
   };
 
+  // tab버튼 관련
+  const [isClassSectionActive, setClassSectionActive] = useState(true);
+  const [isSubjectSectionActive, setSubjectSectionActive] = useState(false);
+
+  const activateClassSection = () => {
+    setClassSectionActive(true);
+    setSubjectSectionActive(false);
+  };
+  const activateSubjectSection = () => {
+    setClassSectionActive(false);
+    setSubjectSectionActive(true);
+  };
+
   return (
     <div className={style.wrap_container}>
-      <div className={style.left_container}>
-        <span>Application for Class Opening</span>
-        <h1>
-          강사님의 교육과정에 대해
-          <br />
-          소개해주세요
-        </h1>
-      </div>
+      <ul>
+        <li onClick={activateClassSection}>
+          강의실 생성
+          {isClassSectionActive && <span></span>}
+        </li>
+        <li onClick={activateSubjectSection}>
+          과목 생성
+          {isSubjectSectionActive && <span></span>}
+        </li>
+      </ul>
 
-      <div className={style.right_container}>
-        <h5>교육과정 정보</h5>
+      <div
+        className={`${style.first_container} ${
+          isClassSectionActive ? style.active : ""
+        }`}
+      >
+        <div className={style.left_container}>
+          <span>Application for Class Opening</span>
+          <h1>
+            강사님의 교육과정에 대해
+            <br />
+            소개해주세요
+          </h1>
+        </div>
 
-        <form>
-          <div className={style.input_box}>
-            <span className={style.span_tag}>교육 명</span>
-            <input
-              type="text"
-              value={title}
-              placeholder="Title"
-              class="form-control"
-              aria-label="Sizing example input"
-              aria-describedby="inputGroup-sizing-default"
-              onChange={(e) => setTitle(e.target.value)}
-            ></input>
-          </div>
-
-          <div className={style.input_box}>
-            <span className={style.span_tag}>교육 대상</span>
-            <input
-              type="text"
-              value={target}
-              placeholder="Education target audience"
-              class="form-control"
-              aria-label="Sizing example input"
-              aria-describedby="inputGroup-sizing-default"
-              onChange={(e) => setTarget(e.target.value)}
-            ></input>
-          </div>
-
-          <div className={style.input_box}>
-            <span className={style.span_tag}>교육 기간</span>
-            <div className={style.input_date}>
+        <div className={style.right_container}>
+          <form>
+            <div className={style.input_box}>
+              <span className={style.span_tag}>교육 명</span>
               <input
-                type="date"
-                value={startDate}
+                type="text"
+                value={title}
+                placeholder="Title"
                 class="form-control"
                 aria-label="Sizing example input"
                 aria-describedby="inputGroup-sizing-default"
-                onChange={(e) => setStartDate(e.target.value)}
-              ></input>
-
-              <input
-                type="date"
-                value={endDate}
-                class="form-control"
-                aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default"
-                onChange={(e) => setEndDate(e.target.value)}
+                onChange={(e) => setTitle(e.target.value)}
               ></input>
             </div>
-          </div>
 
-          <div className={style.input_box}>
-            <span className={style.span_tag}>교육 설명</span>
-            {/*             <textarea
+            <div className={style.input_box}>
+              <span className={style.span_tag}>교육 대상</span>
+              <input
+                type="text"
+                value={target}
+                placeholder="Education target audience"
+                class="form-control"
+                aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default"
+                onChange={(e) => setTarget(e.target.value)}
+              ></input>
+            </div>
+
+            <div className={style.input_box}>
+              <span className={style.span_tag}>교육 기간</span>
+              <div className={style.input_date}>
+                <input
+                  type="date"
+                  value={startDate}
+                  class="form-control"
+                  aria-label="Sizing example input"
+                  aria-describedby="inputGroup-sizing-default"
+                  onChange={(e) => setStartDate(e.target.value)}
+                ></input>
+
+                <input
+                  type="date"
+                  value={endDate}
+                  class="form-control"
+                  aria-label="Sizing example input"
+                  aria-describedby="inputGroup-sizing-default"
+                  onChange={(e) => setEndDate(e.target.value)}
+                ></input>
+              </div>
+            </div>
+
+            <div className={style.input_box}>
+              <span className={style.span_tag}>교육 설명</span>
+              {/*             <textarea
               value={content}
               placeholder="Description of education"
               class="form-control"
@@ -125,60 +152,126 @@ const ClassWrite = () => {
               aria-describedby="inputGroup-sizing-default"
               onChange={(e) => setContent(e.target.value)}
             ></textarea> */}
-            <QuillCompo />
-          </div>
+              <QuillCompo />
+            </div>
 
-          <div className={style.input_box}>
-            <span className={style.span_tag}>
-              커리큘럼
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-plus-circle-fill"
-                viewBox="0 0 16 16"
-                onClick={handleAddInput}
-              >
-                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
-              </svg>
-            </span>
+            <div className={style.input_box}>
+              <span className={style.span_tag}>
+                커리큘럼
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-plus-circle-fill"
+                  viewBox="0 0 16 16"
+                  onClick={handleAddInput}
+                >
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                </svg>
+              </span>
 
-            {additionalInputs.map((input, index) => (
-              <div key={index} className={style.input_cur}>
-                <input
-                  type="text"
-                  name="week"
-                  value={input.week}
-                  placeholder="주차"
-                  class="form-control"
-                  aria-label="Sizing example input"
-                  aria-describedby="inputGroup-sizing-default"
-                  onChange={(e) => handleInputChange(index, e)}
-                />
-                <input
-                  type="text"
-                  name="content"
-                  value={input.content}
-                  placeholder="주차 별 내용"
-                  class="form-control"
-                  aria-label="Sizing example input"
-                  aria-describedby="inputGroup-sizing-default"
-                  onChange={(e) => handleInputChange(index, e)}
-                />
-              </div>
-            ))}
+              {additionalInputs.map((input, index) => (
+                <div key={index} className={style.input_cur}>
+                  <input
+                    type="text"
+                    name="week"
+                    value={input.week}
+                    placeholder="주차"
+                    class="form-control"
+                    aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default"
+                    onChange={(e) => handleInputChange(index, e)}
+                  />
+                  <input
+                    type="text"
+                    name="content"
+                    value={input.content}
+                    placeholder="주차 별 내용"
+                    class="form-control"
+                    aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default"
+                    onChange={(e) => handleInputChange(index, e)}
+                  />
+                </div>
+              ))}
 
-            {/* <List /> */}
-          </div>
-        </form>
-        <button
-          type="submit"
-          className={style.submit_button}
-          onClick={handleSubmit}
-        >
-          교육 개설
-        </button>
+              {/* <List /> */}
+            </div>
+          </form>
+          <button
+            type="submit"
+            className={style.submit_button}
+            onClick={handleSubmit}
+          >
+            교육 개설
+          </button>
+        </div>
+      </div>
+
+      <div
+        className={`${style.second_container} ${
+          isSubjectSectionActive ? style.active : ""
+        }`}
+      >
+        <div className={style.left_container}>
+          <span>Creating a Subject</span>
+          <h1>
+            강사님의 과목에 대해
+            <br />
+            소개해주세요
+          </h1>
+        </div>
+
+        <div className={style.right_container}>
+          <form>
+            <div className={style.input_box}>
+              <span className={style.span_tag}>과목 명</span>
+              <input
+                type="text"
+                value={title}
+                placeholder="Subject title"
+                class="form-control"
+                aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default"
+                onChange={(e) => setTitle(e.target.value)}
+              ></input>
+            </div>
+
+            <div className={style.input_box}>
+              <span className={style.span_tag}>과목 언어</span>
+              <input
+                type="text"
+                value={target}
+                placeholder="Subject language"
+                class="form-control"
+                aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default"
+                onChange={(e) => setTarget(e.target.value)}
+              ></input>
+            </div>
+
+            <div className={style.input_box}>
+              <span className={style.span_tag}>과목 강사</span>
+              <input
+                type="text"
+                value={target}
+                placeholder="Subject Instructor"
+                class="form-control"
+                aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default"
+                onChange={(e) => setTarget(e.target.value)}
+              ></input>
+            </div>
+          </form>
+          <button
+            type="submit"
+            className={style.submit_button}
+            onClick={handleSubmit}
+          >
+            과목 개설
+          </button>
+        </div>
       </div>
     </div>
   );
