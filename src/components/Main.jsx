@@ -76,7 +76,7 @@ const Main = () => {
         <div className={style.main_grid}>
           <div className={style.main_grid_leftBox}>
             <h1>
-              스마트인재개발원에서 제작한
+              <span>LMS</span>에서 제작한
               <br /> 온라인 코딩 에듀케이션
             </h1>
             <div>
@@ -114,13 +114,13 @@ const Main = () => {
           </div>
           <div className={style.main_grid_leftBox}>
             <h1>
-              스마트인재개발원에서 제작한
-              <br /> 온라인 코딩 에듀케이션
+              <span>스마트인재개발</span>에서 하는 강의를
+              <br /> Code Bridge로 간편하게
             </h1>
             <div>
-              <h2>Code Bridge</h2>
+              <h2>To be together</h2>
               <span>
-                프로젝트 바로가기
+                회원가입 바로가기
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -133,6 +133,38 @@ const Main = () => {
                 </svg>
               </span>
             </div>
+          </div>
+        </div>
+
+        <div className={style.main_grid}>
+          <div className={style.main_grid_leftBox}>
+            <h1>
+              팀원들과 함께하는 <span>페어코딩,</span>
+              <br /> 코딩작업과 소통을 한번에!
+            </h1>
+            <div>
+              <h2>Let's Develop</h2>
+              <span>
+                내 강의실 바로가기
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-arrow-right-circle-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <div className={style.main_grid_rightBox}>
+            <img
+              src="https://i.ibb.co/GP8WTz3/Amigos-Chatting.png"
+              alt="mainImage1"
+            />
           </div>
         </div>
       </div>
