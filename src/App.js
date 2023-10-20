@@ -11,6 +11,7 @@ import Join from "./components/Join";
 // import StudyTest from "./components/StudyTest";
 import DashBoard from "./components/DashBoard";
 import DashLeftBox from "./components/DashLeftBox";
+import DashRightBox from "./components/DashRightBox";
 import { ClassRoom } from "./components/ClassRoom";
 import ClassWrite from "./components/ClassWrite";
 import CompilerTest from "./components/CompilerTest";
@@ -56,6 +57,7 @@ function App() {
           <Route path="/Join" element={<Join />}></Route>
           <Route path="/DashBoard" element={<DashBoard />}></Route>
           <Route path="/DashLeftBox" element={<DashLeftBox />}></Route>
+          <Route path="/DashRighttBox" element={<DashRightBox />}></Route>
           {/* <Route path="/StudyTest" element={<StudyTest />}></Route> */}
           <Route path="/ClassRoom" element={<ClassRoom />}></Route>
           <Route path="/ClassWrite" element={<ClassWrite />}></Route>
