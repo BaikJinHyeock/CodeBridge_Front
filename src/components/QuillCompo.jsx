@@ -120,7 +120,7 @@ const QuillTest = ({ update }) => {
 
     return (
         <div>
-            <ReactQuill style={{ height: "600px" }}
+            <ReactQuill style={{ height: "400px" }}
                 ref={quillRef} // useRef로 생성한 ref를 연결
                 theme="snow"
                 placeholder="내용을 입력해주세요."

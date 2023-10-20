@@ -8,8 +8,8 @@ const TestDetail = () => {
   const [testList, SetTestList] = useState([]);
   const [testcontents, setTestcontents] = useState("");
   const [condition, setTestCondotion] = useState("");
- // const [testList, SetTestList] = useState([]);
-//  const [testList, SetTestList] = useState([]);
+  // const [testList, SetTestList] = useState([]);
+  //  const [testList, SetTestList] = useState([]);
 
   const getTestList = async (e) => {
     let Test = {
@@ -49,13 +49,13 @@ const TestDetail = () => {
 
   }
 
-   const selectall = (e) => {
+  const selectall = (e) => {
     const index = e.currentTarget.getAttribute("data-index")
     console.log("index는?");
     setTestcontents(testList[index].test_contents);
     setTestCondotion(testList[index].test_condition)
 
-  } 
+  }
 
 
   return (
@@ -64,7 +64,7 @@ const TestDetail = () => {
         {testList.map((test, index) => (
           <div key={index}>
             <h2 data-index={index} onClick={selectall} >{`${index + 1}번문제`}</h2>
-            
+
           </div>
         ))}
       </div>
@@ -81,7 +81,7 @@ const TestDetail = () => {
         </div>
       </div>
       <div>
-        {/* <CompilerTest submittedCode={recieveCode} /> */}
+        <CompilerTest submittedCode={recieveCode} />
         <button>제출하기</button>
 
       </div>
