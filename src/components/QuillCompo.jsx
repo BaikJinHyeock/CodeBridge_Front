@@ -4,7 +4,7 @@ import ImageResize from "quill-image-resize";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import QuillImageDropAndPaste from "quill-image-drop-and-paste";
-/* import "../css/Quill.css"; */
+import "../css/Quill.css";
 
 Quill.register("modules/ImageResize", ImageResize);
 Quill.register("modules/imageDropAndPaste", QuillImageDropAndPaste);
