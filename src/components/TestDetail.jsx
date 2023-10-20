@@ -5,18 +5,22 @@ import axios from "axios";
 
 const TestDetail = () => {
 
-
   const getTestList = async (e) => {
-    
-
+    let Test = {
+      user_id: sessionStorage.getItem("memberId")
+    }
+    const response = await axios.post(
+      "http://localhost:8085/CodeBridge/Test/detail",Test);
+    console.log("리스폰스 확인", response.data);
+  
 
   }
 
 
 
-
   useEffect(() => {
-
+    getTestList();
+    console.log("useEffect");
   }, []);
 
 
@@ -74,7 +78,7 @@ const TestDetail = () => {
         </div>
       </div>
       <div>
-        <CompilerTest submittedCode={recieveCode} />
+        {/* <CompilerTest submittedCode={recieveCode} /> */}
         <button onClick={submitButton}>제출하기</button>
 
       </div>
@@ -85,4 +89,4 @@ const TestDetail = () => {
   )
 }
 
-export default TestDetail
+export default TestDetail;
