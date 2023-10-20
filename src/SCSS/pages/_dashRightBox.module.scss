@@ -1,0 +1,115 @@
+@import "../abstracts/variables";
+
+.right_wrap_container {
+  background-color: $font-sub-color1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: calc(100vh - 4rem);
+  width: 20%;
+
+  .content_box1 {
+    box-shadow: $box-shadow;
+    padding: 32px;
+    border-bottom: $border;
+    width: 100%;
+    display: flex;
+    gap: 6px;
+    flex-direction: column;
+
+    h4 {
+      font-size: 20px;
+      font-weight: 700;
+      // color: #999;
+      margin-bottom: 20px;
+    }
+    .profile_box {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-bottom: 20px;
+
+      img {
+        width: 100%;
+      }
+    }
+    p {
+      font-weight: 700;
+    }
+    span {
+      color: #999;
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+
+  .content_box2 {
+    box-shadow: $box-shadow;
+    padding: 32px;
+    border-bottom: $border;
+    width: 100%;
+    display: flex;
+    gap: 6px;
+    flex-direction: column;
+
+    h4 {
+      font-size: 20px;
+      font-weight: 700;
+      // color: #999;
+      margin-bottom: 20px;
+    }
+
+    .info_box_attend {
+      display: flex;
+      gap: 36px;
+      background-color: $font-sub-color1;
+      border-radius: 8px;
+      box-shadow: $box-shadow;
+      justify-content: space-around;
+      position: relative;
+
+      div {
+        &:nth-child(1)::after {
+          content: "";
+          clear: both;
+          height: 100%;
+          width: 2px;
+          background-color: $base-color;
+          position: absolute;
+          left: 30%;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+        &:nth-child(2)::after {
+          content: "";
+          clear: both;
+          height: 100%;
+          width: 2px;
+          background-color: $base-color;
+          position: absolute;
+          right: 30%;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+
+        display: flex;
+        gap: 6px;
+        flex-direction: column;
+
+        span {
+          color: #999999;
+          font-size: 14px;
+          font-weight: 600;
+        }
+        p {
+          font-size: 20px;
+          color: $sub-color;
+          text-align: right;
+          font-weight: 800;
+        }
+      }
+    }
+  }
+}
