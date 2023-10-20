@@ -4,19 +4,17 @@ import ImageResize from "quill-image-resize";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import QuillImageDropAndPaste from "quill-image-drop-and-paste";
-/* import "../css/Quill.css"; */
+import "../css/Quill.css";
 
 Quill.register("modules/ImageResize", ImageResize);
 Quill.register("modules/imageDropAndPaste", QuillImageDropAndPaste);
 
 const QuillTest = ({ update }) => {
-
   // 배포용 URL
 
   const quillRef = useRef(null); // useRef로 ref 생성
 
   const imageHandler = async () => {
-
     // 1. 이미지를 저장할 input type=file DOM을 만든다.
     const input = document.createElement("input");
     // 속성 써주기
@@ -37,10 +35,7 @@ const QuillTest = ({ update }) => {
       formData.append("img", file); // formData는 키-밸류 구조
       // 백엔드 multer라우터에 이미지를 보낸다.
       try {
-        const result = await axios.post(
-          `/save/save`,
-          formData
-        );
+        const result = await axios.post(`/save/save`, formData);
         const IMG_URL = result.data.url;
 
         const editor = quillRef.current.getEditor(); // 에디터 객체 가져오기
@@ -66,10 +61,7 @@ const QuillTest = ({ update }) => {
     formData.append("img", blob);
 
     try {
-      const result = await axios.post(
-        `/save/save`,
-        formData
-      );
+      const result = await axios.post(`/save/save`, formData);
       const IMG_URL = result.data.url;
 
       const editor = quillRef.current.getEditor(); // 에디터 객체 가져오기
@@ -77,8 +69,7 @@ const QuillTest = ({ update }) => {
       const range = editor.getSelection();
       // 가져온 위치에 이미지를 삽입한다
       editor.insertEmbed(range.index, "image", IMG_URL);
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   const modules = useMemo(() => {
@@ -88,7 +79,7 @@ const QuillTest = ({ update }) => {
           ["image", "link", "video"],
           [{ header: [1, 2, 3, false] }],
           ["bold", "italic", "underline", "strike", "blockquote"],
-          [{ 'color': [] }, { 'background': [] }],
+          [{ color: [] }, { background: [] }],
         ],
 
         handlers: {
@@ -115,19 +106,19 @@ const QuillTest = ({ update }) => {
     "image",
   ];
 
-  const [value, setValue] = useState('');
-
+  const [value, setValue] = useState("");
 
   return (
     <div>
-      <ReactQuill style={{ height: "600px" }}
+      <ReactQuill
+        style={{ height: "400px" }}
         ref={quillRef} // useRef로 생성한 ref를 연결
         theme="snow"
         placeholder="내용을 입력해주세요."
         value={value}
         onChange={setValue}
         modules={modules}
-      /* formats={formats} */
+        /* formats={formats} */
       />
     </div>
   );

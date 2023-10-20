@@ -1,8 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import style from "../SCSS/pages/_classWrite.module.scss";
-import QuillCompo from '../components/QuillCompo'
-
+import QuillCompo from "../components/QuillCompo";
 
 const ClassWrite = () => {
   const [title, setTitle] = useState("");
@@ -66,7 +65,7 @@ const ClassWrite = () => {
       <div className={style.right_container}>
         <h5>교육과정 정보</h5>
 
-        <form >
+        <form>
           <div className={style.input_box}>
             <span className={style.span_tag}>교육 명</span>
             <input
@@ -173,7 +172,13 @@ const ClassWrite = () => {
             {/* <List /> */}
           </div>
         </form>
-        <button type="submit" onClick={handleSubmit}>교육 개설</button>
+        <button
+          type="submit"
+          className={style.submit_button}
+          onClick={handleSubmit}
+        >
+          교육 개설
+        </button>
       </div>
     </div>
   );
