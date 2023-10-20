@@ -31,7 +31,8 @@ function App() {
       location.pathname !== "/Login" &&
       location.pathname !== "/Join" &&
       location.pathname !== "/ClassWrite" &&
-      location.pathname !== "/TestWrite"
+      location.pathname !== "/TestWrite" &&
+      location.pathname !== "/SetInfo"
     );
   };
 

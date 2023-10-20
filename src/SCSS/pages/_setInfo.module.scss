@@ -5,19 +5,86 @@
   width: 100%;
   overflow: scroll;
   height: calc(100vh - 4rem);
+  display: flex;
+  gap: 36px;
+  padding: 36px;
 
+  .left_container {
+    width: 25%;
+    padding: 32px 0;
+
+    .profile_box_after {
+      position: relative;
+      background-color: #ffffff;
+      padding: 36px;
+      border-radius: 8px;
+      box-shadow: 1px 1px 14px rgba(153, 153, 153, 0.0823529412);
+
+      .profile_wrap_container {
+        display: flex;
+        justify-content: center;
+
+        .profile_img {
+          width: 96px;
+          height: 96px;
+          border-radius: 50%;
+          position: relative;
+
+          img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+          }
+        }
+        .profile_img_edit {
+          width: 42px;
+          height: 42px;
+          background-color: #999;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 2px solid $font-sub-color1;
+          position: absolute;
+          right: -0.5rem;
+          bottom: -0.5rem;
+          cursor: pointer;
+        }
+      }
+      p {
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 28px;
+        text-align: center;
+        margin-top: 16px;
+        margin-bottom: 6px;
+        font-family: "Pretendard Variable";
+      }
+      span {
+        &:last-child {
+          font-size: 14px;
+        }
+        text-align: center;
+        display: block;
+        font-size: 12px;
+        font-weight: 600;
+        color: #999;
+        margin: 6px 0;
+      }
+    }
+  }
   .right_container {
-    width: 100%;
-    padding: 32px 64px;
+    width: 75%;
+    padding: 32px 0;
 
     .main_content {
       background-color: $font-sub-color1;
-      padding: 12px 24px;
+      padding: 36px;
       border-radius: 8px;
       box-shadow: $box-shadow;
 
       h4 {
-        margin: 16px 0;
+        margin-bottom: 16px;
         color: $font-color;
       }
       p {
@@ -27,6 +94,7 @@
       }
       .setTable {
         margin: 36px 0;
+        width: 100%;
         tr {
           &:nth-child(5) {
             td {
@@ -51,6 +119,9 @@
 
             &:first-child {
               border-right: 1px solid rgba(0, 0, 0, 0.06);
+              font-size: 14px;
+              color: #999;
+              width: 25%;
             }
 
             // 회원 이름 변경
