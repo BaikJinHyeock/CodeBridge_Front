@@ -25,11 +25,7 @@ const SubWrite = () => {
             "http://localhost:8085/CodeBridge/sub/write",
             obj
         );
-
         console.log('응답 확인', response);
-
-
-        // 여기에 axios를 사용하여 서버로 데이터를 보내는 코드를 작성하면 됩니다.
     };
 
 

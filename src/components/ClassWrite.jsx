@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "../SCSS/pages/_classWrite.module.scss";
 import QuillCompo from "../components/QuillCompo";
 import Modal from "react-bootstrap/Modal";
@@ -54,15 +54,38 @@ const ClassWrite = () => {
     // 여기에 axios를 사용하여 서버로 데이터를 보내는 코드를 작성하면 됩니다.
   };
 
-
-
   // 모달 관련
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   // 모달 관련
+
+
+
+  // 과목 전부 긁어오는 코드
+  const [subList, setSubList] = useState([]);
+
+  const getSubList = async (e) => {
+    const response = await axios.get(
+      "http://localhost:8085/CodeBridge/sub/find"
+    );
+    console.log('응답 확인', response.data);
+    setSubList(response.data);
+  };
+
+  useEffect(() => {
+    getSubList();
+  }, []);
+
+  const SubItem = ({ props }) => {
+    return (
+      <div className={style.sub_item_box}>
+        <span>언어 : {props.sub_lang}</span>
+        <span>강사 : {props.user_id}</span>
+        <span>강의 명 : {props.sub_title}</span>
+      </div>
+    );
+  }
 
   return (
     <div className={style.wrap_container}>
@@ -143,14 +166,6 @@ const ClassWrite = () => {
 
             <div className={style.input_box}>
               <span className={style.span_tag}>교육 설명</span>
-              {/*             <textarea
-              value={content}
-              placeholder="Description of education"
-              class="form-control"
-              aria-label="Sizing example input"
-              aria-describedby="inputGroup-sizing-default"
-              onChange={(e) => setContent(e.target.value)}
-            ></textarea> */}
               <QuillCompo />
             </div>
 
@@ -201,28 +216,22 @@ const ClassWrite = () => {
                     style={{ top: '20%' }}
                   >
                     <Modal.Header closeButton>
-                      <Modal.Title>문제 출제</Modal.Title>
+                      <Modal.Title>과목 목록</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                      <h5>문제 제목</h5>
-                      <p>주사위</p>
-                      <h5>문제 내용</h5>
-                      <p>
-                        주사위는 위와 같이 생겼다. 주사위의 여섯 면에는 수가 쓰여 있다.
-                        위의 전개도를 수가 밖으로 나오게 접는다. A, B, C, D, E, F에 쓰여
-                        있는 수가 주어진다. 지민이는 현재 동일한 주사위를 N3개 가지고
-                        있다. 이 주사위를 적절히 회전시키고 쌓아서, N×N×N크기의 정육면체를
-                        만들려고 한다. 이 정육면체는 탁자위에 있으므로, 5개의 면만 보인다.
-                        N과 주사위에 쓰여 있는 수가 주어질 때, 보이는 5개의 면에 쓰여 있는
-                        수의 합의 최솟값을 출력하는 프로그램을 작성하시오.
-                      </p>
-                      <h5>제한 조건</h5>
-                      <p>
-                        첫째 줄에 N이 주어진다. 둘째 줄에 주사위에 쓰여 있는 수가
-                        주어진다. 위의 그림에서 A, B, C, D, E, F에 쓰여 있는 수가 차례대로
-                        주어진다. N은 1,000,000보다 작거나 같은 자연수이고, 쓰여 있는 수는
-                        50보다 작거나 같은 자연수이다.
-                      </p>
+                      <style>
+                        {`.modal-content {width: 600px;}`}
+                      </style>
+                      {subList.map((item, index) => (
+                        <SubItem key={index} props={item} />
+                      ))}
+                      {subList.map((item, index) => (
+                        <SubItem key={index} props={item} />
+                      ))}
+                      {subList.map((item, index) => (
+                        <SubItem key={index} props={item} />
+                      ))}
+
                     </Modal.Body>
                     <Modal.Footer>
                       <Button variant="secondary" onClick={handleClose}>
