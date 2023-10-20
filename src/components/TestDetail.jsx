@@ -8,16 +8,13 @@ const TestDetail = () => {
   const [testList, SetTestList] = useState([]);
   const [testcontents, setTestcontents] = useState("");
   const [condition, setTestCondotion] = useState("");
-  // const [testList, SetTestList] = useState([]);
-  //  const [testList, SetTestList] = useState([]);
 
-  const getTestList = async (e) => {
-    let Test = {
-      user_id: sessionStorage.getItem("memberId")
-    }
+
+  const getTestList = async () => {
+
     const response = await axios.post(
-      "http://localhost:8085/CodeBridge/Test/detail", Test);
-    console.log("리스폰스 확인", response.data[0]);
+      "http://localhost:8085/CodeBridge/Test/detail");
+    console.log("리스폰스 확인", response.data);
     SetTestList(response.data)
   }
 
@@ -36,7 +33,7 @@ const TestDetail = () => {
   console.log('아이디 확인', sessionStorage.getItem("memberId"));
 
 
-  const submitButton = async (e) => {
+   const submitButton = async (e) => {
     e.preventDefault();
     let subTest = {
       test_num: 5,
@@ -81,7 +78,7 @@ const TestDetail = () => {
         </div>
       </div>
       <div>
-        <CompilerTest submittedCode={recieveCode} />
+         {/* <CompilerTest submittedCode={recieveCode} />  */}
         <button>제출하기</button>
 
       </div>
