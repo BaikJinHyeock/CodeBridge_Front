@@ -6,6 +6,10 @@ import axios from "axios";
 const TestDetail = () => {
 
   const [testList, SetTestList] = useState([]);
+  const [testcontents, setTestcontents] = useState("");
+  const [condition, setTestCondotion] = useState("");
+ // const [testList, SetTestList] = useState([]);
+//  const [testList, SetTestList] = useState([]);
 
   const getTestList = async (e) => {
     let Test = {
@@ -13,7 +17,7 @@ const TestDetail = () => {
     }
     const response = await axios.post(
       "http://localhost:8085/CodeBridge/Test/detail", Test);
-    console.log("리스폰스 확인", response.data);
+    console.log("리스폰스 확인", response.data[0]);
     SetTestList(response.data)
   }
 
@@ -45,34 +49,40 @@ const TestDetail = () => {
 
   }
 
+   const selectall = (e) => {
+    const index = e.currentTarget.getAttribute("data-index")
+    console.log("index는?");
+    setTestcontents(testList[index].test_contents);
+    setTestCondotion(testList[index].test_condition)
 
-
+  } 
 
 
   return (
     <div className={style.main_container}>
       <div className={style.test_list_container}>
         {testList.map((test, index) => (
-          <div>
-            <h2 key={index}>{`${index + 1}번문제`}</h2>
+          <div key={index}>
+            <h2 data-index={index} onClick={selectall} >{`${index + 1}번문제`}</h2>
+            
           </div>
         ))}
       </div>
       <div>
         <div>
           <h4>문제설명</h4>
-          <p>세 개의 숫자 중 가장 큰 숫자를 출력하시오. </p>
+          <p>{testcontents}</p>
+
         </div>
         <div>
           <h4>제한사항</h4>
-          <p>-조건1: 1 &lt; = num1, num2, num3 &lt;= 100 </p>
-          <p> -조건2: if문을 사용하시오. </p>
-          <p> -조건3: 비교 연산자를 사용하시오. 조건4: for문을 사용하지 마시오. </p>
+          <p>{condition}</p>
+
         </div>
       </div>
       <div>
         {/* <CompilerTest submittedCode={recieveCode} /> */}
-        <button onClick={submitButton}>제출하기</button>
+        <button>제출하기</button>
 
       </div>
 
