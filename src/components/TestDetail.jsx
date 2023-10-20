@@ -5,30 +5,22 @@ import axios from "axios";
 
 const TestDetail = () => {
 
+  const [testList, SetTestList] = useState([]);
+
   const getTestList = async (e) => {
     let Test = {
       user_id: sessionStorage.getItem("memberId")
     }
     const response = await axios.post(
-      "http://localhost:8085/CodeBridge/Test/detail",Test);
+      "http://localhost:8085/CodeBridge/Test/detail", Test);
     console.log("리스폰스 확인", response.data);
-  
-
+    SetTestList(response.data)
   }
-
-
 
   useEffect(() => {
     getTestList();
     console.log("useEffect");
   }, []);
-
-
-
-
-
-
-
 
   const [testCode, setTestCode] = useState("");
 
@@ -60,10 +52,11 @@ const TestDetail = () => {
   return (
     <div className={style.main_container}>
       <div className={style.test_list_container}>
-        <h2>1번문제</h2>
-        <h2>2번문제</h2>
-        <h2>3번문제</h2>
-        <h2>4번문제</h2>
+        {testList.map((test, index) => (
+          <div>
+            <h2 key={index}>{`${index + 1}번문제`}</h2>
+          </div>
+        ))}
       </div>
       <div>
         <div>
