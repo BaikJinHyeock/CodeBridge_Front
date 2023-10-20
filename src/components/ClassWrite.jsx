@@ -30,8 +30,9 @@ const ClassWrite = () => {
     const curriculumString = additionalInputs
       .map((input) => `${input.week}::${input.content}`)
       .join(",, ");
-
+      
     let ClassList = {
+      user_id: sessionStorage.getItem("memberId"),
       class_title: title,
       class_content: content,
       class_target: target,
@@ -64,7 +65,7 @@ const ClassWrite = () => {
       <div className={style.right_container}>
         <h5>교육과정 정보</h5>
 
-        <form onSubmit={handleSubmit}>
+        <form >
           <div className={style.input_box}>
             <span>교육 명</span>
             <input
@@ -170,7 +171,7 @@ const ClassWrite = () => {
             {/* <List /> */}
           </div>
         </form>
-        <button type="submit">교육 개설</button>
+        <button type="submit" onClick={handleSubmit}>교육 개설</button>
       </div>
     </div>
   );
