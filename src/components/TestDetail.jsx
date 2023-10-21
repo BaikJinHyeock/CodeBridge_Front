@@ -12,7 +12,7 @@ const TestDetail = () => {
 
   const getTestList = async () => {
 
-    const response = await axios.post(
+    const response = await axios.get(
       "http://localhost:8085/CodeBridge/Test/detail");
     console.log("리스폰스 확인", response.data);
     SetTestList(response.data)
@@ -78,7 +78,9 @@ const TestDetail = () => {
         </div>
       </div>
       <div>
+
          <CompilerTest submittedCode={recieveCode} /> 
+
         <button>제출하기</button>
 
       </div>
