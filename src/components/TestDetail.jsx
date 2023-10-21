@@ -78,7 +78,7 @@ const TestDetail = () => {
         </div>
       </div>
       <div>
-         {/* <CompilerTest submittedCode={recieveCode} />  */}
+         <CompilerTest submittedCode={recieveCode} /> 
         <button>제출하기</button>
 
       </div>
