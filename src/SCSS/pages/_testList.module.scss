@@ -1,47 +1,36 @@
 @import "../abstracts/variables";
 
 .wrap_container {
-  background-color: $wrap-bg;
-  width: 100%;
-  overflow: scroll;
-  height: calc(100vh - 4rem);
-
-  .right_container {
+    background-color: $wrap-bg;
     width: 100%;
-    padding: 32px 64px;
-  }
-}
+    overflow: scroll;
+    height: calc(100vh - 4rem);
 
-.title_wrapper {
-  display: flex;
-
-  div {
-    background-color: aqua;
-
-    img {
-      width: 80px;
-      height: 80px;
+    .right_container {
+        width: 100%;
+        padding: 32px 64px;
     }
-  }
 }
 
-.test_item_wrapper {
-  background-color: darkgray;
-  display: flex;
-  margin: 1rem;
-  width: 350px;
-  justify-content: space-between;
 
-  .test_item_btn {
-    background-color: rgb(58, 58, 177);
-    color: white;
-  }
+.test_item_wrapper{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
 }
 
-.test_list_item_wrapper {
-  background-color: darkgrey;
-  display: flex;
-  justify-content: space-between;
-  width: 350px;
-  margin: 1rem;
+
+.test_item_box {
+    background-color: aqua;
+    width: 350px;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem;
+
+    .test_btn {
+        background-color: burlywood;
+        padding: 0.4rem;
+
+    }
 }
