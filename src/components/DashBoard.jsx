@@ -1,5 +1,4 @@
 import React from "react";
-import Title from "./Title";
 import Profile from "./Profile";
 import DashRightBox from "./DashRightBox";
 
