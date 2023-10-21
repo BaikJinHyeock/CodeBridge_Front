@@ -5,13 +5,22 @@ import QuillCompo from "../components/QuillCompo";
 import Modal from "react-bootstrap/Modal";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const ClassWrite = () => {
+
+  const quillValue = useSelector((state) => state.quill.quillValue);
+
+  console.log('quillValue확인', quillValue);
+
   const [title, setTitle] = useState("");
   const [target, setTarget] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [content, setContent] = useState("");
+  const [findLang, setFindLang] = useState();
+  const [findLangList, setFindLangList] = useState([]);
+
   const [additionalInputs, setAdditionalInputs] = useState([
     { week: "", content: "" },
   ]);
@@ -54,6 +63,25 @@ const ClassWrite = () => {
     // 여기에 axios를 사용하여 서버로 데이터를 보내는 코드를 작성하면 됩니다.
   };
 
+  const subListByName = async (e) => {
+    e.preventDefault();
+    console.log('입력한 이름', findLang);
+
+    let obj = {
+      sub_lang: findLang,
+    };
+
+    const response = await axios.post(
+      "http://localhost:8085/CodeBridge/sub/findbyname",
+      obj
+    );
+
+    console.log('응답 확인', response.data);
+    setFindLangList(response.data);
+
+
+  };
+
   // 모달 관련
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -89,26 +117,22 @@ const ClassWrite = () => {
     return (
       <div className={style.sub_item_box} onClick={handleItemClick}>
         <span>언어 : {props.sub_lang}</span>
-        <span>강사 : {props.user_id}</span>
+        <span>강사 : {props.user_name}</span>
         <span>강의 명 : {props.sub_title}</span>
       </div>
     );
   }
 
-  const [selectedSubItem, setSelectedSubItem] = useState(null);
-
-  console.log('배열 확인', additionalInputs);
 
   // ...
   const handleSubItemClick = (item, index) => {
     const updatedInputs = [...additionalInputs];
-    updatedInputs[index].content = `언어: ${item.sub_lang}, 강사: ${item.user_id}, 강의 명: ${item.sub_title}`;
+    updatedInputs[index].content = `언어: ${item.sub_lang}, 강사: ${item.user_name}, 강의 명: ${item.sub_title}`;
     setAdditionalInputs(updatedInputs);
-    setSelectedSubItem(item);
+    setFindLang();
+    setFindLangList([]);
     handleClose(); // 모달 닫기
   }
-
-
 
 
   return (
@@ -146,8 +170,6 @@ const ClassWrite = () => {
                 value={title}
                 placeholder="Title"
                 class="form-control"
-                aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default"
                 onChange={(e) => setTitle(e.target.value)}
               ></input>
             </div>
@@ -159,8 +181,6 @@ const ClassWrite = () => {
                 value={target}
                 placeholder="Education target audience"
                 class="form-control"
-                aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default"
                 onChange={(e) => setTarget(e.target.value)}
               ></input>
             </div>
@@ -172,8 +192,6 @@ const ClassWrite = () => {
                   type="date"
                   value={startDate}
                   class="form-control"
-                  aria-label="Sizing example input"
-                  aria-describedby="inputGroup-sizing-default"
                   onChange={(e) => setStartDate(e.target.value)}
                 ></input>
 
@@ -181,8 +199,6 @@ const ClassWrite = () => {
                   type="date"
                   value={endDate}
                   class="form-control"
-                  aria-label="Sizing example input"
-                  aria-describedby="inputGroup-sizing-default"
                   onChange={(e) => setEndDate(e.target.value)}
                 ></input>
               </div>
@@ -217,22 +233,8 @@ const ClassWrite = () => {
                     value={input.week}
                     placeholder="주차"
                     class="form-control"
-                    aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default"
                     onChange={(e) => handleInputChange(index, e)}
                   />
-                  {/*                   <input
-                    type="text"
-                    name="content"
-                    value={input.content}
-                    placeholder="주차 별 내용"
-                    class="form-control"
-                    aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default"
-                    onChange={(e) => handleInputChange(index, e)}
-                  /> */}
-
-
                   {input.content ? (
                     <div className={style.selectedSubItem} onClick={() => handleShow(index)}>
                       <span>{input.content}</span>
@@ -242,34 +244,55 @@ const ClassWrite = () => {
                       과목 선택
                     </div>
                   )}
-                  <Modal
-                    show={show}
-                    onHide={handleClose}
-                    style={{ top: '20%' }}
-                  >
-                    <Modal.Header closeButton>
-                      <Modal.Title>과목 목록</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      <style>
-                        {`.modal-content {width: 600px;}`}
-                      </style>
-                      {subList.map((item, index) => (
-                        <SubItem key={index} props={item} handleSubItemClick={(item) => handleSubItemClick(item, selectedWeekIndex)} />
-                      ))}
-
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <Button variant="secondary" onClick={handleClose}>
-                        Close
-                      </Button>
-                      <Button variant="primary" onClick={handleClose}>
-                        Save Changes
-                      </Button>
-                    </Modal.Footer>
-                  </Modal>
                 </div>
               ))}
+              <Modal
+                show={show}
+                onHide={handleClose}
+                style={{ top: '20%' }}
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title>과목 목록</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <style>
+                    {`.modal-content {width: 600px;}`}
+                  </style>
+
+                  <div>
+                    <form onSubmit={subListByName}>
+                      <input
+                        type="text"
+                        value={findLang}
+                        placeholder="과목 검색"
+                        class="form-control"
+                        onChange={(e) => setFindLang(e.target.value)} />
+                    </form>
+                  </div>
+
+
+                  {findLangList.length > 0 ?
+                    findLangList.map((item, index) => (
+                      <SubItem key={index} props={item} handleSubItemClick={() => handleSubItemClick(item, selectedWeekIndex)} />
+                    ))
+                    :
+                    subList.map((item, index) => (
+                      <SubItem key={index} props={item} handleSubItemClick={() => handleSubItemClick(item, selectedWeekIndex)} />
+                    ))
+                  }
+
+
+
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleClose}>
+                    Close
+                  </Button>
+                  <Button variant="primary" onClick={handleClose}>
+                    Save Changes
+                  </Button>
+                </Modal.Footer>
+              </Modal>
 
               {/* <List /> */}
             </div>

@@ -7,11 +7,23 @@ import QuillImageDropAndPaste from "quill-image-drop-and-paste";
 import "../css/Quill.css";
 import { storage } from "../Firebase";
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
+import { useDispatch, useSelector } from "react-redux";
+import { updateQuillValue } from "../actions/quillActions";
 
 Quill.register("modules/ImageResize", ImageResize);
 Quill.register("modules/imageDropAndPaste", QuillImageDropAndPaste);
 
-const QuillTest = ({ update }) => {
+const QuillCompo = ({ update }) => {
+
+  const dispatch = useDispatch();
+
+  const handleQuillChange = (value) => {
+    dispatch(updateQuillValue(value));
+  }
+
+  const quillValue = useSelector((state) => state.quill.quillValue);
+
+
   const [imageUrl, setImageUrl] = useState(""); // 새로운 상태 추가
 
   // 배포용 URL
@@ -68,7 +80,7 @@ const QuillTest = ({ update }) => {
       const range = editor.getSelection();
       // 가져온 위치에 이미지를 삽입한다
       editor.insertEmbed(range.index, "image", IMG_URL);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const modules = useMemo(() => {
@@ -114,13 +126,13 @@ const QuillTest = ({ update }) => {
         ref={quillRef} // useRef로 생성한 ref를 연결
         theme="snow"
         placeholder="내용을 입력해주세요."
-        value={value}
-        onChange={setValue}
+        value={quillValue}
+        onChange={handleQuillChange}
         modules={modules}
-        /* formats={formats} */
+      /* formats={formats} */
       />
     </div>
   );
 };
 
-export default QuillTest;
+export default QuillCompo;
