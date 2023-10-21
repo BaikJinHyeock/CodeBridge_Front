@@ -1,18 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import style from "../SCSS/pages/_testList.module.scss";
 import Title from './Title';
 import Profile from './Profile';
+import axios from 'axios';
 
 const TestList = () => {
 
-    const TestItem = () => {
+  }
 
+
+
+    const TestItem = () => {
 
         return (
             <div className={style.test_item_box}>
                 <div>
                     <span>1주차</span>
-                    <span>쉽게 배우는 Java수업</span>
+                    <span>타이틀</span>
                 </div>
                 <div className={style.test_btn}>
                     테스트
