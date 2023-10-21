@@ -2,7 +2,6 @@ import React from "react";
 import "swiper/css";
 import "swiper/css/free-mode";
 import { FreeMode } from "swiper/modules";
-import Fade from "react-reveal/Fade";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import style from "../SCSS/pages/_main.module.scss";
@@ -74,7 +73,6 @@ const Main = () => {
           </Swiper>
         </div>
 
-        <Fade bottom distance="10%" dudration={2000}>
           <div className={style.main_grid}>
             <div className={style.main_grid_leftBox}>
               <h1>
@@ -169,7 +167,6 @@ const Main = () => {
               />
             </div>
           </div>
-        </Fade>
       </div>
     </div>
   );
