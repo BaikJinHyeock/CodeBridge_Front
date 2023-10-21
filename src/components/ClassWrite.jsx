@@ -5,8 +5,14 @@ import QuillCompo from "../components/QuillCompo";
 import Modal from "react-bootstrap/Modal";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const ClassWrite = () => {
+
+  const quillValue = useSelector((state) => state.quill.quillValue);
+
+  console.log('quillValue확인', quillValue);
+
   const [title, setTitle] = useState("");
   const [target, setTarget] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -118,9 +124,6 @@ const ClassWrite = () => {
   }
 
 
-
-  console.log('배열 확인', additionalInputs);
-
   // ...
   const handleSubItemClick = (item, index) => {
     const updatedInputs = [...additionalInputs];
@@ -130,8 +133,6 @@ const ClassWrite = () => {
     setFindLangList([]);
     handleClose(); // 모달 닫기
   }
-
-
 
 
   return (
@@ -169,8 +170,6 @@ const ClassWrite = () => {
                 value={title}
                 placeholder="Title"
                 class="form-control"
-                aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default"
                 onChange={(e) => setTitle(e.target.value)}
               ></input>
             </div>
@@ -182,8 +181,6 @@ const ClassWrite = () => {
                 value={target}
                 placeholder="Education target audience"
                 class="form-control"
-                aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default"
                 onChange={(e) => setTarget(e.target.value)}
               ></input>
             </div>
@@ -195,8 +192,6 @@ const ClassWrite = () => {
                   type="date"
                   value={startDate}
                   class="form-control"
-                  aria-label="Sizing example input"
-                  aria-describedby="inputGroup-sizing-default"
                   onChange={(e) => setStartDate(e.target.value)}
                 ></input>
 
@@ -204,8 +199,6 @@ const ClassWrite = () => {
                   type="date"
                   value={endDate}
                   class="form-control"
-                  aria-label="Sizing example input"
-                  aria-describedby="inputGroup-sizing-default"
                   onChange={(e) => setEndDate(e.target.value)}
                 ></input>
               </div>
@@ -240,22 +233,8 @@ const ClassWrite = () => {
                     value={input.week}
                     placeholder="주차"
                     class="form-control"
-                    aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default"
                     onChange={(e) => handleInputChange(index, e)}
                   />
-                  {/*                   <input
-                    type="text"
-                    name="content"
-                    value={input.content}
-                    placeholder="주차 별 내용"
-                    class="form-control"
-                    aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default"
-                    onChange={(e) => handleInputChange(index, e)}
-                  /> */}
-
-
                   {input.content ? (
                     <div className={style.selectedSubItem} onClick={() => handleShow(index)}>
                       <span>{input.content}</span>
