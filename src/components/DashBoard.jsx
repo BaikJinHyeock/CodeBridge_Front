@@ -23,7 +23,7 @@ const DashBoard = () => {
     <div className={style.wrap_container}>
       <div className={style.right_container}>
         {/* <Title pageName="Dash Board" /> */}
-        <Profile showEditButton={false} />
+        <Profile />
 
         <div className={style.main_content}>
           <div className={style.main_content_left}>
