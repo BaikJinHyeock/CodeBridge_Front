@@ -20,7 +20,6 @@ const ClassWrite = () => {
   const [content, setContent] = useState("");
   const [findLang, setFindLang] = useState();
   const [findLangList, setFindLangList] = useState([]);
-
   const [additionalInputs, setAdditionalInputs] = useState([
     { week: "", content: "" },
   ]);

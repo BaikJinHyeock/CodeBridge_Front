@@ -2,8 +2,16 @@ import React, { useEffect, useState } from 'react'
 import style from "../SCSS/pages/_testDetail.module.scss";
 import CompilerTest from "../components/CompilerTest";
 import axios from "axios";
+import { useLocation, useParams } from 'react-router-dom';
 
 const TestDetail = () => {
+
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const sub_num = params.get("sub_num");
+
+  console.log('sub_num확인', sub_num);
+
 
   const [testList, SetTestList] = useState([]);
   const [testcontents, setTestcontents] = useState("");
@@ -11,16 +19,14 @@ const TestDetail = () => {
 
 
   const getTestList = async () => {
-
     const response = await axios.get(
-      "http://localhost:8085/CodeBridge/Test/detail");
-    console.log("리스폰스 확인", response.data);
+      `http://localhost:8085/CodeBridge/Test/detail?sub_num=${sub_num}`);
+    /* console.log("리스폰스 확인", response.data); */
     SetTestList(response.data)
   }
 
   useEffect(() => {
     getTestList();
-    console.log("useEffect");
   }, []);
 
   const [testCode, setTestCode] = useState("");
@@ -33,7 +39,7 @@ const TestDetail = () => {
   console.log('아이디 확인', sessionStorage.getItem("memberId"));
 
 
-   const submitButton = async (e) => {
+  const submitButton = async (e) => {
     e.preventDefault();
     let subTest = {
       test_num: 5,
@@ -79,7 +85,7 @@ const TestDetail = () => {
       </div>
       <div>
 
-         <CompilerTest submittedCode={recieveCode} /> 
+        <CompilerTest submittedCode={recieveCode} />
 
         <button>제출하기</button>
 
