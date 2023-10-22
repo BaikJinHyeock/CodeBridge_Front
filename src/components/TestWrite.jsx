@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import style from "../SCSS/pages/_testWrite.module.scss";
 import axios from "axios";
+import QuillCompo_test from "./QuillCompo_test";
+import { useSelector } from "react-redux";
 
 const TestWrite = () => {
   const [test_title, setTest_title] = useState("");
@@ -9,6 +11,8 @@ const TestWrite = () => {
   const [test_contents, setTest_contents] = useState("");
   const [test_condition, setTest_condition] = useState("");
 
+  const quillValue = useSelector((state) => state.quill.quillValue);
+  
   const testSub = async (e) => {
     e.preventDefault();
     let test = {
@@ -16,7 +20,7 @@ const TestWrite = () => {
       test_level: test_level,
       test_lang: test_lang,
       test_contents: test_contents,
-      test_condition: test_condition,
+      test_condition: quillValue,
     };
     console.log("test데이터 확인", test);
     const response = await axios.post(
@@ -32,6 +36,9 @@ const TestWrite = () => {
       return alert("시험등록실패!");
     }
   };
+
+
+
   return (
     <div className={style.wrap_container}>
       <div className={style.left_container}>
@@ -96,16 +103,10 @@ const TestWrite = () => {
 
           <div className={style.input_box}>
             <span>제한조건</span>
-            <textarea
-              name=""
-              className="form-control"
-              placeholder="Constraints"
-              value={test_condition}
-              onChange={(e) => setTest_condition(e.target.value)}
-            />
+            <QuillCompo_test />
           </div>
         </form>
-        <button type="submit" onClick={testSub}>시험등록</button>
+        <button className={style.sub_btn} type="submit" onClick={testSub}>시험등록</button>
 
       </div>
     </div>
