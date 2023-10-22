@@ -8,6 +8,7 @@ import Login from "./components/Login";
 import Main from "./components/Main";
 import Nav from "./components/Nav";
 import SetInfo from "./components/SetInfo";
+import Team from "./components/Team";
 // import StudyTest from "./components/StudyTest";
 import { ClassRoom } from "./components/ClassRoom";
 import ClassWrite from "./components/ClassWrite";
@@ -36,7 +37,8 @@ function App() {
       location.pathname !== "/ClassWrite" &&
       location.pathname !== "/TestWrite" &&
       location.pathname !== "/SetInfo" &&
-      location.pathname !== "/SubWrite"
+      location.pathname !== "/SubWrite"&&
+      location.pathname !== "/Team"
     );
   };
 
@@ -58,6 +60,7 @@ function App() {
 
           <Route path="/Login" element={<Login />}></Route>
           <Route path="/Join" element={<Join />}></Route>
+          <Route path="/Team" element={<Team />}></Route>
 
           <Route path="/DashBoard" element={<DashBoard />}></Route>
           <Route path="/DashLeftBox" element={<DashLeftBox />}></Route>
