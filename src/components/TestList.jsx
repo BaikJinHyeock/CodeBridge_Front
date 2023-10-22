@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import style from '../SCSS/pages/_testList.module.scss';
-import Title from './Title';
 import Profile from './Profile';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -39,7 +38,6 @@ const TestList = () => {
   return (
     <div className={style.wrap_container}>
       <div className={style.right_container}>
-        <Title pageName="테스트" />
         <Profile showEditButton={false} />
       </div>
 
