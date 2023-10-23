@@ -85,9 +85,10 @@ const SetInfo = () => {
     }
   };
 
+  const koreanVowelRegex = /^[ㅏ-ㅣ]/;
   const nickcheck = async (e) => {
-    if (name1.length === 1 || name1.length > 10) {
-      setNickCheckMsg("닉네임을 입력해주세요");
+    if (nick.length <= 2 || nick.length > 10 || koreanVowelRegex.test(nick[0]) ) {
+      setNickCheckMsg("닉네임을 제대로 입력해주세요");
       setCheck6(0);
     } else {
       setNickCheckMsg("");
