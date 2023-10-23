@@ -5,34 +5,30 @@ import Image from "react-bootstrap/Image";
 import { useSelector } from "react-redux";
 
 const Profile = ({ showEditButton }) => {
-  const [userInfo, setUserInfo] = useState([]);
-
-  const id = sessionStorage.getItem("memberId");
-  useEffect(() => {
-    if (id) {
-      memberSearching();
-    }
-  }, []);
-
-  // 회원정보 조회
-  const memberSearching = async () => {
-    console.log("로그인이 되어있나", id);
-    let mem = {
-      user_id: id,
-    };
-    const response = await axios.post(
-      "http://localhost:8085/CodeBridge/Member/memcheck",
-      mem
-    );
-    setUserInfo(response.data[0])
-  };
-
-  console.log('유저인포 확인', userInfo);
-
   // redux 값 뺴오기
-  const classInfo = useSelector(state => state.classInfo);
+  const userInfo = useSelector(state => state.userInfo);
 
-  console.log('프로필에서 클래스인포 확인', classInfo);
+  console.log('프로필에서 유저인포', userInfo);
+
+
+  const [classInfo, setClassInfo] = useState([]);
+
+  // 반 번호로 반 정보 조회
+  useEffect(() => {
+    console.log('클래스넘 확인', userInfo.class_num);
+    let obj = {
+      class_num: userInfo.class_num
+    }
+    axios.post(`http://localhost:8085/CodeBridge/Class/findnum`, obj)
+      .then(response => {
+        console.log('응답 확인 프로필', response.data[0]);
+        setClassInfo(response.data[0]);
+      })
+      .catch(error => {
+        console.error(error);
+      })
+  }, [userInfo]);
+
 
 
 
@@ -73,7 +69,10 @@ const Profile = ({ showEditButton }) => {
           <br />님 환영합니다.
         </p>
       </div>
+
       <h1>{classInfo.class_title}</h1>
+
+
     </div>
   );
 };

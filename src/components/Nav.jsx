@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import style from "../SCSS/pages/_nav.module.scss";
 import axios from "axios";
 import Image from "react-bootstrap/Image";
+import { useDispatch } from "react-redux";
+import { updateUserInfo } from "../actions/userInfoActions";
 
 const Nav = () => {
   const [loginOk, setLoginOk] = useState(false);
@@ -32,6 +34,15 @@ const Nav = () => {
     setUserInfo(response.data[0]);
     console.log("값 확인", response.data);
   };
+
+  const dispatch = useDispatch();
+  // 리덕스 설정
+  useEffect(() => {
+    // userInfo를 Redux로 설정
+    dispatch(updateUserInfo(userInfo));
+  }, [dispatch, userInfo]);
+
+
 
   return (
     <div className={style.Wrap_container}>

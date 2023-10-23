@@ -3,6 +3,7 @@ import style from '../SCSS/pages/_testList.module.scss';
 import Profile from './Profile';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const TestList = () => {
   const [subList, setSubList] = useState([]); // 데이터를 저장할 상태 추가
@@ -13,6 +14,7 @@ const TestList = () => {
   }, []);
 
   const getSubs = async () => {
+    console.log('반 번호 확인', classInfo);
     try {
       const response = await axios.get('http://localhost:8085/CodeBridge/sub/getsub');
       console.log("response.data", response.data);
@@ -21,6 +23,9 @@ const TestList = () => {
       console.error('데이터 가져오기에 실패했습니다.', error);
     }
   };
+
+  // 반 정보 받아오기
+  const classInfo = useSelector(state => state.classInfo);
 
   const TestItem = ({ props }) => {
     return (
