@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
-import Profile from "./Profile";
-
-import style from "../SCSS/pages/_setInfo.module.scss";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
-// import "bootstrap/dist/css/bootstrap.min.css";
+import style from "../SCSS/pages/_setInfo.module.scss";
+import Cropper from "react-cropper";
+import "cropperjs/dist/cropper.css";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Image from "react-bootstrap/Image";
+import { storage } from "../Firebase";
+import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 
 const SetInfo = () => {
   const [password, setPassword] = useState("");
@@ -26,11 +30,10 @@ const SetInfo = () => {
   const [check5, setCheck5] = useState("0");
   const [check6, setCheck6] = useState("0");
 
-  const [username, setUsername] = useState("");
-  const [userphone, setUserphone] = useState("");
-  const [usernick, setUsernick] = useState("");
-
   const id = sessionStorage.getItem("memberId");
+
+  const [infoList, setInfoList] = useState([]);
+
   useEffect(() => {
     if (id) {
       memberSearching();
@@ -47,11 +50,11 @@ const SetInfo = () => {
       "http://localhost:8085/CodeBridge/Member/memcheck",
       mem
     );
-    console.log(response.data[0].user_name);
-    setUsername(response.data[0].user_name);
-    setUserphone(response.data[0].user_phone);
-    setUsernick(response.data[0].user_nick);
+    console.log('조회 후 데이터', response.data[0]);
+    setInfoList(response.data[0]);
   };
+
+  console.log('인포리스트 확인', infoList.user_name);
 
   const namecheck = async (e) => {
     if (name1.length === 1 || name1.length > 5) {
@@ -219,11 +222,128 @@ const SetInfo = () => {
     setOnButton("userNum");
   };
 
+  /* 이미지 크롭 스크립트 */
+  const [inputPicDisplay, setInputPicDisplay] = useState(true);
+
+  /* 크로퍼 */
+  const inputRef = useRef(null);
+  const cropperRef = useRef(null);
+  const [image, setImage] = useState(null);
+  const [croppedImage, setCroppedImage] = useState(null);
+
+
+
+  /* 크로퍼 */
+  const handleCropperClick = () => {
+    if (inputRef.current) {
+      inputRef.current.value = ""; // input 요소 초기화
+      inputRef.current.click();
+    }
+  };
+
+  const handleFileChange = (e) => {
+    e.preventDefault();
+
+    const files = e.target.files;
+    if (!files) return;
+    handleShow();
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImage(reader.result);
+      setInputPicDisplay(false);
+    };
+    reader.readAsDataURL(files[0]);
+  };
+
+  const getCropData = () => {
+    if (cropperRef.current && cropperRef.current.cropper) {
+      const croppedDataUrl = cropperRef.current.cropper
+        .getCroppedCanvas()
+        .toDataURL();
+      setCroppedImage(croppedDataUrl);
+      setImage(null);
+      handleSaveCroppedImage(croppedDataUrl);
+    }
+    setShow(false);
+  };
+
+  const [savedUrl, setSavedUrl] = useState("");
+
+  const uploadImageToFirebase = async (croppedImageDataUrl) => {
+    const imageDataBlob = await fetch(croppedImageDataUrl).then((res) => res.blob());
+
+    try {
+      const storageRef = ref(storage, `image/${Date.now()}`);
+      const snapshot = await uploadBytes(storageRef, imageDataBlob);
+      const url = await getDownloadURL(snapshot.ref);
+      return url;
+    } catch (error) {
+      console.error("Firebase에 이미지를 업로드하는 동안 오류가 발생했습니다.", error);
+      return null;
+    }
+  };
+
+  const handleSaveCroppedImage = async (croppedImageDataUrl) => {
+    const imageUrl = await uploadImageToFirebase(croppedImageDataUrl);
+    console.log('유알엘 확인', imageUrl);
+    setSavedUrl(imageUrl);
+  };
+
+  const changePic = async (e) => {
+    console.log('제출함수 진입');
+    console.log('url확인!!', savedUrl);
+    let obj = {
+      user_id: sessionStorage.getItem("memberId"),
+      user_pic: savedUrl
+    };
+    const response = await axios.post(
+      "http://localhost:8085/CodeBridge/Member/changepic",
+      obj
+    );
+    console.log('응답 확인', response.data);
+  };
+
+  useEffect(() => {
+    if (savedUrl) {
+      changePic();
+    }
+  }, [savedUrl]);
+
+
+
+  /* 크로퍼 */
+
+  useEffect(() => {
+    if (croppedImage !== null) {
+      const fakeUpload = document.querySelector(`.${style.fake_upload}`);
+      setInputPicDisplay(true);
+      fakeUpload.style.display = "none";
+    }
+  }, [croppedImage]);
+
+  /* 모달 */
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => {
+    setShow(false);
+    setImage(null);
+    setInputPicDisplay(true);
+  };
+  const handleShow = () => {
+    /* setCroppedImage(null); */
+    setShow(true);
+    /* handleCropperClick(); */
+  };
+
+  /* 모달 */
+
+
   return (
     <div className={style.wrap_container}>
       <div className={style.left_container}>
         <div className={style.profile_box_after}>
-          <div className={style.profile_wrap_container}>
+
+          {/*           <div className={style.profile_wrap_container}>
             <div className={style.profile_img}>
               <img
                 src="https://mblogthumb-phinf.pstatic.net/MjAyMTAzMjJfMjkg/MDAxNjE2Mzg4ODI0NzI5.uBHIwocqtEiKlHbUpds05YCDMe6Arw0o_l-p3PdJFZEg.GqEQvSTGKySHJrOTOE2nLGnlbZx3Cb9xfllMFlCRWdMg.JPEG.chooddingg/PHOTO_0020.JPG?type=w800"
@@ -247,9 +367,101 @@ const SetInfo = () => {
                 </svg>
               </div>
             </div>
+          </div> */}
+
+          {/* 크로퍼 */}
+
+          <div className="cropper_content">
+            <input
+              type="file"
+              ref={inputRef}
+              style={{ display: "none" }}
+              onChange={handleFileChange}
+            />
           </div>
+          {/* 크로퍼 */}
+
+          {/* 모달 */}
+
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>이미지 사이즈 조절</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {image && (
+                <div className="container">
+                  <Cropper
+                    ref={cropperRef}
+                    aspectRatio={1} // 크롭 영역을 정사각형으로 제한
+                    src={image}
+                    viewMode={1}
+                    width={800}
+                    height={500}
+                    background={false}
+                    responsive
+                    autoCropArea={1}
+                    checkOrientation={false}
+                    guides
+                  />
+                </div>
+              )}
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                취소
+              </Button>
+              <Button variant="primary" onClick={getCropData}>
+                이미지 저장
+              </Button>
+            </Modal.Footer>
+          </Modal>
+
+          {/* 모달 */}
+
+          {/* 프사 부분 */}
+          <div
+            className={style.input_pic}
+            style={{ display: inputPicDisplay ? "block" : "none" }}
+          >
+            <div className={style.fake_upload}>
+              <Image
+                src={infoList.user_pic}
+                alt="프로필 미리보기"
+                roundedCircle
+              />
+            </div>
+            <div
+              className={style.img_uploads_btn}
+              onClick={handleCropperClick}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-camera"
+                viewBox="0 0 16 16"
+              >
+                <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
+                <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+              </svg>
+            </div>
+            <div className={style.preview_img}>
+              {croppedImage && (
+                <Image
+                  src={croppedImage}
+                  alt="프로필 미리보기"
+                  roundedCircle
+                />
+              )}
+            </div>
+          </div>
+          {/* 프사 부분 */}
+
+
+
           <p>
-            {username}
+            {infoList.user_name}
             {/* <span>선동욱</span> */}
           </p>
           <span>me335097@gmail.com</span>
@@ -270,7 +482,7 @@ const SetInfo = () => {
                   <td>
                     <div className={style.setTable_userId}>
                       <div className={style.setTable_userId_originId}>
-                        <p>{username}</p>
+                        <p>{infoList.user_name}</p>
 
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -325,7 +537,7 @@ const SetInfo = () => {
                   <td>
                     <div className={style.setTable_userPw}>
                       <div className={style.setTable_userPw_originId}>
-                        <p>{usernick}</p>
+                        <p>{infoList.user_nick}</p>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
@@ -451,7 +663,7 @@ const SetInfo = () => {
                   <td>
                     <div className={style.setTable_userNum}>
                       <div className={style.setTable_userNum_originId}>
-                        <p>{userphone}</p>
+                        <p>{infoList.user_phone}</p>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import style from "../SCSS/pages/_nav.module.scss";
 import axios from "axios";
+import Image from "react-bootstrap/Image";
 
 const Nav = () => {
   const [loginOk, setLoginOk] = useState(false);
@@ -75,7 +76,14 @@ const Nav = () => {
             )}
           </li>
           <li>
-            {loginOk ? <p>{userpic}</p> : <Link to={"/Join"}>회원가입</Link>}
+            {loginOk ?
+              <Image
+                src={userpic}
+                alt="프로필 미리보기"
+                roundedCircle
+              /> :
+              <Link to={"/Join"}>회원가입</Link>
+            }
           </li>
         </ul>
       </div>
