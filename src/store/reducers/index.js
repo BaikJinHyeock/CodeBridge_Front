@@ -3,6 +3,7 @@ import quillReducer from './quillReducer';
 import userInfoReducer from './userInfoReducer';
 import classInfoReducer from './classInfoReducer';
 import teacherInfoReducer from './teacherInfoReducer';
+import combinedInfoReducer from './combinedInfoReducer';
 
 // 여러 reducer 하나로 묶어주는
 const rootReducer = combineReducers({
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
   userInfo: userInfoReducer,
   classInfo: classInfoReducer,
   teacherInfo: teacherInfoReducer,
+  combinedInfo: combinedInfoReducer
 });
 
 export default rootReducer;

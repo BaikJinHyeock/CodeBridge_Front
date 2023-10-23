@@ -6,28 +6,16 @@ import { useSelector } from "react-redux";
 
 const Profile = ({ showEditButton }) => {
   // redux 값 뺴오기
-  const userInfo = useSelector(state => state.userInfo);
+  const combinedInfo = useSelector(state => state.combinedInfo);
 
-  console.log('프로필에서 유저인포', userInfo);
-
-
+  const [userInfo, setUserInfo] = useState([]);
   const [classInfo, setClassInfo] = useState([]);
 
-  // 반 번호로 반 정보 조회
+
   useEffect(() => {
-    console.log('클래스넘 확인', userInfo.class_num);
-    let obj = {
-      class_num: userInfo.class_num
-    }
-    axios.post(`http://localhost:8085/CodeBridge/Class/findnum`, obj)
-      .then(response => {
-        console.log('응답 확인 프로필', response.data[0]);
-        setClassInfo(response.data[0]);
-      })
-      .catch(error => {
-        console.error(error);
-      })
-  }, [userInfo]);
+    setUserInfo(combinedInfo.userInfo)
+    setClassInfo(combinedInfo.classInfo)
+  }, [combinedInfo]);
 
 
 
@@ -65,7 +53,6 @@ const Profile = ({ showEditButton }) => {
         </div>
         <p>
           <span>{userInfo.user_name}</span>
-          {/* <span>선동욱</span> */}
           <br />님 환영합니다.
         </p>
       </div>

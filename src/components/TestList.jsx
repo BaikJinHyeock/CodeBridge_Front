@@ -4,6 +4,9 @@ import Profile from './Profile';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import DashRightBox from "./DashRightBox";
+
+
 
 const TestList = () => {
   const [subList, setSubList] = useState([]); // 데이터를 저장할 상태 추가
