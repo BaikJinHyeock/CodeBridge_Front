@@ -30,8 +30,8 @@ const Team = () => {
       <div className={style.main_container}>
         <div className={style.main_content}>
           <div className={style.main_grid}>
-            <div>
-              <div className={style.main_grid_img}>
+            <div className={style.main_grid_img}>
+              <div className={style.main_grid_img_first}>
                 <span>Online education</span>
                 <h1>
                   코딩 학습자들을 위한 <br />

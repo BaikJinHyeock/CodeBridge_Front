@@ -7,3 +7,5 @@ export const ClassRoom = () => {
     </div>
   );
 };
+
+export default ClassRoom;

@@ -5,8 +5,19 @@ import { FreeMode } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import style from "../SCSS/pages/_main.module.scss";
+import { Container } from "./styled";
+import { useScrollAnimation } from "./useScrollAnimation";
 
 const Main = () => {
+  const Scroll = ({ children }) => {
+    const { ref, isInViewport } = useScrollAnimation();
+    return (
+      <Container ref={ref} className={isInViewport ? "frame-in" : ""}>
+        {children}
+      </Container>
+    );
+  };
+
   const ClassContent = () => {
     return (
       <div className={style.main_slide_content_box}>
@@ -73,6 +84,7 @@ const Main = () => {
           </Swiper>
         </div>
 
+        <Scroll>
           <div className={style.main_grid}>
             <div className={style.main_grid_leftBox}>
               <h1>
@@ -104,7 +116,9 @@ const Main = () => {
               />
             </div>
           </div>
+        </Scroll>
 
+        <Scroll>
           <div className={style.main_grid}>
             <div className={style.main_grid_rightBox}>
               <img
@@ -135,7 +149,9 @@ const Main = () => {
               </div>
             </div>
           </div>
+        </Scroll>
 
+        <Scroll>
           <div className={style.main_grid}>
             <div className={style.main_grid_leftBox}>
               <h1>
@@ -167,6 +183,7 @@ const Main = () => {
               />
             </div>
           </div>
+        </Scroll>
       </div>
     </div>
   );
