@@ -7,21 +7,24 @@ const ClassDetail = () => {
       <div className={style.left_container}>
         <div className={style.left_container_title_box}>
           <span>취업연계과정</span>
-          <h1>[A-1코스] 빅데이터 분석서비스 개발자과정</h1>
+          <h1>[A-1코스] 빅데이터 
+            분석서비스 개발자과정</h1>
         </div>
 
         <div className={style.left_container_profile}>
           <div className={style.left_container_profile_img}>
             <img
-              src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2Ff6%2F9c%2Fd9%2Ff69cd9c3a7fe74f574bc11361a8dbb44.jpg&type=a340"
+              src="https://i.pinimg.com/564x/d7/94/c3/d794c38660990eca6134e885c59c7470.jpg"
               alt="profile"
             />
           </div>
           <h4>박수현 강사</h4>
-          <p>
-            44개 국가 대상 인력양성특강 인공지능 사관학교 총괄PL 전남대 등 5개
-            대학 총괄 8개반 취업률 91.2% 달성
-          </p>
+          <ul>
+            <li><p>44개 국가 대상 인력양성특강</p></li>
+            <li><p>인공지능 사관학교  총괄 PL</p></li>
+            <li><p>전남대 등 5개 대학 총괄</p></li>
+            <li><p>8개반 취업률 91.2% 달성</p></li>
+          </ul>
         </div>
       </div>
 
@@ -56,6 +59,8 @@ const ClassDetail = () => {
           <span>2주차 JavaFestival</span>
           <span>3주차 MVC패턴</span>
         </div>
+
+        <button type="button" className={style.submit_button}>교육과정 등록</button>
       </div>
     </div>
   );
