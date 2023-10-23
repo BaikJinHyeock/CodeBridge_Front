@@ -18,6 +18,10 @@
     justify-content: flex-start;
     gap: 20px;
 
+    .logo_wrapper {
+      display: flex;
+    }
+
     a {
       font-weight: 900;
       cursor: pointer;
