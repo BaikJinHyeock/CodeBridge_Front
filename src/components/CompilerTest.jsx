@@ -6,6 +6,10 @@ function CompilerTest({submittedCode}) {
     const SEC_HTTPS = true;
     const SEC_BASE = "compilers.widgets.sphere-engine.com";
 
+    if (!window.SEC) {
+      window.SEC = [];
+    }
+
     const beforeSendSubmission = (data) => {
       $("#result")
         .html("")

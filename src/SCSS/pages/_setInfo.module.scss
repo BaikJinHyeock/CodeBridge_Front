@@ -20,6 +20,79 @@
       border-radius: 8px;
       box-shadow: 1px 1px 14px rgba(153, 153, 153, 0.0823529412);
 
+      // 프사, 크로퍼 css
+      .input_pic {
+        display: flex;
+        border: 1px solid #cecfce;
+        overflow: visible;
+        align-items: center;
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        position: relative;
+
+        input {
+          width: 100%;
+          resize: none;
+          border: none;
+          border-radius: 10px;
+          padding: 12px 16px;
+          border: 1px solid #cecfce;
+          line-height: 1.7rem;
+          font-size: 18px;
+        }
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .fake_upload {
+        width: 100%;
+        display: grid;
+        justify-content: center;
+        justify-items: center;
+        position: absolute;
+      }
+
+      .img_uploads_btn {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        background-color: darkgrey;
+        border-radius: 50%;
+        right: 0px;
+        bottom: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        svg {
+          width: 28px;
+          height: 28px;
+          fill: white;
+        }
+      }
+
+      .preview_img {
+        width: 250px;
+        height: 250px;
+        display: contents;
+
+        img{
+          width: 100%;
+          height: 100%;
+        }
+      }
+      
+
+
+
+
+
+
       .profile_wrap_container {
         display: flex;
         justify-content: center;
@@ -36,6 +109,7 @@
             border-radius: 50%;
           }
         }
+
         .profile_img_edit {
           width: 42px;
           height: 42px;
@@ -51,6 +125,7 @@
           cursor: pointer;
         }
       }
+
       p {
         font-size: 20px;
         font-weight: 700;
@@ -60,10 +135,12 @@
         margin-bottom: 6px;
         font-family: "Pretendard Variable";
       }
+
       span {
         &:last-child {
           font-size: 14px;
         }
+
         text-align: center;
         display: block;
         font-size: 12px;
@@ -73,6 +150,7 @@
       }
     }
   }
+
   .right_container {
     width: 75%;
     padding: 32px 0;
@@ -87,14 +165,17 @@
         margin-bottom: 16px;
         color: $font-color;
       }
+
       p {
         margin: 16px 0;
         color: $font-sub-color2;
         font-family: "Pretendard Variable";
       }
+
       .setTable {
         margin: 36px 0;
         width: 100%;
+
         tr {
           &:nth-child(5) {
             td {
@@ -147,6 +228,7 @@
                 div {
                   &:first-child {
                     position: relative;
+
                     span {
                       position: absolute;
                       left: 0;
@@ -156,6 +238,7 @@
                       color: #ff0000;
                     }
                   }
+
                   &:last-child {
                     display: flex;
                     gap: 12px;
@@ -168,6 +251,7 @@
                 }
               }
             }
+
             // 회원 이름 변경완료
 
             // 회원 비밀번호 변경
@@ -193,6 +277,7 @@
                 div {
                   &:first-child {
                     position: relative;
+
                     span {
                       position: absolute;
                       left: 0;
@@ -205,6 +290,7 @@
 
                   &:nth-child(2) {
                     position: relative;
+
                     span {
                       position: absolute;
                       left: 0;
@@ -214,6 +300,7 @@
                       color: #ff0000;
                     }
                   }
+
                   &:last-child {
                     display: flex;
                     gap: 12px;
@@ -226,6 +313,7 @@
                 }
               }
             }
+
             // 회원 비밀번호 변경완료
 
             // 회원 휴대폰번호 변경
@@ -251,6 +339,7 @@
                 div {
                   &:first-child {
                     position: relative;
+
                     span {
                       position: absolute;
                       left: 0;
@@ -260,6 +349,7 @@
                       color: #ff0000;
                     }
                   }
+
                   &:last-child {
                     display: flex;
                     gap: 12px;
@@ -272,10 +362,12 @@
                 }
               }
             }
+
             // 회원 휴대폰번호 변경완료
           }
         }
       }
+
       .buttons {
         display: flex;
         justify-content: flex-end;
@@ -306,6 +398,7 @@
     background-color: $sub-color;
   }
 }
+
 .active {
   display: flex !important;
 }
