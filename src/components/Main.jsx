@@ -7,8 +7,19 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import style from "../SCSS/pages/_main.module.scss";
 import { Container } from "./styled";
 import { useScrollAnimation } from "./useScrollAnimation";
+import { useNavigate } from "react-router-dom";
 
 const Main = () => {
+  const navigate = useNavigate();
+
+  const moveJoin = () => {
+    navigate("/Join");
+  }
+  const moveTeam = () => {
+    navigate("/Team");
+  }
+
+  // 스크롤 이벤트
   const Scroll = ({ children }) => {
     const { ref, isInViewport } = useScrollAnimation();
     return (
@@ -93,8 +104,8 @@ const Main = () => {
               </h1>
               <div>
                 <h2>Code Bridge</h2>
-                <span>
-                  프로젝트 바로가기
+                <span onClick={moveTeam}>
+                  팀소개 바로가기
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -133,7 +144,7 @@ const Main = () => {
               </h1>
               <div>
                 <h2>To be together</h2>
-                <span>
+                <span onClick={moveJoin}>
                   회원가입 바로가기
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

@@ -56,7 +56,7 @@ const Join = () => {
 
       alert("회원가입 성공");
       console.log("리스폰스 확인", response);
-      window.location.href = "/login";
+      window.location.href = "/Login";
     } else {
       return alert("잘못입력된 정보가 있습니다.");
     }
