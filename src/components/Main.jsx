@@ -3,19 +3,19 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import { FreeMode } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import ScrollTrigger from "@terwanerik/scrolltrigger";
+// import ScrollTrigger from "@terwanerik/scrolltrigger";
 
 import style from "../SCSS/pages/_main.module.scss";
 
 const Main = () => {
-  useEffect(() => {
-    const trigger = new ScrollTrigger();
-    trigger.add("[data-trigger]", {
-      onEnter: (element) => {
-        element.classList.add("animated"); // 애니메이션을 위한 CSS 클래스 추가
-      },
-    });
-  }, []);
+  // useEffect(() => {
+  //   const trigger = new ScrollTrigger();
+  //   trigger.add("[data-trigger]", {
+  //     onEnter: (element) => {
+  //       element.classList.add("animated"); // 애니메이션을 위한 CSS 클래스 추가
+  //     },
+  //   });
+  // }, []);
 
   const ClassContent = () => {
     return (
