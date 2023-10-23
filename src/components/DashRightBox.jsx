@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "../SCSS/pages/_dashRightBox.module.scss";
+import { useSelector } from "react-redux";
 
 const DashRightBox = () => {
+
+  // redux 값 뺴오기
+  const combinedInfo = useSelector(state => state.combinedInfo);
+
+  const [teacherInfo, setTeacherInfo] = useState([]);
+  const [classInfo, setClassInfo] = useState([]);
+
+
+  useEffect(() => {
+    setTeacherInfo(combinedInfo.teacherInfo)
+    setClassInfo(combinedInfo.classInfo)
+  }, [combinedInfo]);
+
+
+
   return (
     <div className={style.right_wrap_container}>
       <div className={style.content_box1}>
@@ -9,12 +25,11 @@ const DashRightBox = () => {
 
         <div className={style.profile_box}>
           <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxie9jrtylbVz5UsvAAKz2zZsaG4DC0BlK0A&usqp=CAU"
-            alt="#"
+            src={teacherInfo.user_pic}
           />
         </div>
-        <p>박수현 선임</p>
-        <span>교육기간 2023.04.27 ~ 11.27</span>
+        <p>{teacherInfo.user_name}</p>
+        <span>교육기간 {classInfo.class_startdate} ~ {classInfo.class_enddate}</span>
       </div>
 
       <div className={style.content_box2}>

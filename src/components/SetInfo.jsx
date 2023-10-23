@@ -39,7 +39,7 @@ const SetInfo = () => {
       memberSearching();
     }
   }, []);
-
+  
   // 회원정보 조회
   const memberSearching = async () => {
     console.log("로그인이 되어있나", id);
@@ -49,15 +49,16 @@ const SetInfo = () => {
     const response = await axios.post(
       "http://localhost:8085/CodeBridge/Member/memcheck",
       mem
-    );
-    console.log('조회 후 데이터', response.data[0]);
-    setInfoList(response.data[0]);
-  };
-
-  console.log('인포리스트 확인', infoList.user_name);
-
+      );
+      console.log('조회 후 데이터', response.data[0]);
+      setInfoList(response.data[0]);
+    };
+    
+    console.log('인포리스트 확인', infoList.user_name);
+    
+    const koreanVowelRegex = /^[ㅏ-ㅣ]/;
   const namecheck = async (e) => {
-    if (name1.length === 1 || name1.length > 5) {
+    if (name1.length < 2 || name1.length > 5 || koreanVowelRegex.test(name1[0])) {
       setNameCheckMsg("이름을 정확하게 입력해주세요");
       setCheck5(0);
     } else {
@@ -84,10 +85,9 @@ const SetInfo = () => {
       return alert("잘못입력된 정보가 있습니다.");
     }
   };
-
-  const koreanVowelRegex = /^[ㅏ-ㅣ]/;
+  
   const nickcheck = async (e) => {
-    if (nick.length <= 2 || nick.length > 10 || koreanVowelRegex.test(nick[0]) ) {
+    if (nick.length < 2 || nick.length > 10 || koreanVowelRegex.test(nick[0]) ) {
       setNickCheckMsg("닉네임을 제대로 입력해주세요");
       setCheck6(0);
     } else {

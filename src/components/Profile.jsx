@@ -5,34 +5,18 @@ import Image from "react-bootstrap/Image";
 import { useSelector } from "react-redux";
 
 const Profile = ({ showEditButton }) => {
-  const [userInfo, setUserInfo] = useState([]);
-
-  const id = sessionStorage.getItem("memberId");
-  useEffect(() => {
-    if (id) {
-      memberSearching();
-    }
-  }, []);
-
-  // 회원정보 조회
-  const memberSearching = async () => {
-    console.log("로그인이 되어있나", id);
-    let mem = {
-      user_id: id,
-    };
-    const response = await axios.post(
-      "http://localhost:8085/CodeBridge/Member/memcheck",
-      mem
-    );
-    setUserInfo(response.data[0])
-  };
-
-  console.log('유저인포 확인', userInfo);
-
   // redux 값 뺴오기
-  const classInfo = useSelector(state => state.classInfo);
+  const combinedInfo = useSelector(state => state.combinedInfo);
 
-  console.log('프로필에서 클래스인포 확인', classInfo);
+  const [userInfo, setUserInfo] = useState([]);
+  const [classInfo, setClassInfo] = useState([]);
+
+
+  useEffect(() => {
+    setUserInfo(combinedInfo.userInfo)
+    setClassInfo(combinedInfo.classInfo)
+  }, [combinedInfo]);
+
 
 
 
@@ -69,11 +53,13 @@ const Profile = ({ showEditButton }) => {
         </div>
         <p>
           <span>{userInfo.user_name}</span>
-          {/* <span>선동욱</span> */}
           <br />님 환영합니다.
         </p>
       </div>
+
       <h1>{classInfo.class_title}</h1>
+
+
     </div>
   );
 };
