@@ -68,12 +68,11 @@ const TestWrite = () => {
             <span>테스트 난이도</span>
             <select
               className="form-control"
-              value={test_level}
-              onChange={(e) => setTest_level(e.target.value)}
+              onChange={(e) => setTest_level(e.target.value === "하" ? 0 : e.target.value === "중" ? 1 : 2)}
             >
-              <option>0</option>
-              <option>1</option>
-              <option>2</option>
+              <option >하</option>
+              <option >중</option>
+              <option >상</option>
             </select>
           </div>
 
