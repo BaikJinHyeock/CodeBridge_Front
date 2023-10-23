@@ -10,8 +10,10 @@ import Nav from "./components/Nav";
 import SetInfo from "./components/SetInfo";
 import Team from "./components/Team";
 // import StudyTest from "./components/StudyTest";
-import { ClassRoom } from "./components/ClassRoom";
+import ClassRoom from "./components/ClassRoom";
+import ClassDetail from "./components/ClassDetail";
 import ClassWrite from "./components/ClassWrite";
+
 import DashBoard from "./components/DashBoard";
 import DashLeftBox from "./components/DashLeftBox";
 import DashRightBox from "./components/DashRightBox";
@@ -35,9 +37,10 @@ function App() {
       location.pathname !== "/Login" &&
       location.pathname !== "/Join" &&
       location.pathname !== "/ClassWrite" &&
+      location.pathname !== "/ClassDetail" &&
       location.pathname !== "/TestWrite" &&
       location.pathname !== "/SetInfo" &&
-      location.pathname !== "/SubWrite"&&
+      location.pathname !== "/SubWrite" &&
       location.pathname !== "/Team"
     );
   };
@@ -66,7 +69,7 @@ function App() {
           <Route path="/DashLeftBox" element={<DashLeftBox />}></Route>
           <Route path="/DashRighttBox" element={<DashRightBox />}></Route>
 
-          {/* <Route path="/StudyTest" element={<StudyTest />}></Route> */}
+          <Route path="/ClassDetail" element={<ClassDetail />}></Route>
           <Route path="/ClassRoom" element={<ClassRoom />}></Route>
           <Route path="/ClassWrite" element={<ClassWrite />}></Route>
 
