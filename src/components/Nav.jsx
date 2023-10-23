@@ -6,10 +6,12 @@ import Image from "react-bootstrap/Image";
 
 const Nav = () => {
   const [loginOk, setLoginOk] = useState(false);
-  const [userpic, setUserpic] = useState("");
 
   // 로그인했으면 상단 로그인,회원가입변경
   const id = sessionStorage.getItem("memberId");
+
+  const [userInfo, setUserInfo] = useState([]);
+
   useEffect(() => {
     if (id) {
       setLoginOk(true);
@@ -27,8 +29,12 @@ const Nav = () => {
       "http://localhost:8085/CodeBridge/Member/memcheck",
       mem
     );
-    setUserpic(response.data[0].user_pic);
+    setUserInfo(response.data[0])
   };
+
+
+
+
 
   return (
     <div className={style.Wrap_container}>
@@ -78,7 +84,7 @@ const Nav = () => {
           <li>
             {loginOk ?
               <Image
-                src={userpic}
+                src={userInfo.user_pic}
                 alt="프로필 미리보기"
                 roundedCircle
               /> :

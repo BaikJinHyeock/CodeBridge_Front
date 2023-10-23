@@ -45,7 +45,7 @@ const ClassWrite = () => {
     let ClassList = {
       user_id: sessionStorage.getItem("memberId"),
       class_title: title,
-      class_content: content,
+      class_content: quillValue,
       class_target: target,
       curriculum: curriculumString,
       class_startdate: startDate,
@@ -132,6 +132,14 @@ const ClassWrite = () => {
     setFindLangList([]);
     handleClose(); // 모달 닫기
   }
+
+  // 주차 삭제 메서드
+  const handleRemoveInput = (index) => {
+    const updatedInputs = [...additionalInputs];
+    updatedInputs.splice(index, 1);
+    setAdditionalInputs(updatedInputs);
+  };
+
 
 
   return (
@@ -243,6 +251,7 @@ const ClassWrite = () => {
                       과목 선택
                     </div>
                   )}
+                  <button onClick={() => handleRemoveInput(index)}>삭제</button>
                 </div>
               ))}
               <Modal

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
 import style from "../SCSS/pages/_profile.module.scss";
+import Image from "react-bootstrap/Image";
+import { useSelector } from "react-redux";
 
 const Profile = ({ showEditButton }) => {
-  const [username, setUsername] = useState("");
+  const [userInfo, setUserInfo] = useState([]);
 
   const id = sessionStorage.getItem("memberId");
   useEffect(() => {
@@ -23,18 +24,27 @@ const Profile = ({ showEditButton }) => {
       "http://localhost:8085/CodeBridge/Member/memcheck",
       mem
     );
-    console.log(response.data[0].user_name);
-    setUsername(response.data[0].user_name);
+    setUserInfo(response.data[0])
   };
+
+  console.log('유저인포 확인', userInfo);
+
+  // redux 값 뺴오기
+  const classInfo = useSelector(state => state.classInfo);
+
+  console.log('프로필에서 클래스인포 확인', classInfo);
+
+
 
   return (
     <div className={style.profile_box}>
       <div className={style.profile_box_after}>
         <div className={style.profile_wrap_container}>
           <div className={style.profile_img}>
-            <img
-              src="https://mblogthumb-phinf.pstatic.net/MjAyMTAzMjJfMjkg/MDAxNjE2Mzg4ODI0NzI5.uBHIwocqtEiKlHbUpds05YCDMe6Arw0o_l-p3PdJFZEg.GqEQvSTGKySHJrOTOE2nLGnlbZx3Cb9xfllMFlCRWdMg.JPEG.chooddingg/PHOTO_0020.JPG?type=w800"
-              alt="#"
+            <Image
+              src={userInfo.user_pic}
+              alt="프로필 미리보기"
+              roundedCircle
             />
           </div>
 
@@ -58,12 +68,12 @@ const Profile = ({ showEditButton }) => {
           )}
         </div>
         <p>
-          <span>{username}</span>
+          <span>{userInfo.user_name}</span>
           {/* <span>선동욱</span> */}
           <br />님 환영합니다.
         </p>
       </div>
-      <h1>데이터디자인 엔지니어 양성과정</h1>
+      <h1>{classInfo.class_title}</h1>
     </div>
   );
 };
