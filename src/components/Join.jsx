@@ -27,6 +27,7 @@ const Join = () => {
   const [check4, setCheck4] = useState("0");
   const [check5, setCheck5] = useState("0");
   const [check6, setCheck6] = useState("0");
+  
 
   const JoinMember = async (e) => {
     console.log("check1 확인", check1);
@@ -126,8 +127,9 @@ const Join = () => {
     }
   };
 
+  const koreanVowelRegex = /^[ㅏ-ㅣ]/;
   const namecheck = async (e) => {
-    if (name1.length == 1 || name1.length > 5) {
+    if (name1.length < 2 || name1.length > 5 || koreanVowelRegex.test(name1[0])) {
       setNameCheckMsg("이름을 정확하게 입력해주세요");
       setCheck5(0);
     } else {
@@ -137,7 +139,7 @@ const Join = () => {
   };
 
   const nickcheck = async (e) => {
-    if (name1.length == 1 || name1.length > 10) {
+    if (nick.length < 2 || nick.length > 10 || koreanVowelRegex.test(nick[0])) {
       setNickCheckMsg("닉네임을 입력해주세요");
       setCheck6(0);
     } else {
