@@ -39,15 +39,11 @@ function CompilerTest({submittedCode}) {
 
   return (
     <div id="board">
-      <h1>테스트 페이지</h1>
       <div
         data-id="example-widget"
         className="sec-widget"
         data-widget="1707b432b770d1a022cada7d601c78ee"
       />
-
-
-
     </div>
   );
 }
