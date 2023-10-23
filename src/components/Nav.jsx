@@ -26,27 +26,23 @@ const Nav = () => {
 
   // 회원정보 조회
   const memberSearching = async () => {
-    console.log("로그인이 되어있나", id);
     let mem = {
       user_id: id,
     };
     await axios.post(`http://localhost:8085/CodeBridge/Member/memcheck`, mem)
       .then(response => {
         setUserInfo(response.data[0]);
-        console.log('클래스넘 확인', response.data[0].class_num);
         let obj = {
           class_num: response.data[0].class_num
         }
         axios.post(`http://localhost:8085/CodeBridge/Class/findnum`, obj)
           .then(response => {
-            console.log('응답 확인 프로필', response.data[0]);
             setClassInfo(response.data[0]);
             let obj = {
               user_id: response.data[0].user_id
             }
             axios.post(`http://localhost:8085/CodeBridge/Member/memberInfoTeacher`, obj)
               .then(response => {
-                console.log('선생정보', response.data[0]);
                 setTeacherInfo(response.data[0]);
 
               })
@@ -64,40 +60,6 @@ const Nav = () => {
       })
   };
 
-
-  // 반 번호로 반 정보 조회
-  // useEffect(() => {
-  //   console.log('클래스넘 확인', userInfo.class_num);
-  //   let obj = {
-  //     class_num: userInfo.class_num
-  //   }
-  //   axios.post(`http://localhost:8085/CodeBridge/Class/findnum`, obj)
-  //     .then(response => {
-  //       console.log('응답 확인 프로필', response.data[0]);
-  //       setClassInfo(response.data[0]);
-
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //     })
-  // }, [userInfo]);
-
-
-
-  // useEffect(() => {
-  //   console.log('선생아이디', classInfo.user_id);
-  //   let obj = {
-  //     user_id: classInfo.user_id
-  //   }
-  //   axios.post(`http://localhost:8085/CodeBridge/Member/memberInfoTeacher`, obj)
-  //     .then(response => {
-  //       console.log('선생정보', response.data[0]);
-  //       setTeacherInfo(response.data[0]);
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //     })
-  // }, [classInfo]);
 
   const dispatch = useDispatch();
   useEffect(() => {

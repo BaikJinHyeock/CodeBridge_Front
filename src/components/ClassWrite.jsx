@@ -11,7 +11,6 @@ const ClassWrite = () => {
 
   const quillValue = useSelector((state) => state.quill.quillValue);
 
-  console.log('quillValue확인', quillValue);
 
   const [title, setTitle] = useState("");
   const [target, setTarget] = useState("");
@@ -23,6 +22,10 @@ const ClassWrite = () => {
   const [additionalInputs, setAdditionalInputs] = useState([
     { week: "", content: "" },
   ]);
+  const [subNumList, setSubNumList] = useState([]);
+
+  console.log('주차 값 확인', additionalInputs);
+  console.log('과목넘버들 확인', subNumList);
 
   const handleAddInput = () => {
     setAdditionalInputs([...additionalInputs, { week: "", content: "" }]);
@@ -42,7 +45,7 @@ const ClassWrite = () => {
       .map((input) => `${input.week}::${input.content}`)
       .join(",, ");
 
-    let ClassList = {
+    let obj = {
       user_id: sessionStorage.getItem("memberId"),
       class_title: title,
       class_content: quillValue,
@@ -50,21 +53,21 @@ const ClassWrite = () => {
       curriculum: curriculumString,
       class_startdate: startDate,
       class_enddate: endDate,
+      sub_num: subNumList.join(','),
       // curriculum에 문자열을 할당
     };
-    console.log("값 확인", ClassList);
-    const response = await axios.post(
-      "http://localhost:8085/CodeBridge/Class/write",
-      ClassList
-    );
-    console.log("리스폰스 확인", response.data);
+    console.log('obj확인', obj);
+    await axios.post(`http://localhost:8085/CodeBridge/Class/write`, obj)
+      .then(response => {
 
-    // 여기에 axios를 사용하여 서버로 데이터를 보내는 코드를 작성하면 됩니다.
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
 
   const subListByName = async (e) => {
     e.preventDefault();
-    console.log('입력한 이름', findLang);
 
     let obj = {
       sub_lang: findLang,
@@ -75,7 +78,6 @@ const ClassWrite = () => {
       obj
     );
 
-    console.log('응답 확인', response.data);
     setFindLangList(response.data);
 
 
@@ -98,11 +100,15 @@ const ClassWrite = () => {
   const [subList, setSubList] = useState([]);
 
   const getSubList = async (e) => {
-    const response = await axios.get(
-      "http://localhost:8085/CodeBridge/sub/find"
-    );
-    console.log('응답 확인', response.data);
-    setSubList(response.data);
+    await axios.get(`http://localhost:8085/CodeBridge/sub/find`)
+      .then(response => {
+        console.log('과목 리스트 확인', response.data);
+        setSubList(response.data);
+      })
+      .catch(error => {
+        console.error();
+      })
+      ;
   };
 
   useEffect(() => {
@@ -115,6 +121,7 @@ const ClassWrite = () => {
     }
     return (
       <div className={style.sub_item_box} onClick={handleItemClick}>
+        <span>과목 번호 : {props.sub_num}</span>
         <span>언어 : {props.sub_lang}</span>
         <span>강사 : {props.user_name}</span>
         <span>강의 명 : {props.sub_title}</span>
@@ -126,8 +133,10 @@ const ClassWrite = () => {
   // ...
   const handleSubItemClick = (item, index) => {
     const updatedInputs = [...additionalInputs];
-    updatedInputs[index].content = `언어: ${item.sub_lang}, 강사: ${item.user_name}, 강의 명: ${item.sub_title}`;
+    updatedInputs[index].content = `과목 번호: ${item.sub_num}, 언어: ${item.sub_lang}, 강사: ${item.user_name}, 강의 명: ${item.sub_title} `;
     setAdditionalInputs(updatedInputs);
+    // 이전의 subNumList를 가져와서 새로운 값을 추가
+    setSubNumList(prevSubNumList => [...prevSubNumList, item.sub_num]);
     setFindLang();
     setFindLangList([]);
     handleClose(); // 모달 닫기
@@ -136,9 +145,20 @@ const ClassWrite = () => {
   // 주차 삭제 메서드
   const handleRemoveInput = (index) => {
     const updatedInputs = [...additionalInputs];
-    updatedInputs.splice(index, 1);
+    const removedItem = updatedInputs.splice(index, 1)[0]; // 삭제된 항목을 가져옴
+    console.log('리무브아이템 확인', removedItem);
     setAdditionalInputs(updatedInputs);
+
+    // 정규표현식을 사용하여 content에서 sub_num을 추출
+    const subNumToRemove = removedItem.content.match(/과목 번호: (\d+)/);
+
+    // sub_num이 존재할 경우 subNumList에서 제거
+    if (subNumToRemove) {
+      const subNum = parseInt(subNumToRemove[1]);
+      setSubNumList(prevSubNumList => prevSubNumList.filter(subNumItem => subNumItem !== subNum));
+    }
   };
+
 
 
 
@@ -251,7 +271,9 @@ const ClassWrite = () => {
                       과목 선택
                     </div>
                   )}
-                  <button onClick={() => handleRemoveInput(index)}>삭제</button>
+                  {index === additionalInputs.length - 1 && (
+                    <button onClick={() => handleRemoveInput(index)}>삭제</button>
+                  )}
                 </div>
               ))}
               <Modal
@@ -264,7 +286,7 @@ const ClassWrite = () => {
                 </Modal.Header>
                 <Modal.Body>
                   <style>
-                    {`.modal-content {width: 600px;}`}
+                    {`.modal - content { width: 600px; } `}
                   </style>
 
                   <div>
