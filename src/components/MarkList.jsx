@@ -18,7 +18,7 @@ const MarkList = () => {
           <span>1주차</span>
           <h5>O.T및 Java</h5>
         </div>
-        <button className={style.before_button} onClick={moveButton}>
+        <button type="button" className={style.before_button} onClick={moveButton}>
           채점하기
         </button>
       </div>

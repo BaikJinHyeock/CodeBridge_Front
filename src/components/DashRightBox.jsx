@@ -2,6 +2,8 @@ import React from "react";
 import style from "../SCSS/pages/_dashRightBox.module.scss";
 
 const DashRightBox = () => {
+ 
+
   return (
     <div className={style.right_wrap_container}>
       <div className={style.content_box1}>
