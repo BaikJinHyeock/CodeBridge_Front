@@ -9,6 +9,10 @@ import { useSelector } from "react-redux";
 
 const ClassWrite = () => {
 
+  // 스프링 주소
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
+
   const quillValue = useSelector((state) => state.quill.quillValue);
 
 
@@ -57,7 +61,7 @@ const ClassWrite = () => {
       // curriculum에 문자열을 할당
     };
     console.log('obj확인', obj);
-    await axios.post(`http://localhost:8085/CodeBridge/Class/write`, obj)
+    await axios.post(`${baseUrl}/CodeBridge/Class/write`, obj)
       .then(response => {
 
       })

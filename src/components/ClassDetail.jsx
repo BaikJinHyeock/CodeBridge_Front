@@ -3,27 +3,41 @@ import style from "../SCSS/pages/_classDetail.module.scss";
 import axios from "axios";
 
 const ClassDetail = () => {
-  const num = 3;
-  const [infoList, setInfoList] = useState("");
+
+  // 스프링 주소
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
+  const num = 21;
+  const [infoList, setInfoList] = useState([]);
+  const [toarray, setToarray] = useState([]);
 
 
   useEffect(() => {
     classSearch();
   }, []);
 
+
   const classSearch = async (e) => {
     const room = {
       class_num: num
     }
-    await axios.post(`http://localhost:8085/CodeBridge/Class/findnum`, room)
+    await axios.post(`${baseUrl}/CodeBridge/Class/findnum`, room)
       .then(response => {
         setInfoList(response.data[0]);
-        console.log("infoList", infoList);
+        console.log("infoList", response.data[0].curriculum);
+        setToarray(JSON.parse(response.data[0].curriculum));
       })
       .catch(error => {
         console.error(error);
       });
   }
+
+  console.log('배열 확인', toarray);
+
+
+
+
+
   return (
     <div className={style.wrap_container}>
       <div className={style.left_container}>
@@ -66,18 +80,30 @@ const ClassDetail = () => {
 
         <div>
           <h5>교육 설명</h5>
-          <span>
-            {infoList.class_content}
+          <span
+            dangerouslySetInnerHTML={{ __html: infoList.class_content }}>
           </span>
         </div>
 
         <div>
           <h5>커리큘럼</h5>
-{/*           <span>1주차 O.T 및 Java</span>
-          <span>2주차 JavaFestival</span>
-          <span>3주차 MVC패턴</span> */}
-          {infoList.curriculum}
+          {toarray && toarray.map((item) => {
+
+            console.log('아이템 확인', item);
+
+            return (
+              // <p key={index}>
+              //   {`${weekDetails}: 언어: ${language}, 강사: ${instructor}, 강의 명: ${lesson}`}
+              // </p>
+              <>
+                <p>
+                  {item[0]} : {item[2]}
+                </p>
+              </>
+            );
+          })}
         </div>
+
 
         <button type="button" className={style.submit_button}>교육과정 등록</button>
       </div>
