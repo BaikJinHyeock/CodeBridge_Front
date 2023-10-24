@@ -1,14 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "../SCSS/pages/_classDetail.module.scss";
+import axios from "axios";
 
 const ClassDetail = () => {
+  const num = 3;
+  const [infoList, setInfoList] = useState("");
+
+
+  useEffect(() => {
+    classSearch();
+  }, []);
+
+  const classSearch = async (e) => {
+    const room = {
+      class_num: num
+    }
+    await axios.post(`http://localhost:8085/CodeBridge/Class/findnum`, room)
+      .then(response => {
+        setInfoList(response.data[0]);
+        console.log("infoList", infoList);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
   return (
     <div className={style.wrap_container}>
       <div className={style.left_container}>
         <div className={style.left_container_title_box}>
           <span>취업연계과정</span>
-          <h1>[A-1코스] 빅데이터 
-            분석서비스 개발자과정</h1>
+          <h1>{infoList.class_title}</h1>
         </div>
 
         <div className={style.left_container_profile}>
@@ -34,30 +55,28 @@ const ClassDetail = () => {
         <div>
           <h5>교육 대상</h5>
           <span>
-            취업을 준비하는 대학 졸업(예정)자 (대학 재학생(3학년~), 휴학,
-            졸업유예, 대학원생, 고졸 가능)
+            {infoList.class_target}
           </span>
         </div>
 
         <div>
           <h5>교육 기간</h5>
-          <span>2023. 11. 21 ~ 2024. 05. 23</span>
+          <span>{infoList.class_startdate} ~ {infoList.class_enddate}</span>
         </div>
 
         <div>
           <h5>교육 설명</h5>
           <span>
-            실무트렌드를 반영해 4~5개월간 기초부터 실무까지 탄탄하게
-            국비교육으로 배울 수 있는 인공지능 특화 취업연계과정 *전체
-            교육과정은 오프라인 집체교육으로 운영됩니다.
+            {infoList.class_content}
           </span>
         </div>
 
         <div>
           <h5>커리큘럼</h5>
-          <span>1주차 O.T 및 Java</span>
+{/*           <span>1주차 O.T 및 Java</span>
           <span>2주차 JavaFestival</span>
-          <span>3주차 MVC패턴</span>
+          <span>3주차 MVC패턴</span> */}
+          {infoList.curriculum}
         </div>
 
         <button type="button" className={style.submit_button}>교육과정 등록</button>
