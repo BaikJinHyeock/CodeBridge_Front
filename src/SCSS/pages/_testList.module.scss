@@ -31,12 +31,11 @@
           display: flex;
           align-items: center;
           justify-content: space-between;
-          background-color: #f3f3f3;
+          background-color: $base-color;
           padding: 16px;
           border-radius: 8px;
           box-shadow: 1px 1px 14px rgba(153, 153, 153, 0.0823529412);
           transition-duration: 200ms;
-          cursor: pointer;
 
           div {
             display: flex;
@@ -57,10 +56,6 @@
                 color: $sub-color;
               }
             }
-          }
-
-          &:hover {
-            background-color: $base-color;
           }
         }
       }
@@ -85,7 +80,7 @@ button {
 .test_btn_tested {
   background-color: #3f626b;
   color: #120c0c;
-  cursor: none;
+  cursor: default !important;
 
 }
 

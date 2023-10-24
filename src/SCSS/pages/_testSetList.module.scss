@@ -10,52 +10,103 @@
     width: 100%;
     padding: 32px 64px;
   }
-}
 
-.title_wrapper {
-  display: flex;
+  .right_container_list {
+    background-color: #ffffff;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 1px 1px 14px rgba(153, 153, 153, 0.0823529412);
 
-  div {
-    background-color: aqua;
+    .right_container_list_button {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
 
-    img {
-      width: 80px;
-      height: 80px;
+      h4 {
+        padding: 6px;
+      }
+
+      .sub_btn {
+        background-color: $main-color;
+        color: $font-sub-color1;
+        transition-duration: 150ms;
+
+        &:hover {
+          background-color: $sub-color;
+        }
+      }
+    }
+
+    .right_container_list_grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 36px;
+
+      .right_container_list_grid_box {
+        background-color: $wrap-bg;
+        padding: 24px;
+        border-radius: 8px;
+        box-shadow: 1px 1px 14px rgba(153, 153, 153, 0.0823529412);
+
+        h5 {
+          font-size: 20px;
+          font-weight: 700;
+          margin-bottom: 20px;
+        }
+        // 문제 css
+        .test_list_item_wrapper {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          // width: 350px;
+          padding: 2rem;
+          transition-duration: 200ms;
+
+          &:not(:last-child) {
+            position: relative;
+
+            &::after {
+              content: "";
+              clear: both;
+              display: block;
+              width: 90%;
+              height: 1px;
+              background-color: white;
+              position: absolute;
+              right: 0;
+              left: 50%;
+              bottom: 0;
+              transform: translateX(-50%);
+            }
+          }
+
+          // 선택 됐을때
+          &.selected {
+            background-color: $main-color;
+
+            .test_list_item_wrapper_level {
+              svg {
+                fill: $font-sub-color1;
+              }
+            }
+          }
+
+          span {
+            font-size: 16px;
+            font-weight: 700;
+          }
+          .test_list_item_wrapper_level {
+            width: 36px;
+            height: 36px;
+            z-index: 9999;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+      }
     }
   }
-}
-
-.test_item_wrapper {
-  background-color: darkgray;
-  display: flex;
-  margin: 1rem;
-  width: 350px;
-  justify-content: space-between;
-
-  .test_item_btn {
-    background-color: rgb(58, 58, 177);
-    color: white;
-  }
-}
-
-
-// 문제 css
-.test_list_item_wrapper {
-  background-color: darkgrey;
-  display: flex;
-  justify-content: space-between;
-  width: 350px;
-  margin: 1rem;
-
-  // 선택 됐을때
-  &.selected {
-    background-color: blue;
-  }
-}
-
-.sub_btn {
-  background-color: aqua;
-  width: 100px;
-  padding: 1rem;
-  cursor: pointer;
 }
