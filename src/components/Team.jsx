@@ -1,5 +1,8 @@
 import React, { useRef } from "react";
 import style from "../SCSS/pages/_team.module.scss";
+import Lottie from "lottie-react";
+
+import Animation from "./Animation";
 
 const Team = () => {
   const videoRef = useRef();
@@ -74,6 +77,154 @@ const Team = () => {
                   <br />
                   가장 가까운곳에서 도움을 드리겠습니다.
                 </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className={style.main_container_intro}>
+          <div className={style.main_container_intro_box}>
+            <div className={style.main_container_intro_box_text}>
+              <span>What you need</span>
+              <h1>Code Bridge를 사용해야하는 이유</h1>
+              <div className={style.main_container_intro_box_text_div}>
+                <div>
+                  {/* 온라인 코딩 교육을 위한 페어 코딩 솔루션 */}
+                  <h3>온라인 코딩 교육을 위한 페어 코딩 솔루션</h3>
+                  <p>1. 교육자와 학생간의 원할한 소통을 위한 페어코딩</p>
+                  <p>2. 교육자의 화면을 공유하며 실시간 수업진행</p>
+                </div>
+                <div>
+                  {/* 코딩 레벨 테스트 솔루션 구현 */}
+                  <h3>코딩 레벨 테스트 솔루션 구현</h3>
+                  <p>1. AI를 활용하여 문제생성</p>
+                  <p>2. 교육자가 채점 할 필요없는 테스트 채점 자동화</p>
+                  <p>3. 과목별, 난이도별 테스트를 통해 다양한 문제 제공</p>
+                </div>
+              </div>
+            </div>
+            <Animation />
+          </div>
+
+          <div className={style.main_container_member}>
+            <span>Who are we</span>
+            <h1>팀원 소개</h1>
+
+            <div className={style.main_container_member_grid}>
+              <div className={style.main_container_member_grid_box}>
+                <div className={style.main_container_member_grid_box_img}>
+                  <img
+                    src="https://i.ibb.co/JBmJ1QH/Kakao-Talk-20231024-164322710-01.png"
+                    alt="img1"
+                  />
+                </div>
+                <table>
+                  <tbody>
+                    <tr>
+                      <td>Name</td>
+                      <td>최수환</td>
+                    </tr>
+                    <tr>
+                      <td>Number</td>
+                      <td>010-8960-7576</td>
+                    </tr>
+                    <tr>
+                      <td>E-Mail</td>
+                      <td>frcp9408@gmail.com</td>
+                    </tr>
+                    <tr>
+                      <td>Position</td>
+                      <td>PM</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div className={style.main_container_member_grid_box}>
+                <div className={style.main_container_member_grid_box_img}>
+                  <img
+                    src="https://i.ibb.co/n6p3bQ9/Kakao-Talk-20231024-164322710-02.png"
+                    alt="img2"
+                  />
+                </div>
+                <table>
+                  <tbody>
+                    <tr>
+                      <td>Name</td>
+                      <td>박송이</td>
+                    </tr>
+                    <tr>
+                      <td>Number</td>
+                      <td>010-2718-0489</td>
+                    </tr>
+                    <tr>
+                      <td>E-Mail</td>
+                      <td>psl5656@naver.com</td>
+                    </tr>
+                    <tr>
+                      <td>Position</td>
+                      <td>Data(AI모델)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div className={style.main_container_member_grid_box}>
+                <div className={style.main_container_member_grid_box_img}>
+                  <img
+                    src="https://i.ibb.co/xf47cQF/Kakao-Talk-20231024-164322710.png"
+                    alt="img3"
+                  />
+                </div>
+                <table>
+                  <tbody>
+                    <tr>
+                      <td>Name</td>
+                      <td>선동욱</td>
+                    </tr>
+                    <tr>
+                      <td>Number</td>
+                      <td>010-9463-6663</td>
+                    </tr>
+                    <tr>
+                      <td>E-Mail</td>
+                      <td>donguk717@gmail.com</td>
+                    </tr>
+                    <tr>
+                      <td>Position</td>
+                      <td>Back-end</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div className={style.main_container_member_grid_box}>
+                <div className={style.main_container_member_grid_box_img}>
+                  <img
+                    src="https://i.ibb.co/ZTNjT1y/Kakao-Talk-20231024-164322710-03.png"
+                    alt="img4"
+                  />
+                </div>
+                <table>
+                  <tbody>
+                    <tr>
+                      <td>Name</td>
+                      <td>백진혁</td>
+                    </tr>
+                    <tr>
+                      <td>Number</td>
+                      <td>010-6451-3350</td>
+                    </tr>
+                    <tr>
+                      <td>E-Mail</td>
+                      <td>me335097@gmail.com</td>
+                    </tr>
+                    <tr>
+                      <td>Position</td>
+                      <td>Front-end</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
