@@ -38,6 +38,8 @@
   }
 }
 
+
+// 문제 css
 .test_list_item_wrapper {
   background-color: darkgrey;
   display: flex;
@@ -45,8 +47,15 @@
   width: 350px;
   margin: 1rem;
 
-  .active {
+  // 선택 됐을때
+  &.selected {
     background-color: blue;
   }
+}
 
+.sub_btn {
+  background-color: aqua;
+  width: 100px;
+  padding: 1rem;
+  cursor: pointer;
 }
