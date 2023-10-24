@@ -5,6 +5,10 @@ import axios from "axios";
 import { useLocation, useParams } from "react-router-dom";
 
 const TestDetail = () => {
+
+  // 스프링 주소
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const sub_num = params.get("sub_num");
@@ -17,17 +21,25 @@ const TestDetail = () => {
   const [selectedTestIndex, setSelectedTestIndex] = useState(null);
 
   const getTestList = async () => {
-    const response = await axios.get(
-      `http://localhost:8085/CodeBridge/Test/detail?sub_num=${sub_num}`
-    );
-    /* console.log("리스폰스 확인", response.data); */
-    SetTestList(response.data);
+    try {
+      const response = await axios.get(`${baseUrl}/CodeBridge/Test/detail?sub_num=${sub_num}`);
+      SetTestList(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
     getTestList();
+
   }, []);
 
+  useEffect(() => {
+    // testList가 존재하고, 길이가 0보다 큰 경우에만 selectall 호출
+    if (testList && testList.length > 0) {
+      selectall(0);
+    }
+  }, [testList]);
   const [testCode, setTestCode] = useState("");
 
   const recieveCode = (code) => {
@@ -80,9 +92,8 @@ const TestDetail = () => {
           <div key={index}>
             <div
               onClick={() => selectall(index)}
-              className={`${style.test_list_container_item} ${
-                selectedTestIndex === index ? style.active : ""
-              }`}
+              className={`${style.test_list_container_item} ${selectedTestIndex === index ? style.active : ""
+                }`}
             >
               {`${index + 1}번 문제`}
             </div>
@@ -100,12 +111,9 @@ const TestDetail = () => {
         </div>
       </div>
       <div className={style.test_compiler}>
-        <CompilerTest className={style.div_box} submittedCode={recieveCode} />
+        {/* <CompilerTest className={style.div_box} submittedCode={recieveCode} /> */}
+        <iframe src="http://59.0.234.207:8083/?folder=/home/smhrd/test" />
 
-        <div className={style.test_submit_container}>
-          <span className={style.logo}>Code Bridge</span>
-          <button className={style.submitButton}>테스트 제출하기</button>
-        </div>
       </div>
     </div>
   );

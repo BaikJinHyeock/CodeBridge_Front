@@ -51,11 +51,17 @@ const TestList_student = () => {
         <div>
           <h5>{props.sub_title}</h5>
         </div>
-        <a href={`/TestDetail?sub_num=${props.sub_num}`}>
-          <button type="button" className={style.test_btn}>
+        {props.tested == 1 ?
+          <Link to={`/TestDetail?sub_num=${props.sub_num}`}>
+            <button type="button" className={style.test_btn}>
+              테스트
+            </button>
+          </Link>
+          :
+          <button type="button" className={style.test_btn_tested}>
             테스트
           </button>
-        </a>
+        }
       </div>
     );
   };
