@@ -65,39 +65,15 @@
         height: calc(100vh - 67px);
         position: relative;
 
+        iframe{
+            width: 100%;
+            height: 100%;
+        }
+
         div{
             height: 100%;
         }
 
-        .test_submit_container{
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: absolute;
-            right: 0rem;
-            bottom: 0;
-            height: auto;
-            width: 100%;
-            background-color: #eeeeee;
-            gap: 16px;
-            padding: 8px;
-
-            .logo{
-                font-size: 20px;
-                font-weight: 800;
-            }
-            .submitButton{
-                background-color: $sub-color;
-                color: $font-sub-color1;
-                transition-duration: 150ms;
-                padding: 14px 20px;
-
-                &:hover{
-                    background-color: $main-color;
-                    
-                }
-            }
-        }
     }
 }
 

@@ -1,0 +1,10 @@
+@import "../abstracts/variables";
+
+.main_container{
+    width: 100%;
+
+    iframe{
+        width: 60%;
+        height: calc(100vh - 67px);
+    }
+}
