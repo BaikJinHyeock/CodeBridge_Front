@@ -44,4 +44,9 @@
   justify-content: space-between;
   width: 350px;
   margin: 1rem;
+
+  .active {
+    background-color: blue;
+  }
+
 }
