@@ -1,15 +1,53 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "react-bootstrap/Image";
 import style from "../SCSS/pages/_testSetList.module.scss";
 import Modal from "react-bootstrap/Modal";
 import { Button } from "react-bootstrap";
-
 import Title from "./Title";
 import Profile from "./Profile";
+import axios from 'axios';
 
-// import 'bootstrap/dist/css/bootstrap.min.css';
 
 const TestList = () => {
+
+  const [selectedTest, setSelectedTest] = useState(null);
+
+  // 스프링 주소
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
+  const [testList, setTestList] = useState([]);
+
+  // 시험목록 긁어오기
+  const getTestList = async (e) => {
+    await axios.get(`${baseUrl}/CodeBridge/Test/getall`)
+      .then(response => {
+        console.log('response확인', response.data);
+        setTestList(response.data)
+      }).catch(error => {
+        console.error(error);
+      })
+  }
+
+  useEffect(() => {
+    getTestList();
+  }, []);
+
+  const level0Tests = [];
+  const level1Tests = [];
+  const level2Tests = [];
+
+
+  // testList 배열을 순회하면서 레벨별로 분류
+  testList.forEach(test => {
+    if (test.test_level === 0) {
+      level0Tests.push(test);
+    } else if (test.test_level === 1) {
+      level1Tests.push(test);
+    } else if (test.test_level === 2) {
+      level2Tests.push(test);
+    }
+  });
+
   // 모달 관련
   const [show, setShow] = useState(false);
 
@@ -30,11 +68,15 @@ const TestList = () => {
     );
   };
 
-  const TestListItem = () => {
+  const TestListItem = (props) => {
+    const handleShow = () => {
+      setSelectedTest(props.props); // 클릭된 항목을 선택하도록 수정
+      setShow(true); // 모달을 열도록 수정
+    };
     return (
       <div className={style.test_list_item_wrapper}>
         <div>
-          <p>Position 기능 사용하기</p>
+          <p>{props.props.test_title}</p>
         </div>
         <div onClick={handleShow}>
           <svg
@@ -62,44 +104,45 @@ const TestList = () => {
       <div className={style.test_list_wrapper}>
         <p>1주차 Java</p>
 
-        <div>
-          <h4>Level 하</h4>
-          <TestListItem />
-          <TestListItem />
-          <TestListItem />
-        </div>
+        {level0Tests.length > 0 && (
+          <div>
+            <h4>Level 하</h4>
+            {level0Tests.map(item => <TestListItem key={item.id} props={item} />)}
+          </div>
+        )}
 
-        <Modal show={show} onHide={handleClose}>
+        {level1Tests.length > 0 && (
+          <div>
+            <h4>Level 중</h4>
+            {level1Tests.map(item => <TestListItem key={item.id} props={item} />)}
+          </div>
+        )}
+
+        {level2Tests.length > 0 && (
+          <div>
+            <h4>Level 상</h4>
+            {level2Tests.map(item => <TestListItem key={item.id} props={item} />)}
+          </div>
+        )}
+
+        <Modal show={show} onHide={handleClose} style={{ top: '20%' }}>
           <Modal.Header closeButton>
-            <Modal.Title>문제 출제</Modal.Title>
+            <Modal.Title>{selectedTest && selectedTest.test_title}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h5>문제 제목</h5>
-            <p>주사위</p>
             <h5>문제 내용</h5>
-            <p>
-              주사위는 위와 같이 생겼다. 주사위의 여섯 면에는 수가 쓰여 있다.
-              위의 전개도를 수가 밖으로 나오게 접는다. A, B, C, D, E, F에 쓰여
-              있는 수가 주어진다. 지민이는 현재 동일한 주사위를 N3개 가지고
-              있다. 이 주사위를 적절히 회전시키고 쌓아서, N×N×N크기의 정육면체를
-              만들려고 한다. 이 정육면체는 탁자위에 있으므로, 5개의 면만 보인다.
-              N과 주사위에 쓰여 있는 수가 주어질 때, 보이는 5개의 면에 쓰여 있는
-              수의 합의 최솟값을 출력하는 프로그램을 작성하시오.
-            </p>
+            <p>{selectedTest && selectedTest.test_contents}</p>
             <h5>제한 조건</h5>
-            <p>
-              첫째 줄에 N이 주어진다. 둘째 줄에 주사위에 쓰여 있는 수가
-              주어진다. 위의 그림에서 A, B, C, D, E, F에 쓰여 있는 수가 차례대로
-              주어진다. N은 1,000,000보다 작거나 같은 자연수이고, 쓰여 있는 수는
-              50보다 작거나 같은 자연수이다.
-            </p>
+            <div
+              dangerouslySetInnerHTML={{ __html: selectedTest && selectedTest.test_condition }}
+            />
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
-              Close
+              닫기
             </Button>
             <Button variant="primary" onClick={handleClose}>
-              Save Changes
+              문제 선택
             </Button>
           </Modal.Footer>
         </Modal>
