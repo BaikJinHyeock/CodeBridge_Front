@@ -17,6 +17,8 @@ const Profile = ({ showEditButton }) => {
     setClassInfo(combinedInfo.classInfo)
   }, [combinedInfo]);
 
+  console.log('프로필엥서 유저인포', userInfo);
+
 
 
 
