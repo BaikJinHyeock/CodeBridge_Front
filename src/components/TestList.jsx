@@ -6,20 +6,33 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import DashRightBox from "./DashRightBox";
 
-
-
 const TestList = () => {
-  const [subList, setSubList] = useState([]); // 데이터를 저장할 상태 추가
+
+  // 스프링 주소
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
+  // redux 값 뺴오기
+  const combinedInfo = useSelector(state => state.combinedInfo);
+
+  const [userInfo, setUserInfo] = useState([]);
+  const [classInfo, setClassInfo] = useState([]);
+
 
   useEffect(() => {
-    getSubs();
-  }, []);
+    setUserInfo(combinedInfo.userInfo)
+    setClassInfo(combinedInfo.classInfo)
+  }, [combinedInfo]);
+
+
+
+  const [subList, setSubList] = useState([]); // 데이터를 저장할 상태 추가
+
 
   const getSubs = async () => {
     console.log('반 번호 확인', classInfo);
     try {
       const response = await axios.get(
-        "http://localhost:8085/CodeBridge/sub/getsub"
+        `${baseUrl}/CodeBridge/sub/getsub?class_num=${classInfo.class_num}`
       );
       console.log("response.data", response.data);
       setSubList(response.data); // 데이터를 상태에 저장
@@ -28,8 +41,9 @@ const TestList = () => {
     }
   };
 
-  // 반 정보 받아오기
-  const classInfo = useSelector(state => state.classInfo);
+  useEffect(() => {
+    getSubs();
+  }, [classInfo]);
 
   const TestItem = ({ props }) => {
     return (
