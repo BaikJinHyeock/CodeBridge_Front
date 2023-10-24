@@ -113,7 +113,7 @@ const Nav = () => {
             <Link to={"#"}>교육과정</Link>
           </li>
           <li>
-            <Link to={"/Team"}>팀소개</Link>
+            <Link to={"/Team"}>팀 소개</Link>
           </li>
           <li>
             <Link to={"/ClassWrite"}>강의실/과목</Link>
