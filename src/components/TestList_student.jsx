@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import DashRightBox from "./DashRightBox";
 
-const TestList = () => {
+const TestList_student = () => {
 
   // 스프링 주소
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -79,4 +79,4 @@ const TestList = () => {
   );
 };
 
-export default TestList;
+export default TestList_student;

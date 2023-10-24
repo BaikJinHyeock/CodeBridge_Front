@@ -27,7 +27,8 @@ import MarkList from "./components/MarkList";
 import Profile from "./components/Profile";
 import SubWrite from "./components/SubWrite";
 import Title from "./components/Title";
-import TestList from "./components/TestList";
+import TestList_student from "./components/TestList_student";
+import TestList_teacher from "./components/TestList_teacher";
 
 function App() {
   const location = useLocation();
@@ -75,7 +76,8 @@ function App() {
 
           <Route path="/SubWrite" element={<SubWrite />}></Route>
 
-          <Route path="/TestList" element={<TestList />}></Route>
+          <Route path="/TestList/student" element={<TestList_student />}></Route>
+          <Route path="/TestList/teacher" element={<TestList_teacher />}></Route>
           <Route path="/TestSetList" element={<TestSetList />}></Route>
           <Route path="/TestWrite" element={<TestWrite />}></Route>
           <Route path="/TestDetail" element={<TestDetail />}></Route>

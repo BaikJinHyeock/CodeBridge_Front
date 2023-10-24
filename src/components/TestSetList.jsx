@@ -6,9 +6,14 @@ import { Button } from "react-bootstrap";
 import Title from "./Title";
 import Profile from "./Profile";
 import axios from 'axios';
+import { useLocation } from "react-router";
 
 
 const TestList = () => {
+
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const sub_num = params.get("sub_num");
 
   const [selectedTest, setSelectedTest] = useState(null);
 
@@ -51,7 +56,12 @@ const TestList = () => {
   // 모달 관련
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    if (selectedTest) {
+      setSelectSubNum(prev => prev + (prev ? "," : "") + selectedTest.test_num);
+    }
+    setShow(false);
+  }
   const handleShow = () => setShow(true);
 
   // 모달 관련
@@ -69,12 +79,16 @@ const TestList = () => {
   };
 
   const TestListItem = (props) => {
+    const isSelected = selectedTest && selectedTest.id === props.props.id;
     const handleShow = () => {
       setSelectedTest(props.props); // 클릭된 항목을 선택하도록 수정
       setShow(true); // 모달을 열도록 수정
     };
     return (
-      <div className={style.test_list_item_wrapper}>
+      <div
+        className={`${style.test_list_item_wrapper} ${isSelected ? style.active : ""}`}
+        onClick={handleShow}
+      >
         <div>
           <p>{props.props.test_title}</p>
         </div>
@@ -93,6 +107,12 @@ const TestList = () => {
       </div>
     );
   };
+
+  // 선택한 과목 제출 관련 코드
+  const [selectSubNum, setSelectSubNum] = useState("");
+
+  console.log('선택번호 확인', selectSubNum);
+
 
   return (
     <div className={style.wrap_container}>
