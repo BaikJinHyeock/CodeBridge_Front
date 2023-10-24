@@ -46,16 +46,24 @@ const TestList_teacher = () => {
     }, [classInfo]);
 
     const TestItem = ({ props }) => {
+        console.log('props확인', props);
         return (
             <div className={style.item}>
                 <div>
                     <h5>{props.sub_title}</h5>
                 </div>
-                <Link to={`/testsetlist?sub_num=${props.sub_num}`}>
-                    <button type="button" className={style.test_btn}>
+                {props.tested == 1 ?
+                    <button type="button" className={style.test_btn_tested}>
                         테스트 출제하기
                     </button>
-                </Link>
+                    :
+                    <Link to={`/testsetlist?sub_num=${props.sub_num}`}>
+                        <button type="button" className={style.test_btn}>
+                            테스트 출제하기
+                        </button>
+                    </Link>
+                }
+
             </div>
         );
     };
