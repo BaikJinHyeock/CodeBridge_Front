@@ -201,7 +201,7 @@ const Team = () => {
               <div className={style.main_container_member_grid_box}>
                 <div className={style.main_container_member_grid_box_img}>
                   <img
-                    src="https://i.ibb.co/ZTNjT1y/Kakao-Talk-20231024-164322710-03.png"
+                    src="https://i.ibb.co/chtw3yC/Kakao-Talk-20231024-201041810.png"
                     alt="img4"
                   />
                 </div>
@@ -229,6 +229,12 @@ const Team = () => {
             </div>
           </div>
         </div>
+
+        <div className={style.main_container_end}>
+          <h1>Code Bridge</h1>
+          <span>Coding training for both instructors and students</span>
+        </div>
+
       </div>
     </div>
   );
