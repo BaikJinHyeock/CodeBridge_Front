@@ -9,6 +9,7 @@ const TestDetail = () => {
   // 스프링 주소
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
+
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const sub_num = params.get("sub_num");
@@ -31,8 +32,11 @@ const TestDetail = () => {
 
   useEffect(() => {
     getTestList();
-
   }, []);
+
+
+  console.log('testList확인', testList);
+
 
   useEffect(() => {
     // testList가 존재하고, 길이가 0보다 큰 경우에만 selectall 호출
@@ -57,7 +61,7 @@ const TestDetail = () => {
       sub_code: testCode,
     };
     const response = await axios.post(
-      "http://localhost:8085/CodeBridge/Code/submit",
+      "http://localhost:8085/CodeBridge/code/submit",
       subTest
     );
 
@@ -69,21 +73,43 @@ const TestDetail = () => {
     setTestCondition(testList[index].test_condition);
     setSelectedTestIndex(index);
   };
-  // const selectall = (e) => {
-  //   const index = e.currentTarget.getAttribute("data-index")
-  //   console.log("index는?");
-  //   setTestcontents(testList[index].test_contents);
-  //   setTestCondotion(testList[index].test_condition);
 
-  //   const elements = document.querySelectorAll(`.${style.test_list_container_item}`);
+  const [subTestCode, setSubTestCode] = useState([]);
 
-  //   elements.forEach((element) => {
-  //     element.classList.remove('active');
-  //   });
+  console.log('코드 확인', subTestCode);
 
-  //   e.currentTarget.classList.add('active');
 
-  // }
+  const updateSubTestCode = (index, code) => {
+    const updatedCode = [...subTestCode];
+    updatedCode[index] = code;
+    setSubTestCode(updatedCode);
+  };
+
+
+  const subCodeList = async () => {
+    const testNumArray = testList.map(test => test.test_num);
+
+    let obj = {
+      test_num: testNumArray,
+      user_id: sessionStorage.getItem("memberId"),
+      sub_code: subTestCode,
+      sub_num: sub_num
+    };
+    console.log('obj 확인', obj);
+    try {
+      const response = await axios.post(
+        `${baseUrl}/CodeBridge/code/sub-code-list`, obj
+      );
+      console.log("response.data", response.data);
+      alert("제출 성공!")
+      // window.location.href = "/TestList/student";
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+
 
   return (
     <div className={style.wrap_container}>
@@ -101,14 +127,35 @@ const TestDetail = () => {
         ))}
       </div>
       <div className={style.test_condition}>
-        <div className={style.test_condition_explan}>
-          <h4>문제설명</h4>
-          <p>{testcontents}</p>
+
+        {testList[selectedTestIndex] &&
+          <>
+            <div className={style.test_condition_explan}>
+              <h4>문제설명</h4>
+              <p>{testList[selectedTestIndex].test_contents}</p>
+            </div>
+            <div className={style.test_condition_explan}>
+              <h4>제한사항</h4>
+              <span
+              dangerouslySetInnerHTML={{
+                __html: testList[selectedTestIndex].test_condition
+              }}
+            />
+              {/* <p>{testList[selectedTestIndex].test_condition}</p> */}
+            </div>
+            <textarea
+              name=""
+              className="form-control"
+              placeholder="Problem description"
+              value={subTestCode[selectedTestIndex] || ''}
+              onChange={(e) => updateSubTestCode(selectedTestIndex, e.target.value)}
+            />
+          </>
+        }
+        <div className={style.code_sub_btn} onClick={subCodeList}>
+          제출하기
         </div>
-        <div className={style.test_condition_explan}>
-          <h4>제한사항</h4>
-          <p>{condition}</p>
-        </div>
+
       </div>
       <div className={style.test_compiler}>
         {/* <CompilerTest className={style.div_box} submittedCode={recieveCode} /> */}

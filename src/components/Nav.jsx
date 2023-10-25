@@ -60,7 +60,6 @@ const Nav = () => {
       })
   };
 
-  console.log('유저이;ㄴ포 확인', userInfo);
 
   const dispatch = useDispatch();
   useEffect(() => {

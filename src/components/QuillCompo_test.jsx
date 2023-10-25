@@ -26,7 +26,7 @@ const QuillCompo_test = ({ update }) => {
                 container: [
                     [{ header: [1, 2, 3, false] }],
                     ["bold", "italic", "underline", "strike", "blockquote"],
-                    [{ color: [] }, { background: [] }],
+                    // [{ color: [] }, { background: [] }],
                 ],
             },
         };

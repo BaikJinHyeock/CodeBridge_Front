@@ -17,11 +17,6 @@ const Profile = ({ showEditButton }) => {
     setClassInfo(combinedInfo.classInfo)
   }, [combinedInfo]);
 
-  console.log('프로필엥서 유저인포', userInfo);
-
-
-
-
   return (
     <div className={style.profile_box}>
       <div className={style.profile_box_after}>
