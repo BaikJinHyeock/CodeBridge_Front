@@ -7,9 +7,10 @@ import Join from "./components/Join";
 import Login from "./components/Login";
 import Main from "./components/Main";
 import Nav from "./components/Nav";
+import Footer from "./components/Footer";
 import SetInfo from "./components/SetInfo";
 import Team from "./components/Team";
-// import StudyTest from "./components/StudyTest";
+
 import ClassRoom from "./components/ClassRoom";
 import ClassDetail from "./components/ClassDetail";
 import ClassWrite from "./components/ClassWrite";
@@ -50,6 +51,9 @@ function App() {
   const RenderHeader = () => {
     return location.pathname !== "/Login" && location.pathname !== "/Join";
   };
+  const RenderFooter = () => {
+    return location.pathname !== "/Login" && location.pathname !== "/Join";
+  };
 
   return (
     <>
@@ -59,6 +63,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />}></Route>
           <Route path="/Title" element={<Title />}></Route>
+          <Route path="/Footer" element={<Footer />}></Route>
 
           <Route path="/Profile" element={<Profile />}></Route>
           <Route path="/SetInfo" element={<SetInfo />}></Route>
@@ -88,6 +93,9 @@ function App() {
           <Route path="/MarkDetail" element={<MarkDetail />}></Route>
         </Routes>
       </div>
+      
+      {RenderFooter() && <Footer/>}
+      
     </>
   );
 }
