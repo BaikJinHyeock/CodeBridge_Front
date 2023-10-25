@@ -126,7 +126,7 @@ const Nav = () => {
 
       <div className={style.right_container}>
         <ul>
-          {userInfo ? (
+          {(id) ? (
             <li className={style.right_container_profile_text}>
               <a href="/DashBoard">대시보드</a>
               {/* <Link to={"/DashBoard"}>대쉬보드</Link> */}
