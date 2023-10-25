@@ -1,10 +1,33 @@
 @import "../abstracts/variables";
 
-.main_container{
+.main_container {
     width: 100%;
+    height: calc(100vh - 67px);
+    display: flex;
 
     iframe{
-        width: 60%;
-        height: calc(100vh - 67px);
+        height: 100%;
+        width: 80%;
+    }
+    .main_container_right{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 20%;
+        height: 100%;
+        background-color: #999999;
+
+        .main_container_right_buttons{
+            width: 100%;
+            display: flex;
+            gap: 16px;
+            justify-content: space-around;
+            margin: 6px auto;
+        }
+        .main_container_right_chat{
+            width: 100%;
+            height: 95%;
+            background-color: white;
+        }
     }
 }
