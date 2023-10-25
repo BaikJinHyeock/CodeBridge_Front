@@ -10,7 +10,7 @@ import { updateTeacherInfo } from "../actions/teacherInfoActions";
 import { updateAllInfo } from "../actions/updateAllInfo";
 
 const Nav = () => {
-  const [loginOk, setLoginOk] = useState(false);
+
 
   // 로그인했으면 상단 로그인,회원가입변경
   const id = sessionStorage.getItem("memberId");
@@ -25,6 +25,11 @@ const Nav = () => {
   const [isProfileVisible, setIsProfileVisible] = useState(false);
   const moveSetInfo = () => {
     navigate("/SetInfo");
+  };
+
+  const logOut = () => {
+    sessionStorage.removeItem("memberId");
+        window.location.href = "/";
   };
   const toggleProfile = () => {
     setIsProfileVisible(!isProfileVisible);
@@ -149,7 +154,7 @@ const Nav = () => {
             </li>
           )}
 
-          {userInfo ? (
+          {id ? (
             <li
               className={style.right_container_profile_img}
               onClick={toggleProfile}
@@ -171,19 +176,19 @@ const Nav = () => {
             <div className={style.toggle_box_profile}>
               <div className={style.toggle_box_profile_img}>
                 <Image
-                  src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjA4MjlfMTk1%2FMDAxNjYxNzM1OTIzNDE3.TpgGD2CkMeEiD5aGrxCWUT6CVICv9JeozyVCNXlRzX4g.uuoGM5jHgf1epnhn15jIS-osj2K4cS-5MuI967MlINEg.JPEG.twix73%2F%25C0%25CC%25B1%25DB%25C0%25CC%25B1%25DB.jpg&type=a340"
+                  src={userInfo.user_pic}
                   alt="프로필 미리보기"
                   roundedCircle
                 />
               </div>
               <div className={style.toggle_box_profile_text}>
-                <h5>백진혁</h5>
-                <span>me335097@gmail.com</span>
+                <h5>{userInfo.user_name}</h5>
+                <span>{id}</span>
               </div>
             </div>
 
             <div className={style.toggle_box_buttons}>
-              <button type="button" className={style.button_logout}>
+              <button type="button" className={style.button_logout} onClick={logOut}>
                 로그아웃
               </button>
               <button
