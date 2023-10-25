@@ -22,10 +22,13 @@ const Nav = () => {
 
   // 토글 프로필 로그아웃, 정보수정이동
   const navigate = useNavigate();
-
+  const [isProfileVisible, setIsProfileVisible] = useState(false);
   const moveSetInfo = () => {
     navigate("/SetInfo");
-  }
+  };
+  const toggleProfile = () => {
+    setIsProfileVisible(!isProfileVisible);
+  };
 
   useEffect(() => {
     memberSearching();
@@ -147,7 +150,10 @@ const Nav = () => {
           )}
 
           {userInfo ? (
-            <li className={style.right_container_profile_img}>
+            <li
+              className={style.right_container_profile_img}
+              onClick={toggleProfile}
+            >
               <Image
                 src={userInfo.user_pic}
                 alt="프로필 미리보기"
@@ -160,26 +166,36 @@ const Nav = () => {
             </li>
           )}
         </ul>
-        <div className={style.toggle_box}>
-          <div className={style.toggle_box_profile}>
-            <div className={style.toggle_box_profile_img}>
-              <Image
-                src={userInfo.user_pic}
-                alt="프로필 미리보기"
-                roundedCircle
-              />
+        {isProfileVisible && (
+          <div className={style.toggle_box}>
+            <div className={style.toggle_box_profile}>
+              <div className={style.toggle_box_profile_img}>
+                <Image
+                  src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjA4MjlfMTk1%2FMDAxNjYxNzM1OTIzNDE3.TpgGD2CkMeEiD5aGrxCWUT6CVICv9JeozyVCNXlRzX4g.uuoGM5jHgf1epnhn15jIS-osj2K4cS-5MuI967MlINEg.JPEG.twix73%2F%25C0%25CC%25B1%25DB%25C0%25CC%25B1%25DB.jpg&type=a340"
+                  alt="프로필 미리보기"
+                  roundedCircle
+                />
+              </div>
+              <div className={style.toggle_box_profile_text}>
+                <h5>백진혁</h5>
+                <span>me335097@gmail.com</span>
+              </div>
             </div>
-            <div className={style.toggle_box_profile_text}>
-              <h5>백진혁</h5>
-              <span>me335097@gmail.com</span>
-            </div>
-          </div>
 
-          <div className={style.toggle_box_buttons}>
-            <button type="button" className={style.button_logout}>로그아웃</button>
-            <button type="button" className={style.button_setInfo} onClick={moveSetInfo}>정보수정</button>
+            <div className={style.toggle_box_buttons}>
+              <button type="button" className={style.button_logout}>
+                로그아웃
+              </button>
+              <button
+                type="button"
+                className={style.button_setInfo}
+                onClick={moveSetInfo}
+              >
+                정보수정
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
