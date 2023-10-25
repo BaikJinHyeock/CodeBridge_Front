@@ -203,13 +203,12 @@
 
       .toggle_box_buttons {
         display: flex;
-        gap: 6px;
         justify-content: space-between;
         padding-top: 12px;
 
         button {
           font-size: 12px;
-          padding: 10px 20px
+          padding: 8px 14px
         }
         .button_logout{
           transition-duration: 150ms;

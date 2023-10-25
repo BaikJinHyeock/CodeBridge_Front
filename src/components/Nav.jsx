@@ -10,8 +10,6 @@ import { updateTeacherInfo } from "../actions/teacherInfoActions";
 import { updateAllInfo } from "../actions/updateAllInfo";
 
 const Nav = () => {
-
-
   // 로그인했으면 상단 로그인,회원가입변경
   const id = sessionStorage.getItem("memberId");
 
@@ -25,11 +23,13 @@ const Nav = () => {
   const [isProfileVisible, setIsProfileVisible] = useState(false);
   const moveSetInfo = () => {
     navigate("/SetInfo");
+    setIsProfileVisible(!isProfileVisible);
   };
 
   const logOut = () => {
     sessionStorage.removeItem("memberId");
-        window.location.href = "/";
+    setIsProfileVisible(!isProfileVisible);
+    window.location.href = "/";
   };
   const toggleProfile = () => {
     setIsProfileVisible(!isProfileVisible);
@@ -78,7 +78,6 @@ const Nav = () => {
         console.error(error);
       });
   };
-
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -187,7 +186,11 @@ const Nav = () => {
             </div>
 
             <div className={style.toggle_box_buttons}>
-              <button type="button" className={style.button_logout} onClick={logOut}>
+              <button
+                type="button"
+                className={style.button_logout}
+                onClick={logOut}
+              >
                 로그아웃
               </button>
               <button
