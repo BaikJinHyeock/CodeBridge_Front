@@ -17,6 +17,7 @@ import ClassWrite from "./components/ClassWrite";
 import DashBoard from "./components/DashBoard";
 import DashLeftBox from "./components/DashLeftBox";
 import DashRightBox from "./components/DashRightBox";
+import DashRightBoxTeacher from "./components/DashRightBoxTeacher";
 
 import TestDetail from "./components/TestDetail";
 import TestSetList from "./components/TestSetList";
@@ -69,6 +70,7 @@ function App() {
           <Route path="/DashBoard" element={<DashBoard />}></Route>
           <Route path="/DashLeftBox" element={<DashLeftBox />}></Route>
           <Route path="/DashRighttBox" element={<DashRightBox />}></Route>
+          <Route path="/DashRightBoxTeacher" element={<DashRightBoxTeacher />}></Route>
 
           <Route path="/ClassDetail" element={<ClassDetail />}></Route>
           <Route path="/ClassRoom" element={<ClassRoom />}></Route>

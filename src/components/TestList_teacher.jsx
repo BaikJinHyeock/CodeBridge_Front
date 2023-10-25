@@ -4,7 +4,7 @@ import Profile from './Profile';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import DashRightBox from "./DashRightBox";
+import DashRightBoxTeacher from "./DashRightBoxTeacher";
 
 const TestList_teacher = () => {
 
@@ -82,7 +82,7 @@ const TestList_teacher = () => {
                     </div>
                 </div>
             </div>
-            <DashRightBox />
+            <DashRightBoxTeacher />
         </div>
     );
 };
