@@ -84,17 +84,20 @@ const Nav = () => {
       });
   };
 
+
+  const [isClass, setIsClass] = useState();
+
+  // 반 있는지 확인
   const isClassed = async () => {
     console.log('Nav 아이디 확인', id);
     try {
       const response = await axios.get(`${baseUrl}/CodeBridge/class/findbyid?user_id=${id}`);
       console.log('결과 ', response.data);
+      setIsClass(response.data);
     } catch (error) {
       console.error(error);
     }
   };
-
-
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -160,8 +163,17 @@ const Nav = () => {
         <ul>
           {id ? (
             <li className={style.right_container_profile_text}>
-              <a href="/DashBoard">대시보드</a>
-              {/* <Link to={"/DashBoard"}>대쉬보드</Link> */}
+              {isClass ? (
+                <li className={style.right_container_profile_text}>
+                  <Link to={"/DashBoard"}>
+                    대시보드
+                  </Link>
+                </li>
+              ) : (
+                <li>
+                  <button onClick={() => alert("반이 없습니다")}>대시보드</button>
+                </li>
+              )}
             </li>
           ) : (
             <li>
