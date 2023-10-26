@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 
 import style from "../SCSS/pages/_join.module.scss";
 
+// 스프링 주소
+const baseUrl = process.env.REACT_APP_BASE_URL;
+
 const Join = () => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
@@ -11,7 +14,7 @@ const Join = () => {
   const [name1, setName1] = useState("");
   const [nick, setNick] = useState("");
   const [phone, setPhone] = useState("");
-  // const [type, setType] = useState("type");
+  const [type, setType] = useState("");
 
   const [idErrMsg, setIdErrMsg] = useState(""); // 아이디(이메일)형식 에러 메세지
   const [idCheckMsg, setIdCheckMsg] = useState(""); // 아이디 사용가능 메세지
@@ -30,37 +33,47 @@ const Join = () => {
 
   const JoinMember = async (e) => {
     console.log("check1 확인", check1);
-    e.preventDefault();
-    if (
-      check1 === 1 &&
-      check2 === 1 &&
-      check3 === 1 &&
-      check4 === 1 &&
-      check5 === 1 &&
-      check6 === 1
-    ) {
-      console.log("진입완료1");
-
-      let member = {
-        user_id: id,
-        user_pw: password,
-        user_name: name1,
-        user_nick: nick,
-        user_phone: phone,
-        // user_type: type,
-      };
-      const response = await axios.post(
-        "http://localhost:8085/CodeBridge/Member/join",
-        member
-      );
-
-      alert("회원가입 성공");
-      console.log("리스폰스 확인", response);
-      window.location.href = "/Login";
+    if (!type) {
+      alert("타입을 선택해 주세요");
     } else {
-      return alert("잘못입력된 정보가 있습니다.");
+      e.preventDefault();
+      if (
+        check1 === 1 &&
+        check2 === 1 &&
+        check3 === 1 &&
+        check4 === 1 &&
+        check5 === 1 &&
+        check6 === 1
+      ) {
+        console.log("진입완료1");
+
+        let obj = {
+          user_id: id,
+          user_pw: password,
+          user_name: name1,
+          user_nick: nick,
+          user_phone: phone,
+          user_type: type,
+        };
+
+        console.log('obj 확인', obj);
+
+        const response = await axios.post(
+          `${baseUrl}/CodeBridge/member/join`,
+          obj
+        );
+
+        alert("회원가입 성공");
+        console.log("리스폰스 확인", response);
+        window.location.href = "/Login";
+      } else {
+        return alert("잘못입력된 정보가 있습니다.");
+      }
     }
+
   };
+
+  console.log('type확', type);
 
   //아이디중복확인,형식 메소드
   const idValidation = async (e) => {
@@ -76,7 +89,7 @@ const Join = () => {
         user_id: id,
       };
       const response = await axios
-        .post("http://localhost:8085/CodeBridge/Member/idCheck", obj)
+        .post("http://localhost:8085/CodeBridge/member/idCheck", obj)
         .then((res) => {
           console.log("res", res.data);
           const resMessge = res.data;
@@ -150,6 +163,7 @@ const Join = () => {
       setCheck6(1);
     }
   };
+
 
   return (
     <div className={style.wrap_container}>
@@ -232,9 +246,10 @@ const Join = () => {
                 name="user_type"
                 id="student"
                 autocomplete="off"
-                checked
+                value="0"
+                onChange={(e) => setType(e.target.value)}
               />
-              <label class="btn" for="student">
+              <label class="btn" htmlFor="student">
                 Student
               </label>
 
@@ -244,8 +259,10 @@ const Join = () => {
                 name="user_type"
                 id="Teacher"
                 autocomplete="off"
+                value="1"
+                onChange={(e) => setType(e.target.value)}
               />
-              <label class="btn" for="Teacher">
+              <label class="btn" htmlFor="Teacher">
                 Teacher
               </label>
             </div>

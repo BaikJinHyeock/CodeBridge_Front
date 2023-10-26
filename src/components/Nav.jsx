@@ -45,7 +45,7 @@ const Nav = () => {
       user_id: id,
     };
     await axios
-      .post(`http://localhost:8085/CodeBridge/Member/memcheck`, mem)
+      .post(`http://localhost:8085/CodeBridge/member/memcheck`, mem)
       .then((response) => {
         setUserInfo(response.data[0]);
         let obj = {
@@ -60,7 +60,7 @@ const Nav = () => {
             };
             axios
               .post(
-                `http://localhost:8085/CodeBridge/Member/memberInfoTeacher`,
+                `http://localhost:8085/CodeBridge/member/memberInfoTeacher`,
                 obj
               )
               .then((response) => {
