@@ -24,7 +24,7 @@ const Footer = () => {
           </p>
         </div>
       </div>
-        <h3>Copyright&copy;2002 webzigi All rights reserved.</h3>
+        <h3>Copyright&copy;2023 CodeBridge All rights reserved.</h3>
     </div>
   );
 };
