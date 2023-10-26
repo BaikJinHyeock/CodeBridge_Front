@@ -16,6 +16,7 @@ import ClassDetail from "./components/ClassDetail";
 import ClassWrite from "./components/ClassWrite";
 
 import DashBoard from "./components/DashBoard";
+import DashAdmin from "./components/DashAdmin";
 import DashLeftBox from "./components/DashLeftBox";
 import DashRightBox from "./components/DashRightBox";
 import DashRightBoxTeacher from "./components/DashRightBoxTeacher";
@@ -56,6 +57,7 @@ function App() {
       location.pathname !== "/Login" &&
       location.pathname !== "/Join" &&
       location.pathname !== "/DashBoard" &&
+      location.pathname !== "/DashAdmin" &&
       location.pathname !== "/ClassRoom" &&
       location.pathname !== "/ClassWrite" &&
       location.pathname !== "/ClassDetail" &&
@@ -87,6 +89,7 @@ function App() {
           <Route path="/Team" element={<Team />}></Route>
 
           <Route path="/DashBoard" element={<DashBoard />}></Route>
+          <Route path="/DashAdmin" element={<DashAdmin />}></Route>
           <Route path="/DashLeftBox" element={<DashLeftBox />}></Route>
           <Route path="/DashRighttBox" element={<DashRightBox />}></Route>
           <Route
