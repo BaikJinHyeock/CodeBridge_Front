@@ -6,10 +6,235 @@
     overflow: scroll;
     height: calc(100vh - 4rem);
     display: flex;
-  
-    .right_container {
-      width: 80%;
-      padding: 32px 64px;
 
+    .right_container {
+        width: 80%;
+        padding: 32px 64px;
+        display: flex;
+        flex-direction: column;
+
+        .right_container_wrap {
+            display: flex;
+            gap: 32px;
+            justify-content: space-between;
+
+            .right_container_wrap_info {
+                background-color: $font-sub-color1;
+                width: 50%;
+                padding: 32px;
+                border-radius: 10px;
+                box-shadow: $box-shadow;
+
+                .setTable {
+                    margin: 36px 0;
+                    width: 100%;
+
+                    tr {
+                        &:nth-child(5) {
+                            td {
+                                &:last-child {
+                                    button {
+                                        background-color: #d32f2f;
+                                        color: $font-sub-color1;
+                                        font-size: 12px;
+                                        transition-duration: 150ms;
+
+                                        &:hover {
+                                            background-color: #ff0000;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        td {
+                            padding: 1rem;
+                            border-collapse: collapse;
+
+                            &:first-child {
+                                border-right: 1px solid rgba(0, 0, 0, 0.06);
+                                font-size: 14px;
+                                color: #999;
+                                width: 25%;
+                            }
+
+                            // 회원 이름 변경
+                            .setTable_userId {
+                                border-collapse: collapse;
+
+                                .setTable_userId_originId {
+                                    display: flex;
+                                    justify-content: flex-start;
+                                    gap: 8px;
+                                    align-items: center;
+
+                                    svg {
+                                        cursor: pointer;
+                                    }
+                                }
+
+                                form {
+                                    width: 20rem;
+                                    display: none;
+                                    flex-direction: column;
+
+                                    div {
+                                        &:first-child {
+                                            position: relative;
+
+                                            span {
+                                                position: absolute;
+                                                left: 0;
+                                                bottom: -1rem;
+                                                font-size: 12px;
+                                                font-weight: 600;
+                                                color: #ff0000;
+                                            }
+                                        }
+
+                                        &:last-child {
+                                            display: flex;
+                                            gap: 12px;
+                                            justify-content: flex-end;
+
+                                            button {
+                                                font-size: 12px;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            // 회원 이름 변경완료
+
+                            // 회원 비밀번호 변경
+                            .setTable_userPw {
+                                border-collapse: collapse;
+
+                                .setTable_userPw_originId {
+                                    display: flex;
+                                    justify-content: flex-start;
+                                    gap: 8px;
+                                    align-items: center;
+
+                                    svg {
+                                        cursor: pointer;
+                                    }
+                                }
+
+                                form {
+                                    width: 20rem;
+                                    display: none;
+                                    flex-direction: column;
+
+                                    div {
+                                        &:first-child {
+                                            position: relative;
+
+                                            span {
+                                                position: absolute;
+                                                left: 0;
+                                                bottom: -1rem;
+                                                font-size: 12px;
+                                                font-weight: 600;
+                                                color: #ff0000;
+                                            }
+                                        }
+
+                                        &:nth-child(2) {
+                                            position: relative;
+
+                                            span {
+                                                position: absolute;
+                                                left: 0;
+                                                bottom: -1rem;
+                                                font-size: 12px;
+                                                font-weight: 600;
+                                                color: #ff0000;
+                                            }
+                                        }
+
+                                        &:last-child {
+                                            display: flex;
+                                            gap: 12px;
+                                            justify-content: flex-end;
+
+                                            button {
+                                                font-size: 12px;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            // 회원 비밀번호 변경완료
+
+                            // 회원 휴대폰번호 변경
+                            .setTable_userNum {
+                                border-collapse: collapse;
+
+                                .setTable_userNum_originId {
+                                    display: flex;
+                                    justify-content: flex-start;
+                                    gap: 8px;
+                                    align-items: center;
+
+                                    svg {
+                                        cursor: pointer;
+                                    }
+                                }
+
+                                form {
+                                    width: 20rem;
+                                    display: none;
+                                    flex-direction: column;
+
+                                    div {
+                                        &:first-child {
+                                            position: relative;
+
+                                            span {
+                                                position: absolute;
+                                                left: 0;
+                                                bottom: -1rem;
+                                                font-size: 12px;
+                                                font-weight: 600;
+                                                color: #ff0000;
+                                            }
+                                        }
+
+                                        &:last-child {
+                                            display: flex;
+                                            gap: 12px;
+                                            justify-content: flex-end;
+
+                                            button {
+                                                font-size: 12px;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            // 회원 휴대폰번호 변경완료
+                        }
+                    }
+                }
+            }
+
+            .right_container_wrap_student {
+                background-color: $font-sub-color1;
+                padding: 32px;
+                border-radius: 10px;
+                box-shadow: $box-shadow;
+            }
+
+            .right_container_wrap_accept {
+                background-color: $font-sub-color1;
+                padding: 32px;
+                border-radius: 10px;
+                box-shadow: $box-shadow;
+            }
+        }
     }
 }
