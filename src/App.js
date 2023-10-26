@@ -52,7 +52,21 @@ function App() {
     return location.pathname !== "/Login" && location.pathname !== "/Join";
   };
   const RenderFooter = () => {
-    return location.pathname !== "/Login" && location.pathname !== "/Join";
+    return (
+      location.pathname !== "/Login" &&
+      location.pathname !== "/Join" &&
+      location.pathname !== "/DashBoard" &&
+      location.pathname !== "/ClassRoom" &&
+      location.pathname !== "/ClassWrite" &&
+      location.pathname !== "/ClassDetail" &&
+      location.pathname !== "/TestWrite" &&
+      location.pathname !== "/TestList/student" &&
+      location.pathname !== "/TestList/teacher" &&
+      location.pathname !== "/MarkList" &&
+      location.pathname !== "/MarkDetail" &&
+      location.pathname !== "/SetInfo" &&
+      location.pathname !== "/SubWrite"
+    );
   };
 
   return (
@@ -75,7 +89,10 @@ function App() {
           <Route path="/DashBoard" element={<DashBoard />}></Route>
           <Route path="/DashLeftBox" element={<DashLeftBox />}></Route>
           <Route path="/DashRighttBox" element={<DashRightBox />}></Route>
-          <Route path="/DashRightBoxTeacher" element={<DashRightBoxTeacher />}></Route>
+          <Route
+            path="/DashRightBoxTeacher"
+            element={<DashRightBoxTeacher />}
+          ></Route>
 
           <Route path="/ClassDetail" element={<ClassDetail />}></Route>
           <Route path="/ClassRoom" element={<ClassRoom />}></Route>
@@ -83,8 +100,14 @@ function App() {
 
           <Route path="/SubWrite" element={<SubWrite />}></Route>
 
-          <Route path="/TestList/student" element={<TestList_student />}></Route>
-          <Route path="/TestList/teacher" element={<TestList_teacher />}></Route>
+          <Route
+            path="/TestList/student"
+            element={<TestList_student />}
+          ></Route>
+          <Route
+            path="/TestList/teacher"
+            element={<TestList_teacher />}
+          ></Route>
           <Route path="/TestSetList" element={<TestSetList />}></Route>
           <Route path="/TestWrite" element={<TestWrite />}></Route>
           <Route path="/TestDetail" element={<TestDetail />}></Route>
@@ -93,9 +116,8 @@ function App() {
           <Route path="/MarkDetail" element={<MarkDetail />}></Route>
         </Routes>
       </div>
-      
-      {RenderFooter() && <Footer/>}
-      
+
+      {RenderFooter() && <Footer />}
     </>
   );
 }
