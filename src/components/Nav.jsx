@@ -10,6 +10,10 @@ import { updateTeacherInfo } from "../actions/teacherInfoActions";
 import { updateAllInfo } from "../actions/updateAllInfo";
 
 const Nav = () => {
+
+  // 스프링 주소
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   // 로그인했으면 상단 로그인,회원가입변경
   const id = sessionStorage.getItem("memberId");
 
@@ -37,6 +41,7 @@ const Nav = () => {
 
   useEffect(() => {
     memberSearching();
+    isClassed();
   }, []);
 
   // 회원정보 조회
@@ -45,14 +50,14 @@ const Nav = () => {
       user_id: id,
     };
     await axios
-      .post(`http://localhost:8085/CodeBridge/member/memcheck`, mem)
+      .post(`${baseUrl}/CodeBridge/member/memcheck`, mem)
       .then((response) => {
         setUserInfo(response.data[0]);
         let obj = {
           class_num: response.data[0].class_num,
         };
         axios
-          .post(`http://localhost:8085/CodeBridge/Class/findnum`, obj)
+          .post(`${baseUrl}/CodeBridge/class/findnum`, obj)
           .then((response) => {
             setClassInfo(response.data[0]);
             let obj = {
@@ -60,7 +65,7 @@ const Nav = () => {
             };
             axios
               .post(
-                `http://localhost:8085/CodeBridge/member/memberInfoTeacher`,
+                `${baseUrl}/CodeBridge/member/memberInfoTeacher`,
                 obj
               )
               .then((response) => {
@@ -78,6 +83,18 @@ const Nav = () => {
         console.error(error);
       });
   };
+
+  const isClassed = async () => {
+    console.log('Nav 아이디 확인', id);
+    try {
+      const response = await axios.get(`${baseUrl}/CodeBridge/class/findbyid?user_id=${id}`);
+      console.log('결과 ', response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
 
   const dispatch = useDispatch();
   useEffect(() => {

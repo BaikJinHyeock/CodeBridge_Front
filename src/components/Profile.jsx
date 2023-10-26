@@ -11,6 +11,7 @@ const Profile = ({ showEditButton }) => {
   const [userInfo, setUserInfo] = useState([]);
   const [classInfo, setClassInfo] = useState([]);
 
+  console.log('profile 유저인포 확인', userInfo);
 
   useEffect(() => {
     setUserInfo(combinedInfo.userInfo)
@@ -54,7 +55,11 @@ const Profile = ({ showEditButton }) => {
         </p>
       </div>
 
-      <h1>{classInfo.class_title}</h1>
+      {classInfo ?
+        <h1>{classInfo.class_title}</h1>
+        :
+        <h1>아직 담당 반 없음</h1>
+      }
 
 
     </div>

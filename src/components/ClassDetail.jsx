@@ -21,7 +21,7 @@ const ClassDetail = () => {
     const room = {
       class_num: num
     }
-    await axios.post(`${baseUrl}/CodeBridge/Class/findnum`, room)
+    await axios.post(`${baseUrl}/CodeBridge/class/findnum`, room)
       .then(response => {
         setInfoList(response.data[0]);
         console.log("infoList", response.data[0].curriculum);

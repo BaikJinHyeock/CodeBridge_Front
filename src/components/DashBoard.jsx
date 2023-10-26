@@ -11,15 +11,11 @@ const DashBoard = () => {
 
   // redux 설정
   const dispatch = useDispatch();
-
   const [classInfo, serClassInfo] = useState([]);
   const [teacherInfo, setTeacherInfo] = useState([]);
 
   // redux 값 뺴오기
   const userInfo = useSelector(state => state.userInfo);
-
-
-
 
   useEffect(() => {
 
@@ -32,12 +28,6 @@ const DashBoard = () => {
 
   // 모든 정보 조회
   const id = sessionStorage.getItem("memberId");
-
-
-
-
-
-
 
   const CurriList = () => {
     return (

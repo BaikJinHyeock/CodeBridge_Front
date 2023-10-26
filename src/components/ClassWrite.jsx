@@ -61,7 +61,7 @@ const ClassWrite = () => {
       // curriculum에 문자열을 할당
     };
     console.log('obj확인', obj);
-    await axios.post(`${baseUrl}/CodeBridge/Class/write`, obj)
+    await axios.post(`${baseUrl}/CodeBridge/class/write`, obj)
       .then(response => {
 
       })
