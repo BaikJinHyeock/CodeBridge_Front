@@ -47,7 +47,7 @@ const SetInfo = () => {
       user_id: id,
     };
     const response = await axios.post(
-      "http://localhost:8085/CodeBridge/Member/memcheck",
+      "http://localhost:8085/CodeBridge/member/memcheck",
       mem
       );
       console.log('조회 후 데이터', response.data[0]);
@@ -74,7 +74,7 @@ const SetInfo = () => {
         user_name: name1,
       };
       const response = await axios.post(
-        "http://localhost:8085/CodeBridge/Member/nameedit",
+        "http://localhost:8085/CodeBridge/member/nameedit",
         mem
       );
       if (response.data === 1) {
@@ -103,7 +103,7 @@ const SetInfo = () => {
         user_nick: nick,
       };
       const response = await axios.post(
-        "http://localhost:8085/CodeBridge/Member/nickedit",
+        "http://localhost:8085/CodeBridge/member/nickedit",
         mem
       );
       if (response.data === 1) {
@@ -133,7 +133,7 @@ const SetInfo = () => {
         user_phone: phone,
       };
       const response = await axios.post(
-        "http://localhost:8085/CodeBridge/Member/phoneedit",
+        "http://localhost:8085/CodeBridge/member/phoneedit",
         mem
       );
       if (response.data === 1) {
@@ -175,7 +175,7 @@ const SetInfo = () => {
         user_pw: password,
       };
       const response = await axios.post(
-        "http://localhost:8085/CodeBridge/Member/passwordedit",
+        "http://localhost:8085/CodeBridge/member/passwordedit",
         mem
       );
       if (response.data === 1) {
@@ -195,7 +195,7 @@ const SetInfo = () => {
         user_id: id,
       };
       const response = await axios.post(
-        "http://localhost:8085/CodeBridge/Member/iddelete",
+        "http://localhost:8085/CodeBridge/member/iddelete",
         mem
       );
       if (response.data === 1) {
@@ -298,7 +298,7 @@ const SetInfo = () => {
       user_pic: savedUrl
     };
     const response = await axios.post(
-      "http://localhost:8085/CodeBridge/Member/changepic",
+      "http://localhost:8085/CodeBridge/member/changepic",
       obj
     );
     console.log('응답 확인', response.data);

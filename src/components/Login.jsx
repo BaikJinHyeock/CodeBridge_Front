@@ -18,7 +18,7 @@ const Login = () => {
     };
     console.log("member 확인", member);
     const response = await axios.post(
-      "http://localhost:8085/CodeBridge/Member/login",
+      "http://localhost:8085/CodeBridge/member/login",
       member
     );
     console.log("리스폰스 확인", response);
