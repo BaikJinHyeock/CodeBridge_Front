@@ -113,7 +113,7 @@ const Nav = () => {
   };
 
   // 사이드바 작동 토글
-  const [active, setAtive] = useState(false);
+  const [active, setAtive] = useState(true);
   const toggleActive = () => {
     setAtive(!active);
   };

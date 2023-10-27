@@ -291,10 +291,10 @@
     position: fixed;
     display: block;
     width: 100%;
-    height: 100vh;
+    height: 64px;
     top: 0;
+    transition-duration: 200ms;
     z-index: 9999;
-    transition-duration: 500ms;
     // 클릭시 백그라운드 추가
 
     .mobile_wrap_container {
@@ -518,4 +518,6 @@
 
 .activeBg {
   background-color: rgba(0, 0, 0, 0.5);
+  height: 100vh;
+  
 }
