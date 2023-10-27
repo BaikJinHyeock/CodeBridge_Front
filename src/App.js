@@ -32,6 +32,7 @@ import SubWrite from "./components/SubWrite";
 import Title from "./components/Title";
 import TestList_student from "./components/TestList_student";
 import TestList_teacher from "./components/TestList_teacher";
+import LiveChat from "./components/LiveChat";
 
 function App() {
   const location = useLocation();
@@ -117,6 +118,11 @@ function App() {
 
           <Route path="/MarkList" element={<MarkList />}></Route>
           <Route path="/MarkDetail" element={<MarkDetail />}></Route>
+
+
+          <Route path="/LiveChat" element={<LiveChat />}></Route>
+
+
         </Routes>
       </div>
 
