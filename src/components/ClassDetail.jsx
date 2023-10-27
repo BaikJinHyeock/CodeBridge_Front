@@ -1,38 +1,52 @@
 import React, { useEffect, useState } from "react";
 import style from "../SCSS/pages/_classDetail.module.scss";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 const ClassDetail = () => {
 
   // 스프링 주소
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
-  const num = 21;
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const class_num = params.get("class_num");
+
+  console.log('classu_nu 확인', class_num);
+
   const [infoList, setInfoList] = useState([]);
   const [toarray, setToarray] = useState([]);
+  const [teacherInfo, setTeacherInfo] = useState([]);
 
+
+
+
+  const classSearch = async (e) => {
+    await axios.get(`${baseUrl}/CodeBridge/class/findnum?class_num=${class_num}`)
+      .then((res) => {
+        setInfoList(res.data[0]);
+        console.log('res확인', res.data[0]);
+        console.log('아이디 옴?', res.data[0].user_id);
+        setToarray(JSON.parse(res.data[0].curriculum));
+        axios.get(`${baseUrl}/CodeBridge/member/memberInfoTeacher?user_id=${res.data[0].user_id}`)
+          .then((res) => {
+            console.log('두번째 res확', res.data[0]);
+            setTeacherInfo(res.data[0]);
+          }).catch((error) => {
+            console.error();
+          })
+
+      }).catch((error) => {
+        console.error(error);
+      })
+
+  }
+
+  console.log('배열 확인', toarray);
 
   useEffect(() => {
     classSearch();
   }, []);
-
-
-  const classSearch = async (e) => {
-    const room = {
-      class_num: num
-    }
-    await axios.post(`${baseUrl}/CodeBridge/class/findnum`, room)
-      .then(response => {
-        setInfoList(response.data[0]);
-        console.log("infoList", response.data[0].curriculum);
-        setToarray(JSON.parse(response.data[0].curriculum));
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }
-
-  console.log('배열 확인', toarray);
 
 
 
@@ -53,7 +67,7 @@ const ClassDetail = () => {
               alt="profile"
             />
           </div>
-          <h4>박수현 강사</h4>
+          <h4>{teacherInfo.user_name} 강사</h4>
           <ul>
             <li><p>44개 국가 대상 인력양성특강</p></li>
             <li><p>인공지능 사관학교  총괄 PL</p></li>
