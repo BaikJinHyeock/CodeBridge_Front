@@ -92,7 +92,7 @@ const Main = () => {
         <div className={style.main_slide}>
           <h2>강의실 둘러보기</h2>
           <Swiper
-            slidesPerView={3.5}
+            slidesPerView={4.5}
             spaceBetween={36}
             freeMode={true}
             modules={[FreeMode]}

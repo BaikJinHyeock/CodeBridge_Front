@@ -114,7 +114,7 @@ const SubWrite = () => {
                                 onChange={(e) => setTeacher(e.target.value)}
                             ></input>
                         </div> */}
-                        <div>
+                        <div className={style.input_box}>
                             <span className={style.span_tag}>과목 설명</span>
                             <QuillCompo />
                         </div>
