@@ -48,22 +48,13 @@ const Nav = () => {
     let mem = {
       user_id: id,
     };
-    await axios
-      .post(`${baseUrl}/CodeBridge/member/memcheck`, mem)
+    await axios.post(`${baseUrl}/CodeBridge/member/memcheck`, mem)
       .then((response) => {
         setUserInfo(response.data[0]);
-        let obj = {
-          class_num: response.data[0].class_num,
-        };
-        axios
-          .post(`${baseUrl}/CodeBridge/class/findnum`, obj)
+        axios.get(`${baseUrl}/CodeBridge/class/findnum?class_num=${response.data[0].class_num}`)
           .then((response) => {
             setClassInfo(response.data[0]);
-            let obj = {
-              user_id: response.data[0].user_id,
-            };
-            axios
-              .post(`${baseUrl}/CodeBridge/member/memberInfoTeacher`, obj)
+            axios.get(`${baseUrl}/CodeBridge/member/memberInfoTeacher?user_id=${response.data[0].user_id}`)
               .then((response) => {
                 setTeacherInfo(response.data[0]);
               })

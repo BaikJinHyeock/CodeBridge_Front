@@ -1,5 +1,5 @@
 import React from "react";
-import Profile from "./Profile";
+import Profile from "../components/Profile";
 import style from "../SCSS/pages/_markList.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 

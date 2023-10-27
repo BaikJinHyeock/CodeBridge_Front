@@ -3,35 +3,34 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./main.css";
 
-import Join from "./components/Join";
-import Login from "./components/Login";
-import Main from "./components/Main";
+import Join from "./pages/Join";
+import Login from "./pages/Login";
+import Main from "./pages/Main";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
-import SetInfo from "./components/SetInfo";
-import Team from "./components/Team";
+import SetInfo from "./pages/SetInfo";
+import Team from "./pages/Team";
 
-import ClassRoom from "./components/ClassRoom";
-import ClassDetail from "./components/ClassDetail";
-import ClassWrite from "./components/ClassWrite";
+import ClassRoom from "./pages/ClassRoom";
+import ClassDetail from "./pages/ClassDetail";
+import ClassWrite from "./pages/ClassWrite";
 
-import DashBoard from "./components/DashBoard";
-import DashAdmin from "./components/DashAdmin";
+import DashBoard from "./pages/DashBoard";
+import DashAdmin from "./pages/DashAdmin";
 import DashLeftBox from "./components/DashLeftBox";
 import DashRightBox from "./components/DashRightBox";
 import DashRightBoxTeacher from "./components/DashRightBoxTeacher";
 
-import TestDetail from "./components/TestDetail";
-import TestSetList from "./components/TestSetList";
-import TestWrite from "./components/TestWrite";
+import TestDetail from "./pages/TestDetail";
+import TestSetList from "./pages/TestSetList";
+import TestWrite from "./pages/TestWrite";
 
-import MarkDetail from "./components/MarkDetail";
-import MarkList from "./components/MarkList";
+import MarkDetail from "./pages/MarkDetail";
+import MarkList from "./pages/MarkList";
 import Profile from "./components/Profile";
-import SubWrite from "./components/SubWrite";
-import Title from "./components/Title";
-import TestList_student from "./components/TestList_student";
-import TestList_teacher from "./components/TestList_teacher";
+import SubWrite from "./pages/SubWrite";
+import TestList_student from "./pages/TestList_student";
+import TestList_teacher from "./pages/TestList_teacher";
 import LiveChat from "./components/LiveChat";
 
 function App() {
@@ -79,7 +78,6 @@ function App() {
         {RenderLeftBox() && <DashLeftBox />}
         <Routes>
           <Route path="/" element={<Main />}></Route>
-          <Route path="/Title" element={<Title />}></Route>
           <Route path="/Footer" element={<Footer />}></Route>
 
           <Route path="/Profile" element={<Profile />}></Route>

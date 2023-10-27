@@ -61,20 +61,13 @@ const QuillCompo = ({ update }) => {
   };
 
   const imageDropHandler = async (imageDataUrl, type, imageData) => {
-    const formData = new FormData();
-    const blob = imageData.toBlob();
-
-    if (blob.size > 10 * 1024 * 1024) {
-      alert("파일이 너무 큽니다. 10MB 이하의 파일을 업로드하세요.");
-      return;
-    }
-
-    formData.append("img", blob);
+    // if (blob.size > 10 * 1024 * 1024) {
+    //   alert("파일이 너무 큽니다. 10MB 이하의 파일을 업로드하세요.");
+    //   return;
+    // }
 
     try {
-      const result = await axios.post(`/save/save`, formData);
-      const IMG_URL = result.data.url;
-
+      const IMG_URL = await handleSaveCroppedImage(imageDataUrl);;
       const editor = quillRef.current.getEditor(); // 에디터 객체 가져오기
 
       const range = editor.getSelection();
@@ -82,6 +75,31 @@ const QuillCompo = ({ update }) => {
       editor.insertEmbed(range.index, "image", IMG_URL);
     } catch (error) { }
   };
+
+  const [savedUrl, setSavedUrl] = useState("");
+
+  const uploadImageToFirebase = async (croppedImageDataUrl) => {
+    const imageDataBlob = await fetch(croppedImageDataUrl).then((res) => res.blob());
+
+    try {
+      const storageRef = ref(storage, `image/${Date.now()}`);
+      const snapshot = await uploadBytes(storageRef, imageDataBlob);
+      const url = await getDownloadURL(snapshot.ref);
+      return url;
+    } catch (error) {
+      console.error("Firebase에 이미지를 업로드하는 동안 오류가 발생했습니다.", error);
+      return null;
+    }
+  };
+
+  const handleSaveCroppedImage = async (croppedImageDataUrl) => {
+    const imageUrl = await uploadImageToFirebase(croppedImageDataUrl);
+    console.log('유알엘 확인', imageUrl);
+    setSavedUrl(imageUrl);
+    return imageUrl;
+  };
+
+
 
   const modules = useMemo(() => {
     return {

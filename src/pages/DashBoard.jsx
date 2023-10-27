@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Profile from "./Profile";
-import DashRightBox from "./DashRightBox";
+import Profile from "../components/Profile";
+import DashRightBox from "../components/DashRightBox";
 import style from "../SCSS/pages/_dashBoard.module.scss";
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";

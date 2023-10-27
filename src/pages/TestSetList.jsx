@@ -3,7 +3,7 @@ import Image from "react-bootstrap/Image";
 import style from "../SCSS/pages/_testSetList.module.scss";
 import Modal from "react-bootstrap/Modal";
 import { Button } from "react-bootstrap";
-import Profile from "./Profile";
+import Profile from "../components/Profile";
 import axios from "axios";
 import { useLocation } from "react-router";
 
