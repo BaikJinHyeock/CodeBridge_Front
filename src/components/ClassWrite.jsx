@@ -1,11 +1,17 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import "cropperjs/dist/cropper.css";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import React, { useEffect, useRef, useState } from "react";
+import { Button } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
+import Cropper from "react-cropper";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { storage } from "../Firebase";
 import style from "../SCSS/pages/_classWrite.module.scss";
 import QuillCompo from "../components/QuillCompo";
-import Modal from "react-bootstrap/Modal";
-import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import Image from "react-bootstrap/Image";
+
 
 const ClassWrite = () => {
 
@@ -69,9 +75,9 @@ const ClassWrite = () => {
       };
       const response = await axios.post(`${baseUrl}/CodeBridge/class/write`, obj);
       console.log('응답 확인', response.data);
-      if(response.data == 'success'){
+      if (response.data == 'success') {
         alert('작성 완료')
-      }else{
+      } else {
         alert('작성 실패')
       }
     } catch (error) {
@@ -175,6 +181,145 @@ const ClassWrite = () => {
     }
   };
 
+  // 크로퍼 부분 시작
+
+  const imgPathRef = useRef(null)
+  /* 이미지 크롭 스크립트 */
+  const [inputPicDisplay, setInputPicDisplay] = useState(true);
+
+  /* 크로퍼 */
+  const inputRef = useRef(null);
+  const cropperRef = useRef(null);
+  const [image, setImage] = useState(null);
+  const [croppedImage, setCroppedImage] = useState(null);
+
+  /* 크로퍼 */
+  const handleCropperClick = () => {
+    if (inputRef.current) {
+      inputRef.current.value = ''; // input 요소 초기화
+      inputRef.current.click();
+    }
+  };
+
+  const handleFileChange = (e) => {
+    e.preventDefault();
+    const files = e.target.files;
+    if (!files) return;
+    handleCropperShow();
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImage(reader.result);
+      setInputPicDisplay(false);
+    };
+    reader.readAsDataURL(files[0]);
+  };
+
+  const getCropData = () => {
+    if (cropperRef.current && cropperRef.current.cropper) {
+      const croppedDataUrl = cropperRef.current.cropper.getCroppedCanvas().toDataURL();
+      setCroppedImage(croppedDataUrl);
+      setImage(null);
+      handleSaveCroppedImage(croppedDataUrl);
+    }
+    setShowCropper(false);
+  };
+
+  const handleCancelCrop = () => {
+    setImage(null);
+    setInputPicDisplay(true); // 이미지 입력을 취소하면 display를 다시 block으로 변경
+  };
+
+  /* 크로퍼 */
+
+  useEffect(() => {
+    if (croppedImage !== null) {
+      const fakeUpload = document.querySelector(`.${style.fake_upload}`);
+      setInputPicDisplay(true);
+      fakeUpload.style.display = 'none';
+    }
+  }, [croppedImage]);
+
+  // base64 -> formdata
+  const handlingDataForm = async (dataURI) => {
+    if (dataURI !== null && dataURI.length > 200) {
+      // dataURL 값이 data:image/jpeg:base64,~~~~~~~ 이므로 ','를 기점으로 잘라서 ~~~~~인 부분만 다시 인코딩
+      const byteString = atob(dataURI.split(",")[1]);
+      // const nickname = sessionStorage.getItem("memberNickname");
+      // Blob를 구성하기 위한 준비, 잘은 모르겠음.. 코드존나어려워
+      const ab = new ArrayBuffer(byteString.length);
+      const ia = new Uint8Array(ab);
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+      const blob = new Blob([ia], {
+        type: "image/jpeg",
+      });
+      const file = new File([blob], "image.jpg");
+      // 위 과정을 통해 만든 image폼을 FormData에
+      // 서버에서는 이미지를 받을 때, FormData가 아니면 받지 않도록 세팅해야함
+      const formData = new FormData();
+      formData.append("img", file);
+      // formData.append("writer",nickname)
+      try {
+        const result = await axios.post(
+          `${baseUrl}/save/save`,
+          formData
+        );
+        const url = result.data.url;
+        return url;
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      return dataURI;
+    }
+
+  };
+
+  /* 모달 */
+  const [showCropper, setShowCropper] = useState(false);
+
+  const handleCropperClose = () => {
+    setShowCropper(false);
+    setImage(null);
+    setInputPicDisplay(true);
+  }
+  const handleCropperShow = () => {
+    /* setCroppedImage(null); */
+    setShowCropper(true);
+    /* handleCropperClick(); */
+  }
+
+  /* 모달 */
+
+  /* 파이어베이스 시작 */
+  const [savedUrl, setSavedUrl] = useState("");
+
+  const uploadImageToFirebase = async (croppedImageDataUrl) => {
+    const imageDataBlob = await fetch(croppedImageDataUrl).then((res) => res.blob());
+
+    try {
+      const storageRef = ref(storage, `image/${Date.now()}`);
+      const snapshot = await uploadBytes(storageRef, imageDataBlob);
+      const url = await getDownloadURL(snapshot.ref);
+      return url;
+    } catch (error) {
+      console.error("Firebase에 이미지를 업로드하는 동안 오류가 발생했습니다.", error);
+      return null;
+    }
+  };
+
+  const handleSaveCroppedImage = async (croppedImageDataUrl) => {
+    const imageUrl = await uploadImageToFirebase(croppedImageDataUrl);
+    console.log('유알엘 확인', imageUrl);
+    setSavedUrl(imageUrl);
+  };
+
+  /* 파이어베이스 끝 */
+
+  // 크로퍼 부분 끝
+
+
 
 
 
@@ -216,6 +361,86 @@ const ClassWrite = () => {
                 onChange={(e) => setTitle(e.target.value)}
               ></input>
             </div>
+
+            {/* 대표이미지 부분 */}
+            <div className={style.upload_img_block}>
+              <h4>포트폴리오 대표 이미지</h4>
+              <div ref={imgPathRef}></div>
+              {croppedImage &&
+                <div onClick={handleCropperClick}>이미지 재등록</div>
+              }
+            </div>
+            <div className={style.market_pic}>
+              <div className={style.input_pic}>
+                <div
+                  className={style.fake_upload}
+                  onClick={handleCropperClick}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera" viewBox="0 0 16 16">
+                    <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
+                    <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+                  </svg>
+                  <span>이미지 등록</span>
+                </div>
+                {/* 크로퍼 */}
+
+                <div className='cropper_content'>
+                  <form>
+                    <input
+                      type="file"
+                      ref={inputRef}
+                      style={{ display: "none" }}
+                      onChange={handleFileChange}
+                    />
+                  </form>
+                </div>
+                {/* 크로퍼 */}
+
+                {/* 모달 */}
+
+                <Modal show={showCropper} onHide={handleCropperClose}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>이미지 사이즈 조절</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    {image && (
+                      <div className="container">
+                        <Cropper
+                          ref={cropperRef}
+                          aspectRatio={1.86} // 크롭 영역을 정사각형으로 제한
+                          src={image}
+                          viewMode={1}
+                          width={800}
+                          height={500}
+                          background={false}
+                          responsive
+                          autoCropArea={1}
+                          checkOrientation={false}
+                          guides
+                        />
+                      </div>
+                    )}
+
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCropperClose}>
+                      취소
+                    </Button>
+                    <Button variant="primary" onClick={getCropData}>
+                      이미지 저장
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
+                {/* 모달 */}
+                <div className={style.preview_img}>
+                  {croppedImage && (
+                    <img src={croppedImage} alt="" />
+                  )}
+                </div>
+
+              </div>
+            </div>
+            {/* 대표이미지 부분 */}
 
             <div className={style.input_box}>
               <span className={style.span_tag}>교육 대상</span>
