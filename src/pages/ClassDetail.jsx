@@ -18,9 +18,6 @@ const ClassDetail = () => {
   const [toarray, setToarray] = useState([]);
   const [teacherInfo, setTeacherInfo] = useState([]);
 
-
-
-
   const classSearch = async (e) => {
     await axios.get(`${baseUrl}/CodeBridge/class/findnum?class_num=${class_num}`)
       .then((res) => {
@@ -39,17 +36,29 @@ const ClassDetail = () => {
       }).catch((error) => {
         console.error(error);
       })
-
   }
-
   console.log('배열 확인', toarray);
 
   useEffect(() => {
     classSearch();
   }, []);
 
-
-
+  const registClass = async () => {
+    let obj = {
+      class_num: class_num,
+      user_id: sessionStorage.getItem("memberId")
+    }
+    try {
+      const res = await axios.post(`${baseUrl}/CodeBridge/class/regist`, obj)
+      if (res.data == "success") {
+        alert("등록 성공")
+      } else {
+        alert("등록 실패")
+      }
+    } catch (error) {
+      alert(`통신오류 ${error}`)
+    }
+  }
 
 
   return (
@@ -119,7 +128,9 @@ const ClassDetail = () => {
         </div>
 
 
-        <button type="button" className={style.submit_button}>교육과정 등록</button>
+        <button type="button" className={style.submit_button}
+          onClick={registClass}
+        >교육과정 등록</button>
       </div>
     </div>
   );
