@@ -44,30 +44,42 @@ const ClassWrite = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // state 값들을 확인하고, 비어있는 값이 있는지 확인합니다.
+    if (!title || !target || !startDate || !endDate || !quillValue) {
+      alert('값이 모두 입력되지 않았습니다. 모든 필수 항목을 입력해주세요.');
+      return;
+    }
+
     // 주차와 내용을 ":"로 구분하고, 각 쌍을 ","로 구분하여 문자열로 만듦
     const curriculumString = additionalInputs
       .map((input) => `${input.week}::${input.content}`)
       .join(",, ");
 
-    let obj = {
-      user_id: sessionStorage.getItem("memberId"),
-      class_title: title,
-      class_content: quillValue,
-      class_target: target,
-      curriculum: curriculumString,
-      class_startdate: startDate,
-      class_enddate: endDate,
-      sub_num: subNumList.join(','),
-      // curriculum에 문자열을 할당
-    };
-    console.log('obj확인', obj);
-    await axios.post(`${baseUrl}/CodeBridge/class/write`, obj)
-      .then(response => {
+    try {
+      let obj = {
+        user_id: sessionStorage.getItem("memberId"),
+        class_title: title,
+        class_content: quillValue,
+        class_target: target,
+        curriculum: curriculumString,
+        class_startdate: startDate,
+        class_enddate: endDate,
+        sub_num: subNumList.join(','),
+        // curriculum에 문자열을 할당
+      };
+      const response = await axios.post(`${baseUrl}/CodeBridge/class/write`, obj);
+      console.log('응답 확인', response.data);
+      if(response.data == 'success'){
+        alert('작성 완료')
+      }else{
+        alert('작성 실패')
+      }
+    } catch (error) {
+      console.error('통신 오류', error);
 
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    }
+
+
   };
 
   const subListByName = async (e) => {
