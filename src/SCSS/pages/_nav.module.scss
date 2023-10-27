@@ -17,13 +17,14 @@
     display: flex;
     justify-content: flex-start;
     gap: 20px;
+    align-items: center;
 
     .logo_wrapper {
       display: flex;
       align-items: center;
       gap: 6px;
 
-      >div {
+      div {
         background-color: $main-color;
         width: 41.3484px;
         height: 30.1977px;
@@ -40,7 +41,7 @@
 
       &:hover {
         .logo_wrapper {
-          >div {
+          div {
             background-color: $sub-color;
           }
         }
@@ -76,6 +77,10 @@
 
   .right_container {
     position: relative;
+
+    .mobile {
+      display: none;
+    }
 
     ul {
       display: flex;
@@ -210,23 +215,61 @@
           font-size: 12px;
           padding: 8px 14px
         }
-        .button_logout{
+
+        .button_logout {
           transition-duration: 150ms;
 
-          &:hover{
+          &:hover {
             background-color: $base-color;
           }
         }
-        .button_setInfo{
+
+        .button_setInfo {
           background-color: $main-color;
           color: $font-sub-color1;
           transition-duration: 150ms;
 
-          &:hover{
+          &:hover {
             background-color: $sub-color;
           }
         }
 
+      }
+    }
+  }
+
+
+  @media (max-width: 768px) {
+    .left_container {
+      .logo_wrapper {
+        div {
+          display: none;
+        }
+
+        h1 {
+          font-size: 28px;
+        }
+      }
+
+      ul {
+        display: none;
+      }
+    }
+
+    ul {
+      li {
+        a {
+          font-size: 12px;
+        }
+      }
+    }
+
+    .right_container{
+      .nomal{
+        display: none;
+      }
+      .mobile{
+        display: block;
       }
     }
   }
