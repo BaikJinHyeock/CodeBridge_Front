@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import style from '../SCSS/pages/_testList.module.scss';
-import Profile from './Profile';
+import Profile from '../components/Profile';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import DashRightBox from "./DashRightBox";
+import DashRightBox from "../components/DashRightBox";
 
 const TestList_student = () => {
 

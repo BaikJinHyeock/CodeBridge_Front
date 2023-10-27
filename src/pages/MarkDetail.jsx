@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Profile from "./Profile";
+import Profile from "../components/Profile";
 import style from "../SCSS/pages/_markDetail.module.scss";
 import Image from "react-bootstrap/Image";
 import axios from "axios";

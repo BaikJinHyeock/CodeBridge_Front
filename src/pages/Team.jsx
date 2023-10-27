@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import style from "../SCSS/pages/_team.module.scss";
 import Lottie from "lottie-react";
 
-import Animation from "./Animation";
+import Animation from "../components/Animation";
 
 const Team = () => {
   const videoRef = useRef();

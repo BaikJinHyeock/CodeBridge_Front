@@ -4,8 +4,8 @@ import "swiper/css/free-mode";
 import { FreeMode } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import style from "../SCSS/pages/_main.module.scss";
-import { Container } from "./styled";
-import { useScrollAnimation } from "./useScrollAnimation";
+import { Container } from "../components/styled";
+import { useScrollAnimation } from "../components/useScrollAnimation";
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios'
 

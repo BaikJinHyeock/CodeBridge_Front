@@ -1,7 +1,7 @@
 import React from "react";
 import style from "../SCSS/pages/_dashadmin.module.scss";
-import Profile from "./Profile";
-import DashRightBoxTeacher from "./DashRightBoxTeacher";
+import Profile from "../components/Profile";
+import DashRightBoxTeacher from "../components/DashRightBoxTeacher";
 
 const DashAdmin = () => {
   return (

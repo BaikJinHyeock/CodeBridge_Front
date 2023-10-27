@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import style from "../SCSS/pages/_testWrite.module.scss";
 import axios from "axios";
-import QuillCompo_test from "./QuillCompo_test";
+import QuillCompo_test from "../components/QuillCompo_test";
 import { useSelector } from "react-redux";
 
 const TestWrite = () => {
