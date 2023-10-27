@@ -1,15 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "swiper/css";
 import "swiper/css/free-mode";
 import { FreeMode } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-
 import style from "../SCSS/pages/_main.module.scss";
 import { Container } from "./styled";
 import { useScrollAnimation } from "./useScrollAnimation";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios'
 
 const Main = () => {
+
+  // 스프링 주소
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
+  const [classList, serClassList] = useState([]);
+
+  // 반 목록 긁어오기
+  const getClassList = async () => {
+    try {
+      const res = await axios.get(`${baseUrl}/CodeBridge/class/get-class-list`)
+      console.log('메인 res확인', res.data);
+      serClassList(res.data);
+    } catch (error) {
+
+    }
+
+  }
+
+  useEffect(() => {
+    getClassList();
+  }, [])
+
+
   const navigate = useNavigate();
 
   const moveJoin = () => {
@@ -29,16 +52,18 @@ const Main = () => {
     );
   };
 
-  const ClassContent = () => {
+  const ClassContent = ({ props }) => {
     return (
       <div className={style.main_slide_content_box}>
-        <img
-          src="https://smhrd.or.kr/wp-content/uploads/2023/08/%EB%8C%80%EC%A7%80-1-%EC%82%AC%EB%B3%B8.png"
-          alt="#"
-        />
-        <h5>[A-1코스] 빅데이터 분석서비스 개발자과정</h5>
-        <span>개강일 | 2023년 4월 27일</span>
-        <p>박수현 선임</p>
+        <Link to={`classdetail?class_num=${props.class_num}`}>
+          <img
+            src="https://smhrd.or.kr/wp-content/uploads/2023/08/%EB%8C%80%EC%A7%80-1-%EC%82%AC%EB%B3%B8.png"
+            alt="#"
+          />
+          <h5>{props.class_title}</h5>
+          <span>개강일 | {props.class_startdate}</span>
+          <p>{props.user_id}</p>
+        </Link>
       </div>
     );
   };
@@ -74,24 +99,11 @@ const Main = () => {
             className="mySwiper"
             direction="horizontal"
           >
-            <SwiperSlide>
-              <ClassContent />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ClassContent />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ClassContent />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ClassContent />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ClassContent />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ClassContent />
-            </SwiperSlide>
+            {classList.map((item, index) =>
+              <SwiperSlide>
+                <ClassContent key={index} props={item} />
+              </SwiperSlide>
+            )}
           </Swiper>
         </div>
 
@@ -197,7 +209,7 @@ const Main = () => {
         </Scroll>
       </div>
 
-      
+
     </div>
   );
 };

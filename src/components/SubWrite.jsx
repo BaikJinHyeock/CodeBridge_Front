@@ -2,8 +2,15 @@ import React, { useState } from 'react';
 import style from "../SCSS/pages/_classWrite.module.scss";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import QuillCompo from "../components/QuillCompo";
+import { useSelector } from 'react-redux';
 
 const SubWrite = () => {
+
+    // 스프링 주소
+    const baseUrl = process.env.REACT_APP_BASE_URL;
+
+    const quillValue = useSelector((state) => state.quill.quillValue);
 
     const [title, setTitle] = useState("");
     const [teacher, setTeacher] = useState("");
@@ -14,18 +21,36 @@ const SubWrite = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        let obj = {
-            sub_title: title,
-            user_id: teacher,
-            sub_lang: language
-        };
-        console.log("값 확인", obj);
+        if (!title || !quillValue) {
+            alert("모든 값을 채워주세요");
+            return; // 값이 비어있으면 함수 종료
+        }
 
-        const response = await axios.post(
-            "http://localhost:8085/CodeBridge/sub/write",
-            obj
-        );
-        console.log('응답 확인', response);
+        try {
+            let obj = {
+                sub_title: title,
+                user_id: sessionStorage.getItem("memberId"),
+                sub_lang: language,
+                sub_content: quillValue
+            };
+            console.log("값 확인", obj);
+
+            const response = await axios.post(
+                `${baseUrl}/CodeBridge/sub/write`,
+                obj
+            );
+            console.log('응답 확인', response);
+            if (response) {
+                alert('작성 성공')
+                window.location.reload();
+            } else {
+                alert('작성 실패')
+            }
+
+        } catch (error) {
+            console.error('통신에러', error);
+        }
+
     };
 
 
@@ -79,7 +104,7 @@ const SubWrite = () => {
                                 <option value="Spring">Spring</option>
                             </select>
                         </div>
-                        <div className={style.input_box}>
+                        {/* <div className={style.input_box}>
                             <span className={style.span_tag}>과목 강사</span>
                             <input
                                 type="text"
@@ -88,6 +113,10 @@ const SubWrite = () => {
                                 class="form-control"
                                 onChange={(e) => setTeacher(e.target.value)}
                             ></input>
+                        </div> */}
+                        <div>
+                            <span className={style.span_tag}>과목 설명</span>
+                            <QuillCompo />
                         </div>
                     </form>
                     <button
