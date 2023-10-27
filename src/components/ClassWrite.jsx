@@ -18,10 +18,7 @@ const ClassWrite = () => {
   // 스프링 주소
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
-
   const quillValue = useSelector((state) => state.quill.quillValue);
-
-
   const [title, setTitle] = useState("");
   const [target, setTarget] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -50,7 +47,7 @@ const ClassWrite = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // state 값들을 확인하고, 비어있는 값이 있는지 확인합니다.
+    // state 값들을 확인하고, 비어있는 값이 있는지 확인
     if (!title || !target || !startDate || !endDate || !quillValue) {
       alert('값이 모두 입력되지 않았습니다. 모든 필수 항목을 입력해주세요.');
       return;
@@ -61,18 +58,23 @@ const ClassWrite = () => {
       .map((input) => `${input.week}::${input.content}`)
       .join(",, ");
 
+    handleSaveCroppedImage(croppedImage);
+
+
     try {
       let obj = {
         user_id: sessionStorage.getItem("memberId"),
         class_title: title,
+        img_url: savedUrl,
         class_content: quillValue,
         class_target: target,
         curriculum: curriculumString,
         class_startdate: startDate,
         class_enddate: endDate,
         sub_num: subNumList.join(','),
-        // curriculum에 문자열을 할당
       };
+
+      console.log('obj확인', obj);
       const response = await axios.post(`${baseUrl}/CodeBridge/class/write`, obj);
       console.log('응답 확인', response.data);
       if (response.data == 'success') {
@@ -82,10 +84,7 @@ const ClassWrite = () => {
       }
     } catch (error) {
       console.error('통신 오류', error);
-
     }
-
-
   };
 
   const subListByName = async (e) => {
@@ -94,15 +93,15 @@ const ClassWrite = () => {
     let obj = {
       sub_lang: findLang,
     };
-
-    const response = await axios.post(
-      "http://localhost:8085/CodeBridge/sub/findbyname",
-      obj
-    );
-
-    setFindLangList(response.data);
-
-
+    try {
+      const response = await axios.post(
+        `${baseUrl}/CodeBridge/sub/findbyname`,
+        obj
+      );
+      setFindLangList(response.data);
+    } catch (error) {
+      console.error();
+    }
   };
 
   // 모달 관련
@@ -116,21 +115,17 @@ const ClassWrite = () => {
   }
   // 모달 관련
 
-
-
   // 과목 전부 긁어오는 코드
   const [subList, setSubList] = useState([]);
 
   const getSubList = async (e) => {
-    await axios.get(`http://localhost:8085/CodeBridge/sub/find`)
-      .then(response => {
-        console.log('과목 리스트 확인', response.data);
-        setSubList(response.data);
-      })
-      .catch(error => {
-        console.error();
-      })
-      ;
+
+    try {
+      const res = await axios.get(`${baseUrl}/CodeBridge/sub/find`)
+      setSubList(res.data);
+    } catch (error) {
+      console.error();
+    }
   };
 
   useEffect(() => {
@@ -185,7 +180,6 @@ const ClassWrite = () => {
 
   const imgPathRef = useRef(null)
   /* 이미지 크롭 스크립트 */
-  const [inputPicDisplay, setInputPicDisplay] = useState(true);
 
   /* 크로퍼 */
   const inputRef = useRef(null);
@@ -209,7 +203,6 @@ const ClassWrite = () => {
     const reader = new FileReader();
     reader.onload = () => {
       setImage(reader.result);
-      setInputPicDisplay(false);
     };
     reader.readAsDataURL(files[0]);
   };
@@ -219,14 +212,12 @@ const ClassWrite = () => {
       const croppedDataUrl = cropperRef.current.cropper.getCroppedCanvas().toDataURL();
       setCroppedImage(croppedDataUrl);
       setImage(null);
-      handleSaveCroppedImage(croppedDataUrl);
     }
     setShowCropper(false);
   };
 
   const handleCancelCrop = () => {
     setImage(null);
-    setInputPicDisplay(true); // 이미지 입력을 취소하면 display를 다시 block으로 변경
   };
 
   /* 크로퍼 */
@@ -234,47 +225,10 @@ const ClassWrite = () => {
   useEffect(() => {
     if (croppedImage !== null) {
       const fakeUpload = document.querySelector(`.${style.fake_upload}`);
-      setInputPicDisplay(true);
       fakeUpload.style.display = 'none';
     }
   }, [croppedImage]);
 
-  // base64 -> formdata
-  const handlingDataForm = async (dataURI) => {
-    if (dataURI !== null && dataURI.length > 200) {
-      // dataURL 값이 data:image/jpeg:base64,~~~~~~~ 이므로 ','를 기점으로 잘라서 ~~~~~인 부분만 다시 인코딩
-      const byteString = atob(dataURI.split(",")[1]);
-      // const nickname = sessionStorage.getItem("memberNickname");
-      // Blob를 구성하기 위한 준비, 잘은 모르겠음.. 코드존나어려워
-      const ab = new ArrayBuffer(byteString.length);
-      const ia = new Uint8Array(ab);
-      for (let i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-      }
-      const blob = new Blob([ia], {
-        type: "image/jpeg",
-      });
-      const file = new File([blob], "image.jpg");
-      // 위 과정을 통해 만든 image폼을 FormData에
-      // 서버에서는 이미지를 받을 때, FormData가 아니면 받지 않도록 세팅해야함
-      const formData = new FormData();
-      formData.append("img", file);
-      // formData.append("writer",nickname)
-      try {
-        const result = await axios.post(
-          `${baseUrl}/save/save`,
-          formData
-        );
-        const url = result.data.url;
-        return url;
-      } catch (error) {
-        console.log(error);
-      }
-    } else {
-      return dataURI;
-    }
-
-  };
 
   /* 모달 */
   const [showCropper, setShowCropper] = useState(false);
@@ -282,7 +236,6 @@ const ClassWrite = () => {
   const handleCropperClose = () => {
     setShowCropper(false);
     setImage(null);
-    setInputPicDisplay(true);
   }
   const handleCropperShow = () => {
     /* setCroppedImage(null); */
@@ -313,6 +266,7 @@ const ClassWrite = () => {
     const imageUrl = await uploadImageToFirebase(croppedImageDataUrl);
     console.log('유알엘 확인', imageUrl);
     setSavedUrl(imageUrl);
+    return imageUrl;
   };
 
   /* 파이어베이스 끝 */
