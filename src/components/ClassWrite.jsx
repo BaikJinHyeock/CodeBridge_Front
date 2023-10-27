@@ -317,8 +317,8 @@ const ClassWrite = () => {
             </div>
 
             {/* 대표이미지 부분 */}
-            <div className={style.upload_img_block}>
-              <h4>포트폴리오 대표 이미지</h4>
+            <div className={style.input_box}>
+              <span className={style.span_tag}>썸네일 이미지</span>
               <div ref={imgPathRef}></div>
               {croppedImage &&
                 <div onClick={handleCropperClick}>이미지 재등록</div>
