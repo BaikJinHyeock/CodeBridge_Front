@@ -269,12 +269,28 @@ const Nav = () => {
           }
         >
           <div className={style.mobile_silde_container_first}>
-            <div>
-              <Link to={"/Login"}>
-                <h4>로그인/회원가입</h4>
-                <p>로그인 후 서비스를 이용하실 수 있습니다.</p>
-              </Link>
-            </div>
+            {id ? (
+              <div className={style.mobile_silde_container_first_profile}>
+                <div className={style.mobile_silde_container_first_profile_img}>
+                  <Image
+                    src={userInfo.user_pic}
+                    alt="프로필 미리보기"
+                    roundedCircle
+                  />
+                </div>
+                <div className={style.mobile_silde_container_first_text}>
+                  <h5>{userInfo.user_name}</h5>
+                  <span>{id}</span>
+                </div>
+              </div>
+            ) : (
+              <div className={style.mobile_silde_container_first_before}>
+                <Link to={"/Login"}>
+                  <h4>로그인/회원가입</h4>
+                  <p>로그인 후 서비스를 이용하실 수 있습니다.</p>
+                </Link>
+              </div>
+            )}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -304,6 +320,35 @@ const Nav = () => {
               </li>
             </ul>
           </div>
+
+          {id ? (
+            <div className={style.mobile_silde_container_third}>
+              {/* 로그인 완료 */}
+              <div className={style.mobile_silde_container_third_division}>
+                <Link to={"/DashBoard"}>대시보드</Link>
+              </div>
+              <div className={style.mobile_silde_container_third_buttons}>
+                <button
+                  type="button"
+                  className={style.button_logout}
+                  onClick={logOut}
+                >
+                  로그아웃
+                </button>
+                <button
+                  type="button"
+                  className={style.button_setInfo}
+                  onClick={moveSetInfo}
+                >
+                  정보수정
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className={style.mobile_silde_container_third}>
+              {/* 로그인 미완료 */}
+            </div>
+          )}
         </div>
       </div>
     </>
