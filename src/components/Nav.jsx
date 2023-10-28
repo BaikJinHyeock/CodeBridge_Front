@@ -71,11 +71,12 @@ const Nav = () => {
       });
   };
 
+  console.log('네비 유저정보 확인', userInfo);
+
   const [isClass, setIsClass] = useState();
 
   // 반 있는지 확인
   const isClassed = async () => {
-    console.log("Nav 아이디 확인", id);
     try {
       const response = await axios.get(
         `${baseUrl}/CodeBridge/class/findbyid?user_id=${id}`
@@ -156,7 +157,7 @@ const Nav = () => {
           <ul className={style.nomal}>
             {id ? (
               <li className={style.right_container_profile_text}>
-                {isClass ? (
+                {isClass || userInfo.hasclass ? (
                   <li className={style.right_container_profile_text}>
                     <Link to={"/DashBoard"}>대시보드</Link>
                   </li>

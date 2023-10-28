@@ -46,7 +46,7 @@ const ClassWrite = () => {
     e.preventDefault();
 
     // state 값들을 확인하고, 비어있는 값이 있는지 확인
-    if (!title || !target || !startDate || !endDate || !quillValue) {
+    if (!title || !target || !startDate || !endDate || !quillValue || !croppedImage) {
       alert("값이 모두 입력되지 않았습니다. 모든 필수 항목을 입력해주세요.");
       return;
     }
@@ -510,23 +510,23 @@ const ClassWrite = () => {
 
                   {findLangList.length > 0
                     ? findLangList.map((item, index) => (
-                        <SubItem
-                          key={index}
-                          props={item}
-                          handleSubItemClick={() =>
-                            handleSubItemClick(item, selectedWeekIndex)
-                          }
-                        />
-                      ))
+                      <SubItem
+                        key={index}
+                        props={item}
+                        handleSubItemClick={() =>
+                          handleSubItemClick(item, selectedWeekIndex)
+                        }
+                      />
+                    ))
                     : subList.map((item, index) => (
-                        <SubItem
-                          key={index}
-                          props={item}
-                          handleSubItemClick={() =>
-                            handleSubItemClick(item, selectedWeekIndex)
-                          }
-                        />
-                      ))}
+                      <SubItem
+                        key={index}
+                        props={item}
+                        handleSubItemClick={() =>
+                          handleSubItemClick(item, selectedWeekIndex)
+                        }
+                      />
+                    ))}
                 </Modal.Body>
                 <Modal.Footer>
                   <Button variant="secondary" onClick={handleClose}>
