@@ -12,21 +12,24 @@
         padding: 32px 64px;
         display: flex;
         flex-direction: column;
+        overflow: scroll;
 
         .right_container_wrap {
             display: flex;
             gap: 32px;
             justify-content: space-between;
+            height: 100%;
 
             .right_container_wrap_info {
                 background-color: $font-sub-color1;
-                width: 50%;
+                width: 100%;
                 padding: 32px;
                 border-radius: 10px;
                 box-shadow: $box-shadow;
+                margin-bottom: 36px;
 
                 .setTable {
-                    margin: 36px 0;
+                    margin: 20px 0;
                     width: 100%;
 
                     tr {
@@ -222,19 +225,67 @@
                 }
             }
 
+        }
+
+        .right_container_wrap_bottom {
+            display: grid;
+            gap: 32px;
+            grid-template-columns: 1fr 2fr;
+
             .right_container_wrap_student {
                 background-color: $font-sub-color1;
                 padding: 32px;
                 border-radius: 10px;
                 box-shadow: $box-shadow;
+                overflow: scroll;
+
+                h4 {
+                    margin-bottom: 20px;
+                }
             }
+
 
             .right_container_wrap_accept {
                 background-color: $font-sub-color1;
                 padding: 32px;
                 border-radius: 10px;
                 box-shadow: $box-shadow;
+                overflow: scroll;
+
+                h4 {
+                    margin-bottom: 20px;
+                }
+
+                .wrap_accept_list {
+                    display: flex;
+                    gap: 0.5rem;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 0.5rem;
+
+                    span {
+                        font-size: 12px;
+                        font-weight: 700;
+                    }
+
+                    button {
+                        font-size: 12px;
+                        background-color: $main-color;
+                        color: $font-sub-color1;
+                        transition-duration: 150ms;
+                        padding: 8px;
+
+                        &:hover {
+                            background-color: $sub-color;
+                        }
+                    }
+
+                    &:nth-child(even) {
+                        background-color: $bg-grayScale;
+                    }
+                }
             }
+
         }
     }
 }
