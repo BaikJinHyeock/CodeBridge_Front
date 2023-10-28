@@ -23,7 +23,7 @@ const TestDetail = () => {
 
   const getTestList = async () => {
     try {
-      const response = await axios.get(`${baseUrl}/CodeBridge/Test/detail?sub_num=${sub_num}`);
+      const response = await axios.get(`${baseUrl}/CodeBridge/test/detail?sub_num=${sub_num}`);
       SetTestList(response.data);
     } catch (error) {
       console.error(error);

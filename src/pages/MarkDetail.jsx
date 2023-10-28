@@ -5,6 +5,10 @@ import Image from "react-bootstrap/Image";
 import axios from "axios";
 
 const MarkDetail = () => {
+
+    // 스프링 주소
+    const baseUrl = process.env.REACT_APP_BASE_URL;
+
   const markSubmit = async (e) => {
     e.preventDefault();
     let subTest = {
@@ -15,7 +19,7 @@ const MarkDetail = () => {
     console.log("subTest확", subTest);
 
     const response = await axios.post(
-      "http://localhost:8085/CodeBridge/Test/mark",
+      `${baseUrl}/CodeBridge/test/mark`,
       subTest
     );
 

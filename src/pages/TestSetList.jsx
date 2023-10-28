@@ -20,7 +20,7 @@ const TestList = () => {
   // 시험목록 긁어오기
   const getTestList = async () => {
     try {
-      const response = await axios.get(`${baseUrl}/CodeBridge/Test/getall`);
+      const response = await axios.get(`${baseUrl}/CodeBridge/test/getall`);
       setTestList(response.data);
     } catch (error) {
       console.error(error);
