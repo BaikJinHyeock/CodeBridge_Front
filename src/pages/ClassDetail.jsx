@@ -12,22 +12,19 @@ const ClassDetail = () => {
   const params = new URLSearchParams(location.search);
   const class_num = params.get("class_num");
 
-  console.log('classu_nu 확인', class_num);
 
   const [infoList, setInfoList] = useState([]);
   const [toarray, setToarray] = useState([]);
   const [teacherInfo, setTeacherInfo] = useState([]);
 
+  // 반 정보, 선생님 정보 긁어오기
   const classSearch = async (e) => {
     await axios.get(`${baseUrl}/CodeBridge/class/findnum?class_num=${class_num}`)
       .then((res) => {
         setInfoList(res.data[0]);
-        console.log('res확인', res.data[0]);
-        console.log('아이디 옴?', res.data[0].user_id);
         setToarray(JSON.parse(res.data[0].curriculum));
         axios.get(`${baseUrl}/CodeBridge/member/memberInfoTeacher?user_id=${res.data[0].user_id}`)
           .then((res) => {
-            console.log('두번째 res확', res.data[0]);
             setTeacherInfo(res.data[0]);
           }).catch((error) => {
             console.error();
@@ -37,10 +34,29 @@ const ClassDetail = () => {
         console.error(error);
       })
   }
-  console.log('배열 확인', toarray);
+
+  // 등록여부 확인
+
+  const [isRegist, setIsRegist] = useState(false);
+
+  const isRegisted = async (e) => {
+    let obj = {
+      class_num: class_num,
+      user_id: sessionStorage.getItem("memberId")
+    }
+    try {
+      const res = await axios.get(`${baseUrl}/CodeBridge/class/registed`, { params: obj })
+      console.log('등록여부', res.data);
+      if (res.data == 'registed') {
+        setIsRegist(true);
+      }
+    } catch (error) {
+    }
+  }
 
   useEffect(() => {
     classSearch();
+    isRegisted();
   }, []);
 
   const registClass = async () => {
@@ -110,28 +126,31 @@ const ClassDetail = () => {
 
         <div>
           <h5>커리큘럼</h5>
-          {toarray && toarray.map((item) => {
-
-            console.log('아이템 확인', item);
-
+          {toarray && toarray.map((item, index) => {
             return (
               // <p key={index}>
               //   {`${weekDetails}: 언어: ${language}, 강사: ${instructor}, 강의 명: ${lesson}`}
               // </p>
-              <>
-                <p>
-                  {item[0]} : {item[2]}
-                </p>
-              </>
+
+              <p key={index}>
+                {item[0]} : {item[2]}
+              </p>
+
             );
           })}
         </div>
 
+        {isRegist ?
+        // 버튼 비활성화 필요
+          <p>등록됨</p>
+          :
+          <button type="button" className={style.submit_button}
+            onClick={registClass}
+          >교육과정 등록</button>
 
-        <button type="button" className={style.submit_button}
-          onClick={registClass}
-        >교육과정 등록</button>
+        }
       </div>
+
     </div>
   );
 };
