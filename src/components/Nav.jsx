@@ -71,7 +71,6 @@ const Nav = () => {
       });
   };
 
-  console.log('네비 유저정보 확인', userInfo);
 
   const [isClass, setIsClass] = useState();
 

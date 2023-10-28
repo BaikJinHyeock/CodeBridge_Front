@@ -1,9 +1,86 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import style from "../SCSS/pages/_dashadmin.module.scss";
-import Profile from "../components/Profile";
 import DashRightBoxTeacher from "../components/DashRightBoxTeacher";
+import Profile from "../components/Profile";
 
 const DashAdmin = () => {
+
+  // 스프링 주소
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
+  // redux 값 뺴오기
+  const combinedInfo = useSelector(state => state.combinedInfo);
+
+  const [userInfo, setUserInfo] = useState([]);
+
+  useEffect(() => {
+    setUserInfo(combinedInfo.userInfo)
+  }, [combinedInfo]);
+
+  // 신청학생 정보 긁어오기
+
+  const [approvedList, setApprovedList] = useState([]);
+  const [unApprovedList, setUnApprovedList] = useState([]);
+
+  const getStuList = async () => {
+    try {
+      const res = await axios.get(`${baseUrl}/CodeBridge/class/getstu?class_num=${userInfo.hasclass}`)
+      const approvedList = res.data.filter(item => item.approved === 1);
+      const unApprovedList = res.data.filter(item => item.approved === 0);
+      setApprovedList(approvedList);
+      setUnApprovedList(unApprovedList);
+    } catch (error) {
+    }
+  }
+
+  console.log('승인리스트', approvedList);
+  console.log('미승인', unApprovedList);
+
+  useEffect(() => {
+    getStuList();
+  }, [userInfo])
+
+  // 승인하기
+  const acceptStu = async (user_id) => {
+    try {
+      const res = await axios.post(`${baseUrl}/CodeBridge/class/accept?user_id=${user_id}`)
+      if(res.data == "success"){
+        alert('전환 성공')
+        window.location.reload();
+      }else{
+        alert('전환 실패')
+      }
+
+    } catch (error) {
+      alert(`통신오류 ${error}`)
+    }
+  }
+
+  const UnApprovedItem = ({ props }) => {
+    const handleAcceptClick = () => {
+      acceptStu(props.user_id);
+    }
+    return (
+      <div>
+        <p>{props.user_id}</p>
+        <div onClick={handleAcceptClick}>
+          승인하기
+        </div>
+      </div>
+    )
+  }
+
+  const ApprovedItem = ({ props }) => {
+
+    return (
+      <div>
+        <p>{props.user_id}</p>
+      </div>
+    )
+  }
+
   return (
     <div className={style.wrap_container}>
       <div className={style.right_container}>
@@ -205,10 +282,16 @@ const DashAdmin = () => {
 
           <div className={style.right_container_wrap_student}>
             <h4>학생 관리</h4>
+            {approvedList.map((item, index) => (
+              <ApprovedItem key={index} props={item} />
+            ))}
           </div>
 
           <div className={style.right_container_wrap_accept}>
             <h4>강의실 신청 현황</h4>
+            {unApprovedList.map((item, index) => (
+              <UnApprovedItem key={index} props={item} />
+            ))}
           </div>
         </div>
       </div>

@@ -15,8 +15,6 @@ const DashLeftBox = () => {
     setUserInfo(combinedInfo.userInfo)
   }, [combinedInfo]);
 
-  console.log('레프트박스 유저정보 확인', userInfo);
-
 
   const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState("dashboard");
