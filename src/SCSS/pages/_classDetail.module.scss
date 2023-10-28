@@ -69,9 +69,10 @@
     }
   }
 
-  .right_container {
-    padding: 96px 36px 0 36px;
+  .right_container {    
+    padding: 96px 36px 96px 36px;
     width: 70%;
+    overflow: scroll;
 
     h4 {
       margin-bottom: 32px;

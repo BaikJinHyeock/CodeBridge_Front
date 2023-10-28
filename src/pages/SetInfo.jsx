@@ -79,7 +79,7 @@ const SetInfo = () => {
       );
       if (response.data === 1) {
         window.location.href = "/";
-        alert("이름수정완료!");
+        alert("이름이 성공적으로 수정되었습니다.");
       }
     } else {
       return alert("잘못입력된 정보가 있습니다.");
@@ -108,7 +108,7 @@ const SetInfo = () => {
       );
       if (response.data === 1) {
         window.location.href = "/";
-        alert("닉네임수정완료!");
+        alert("닉네임이 성공적으로 수정되었습니다.");
       }
     } else {
       return alert("잘못입력된 정보가 있습니다.");
@@ -138,7 +138,7 @@ const SetInfo = () => {
       );
       if (response.data === 1) {
         window.location.href = "/";
-        alert("번호수정완료!");
+        alert("휴대폰 번호가 성공적으로 수정되었습니다.");
       }
     } else {
       return alert("잘못입력된 정보가 있습니다.");
@@ -180,7 +180,7 @@ const SetInfo = () => {
       );
       if (response.data === 1) {
         window.location.href = "/";
-        alert("비밀번호수정완료!");
+        alert("비밀번호가 성공적으로 변경되었습니다.");
       }
     } else {
       return alert("잘못입력된 정보가 있습니다.");
@@ -201,7 +201,7 @@ const SetInfo = () => {
       if (response.data === 1) {
         sessionStorage.removeItem("memberId");
         window.location.href = "/";
-        alert("회원삭제완료!");
+        alert("성공적으로 삭제되었습니다.");
       }
     } else {
       return alert("회원삭제실패!");
