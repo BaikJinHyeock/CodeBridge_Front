@@ -57,7 +57,7 @@ const Main = () => {
       <div className={style.main_slide_content_box}>
         <Link to={`ClassDetail?class_num=${props.class_num}`}>
           <img
-            src="https://smhrd.or.kr/wp-content/uploads/2023/08/%EB%8C%80%EC%A7%80-1-%EC%82%AC%EB%B3%B8.png"
+            src={props.img_url}
             alt="#"
           />
           <h5>{props.class_title}</h5>

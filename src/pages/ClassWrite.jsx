@@ -58,20 +58,21 @@ const ClassWrite = () => {
 
     handleSaveCroppedImage(croppedImage);
 
-    try {
-      let obj = {
-        user_id: sessionStorage.getItem("memberId"),
-        class_title: title,
-        img_url: savedUrl,
-        class_content: quillValue,
-        class_target: target,
-        curriculum: curriculumString,
-        class_startdate: startDate,
-        class_enddate: endDate,
-        sub_num: subNumList.join(","),
-      };
+    let obj = {
+      user_id: sessionStorage.getItem("memberId"),
+      class_title: title,
+      img_url: savedUrl,
+      class_content: quillValue,
+      class_target: target,
+      curriculum: curriculumString,
+      class_startdate: startDate,
+      class_enddate: endDate,
+      sub_num: subNumList.join(","),
+    };
+    console.log("obj확인", obj);
 
-      console.log("obj확인", obj);
+    try {
+
       const response = await axios.post(
         `${baseUrl}/CodeBridge/class/write`,
         obj
