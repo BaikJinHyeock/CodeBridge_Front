@@ -16,6 +16,7 @@ const ClassDetail = () => {
   const [infoList, setInfoList] = useState([]);
   const [toarray, setToarray] = useState([]);
   const [teacherInfo, setTeacherInfo] = useState([]);
+  const [subDetailList, setsubDetailList] = useState([]);
 
   // 반 정보, 선생님 정보 긁어오기
   const classSearch = async (e) => {
@@ -23,6 +24,15 @@ const ClassDetail = () => {
       .then((res) => {
         setInfoList(res.data[0]);
         setToarray(JSON.parse(res.data[0].curriculum));
+        const toarray = JSON.parse(res.data[0].curriculum);
+        const selectedItems = toarray.map(item => item[1]);
+        console.log('classSearch에서 아이템:', selectedItems);
+        axios.post(`${baseUrl}/CodeBridge/sub/get-sub-list`, selectedItems)
+          .then((res) => {
+            setsubDetailList(res.data);
+          }).catch((error) => {
+            console.error();
+          })
         axios.get(`${baseUrl}/CodeBridge/member/memberInfoTeacher?user_id=${res.data[0].user_id}`)
           .then((res) => {
             setTeacherInfo(res.data[0]);
@@ -34,6 +44,8 @@ const ClassDetail = () => {
         console.error(error);
       })
   }
+
+
 
   // 등록여부 확인
 
@@ -55,9 +67,10 @@ const ClassDetail = () => {
   }
 
   useEffect(() => {
+    console.log('이팩트실행');
     classSearch();
     isRegisted();
-  }, []);
+  }, [class_num]);
 
   const registClass = async () => {
     let obj = {
@@ -74,6 +87,27 @@ const ClassDetail = () => {
     } catch (error) {
       alert(`통신오류 ${error}`)
     }
+  }
+
+  // const getSubDetail = async () => {
+  //   const selectedItems = toarray.map(item => item[1]);
+  //   console.log('Selected Items:', selectedItems);
+  //   try {
+  //     console.log('함수진입');
+  //     const res = await axios.post(`${baseUrl}/CodeBridge/sub/get-sub-list`, selectedItems)
+  //   } catch (error) {
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   getSubDetail();
+  // }, [toarray])
+
+  const [selectedSubIndex, setSelectedSubIndex] = useState(null);
+
+  // 클릭 이벤트 핸들러
+  const handleSubClick = (index) => {
+    setSelectedSubIndex(index);
   }
 
 
@@ -132,7 +166,7 @@ const ClassDetail = () => {
               //   {`${weekDetails}: 언어: ${language}, 강사: ${instructor}, 강의 명: ${lesson}`}
               // </p>
 
-              <p key={index}>
+              <p key={index} onClick={() => handleSubClick(index)}>
                 {item[0]} : {item[2]}
               </p>
 
@@ -140,8 +174,15 @@ const ClassDetail = () => {
           })}
         </div>
 
+        {selectedSubIndex !== null && (
+          <div>
+            <span
+              dangerouslySetInnerHTML={{ __html: subDetailList[selectedSubIndex].sub_content }}></span>
+          </div>
+        )}
+
         {isRegist ?
-        // 버튼 비활성화 필요
+          // 버튼 비활성화 필요
           <p>등록됨</p>
           :
           <button type="button" className={style.submit_button}
