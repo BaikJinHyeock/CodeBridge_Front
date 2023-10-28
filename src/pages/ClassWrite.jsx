@@ -46,7 +46,14 @@ const ClassWrite = () => {
     e.preventDefault();
 
     // state 값들을 확인하고, 비어있는 값이 있는지 확인
-    if (!title || !target || !startDate || !endDate || !quillValue || !croppedImage) {
+    if (
+      !title ||
+      !target ||
+      !startDate ||
+      !endDate ||
+      !quillValue ||
+      !croppedImage
+    ) {
       alert("값이 모두 입력되지 않았습니다. 모든 필수 항목을 입력해주세요.");
       return;
     }
@@ -72,7 +79,6 @@ const ClassWrite = () => {
     console.log("obj확인", obj);
 
     try {
-
       const response = await axios.post(
         `${baseUrl}/CodeBridge/class/write`,
         obj
@@ -138,10 +144,12 @@ const ClassWrite = () => {
     };
     return (
       <div className={style.sub_item_box} onClick={handleItemClick}>
-        <span>과목 번호 : {props.sub_num}</span>
-        <span>언어 : {props.sub_lang}</span>
-        <span>강사 : {props.user_name}</span>
-        <span>강의 명 : {props.sub_title}</span>
+        <span className={style.sub_item_box_num}>No.{props.sub_num}</span>
+        <h4>{props.sub_title}</h4>
+        <div className={style.sub_item_box_detail}>
+          <span>{props.user_name} 연구원</span>
+          <h5>{props.sub_lang}</h5>
+        </div>
       </div>
     );
   };
@@ -151,7 +159,7 @@ const ClassWrite = () => {
     const updatedInputs = [...additionalInputs];
     updatedInputs[
       index
-    ].content = `과목 번호: ${item.sub_num}, 언어: ${item.sub_lang}, 강사: ${item.user_name}, 강의 명: ${item.sub_title} `;
+    ].content = `${item.sub_title} `;
     setAdditionalInputs(updatedInputs);
     // 이전의 subNumList를 가져와서 새로운 값을 추가
     setSubNumList((prevSubNumList) => [...prevSubNumList, item.sub_num]);
@@ -490,12 +498,16 @@ const ClassWrite = () => {
                   </div>
                 ))}
               </div>
-              <Modal show={show} onHide={handleClose} style={{ top: "20%" }}>
+              <Modal show={show} onHide={handleClose} style={{ top: "15%" }}>
                 <Modal.Header closeButton>
                   <Modal.Title>과목 목록</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <style>{`.modal - content { width: 600px; } `}</style>
+                  <style>{`.modal-content { 
+    width: 600px;
+    max-height: 700px;
+    overflow: scroll;
+  } `}</style>
 
                   <div>
                     <form onSubmit={subListByName}>
@@ -511,23 +523,23 @@ const ClassWrite = () => {
 
                   {findLangList.length > 0
                     ? findLangList.map((item, index) => (
-                      <SubItem
-                        key={index}
-                        props={item}
-                        handleSubItemClick={() =>
-                          handleSubItemClick(item, selectedWeekIndex)
-                        }
-                      />
-                    ))
+                        <SubItem
+                          key={index}
+                          props={item}
+                          handleSubItemClick={() =>
+                            handleSubItemClick(item, selectedWeekIndex)
+                          }
+                        />
+                      ))
                     : subList.map((item, index) => (
-                      <SubItem
-                        key={index}
-                        props={item}
-                        handleSubItemClick={() =>
-                          handleSubItemClick(item, selectedWeekIndex)
-                        }
-                      />
-                    ))}
+                        <SubItem
+                          key={index}
+                          props={item}
+                          handleSubItemClick={() =>
+                            handleSubItemClick(item, selectedWeekIndex)
+                          }
+                        />
+                      ))}
                 </Modal.Body>
                 <Modal.Footer>
                   <Button variant="secondary" onClick={handleClose}>

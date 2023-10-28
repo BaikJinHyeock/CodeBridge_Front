@@ -76,11 +76,22 @@
           display: flex;
           justify-content: flex-start;
           gap: 16px;
+          align-items: center;
+
+          span{
+            white-space: pre;
+            width: 5%;
+          }
 
           input {
-            &:first-child {
-              width: 20%;
-            }
+            width: 80%;
+            // &:first-child {
+            //   width: 20%;
+            // }
+          }
+          button{
+            background-color: $error-color;
+            color: $font-sub-color1;
           }
         }
       }

@@ -151,7 +151,7 @@ const TestWrite = () => {
 
             {testConditionList.map((item, index) => (
               <div className={style.input_cur} key={item.id}>
-                <span>테스트케이스 {index + 1}</span>
+                <span>문제 {index + 1}</span>
                 <input
                   type="text"
                   name="content"
