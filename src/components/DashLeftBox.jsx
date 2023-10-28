@@ -11,6 +11,7 @@ const DashLeftBox = () => {
 
   const [userInfo, setUserInfo] = useState([]);
 
+  console.log("네비 유저인포", userInfo);
   useEffect(() => {
     setUserInfo(combinedInfo.userInfo)
   }, [combinedInfo]);
@@ -21,7 +22,17 @@ const DashLeftBox = () => {
 
   const moveDashboard = () => {
     setActiveButton("dashboard"); // "dashboard" 버튼을 활성화
-    navigate("/DashBoard");
+    // if(userInfo.user_type == 1){
+    //   navigate("/DashAdmin");
+    // }else if(userInfo.user_type == 0){
+    //   navigate("/DashBoard");
+    // };
+    userInfo.user_type == 1 ? (
+      navigate("/DashAdmin")
+    ) : (
+      navigate("/DashBoard")
+    )
+
   };
   const moveMyClass = () => {
     setActiveButton("classRoom"); // "classRoom" 버튼을 활성화
@@ -30,7 +41,11 @@ const DashLeftBox = () => {
 
   const moveTest = () => {
     setActiveButton("testList"); // "testList" 버튼을 활성화
-    navigate("/TestList");
+    userInfo.user_type == 1 ? (
+      navigate("/TestList/teacher")
+    ) : (
+      navigate("/TestList/student")
+    )
   };
 
   const moveMark = () => {
@@ -42,10 +57,10 @@ const DashLeftBox = () => {
     navigate("/SetInfo");
   };
 
-  const moveAdmin = () => {
-    setActiveButton("admin"); // "setInfo" 버튼을 활성화
-    navigate("/DashAdmin");
-  };
+  // const moveAdmin = () => {
+  //   setActiveButton("admin"); // "setInfo" 버튼을 활성화
+  //   navigate("/DashAdmin");
+  // };
 
   return (
     <div className={style.left_wrap_container}>
@@ -120,7 +135,7 @@ const DashLeftBox = () => {
           <span>Test Score</span>
         </button>
 
-        {userInfo.hasclass != 0 &&
+        {/* {userInfo.hasclass != 0 &&
           <button
             type="button"
             className={activeButton === "admin" ? style.active : ""}
@@ -139,7 +154,7 @@ const DashLeftBox = () => {
             </svg>
             <span>Admin</span>
           </button>
-        }
+        } */}
       </div>
 
       <div className={style.left_bottom}>

@@ -75,8 +75,8 @@ const DashAdmin = () => {
 
   const ApprovedItem = ({ props }) => {
     return (
-      <div>
-        <p>{props.user_id}</p>
+      <div className={style.wrap_accept_list}>
+        <span>{props.user_id}</span>
       </div>
     );
   };

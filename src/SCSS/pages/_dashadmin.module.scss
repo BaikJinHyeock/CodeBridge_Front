@@ -242,6 +242,35 @@
                 h4 {
                     margin-bottom: 20px;
                 }
+                
+                .wrap_accept_list {
+                    display: flex;
+                    gap: 0.5rem;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 0.5rem;
+
+                    span {
+                        font-size: 12px;
+                        font-weight: 700;
+                    }
+
+                    button {
+                        font-size: 12px;
+                        background-color: $main-color;
+                        color: $font-sub-color1;
+                        transition-duration: 150ms;
+                        padding: 8px;
+
+                        &:hover {
+                            background-color: $sub-color;
+                        }
+                    }
+
+                    &:nth-child(even) {
+                        background-color: $bg-grayScale;
+                    }
+                }
             }
 
 
