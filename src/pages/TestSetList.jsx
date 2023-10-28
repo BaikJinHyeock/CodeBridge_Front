@@ -205,7 +205,7 @@ const TestList = () => {
           </div>
         </div>
 
-        <Modal show={show} onHide={handleClose} style={{ top: "20%" }}>
+        <Modal show={show} onHide={handleClose} style={{ top: "55%", left: "50%", transform: "translate(-50%, -50%)", zIndex: 99999 }}>
           <Modal.Header closeButton>
             <Modal.Title>{selectedTest && selectedTest.test_title}</Modal.Title>
           </Modal.Header>

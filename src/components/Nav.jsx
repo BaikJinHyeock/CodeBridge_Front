@@ -48,13 +48,20 @@ const Nav = () => {
     let mem = {
       user_id: id,
     };
-    await axios.post(`${baseUrl}/CodeBridge/member/memcheck`, mem)
+    await axios
+      .post(`${baseUrl}/CodeBridge/member/memcheck`, mem)
       .then((response) => {
         setUserInfo(response.data[0]);
-        axios.get(`${baseUrl}/CodeBridge/class/findnum?class_num=${response.data[0].class_num}`)
+        axios
+          .get(
+            `${baseUrl}/CodeBridge/class/findnum?class_num=${response.data[0].class_num}`
+          )
           .then((response) => {
             setClassInfo(response.data[0]);
-            axios.get(`${baseUrl}/CodeBridge/member/memberInfoTeacher?user_id=${response.data[0].user_id}`)
+            axios
+              .get(
+                `${baseUrl}/CodeBridge/member/memberInfoTeacher?user_id=${response.data[0].user_id}`
+              )
               .then((response) => {
                 setTeacherInfo(response.data[0]);
               })
@@ -70,7 +77,6 @@ const Nav = () => {
         console.error(error);
       });
   };
-
 
   const [isClass, setIsClass] = useState();
 
@@ -143,18 +149,22 @@ const Nav = () => {
             <li>
               <Link to={"/Team"}>팀 소개</Link>
             </li>
-            <li>
-              <Link to={"/ClassWrite"}>강의실/과목</Link>
-            </li>
-            <li>
-              <Link to={"/TestWrite"}>테스트</Link>
-            </li>
+            {id && userInfo.user_type === 1 && (
+              <>
+                <li>
+                  <Link to={"/ClassWrite"}>강의실/과목</Link>
+                </li>
+                <li>
+                  <Link to={"/TestWrite"}>테스트</Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
 
         <div className={style.right_container}>
           <ul className={style.nomal}>
-            {id ? (
+            {/* {id ? (
               <li className={style.right_container_profile_text}>
                 {isClass || userInfo.hasclass ? (
                   <li className={style.right_container_profile_text}>
@@ -165,6 +175,23 @@ const Nav = () => {
                     <button onClick={() => alert("반이 없습니다")}>
                       대시보드
                     </button>
+                  </li>
+                )}
+              </li>
+            ) : (
+              <li>
+                <Link to={"/Login"}>로그인</Link>
+              </li>
+            )} */}
+            {id ? (
+              <li className={style.right_container_profile_text}>
+                {(isClass || userInfo.hasclass) && userInfo.user_type === 1 ? (
+                  <li className={style.right_container_profile_text}>
+                    <Link to={"/DashAdmin"}>대시보드</Link>
+                  </li>
+                ) : (
+                  <li className={style.right_container_profile_text}>
+                    <Link to={"/DashBoard"}>대시보드</Link>
                   </li>
                 )}
               </li>
@@ -316,7 +343,15 @@ const Nav = () => {
             <div className={style.mobile_silde_container_third}>
               {/* 로그인 완료 */}
               <div className={style.mobile_silde_container_third_division}>
-                <Link to={"/DashBoard"}>대시보드</Link>
+                {(isClass || userInfo.hasclass) && userInfo.user_type === 1 ? (
+                  <li className={style.right_container_profile_text}>
+                    <Link to={"/DashAdmin"}>대시보드</Link>
+                  </li>
+                ) : (
+                  <li className={style.right_container_profile_text}>
+                    <Link to={"/DashBoard"}>대시보드</Link>
+                  </li>
+                )}
               </div>
               <div className={style.mobile_silde_container_third_buttons}>
                 <button
