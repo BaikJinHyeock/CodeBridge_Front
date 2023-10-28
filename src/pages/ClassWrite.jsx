@@ -46,14 +46,7 @@ const ClassWrite = () => {
     e.preventDefault();
 
     // state 값들을 확인하고, 비어있는 값이 있는지 확인
-    if (
-      !title ||
-      !target ||
-      !startDate ||
-      !endDate ||
-      !quillValue ||
-      !croppedImage
-    ) {
+    if (!title || !target || !startDate || !endDate || !quillValue || !croppedImage) {
       alert("값이 모두 입력되지 않았습니다. 모든 필수 항목을 입력해주세요.");
       return;
     }
@@ -63,12 +56,14 @@ const ClassWrite = () => {
       .map((input) => `${input.week}::${input.content}`)
       .join(",, ");
 
-    handleSaveCroppedImage(croppedImage);
+
+    const croppedImageDataUrl = await handleSaveCroppedImage(croppedImage);
+
 
     let obj = {
       user_id: sessionStorage.getItem("memberId"),
       class_title: title,
-      img_url: savedUrl,
+      img_url: croppedImageDataUrl,
       class_content: quillValue,
       class_target: target,
       curriculum: curriculumString,
@@ -258,9 +253,7 @@ const ClassWrite = () => {
   /* 모달 */
 
   /* 파이어베이스 시작 */
-  const [savedUrl, setSavedUrl] = useState("");
-
-  const uploadImageToFirebase = async (croppedImageDataUrl) => {
+  const handleSaveCroppedImage = async (croppedImageDataUrl) => {
     const imageDataBlob = await fetch(croppedImageDataUrl).then((res) =>
       res.blob()
     );
@@ -278,14 +271,6 @@ const ClassWrite = () => {
       return null;
     }
   };
-
-  const handleSaveCroppedImage = async (croppedImageDataUrl) => {
-    const imageUrl = await uploadImageToFirebase(croppedImageDataUrl);
-    console.log("유알엘 확인", imageUrl);
-    setSavedUrl(imageUrl);
-    return imageUrl;
-  };
-
   /* 파이어베이스 끝 */
 
   // 크로퍼 부분 끝
@@ -523,23 +508,23 @@ const ClassWrite = () => {
 
                   {findLangList.length > 0
                     ? findLangList.map((item, index) => (
-                        <SubItem
-                          key={index}
-                          props={item}
-                          handleSubItemClick={() =>
-                            handleSubItemClick(item, selectedWeekIndex)
-                          }
-                        />
-                      ))
+                      <SubItem
+                        key={index}
+                        props={item}
+                        handleSubItemClick={() =>
+                          handleSubItemClick(item, selectedWeekIndex)
+                        }
+                      />
+                    ))
                     : subList.map((item, index) => (
-                        <SubItem
-                          key={index}
-                          props={item}
-                          handleSubItemClick={() =>
-                            handleSubItemClick(item, selectedWeekIndex)
-                          }
-                        />
-                      ))}
+                      <SubItem
+                        key={index}
+                        props={item}
+                        handleSubItemClick={() =>
+                          handleSubItemClick(item, selectedWeekIndex)
+                        }
+                      />
+                    ))}
                 </Modal.Body>
                 <Modal.Footer>
                   <Button variant="secondary" onClick={handleClose}>
