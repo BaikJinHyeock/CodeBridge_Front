@@ -149,7 +149,7 @@ const Nav = () => {
             <li>
               <Link to={"/Team"}>팀 소개</Link>
             </li>
-            {userInfo.user_type == 1 && (
+            {id && userInfo.user_type === 1 && (
               <>
                 <li>
                   <Link to={"/ClassWrite"}>강의실/과목</Link>
@@ -159,7 +159,6 @@ const Nav = () => {
                 </li>
               </>
             )}
-            
           </ul>
         </div>
 
