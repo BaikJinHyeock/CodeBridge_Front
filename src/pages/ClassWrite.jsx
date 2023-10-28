@@ -12,9 +12,7 @@ import style from "../SCSS/pages/_classWrite.module.scss";
 import QuillCompo from "../components/QuillCompo";
 import Image from "react-bootstrap/Image";
 
-
 const ClassWrite = () => {
-
   // 스프링 주소
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -31,8 +29,8 @@ const ClassWrite = () => {
   ]);
   const [subNumList, setSubNumList] = useState([]);
 
-  console.log('주차 값 확인', additionalInputs);
-  console.log('과목넘버들 확인', subNumList);
+  console.log("주차 값 확인", additionalInputs);
+  console.log("과목넘버들 확인", subNumList);
 
   const handleAddInput = () => {
     setAdditionalInputs([...additionalInputs, { week: "", content: "" }]);
@@ -49,7 +47,7 @@ const ClassWrite = () => {
 
     // state 값들을 확인하고, 비어있는 값이 있는지 확인
     if (!title || !target || !startDate || !endDate || !quillValue) {
-      alert('값이 모두 입력되지 않았습니다. 모든 필수 항목을 입력해주세요.');
+      alert("값이 모두 입력되지 않았습니다. 모든 필수 항목을 입력해주세요.");
       return;
     }
 
@@ -59,7 +57,6 @@ const ClassWrite = () => {
       .join(",, ");
 
     handleSaveCroppedImage(croppedImage);
-
 
     try {
       let obj = {
@@ -71,19 +68,22 @@ const ClassWrite = () => {
         curriculum: curriculumString,
         class_startdate: startDate,
         class_enddate: endDate,
-        sub_num: subNumList.join(','),
+        sub_num: subNumList.join(","),
       };
 
-      console.log('obj확인', obj);
-      const response = await axios.post(`${baseUrl}/CodeBridge/class/write`, obj);
-      console.log('응답 확인', response.data);
-      if (response.data == 'success') {
-        alert('작성 완료')
+      console.log("obj확인", obj);
+      const response = await axios.post(
+        `${baseUrl}/CodeBridge/class/write`,
+        obj
+      );
+      console.log("응답 확인", response.data);
+      if (response.data == "success") {
+        alert("작성 완료");
       } else {
-        alert('작성 실패')
+        alert("작성 실패");
       }
     } catch (error) {
-      console.error('통신 오류', error);
+      console.error("통신 오류", error);
     }
   };
 
@@ -112,16 +112,15 @@ const ClassWrite = () => {
   const handleShow = (index) => {
     setSelectedWeekIndex(index);
     setShow(true);
-  }
+  };
   // 모달 관련
 
   // 과목 전부 긁어오는 코드
   const [subList, setSubList] = useState([]);
 
   const getSubList = async (e) => {
-
     try {
-      const res = await axios.get(`${baseUrl}/CodeBridge/sub/find`)
+      const res = await axios.get(`${baseUrl}/CodeBridge/sub/find`);
       setSubList(res.data);
     } catch (error) {
       console.error();
@@ -135,7 +134,7 @@ const ClassWrite = () => {
   const SubItem = ({ props, handleSubItemClick }) => {
     const handleItemClick = () => {
       handleSubItemClick(props); // 클릭 시 부모 컴포넌트의 함수 호출
-    }
+    };
     return (
       <div className={style.sub_item_box} onClick={handleItemClick}>
         <span>과목 번호 : {props.sub_num}</span>
@@ -144,26 +143,27 @@ const ClassWrite = () => {
         <span>강의 명 : {props.sub_title}</span>
       </div>
     );
-  }
-
+  };
 
   // ...
   const handleSubItemClick = (item, index) => {
     const updatedInputs = [...additionalInputs];
-    updatedInputs[index].content = `과목 번호: ${item.sub_num}, 언어: ${item.sub_lang}, 강사: ${item.user_name}, 강의 명: ${item.sub_title} `;
+    updatedInputs[
+      index
+    ].content = `과목 번호: ${item.sub_num}, 언어: ${item.sub_lang}, 강사: ${item.user_name}, 강의 명: ${item.sub_title} `;
     setAdditionalInputs(updatedInputs);
     // 이전의 subNumList를 가져와서 새로운 값을 추가
-    setSubNumList(prevSubNumList => [...prevSubNumList, item.sub_num]);
+    setSubNumList((prevSubNumList) => [...prevSubNumList, item.sub_num]);
     setFindLang();
     setFindLangList([]);
     handleClose(); // 모달 닫기
-  }
+  };
 
   // 주차 삭제 메서드
   const handleRemoveInput = (index) => {
     const updatedInputs = [...additionalInputs];
     const removedItem = updatedInputs.splice(index, 1)[0]; // 삭제된 항목을 가져옴
-    console.log('리무브아이템 확인', removedItem);
+    console.log("리무브아이템 확인", removedItem);
     setAdditionalInputs(updatedInputs);
 
     // 정규표현식을 사용하여 content에서 sub_num을 추출
@@ -172,13 +172,15 @@ const ClassWrite = () => {
     // sub_num이 존재할 경우 subNumList에서 제거
     if (subNumToRemove) {
       const subNum = parseInt(subNumToRemove[1]);
-      setSubNumList(prevSubNumList => prevSubNumList.filter(subNumItem => subNumItem !== subNum));
+      setSubNumList((prevSubNumList) =>
+        prevSubNumList.filter((subNumItem) => subNumItem !== subNum)
+      );
     }
   };
 
   // 크로퍼 부분 시작
 
-  const imgPathRef = useRef(null)
+  const imgPathRef = useRef(null);
   /* 이미지 크롭 스크립트 */
 
   /* 크로퍼 */
@@ -190,7 +192,7 @@ const ClassWrite = () => {
   /* 크로퍼 */
   const handleCropperClick = () => {
     if (inputRef.current) {
-      inputRef.current.value = ''; // input 요소 초기화
+      inputRef.current.value = ""; // input 요소 초기화
       inputRef.current.click();
     }
   };
@@ -209,7 +211,9 @@ const ClassWrite = () => {
 
   const getCropData = () => {
     if (cropperRef.current && cropperRef.current.cropper) {
-      const croppedDataUrl = cropperRef.current.cropper.getCroppedCanvas().toDataURL();
+      const croppedDataUrl = cropperRef.current.cropper
+        .getCroppedCanvas()
+        .toDataURL();
       setCroppedImage(croppedDataUrl);
       setImage(null);
     }
@@ -225,10 +229,9 @@ const ClassWrite = () => {
   useEffect(() => {
     if (croppedImage !== null) {
       const fakeUpload = document.querySelector(`.${style.fake_upload}`);
-      fakeUpload.style.display = 'none';
+      fakeUpload.style.display = "none";
     }
   }, [croppedImage]);
-
 
   /* 모달 */
   const [showCropper, setShowCropper] = useState(false);
@@ -236,12 +239,12 @@ const ClassWrite = () => {
   const handleCropperClose = () => {
     setShowCropper(false);
     setImage(null);
-  }
+  };
   const handleCropperShow = () => {
     /* setCroppedImage(null); */
     setShowCropper(true);
     /* handleCropperClick(); */
-  }
+  };
 
   /* 모달 */
 
@@ -249,7 +252,9 @@ const ClassWrite = () => {
   const [savedUrl, setSavedUrl] = useState("");
 
   const uploadImageToFirebase = async (croppedImageDataUrl) => {
-    const imageDataBlob = await fetch(croppedImageDataUrl).then((res) => res.blob());
+    const imageDataBlob = await fetch(croppedImageDataUrl).then((res) =>
+      res.blob()
+    );
 
     try {
       const storageRef = ref(storage, `image/${Date.now()}`);
@@ -257,14 +262,17 @@ const ClassWrite = () => {
       const url = await getDownloadURL(snapshot.ref);
       return url;
     } catch (error) {
-      console.error("Firebase에 이미지를 업로드하는 동안 오류가 발생했습니다.", error);
+      console.error(
+        "Firebase에 이미지를 업로드하는 동안 오류가 발생했습니다.",
+        error
+      );
       return null;
     }
   };
 
   const handleSaveCroppedImage = async (croppedImageDataUrl) => {
     const imageUrl = await uploadImageToFirebase(croppedImageDataUrl);
-    console.log('유알엘 확인', imageUrl);
+    console.log("유알엘 확인", imageUrl);
     setSavedUrl(imageUrl);
     return imageUrl;
   };
@@ -272,10 +280,6 @@ const ClassWrite = () => {
   /* 파이어베이스 끝 */
 
   // 크로퍼 부분 끝
-
-
-
-
 
   return (
     <div className={style.wrap_container}>
@@ -287,9 +291,7 @@ const ClassWrite = () => {
           </li>
         </Link>
         <Link to={"/SubWrite"}>
-          <li>
-            과목 생성
-          </li>
+          <li>과목 생성</li>
         </Link>
       </ul>
 
@@ -318,19 +320,27 @@ const ClassWrite = () => {
 
             {/* 대표이미지 부분 */}
             <div className={style.input_box}>
-              <span className={style.span_tag}>썸네일 이미지</span>
-              <div ref={imgPathRef}></div>
-              {croppedImage &&
-                <div onClick={handleCropperClick}>이미지 재등록</div>
-              }
+              <span className={style.span_tag_thum}>
+                썸네일 이미지
+                {/* <div ref={imgPathRef}></div> */}
+                {croppedImage && (
+                  <button type="button" onClick={handleCropperClick}>
+                    이미지 재등록
+                  </button>
+                )}
+              </span>
             </div>
             <div className={style.market_pic}>
               <div className={style.input_pic}>
-                <div
-                  className={style.fake_upload}
-                  onClick={handleCropperClick}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera" viewBox="0 0 16 16">
+                <div className={style.fake_upload} onClick={handleCropperClick}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-camera"
+                    viewBox="0 0 16 16"
+                  >
                     <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
                     <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
                   </svg>
@@ -338,7 +348,7 @@ const ClassWrite = () => {
                 </div>
                 {/* 크로퍼 */}
 
-                <div className='cropper_content'>
+                <div className="cropper_content">
                   <form>
                     <input
                       type="file"
@@ -374,7 +384,6 @@ const ClassWrite = () => {
                         />
                       </div>
                     )}
-
                   </Modal.Body>
                   <Modal.Footer>
                     <Button variant="secondary" onClick={handleCropperClose}>
@@ -387,11 +396,8 @@ const ClassWrite = () => {
                 </Modal>
                 {/* 모달 */}
                 <div className={style.preview_img}>
-                  {croppedImage && (
-                    <img src={croppedImage} alt="" />
-                  )}
+                  {croppedImage && <img src={croppedImage} alt="" />}
                 </div>
-
               </div>
             </div>
             {/* 대표이미지 부분 */}
@@ -429,60 +435,66 @@ const ClassWrite = () => {
             <div className={style.input_box}>
               <span className={style.span_tag}>교육 설명</span>
               <QuillCompo />
-            </div>
 
-            <div className={style.input_box}>
-              <span className={style.span_tag}>
-                커리큘럼
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-plus-circle-fill"
-                  viewBox="0 0 16 16"
-                  onClick={handleAddInput}
-                >
-                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
-                </svg>
-              </span>
+              <div className={style.input_box}>
+                <span className={style.span_tag}>
+                  커리큘럼
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-plus-circle-fill"
+                    viewBox="0 0 16 16"
+                    onClick={handleAddInput}
+                  >
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                  </svg>
+                </span>
 
-              {additionalInputs.map((input, index) => (
-                <div key={index} className={style.input_cur}>
-                  <input
-                    type="text"
-                    name="week"
-                    value={input.week}
-                    placeholder="주차"
-                    class="form-control"
-                    onChange={(e) => handleInputChange(index, e)}
-                  />
-                  {input.content ? (
-                    <div className={style.selectedSubItem} onClick={() => handleShow(index)}>
-                      <span>{input.content}</span>
-                    </div>
-                  ) : (
-                    <div onClick={() => handleShow(index)}>
-                      과목 선택
-                    </div>
-                  )}
-                  {index === additionalInputs.length - 1 && (
-                    <button onClick={() => handleRemoveInput(index)}>삭제</button>
-                  )}
-                </div>
-              ))}
-              <Modal
-                show={show}
-                onHide={handleClose}
-                style={{ top: '20%' }}
-              >
+                {additionalInputs.map((input, index) => (
+                  <div key={index} className={style.input_cur}>
+                    <input
+                      type="text"
+                      name="week"
+                      value={input.week}
+                      placeholder="주차"
+                      class="form-control"
+                      onChange={(e) => handleInputChange(index, e)}
+                    />
+                    {input.content ? (
+                      <div
+                        className={style.selectedSubItem}
+                        onClick={() => handleShow(index)}
+                      >
+                        <span>{input.content}</span>
+                      </div>
+                    ) : (
+                      <button
+                        className={style.subject}
+                        type="button"
+                        onClick={() => handleShow(index)}
+                      >
+                        과목 선택
+                      </button>
+                    )}
+                    {index === additionalInputs.length - 1 && (
+                      <button
+                        className={style.delete}
+                        onClick={() => handleRemoveInput(index)}
+                      >
+                        삭제
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </div>
+              <Modal show={show} onHide={handleClose} style={{ top: "20%" }}>
                 <Modal.Header closeButton>
                   <Modal.Title>과목 목록</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <style>
-                    {`.modal - content { width: 600px; } `}
-                  </style>
+                  <style>{`.modal - content { width: 600px; } `}</style>
 
                   <div>
                     <form onSubmit={subListByName}>
@@ -491,23 +503,30 @@ const ClassWrite = () => {
                         value={findLang}
                         placeholder="과목 검색"
                         class="form-control"
-                        onChange={(e) => setFindLang(e.target.value)} />
+                        onChange={(e) => setFindLang(e.target.value)}
+                      />
                     </form>
                   </div>
 
-
-                  {findLangList.length > 0 ?
-                    findLangList.map((item, index) => (
-                      <SubItem key={index} props={item} handleSubItemClick={() => handleSubItemClick(item, selectedWeekIndex)} />
-                    ))
-                    :
-                    subList.map((item, index) => (
-                      <SubItem key={index} props={item} handleSubItemClick={() => handleSubItemClick(item, selectedWeekIndex)} />
-                    ))
-                  }
-
-
-
+                  {findLangList.length > 0
+                    ? findLangList.map((item, index) => (
+                        <SubItem
+                          key={index}
+                          props={item}
+                          handleSubItemClick={() =>
+                            handleSubItemClick(item, selectedWeekIndex)
+                          }
+                        />
+                      ))
+                    : subList.map((item, index) => (
+                        <SubItem
+                          key={index}
+                          props={item}
+                          handleSubItemClick={() =>
+                            handleSubItemClick(item, selectedWeekIndex)
+                          }
+                        />
+                      ))}
                 </Modal.Body>
                 <Modal.Footer>
                   <Button variant="secondary" onClick={handleClose}>
