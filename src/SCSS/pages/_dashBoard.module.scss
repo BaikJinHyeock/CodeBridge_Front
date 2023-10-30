@@ -3,13 +3,126 @@
 .wrap_container {
   background-color: $wrap-bg;
   width: 100%;
-  overflow: scroll;
   height: calc(100vh - 4rem);
   display: flex;
 
   .right_container {
+    overflow-y: scroll;
     width: 80%;
     padding: 32px 64px;
+
+    .right_container_todoList {
+      width: 100%;
+      background-color: $font-sub-color1;
+      border-radius: 8px;
+      box-shadow: $box-shadow;
+      padding: 20px;
+      margin: 36px 0;
+
+      h4 {
+        padding: 6px;
+        margin-bottom: 12px;
+      }
+
+      .right_container_main {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 32px;
+        align-items: flex-start;
+        position: relative;
+
+        .right_container_todo_Top {
+
+
+          .right_container_todo_Top_add {
+            padding: 0.5rem;
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+
+            input {
+              width: 90%;
+              padding: 0.5rem 1rem;
+              outline: none;
+              border: $border;
+              background-color: $bg-grayScale;
+              border-radius: 10px;
+            }
+
+            svg {
+              fill: #999;
+              transition-duration: 150ms;
+              cursor: pointer;
+
+              &:hover {
+                fill: $main-color;
+              }
+            }
+          }
+        }
+
+        .right_container_todo_list {
+          display: flex;
+          flex-direction: column;
+          gap: 0.7rem;
+          margin-top: 6px;
+          position: relative;
+
+          .todoItem {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.4rem;
+
+            .todoCheckBox {
+              display: flex;
+              align-items: center;
+              gap: 1rem;
+
+              .checkIcon {
+                width: 26px;
+                height: 26px;
+                border: $border;
+                border-radius: 5px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+
+                svg {
+                  fill: $main-color;
+                  cursor: pointer;
+                }
+
+              }
+
+              span {
+                cursor: pointer;
+                font-size: 16px;
+                font-weight: 700;
+              }
+
+            }
+
+            .deleteBox {
+              cursor: pointer;
+            }
+          }
+          
+          &::before{
+            content: "";
+            display: block;
+            clear: both;
+            width: 1px;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: -1rem;
+            background-color: $base-color;
+          }
+        }
+      }
+    }
 
     .main_content {
       display: flex;
@@ -22,7 +135,6 @@
         border-radius: 8px;
         box-shadow: $box-shadow;
         width: 30%;
-        padding: 12px;
 
         h4 {
           padding: 6px;
@@ -91,6 +203,10 @@
     &:last-child {
       span {
         font-weight: 800;
+
+        img{
+          width: 100%;
+        }
       }
     }
   }
@@ -102,7 +218,7 @@
   /* 원하는 배경색 설정 */
   color: #ffffff;
   /* 원하는 폰트 색상 설정 */
-  
+
   div {
     &:first-child {
       span {
