@@ -28,8 +28,9 @@ const DashAdmin = () => {
       const res = await axios.get(
         `${baseUrl}/CodeBridge/class/getstu?class_num=${userInfo.hasclass}`
       );
+      console.log('받아온 리스트', res.data);
       const approvedList = res.data.filter((item) => item.approved === 1);
-      const unApprovedList = res.data.filter((item) => item.approved === 0 && item.teacher === 0);
+      const unApprovedList = res.data.filter((item) => item.approved === 0 && item.isteacher === 0);
       setApprovedList(approvedList);
       setUnApprovedList(unApprovedList);
     } catch (error) { }

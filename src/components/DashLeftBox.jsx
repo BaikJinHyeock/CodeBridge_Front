@@ -11,7 +11,6 @@ const DashLeftBox = () => {
 
   const [userInfo, setUserInfo] = useState([]);
 
-  console.log("네비 유저인포", userInfo);
   useEffect(() => {
     setUserInfo(combinedInfo.userInfo)
   }, [combinedInfo]);
