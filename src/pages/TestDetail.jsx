@@ -175,12 +175,23 @@ const TestDetail = () => {
     setShow(true);
   };
 
-  console.log('현제 상태 확인', isSubmitDisabled[selectedTestIndex]);
+  const finalSubmit = async () => {
+    let obj = {
+      sub_num : sub_num,
+      user_id : sessionStorage.getItem("memberId")
+    }
+    try {
+      const res = await axios.post(`${baseUrl}/CodeBridge/mark/submit`, obj);
+      if (res.data == "success"){
+        alert("제출완료")
+      }else{
+        alert("제출실패")
+      }
 
-  console.log('지금 인덱스', selectedTestIndex);
-  console.log('gpt답변', gptRes);
+    } catch (error) {
 
-
+    }
+  }
 
   return (
     <div className={style.wrap_container}>
@@ -243,6 +254,7 @@ const TestDetail = () => {
               결과확인
             </button>
 
+
             <Modal show={show} onHide={handleClose} style={{ top: "55%", left: "50%", transform: "translate(-50%, -50%)", zIndex: 99999 }}>
               <Modal.Header closeButton>
                 <Modal.Title>채점 결과</Modal.Title>
@@ -286,6 +298,11 @@ const TestDetail = () => {
 
           </>
         }
+
+
+        <button onClick={finalSubmit}>
+          시험종료
+        </button>
 
       </div>
       <div className={style.test_compiler}>
