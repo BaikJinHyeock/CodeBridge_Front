@@ -63,11 +63,26 @@
         }
 
         .code_sub_btn {
-            background-color: aqua;
+            background-color: $main-color;
+            color: $font-sub-color1;
             width: 100px;
             padding: 1rem;
             cursor: pointer;
         }
+
+        .disabled {
+            background-color: gray;
+            color: $font-sub-color2;
+            cursor: not-allowed;
+        }
+
+        // disabled일때 버튼
+        button:disabled {
+            background-color: rgb(73, 72, 126);
+            cursor: not-allowed;
+        }
+
+
     }
 
     .test_compiler {
