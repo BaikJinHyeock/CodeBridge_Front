@@ -42,6 +42,10 @@
         box-shadow: $box-shadow;
         width: 70%;
         padding: 20px;
+
+        h4 {
+          margin-bottom: 20px;
+        }
       }
     }
   }
@@ -58,12 +62,14 @@
 
   &:hover {
     background-color: $main-color;
+
     div {
       &:first-child {
         span {
           color: $font-sub-color1;
         }
       }
+
       &:last-child {
         span {
           color: $font-sub-color1;
@@ -81,9 +87,32 @@
         color: #999999;
       }
     }
+
     &:last-child {
       span {
         font-weight: 800;
+      }
+    }
+  }
+
+}
+
+.selected {
+  background-color: $main-color !important;
+  /* 원하는 배경색 설정 */
+  color: #ffffff;
+  /* 원하는 폰트 색상 설정 */
+  
+  div {
+    &:first-child {
+      span {
+        color: $font-sub-color1;
+      }
+    }
+
+    &:last-child {
+      span {
+        color: $font-sub-color1;
       }
     }
   }

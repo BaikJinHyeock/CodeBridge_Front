@@ -53,9 +53,12 @@ const DashBoard = () => {
   // 모든 정보 조회
   const id = sessionStorage.getItem("memberId");
 
-  const CurriList = ({ props, index }) => {
+  const CurriList = ({ props, index, isSelected, onClick }) => {
     return (
-      <div className={style.curriList_item}>
+      <div
+        className={`${style.curriList_item} ${isSelected ? style.selected : ''}`}
+        onClick={onClick}
+      >
         <div>
           <span>{props[0]}</span>
         </div>
@@ -68,6 +71,7 @@ const DashBoard = () => {
 
 
   const [selectedSubIndex, setSelectedSubIndex] = useState(null);
+
 
   // 클릭 이벤트 핸들러
   const handleSubClick = (index) => {
@@ -86,14 +90,17 @@ const DashBoard = () => {
           <div className={style.main_content_left}>
             <h4>커리큘럼</h4>
             {toarray && toarray.map((item, index) => {
+              const isSelected = index === selectedSubIndex;
+
               return (
-                <CurriList key={index} props={item} index={index} />
+                <CurriList key={index} props={item} index={index} isSelected={isSelected}
+                  onClick={() => handleSubClick(index)} />
               );
             })}
           </div>
 
           <div className={style.main_content_right}>
-            <h4>To do List</h4>
+            <h4>커리큘럼 미리보기</h4>
             {selectedSubIndex !== null && (
               <div>
                 <span
@@ -101,6 +108,9 @@ const DashBoard = () => {
               </div>
             )}
           </div>
+        </div>
+        <div>
+          
         </div>
       </div>
       <DashRightBox />

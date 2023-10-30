@@ -178,7 +178,7 @@ const Nav = () => {
                   )
                   : (
                     <li>
-                      <button onClick={() => alert("반이 없습니다")}>
+                      <button className={style.right_container_profile_text_not} onClick={() => alert("소속된 강의실이 없습니다.")}>
                         대시보드
                       </button>
                     </li>
