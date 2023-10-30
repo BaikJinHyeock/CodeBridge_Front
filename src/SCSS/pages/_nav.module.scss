@@ -160,6 +160,10 @@
             color: $font-sub-color1 !important;
           }
         }
+        .right_container_profile_text_not{
+          font-size: 14px;
+          cursor: default;
+        }
       }
     }
 
@@ -208,12 +212,14 @@
 
       .toggle_box_buttons {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
         padding-top: 12px;
+        gap: 0.5rem;
 
         button {
           font-size: 12px;
-          padding: 8px 14px
+          padding: 8px 14px;
+          white-space: pre;
         }
 
         .button_logout {
