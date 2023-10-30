@@ -125,17 +125,28 @@ const TestDetail = () => {
         }
       }
 
-
       const testScore = (successCount > 0)
         ? selectedTest.test_level * 10 * (successCount / (testCases.length - 1))
         : 0;
-
 
       setTestScore(prevScores => {
         const updatedScores = [...prevScores];
         updatedScores[selectedTestIndex] = testScore;
         return updatedScores;
       });
+
+      console.log('점수 확인 안에서', testScore);
+
+      let mark_result = {
+        sub_num: sub_num,
+        test_num: selectedTest.test_num,
+        user_id: sessionStorage.getItem("memberId"),
+        mark_result: response_py.data,
+        mark_score: testScore
+      }
+
+      const response = await axios.post(`${baseUrl}/CodeBridge/mark/result`, mark_result);
+      console.log('스프링 결과 확인', response.data);
 
     } catch (error) {
       console.error(error);
