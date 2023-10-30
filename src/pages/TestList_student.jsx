@@ -17,6 +17,8 @@ const TestList_student = () => {
   const [userInfo, setUserInfo] = useState([]);
   const [classInfo, setClassInfo] = useState([]);
 
+  console.log('클래스 인포', classInfo);
+
 
   useEffect(() => {
     setUserInfo(combinedInfo.userInfo)
@@ -33,7 +35,7 @@ const TestList_student = () => {
 
   const getTested = async () => {
     let obj = {
-      sub_num: '1, 5',
+      sub_num: '20, 19',
       user_id: sessionStorage.getItem("memberId")
     }
     try {
@@ -46,6 +48,8 @@ const TestList_student = () => {
       console.error(error);
     }
   };
+
+  console.log('isTested확인', isTested);
 
 
   const [subList, setSubList] = useState([]); // 데이터를 저장할 상태 추가
@@ -62,6 +66,8 @@ const TestList_student = () => {
       console.error("데이터 가져오기에 실패했습니다.", error);
     }
   };
+
+  console.log('섭리스트 확인', subList);
 
   useEffect(() => {
     getSubs();

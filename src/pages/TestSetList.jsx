@@ -33,15 +33,15 @@ const TestList = () => {
 
   // testList 난이도별로 분류
   const categorizeTestsByLevel = (tests) => {
-    const levelTests = [[], [], []];
+    console.log('난이도분류 tests확인', tests);
+    const levelTests = [[], [], [], []];
     tests.forEach((test) => {
       levelTests[test.test_level].push(test);
     });
     return levelTests;
   };
 
-  const [level0Tests, level1Tests, level2Tests] =
-    categorizeTestsByLevel(testList);
+  const [dummy, level1Tests, level2Tests, level3Tests] = categorizeTestsByLevel(testList);
   const [selectedTestNums, setSelectedTestNums] = useState([]);
 
   // 모달 관련
@@ -115,7 +115,7 @@ const TestList = () => {
           <div className={style.right_container_list_grid}>
             <div className={style.right_container_list_grid_box}>
               <h5>Level 하</h5>
-              {level0Tests.map((item, index) => (
+              {level1Tests.map((item, index) => (
                 <div
                   key={index}
                   className={`${style.test_list_item_wrapper} ${selectedTestNums.includes(item.test_num)
@@ -146,7 +146,7 @@ const TestList = () => {
 
             <div className={style.right_container_list_grid_box}>
               <h5>Level 중</h5>
-              {level1Tests.map((item, index) => (
+              {level2Tests.map((item, index) => (
                 <div
                   key={index}
                   className={`${style.test_list_item_wrapper} ${selectedTestNums.includes(item.test_num)
@@ -177,7 +177,7 @@ const TestList = () => {
 
             <div className={style.right_container_list_grid_box}>
               <h5>Level 상</h5>
-              {level2Tests.map((item, index) => (
+              {level3Tests.map((item, index) => (
                 <div
                   key={index}
                   className={`${style.test_list_item_wrapper} ${selectedTestNums.includes(item.test_num)

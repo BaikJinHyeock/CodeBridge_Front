@@ -3,6 +3,9 @@ import style from "../SCSS/pages/_testDetail.module.scss";
 import CompilerTest from "../components/CompilerTest";
 import axios from "axios";
 import { useLocation, useParams } from "react-router-dom";
+import Modal from "react-bootstrap/Modal";
+import { Button } from "react-bootstrap";
+import Spinner from 'react-bootstrap/Spinner';
 
 const TestDetail = () => {
 
@@ -14,7 +17,6 @@ const TestDetail = () => {
   const params = new URLSearchParams(location.search);
   const sub_num = params.get("sub_num");
 
-  console.log("sub_num확인", sub_num);
 
   const [testList, SetTestList] = useState([]);
   const [testcontents, setTestcontents] = useState("");
@@ -30,13 +32,11 @@ const TestDetail = () => {
     }
   };
 
+  console.log('testList확인', testList);
+
   useEffect(() => {
     getTestList();
   }, []);
-
-
-  console.log('testList확인', testList);
-
 
   useEffect(() => {
     // testList가 존재하고, 길이가 0보다 큰 경우에만 selectall 호출
@@ -50,8 +50,6 @@ const TestDetail = () => {
     setTestCode(code); // CompilerTest에서 전달된 코드를 TestDetail에서 받아와서 상태를 설정
   };
 
-  console.log("테스트코드 확인", testCode);
-  console.log("아이디 확인", sessionStorage.getItem("memberId"));
 
   const submitButton = async (e) => {
     e.preventDefault();
@@ -76,7 +74,6 @@ const TestDetail = () => {
 
   const [subTestCode, setSubTestCode] = useState([]);
 
-  console.log('코드 확인', subTestCode);
 
 
   const updateSubTestCode = (index, code) => {
@@ -85,29 +82,103 @@ const TestDetail = () => {
     setSubTestCode(updatedCode);
   };
 
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(testList.map(() => false));
+
+  // 체점관련
+
+  const [test_score, setTestScore] = useState([]);
+
+  console.log('점수 확인', test_score);
+
+  const [gptRes, setGptRes] = useState([]);
+
 
   const subCodeList = async () => {
-    const testNumArray = testList.map(test => test.test_num);
+    const selectedTest = testList[selectedTestIndex];
 
-    let obj = {
-      test_num: testNumArray,
-      user_id: sessionStorage.getItem("memberId"),
-      sub_code: subTestCode,
-      sub_num: sub_num
+    const obj = {
+      test_contents: selectedTest.test_description,
+      sub_code: subTestCode[selectedTestIndex],
+      test_conditions: selectedTest.test_condition
     };
     console.log('obj 확인', obj);
+
+    setIsSubmitDisabled(prevState => {
+      const updatedDisabled = [...prevState];
+      updatedDisabled[selectedTestIndex] = true;
+      return updatedDisabled;
+    });
+
     try {
-      const response = await axios.post(
-        `${baseUrl}/CodeBridge/code/sub-code-list`, obj
-      );
-      console.log("response.data", response.data);
-      alert("제출 성공!")
-      // window.location.href = "/TestList/student";
+      const response_py = await axios.post("http://127.0.0.1:5000/", obj);
+      console.log('파이썬 응답 확인', response_py.data);
+      const updatedGptRes = [...gptRes];
+      updatedGptRes[selectedTestIndex] = response_py.data;
+      setGptRes(updatedGptRes);
+
+      const testCases = response_py.data.split('테스트케이스');
+      let successCount = 0;
+
+      for (let i = 1; i < testCases.length; i++) {
+        if (testCases[i].includes('성공')) {
+          successCount++;
+        }
+      }
+
+      const testScore = (successCount > 0)
+        ? selectedTest.test_level * 10 * (successCount / (testCases.length - 1))
+        : 0;
+
+      setTestScore(prevScores => {
+        const updatedScores = [...prevScores];
+        updatedScores[selectedTestIndex] = testScore;
+        return updatedScores;
+      });
+
+      console.log('점수 확인 안에서', testScore);
+
+      let mark_result = {
+        sub_num: sub_num,
+        test_num: selectedTest.test_num,
+        user_id: sessionStorage.getItem("memberId"),
+        mark_result: response_py.data,
+        mark_score: testScore
+      }
+
+      const response = await axios.post(`${baseUrl}/CodeBridge/mark/result`, mark_result);
+      console.log('스프링 결과 확인', response.data);
+
     } catch (error) {
       console.error(error);
     }
   };
 
+
+
+  // 모달 관련
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => {
+    setShow(false);
+  };
+
+  const handleShow = (item) => {
+    const confirmSubmit = window.confirm("제출할 경우 더이상 수정이 불가능합니다");
+
+    if (confirmSubmit) {
+      setShow(true);
+      subCodeList();
+    }
+  };
+
+  const realhandleShow = (item) => {
+    setShow(true);
+  };
+
+  console.log('현제 상태 확인', isSubmitDisabled[selectedTestIndex]);
+
+  console.log('지금 인덱스', selectedTestIndex);
+  console.log('gpt답변', gptRes);
 
 
 
@@ -131,30 +202,90 @@ const TestDetail = () => {
         {testList[selectedTestIndex] &&
           <>
             <div className={style.test_condition_explan}>
+              <h4>배점</h4>
+              <p>
+                {testList[selectedTestIndex].test_level === 1 ? "10" :
+                  testList[selectedTestIndex].test_level === 2 ? "20" :
+                    testList[selectedTestIndex].test_level === 3 ? "30" : ""}
+                점
+              </p>
+              <p>맞춘 제한사항에 비례하여 점수가 부여됩니다</p>
+            </div>
+            <div className={style.test_condition_explan}>
               <h4>문제설명</h4>
-              <p>{testList[selectedTestIndex].test_contents}</p>
+              <p>{testList[selectedTestIndex].test_description}</p>
             </div>
             <div className={style.test_condition_explan}>
               <h4>제한사항</h4>
-              <span
-              dangerouslySetInnerHTML={{
-                __html: testList[selectedTestIndex].test_condition
-              }}
-            />
-              {/* <p>{testList[selectedTestIndex].test_condition}</p> */}
+              <ul>
+                {testList[selectedTestIndex].test_condition.split(",").map((testCase, index) => (
+                  <li key={index}>{testCase.trim()}</li>
+                ))}
+              </ul>
             </div>
             <textarea
-              name=""
               className="form-control"
               placeholder="Problem description"
               value={subTestCode[selectedTestIndex] || ''}
               onChange={(e) => updateSubTestCode(selectedTestIndex, e.target.value)}
             />
+            <button
+              className={`${style.code_sub_btn} ${isSubmitDisabled[selectedTestIndex] ? style.disabled : ""}`}
+              onClick={() => handleShow(selectedTestIndex)}
+              disabled={isSubmitDisabled[selectedTestIndex]} // 이 부분을 추가하세요
+            >
+              제출하기
+            </button>
+            <button
+              onClick={() => realhandleShow(selectedTestIndex)}
+              disabled={!isSubmitDisabled[selectedTestIndex]}
+            >
+              결과확인
+            </button>
+
+            <Modal show={show} onHide={handleClose} style={{ top: "55%", left: "50%", transform: "translate(-50%, -50%)", zIndex: 99999 }}>
+              <Modal.Header closeButton>
+                <Modal.Title>채점 결과</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                {gptRes[selectedTestIndex] == null ? (
+                  <Button variant="primary" disabled>
+                    <Spinner
+                      as="span"
+                      animation="grow"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                    />
+                    <span> </span>채점중...
+                  </Button>
+                ) : (
+                  <div>
+                    {gptRes[selectedTestIndex].split('\n').map((line, index) => (
+                      <div key={index}>
+                        {line.includes('성공') ? (
+                          <div><span style={{ color: 'blue' }}>{line}</span></div>
+                        ) : line.includes('실패') ? (
+                          <div><span style={{ color: 'red' }}>{line}</span></div>
+                        ) : (
+                          <div>{line}</div>
+                        )}
+                      </div>
+                    ))}
+                    <p>획득 점수 : {test_score[selectedTestIndex]}</p>
+                  </div>
+                )}
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                  닫기
+                </Button>
+              </Modal.Footer>
+            </Modal>
+
+
           </>
         }
-        <div className={style.code_sub_btn} onClick={subCodeList}>
-          제출하기
-        </div>
 
       </div>
       <div className={style.test_compiler}>

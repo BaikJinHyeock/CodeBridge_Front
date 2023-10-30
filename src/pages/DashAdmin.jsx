@@ -36,25 +36,39 @@ const DashAdmin = () => {
     } catch (error) { }
   };
 
+  const [subNumList, setSubNumList] = useState([]);
+  const getSubNumList = async () => {
+
+    try {
+      const res = await axios.get(`${baseUrl}/CodeBridge/sub/get-sub-num?class_num=${userInfo.hasclass}`)
+      setSubNumList(res.data);
+    } catch (error) {
+
+    }
+  }
+
   console.log("승인리스트", approvedList);
   console.log("미승인", unApprovedList);
 
   useEffect(() => {
     getStuList();
+    getSubNumList();
   }, [userInfo]);
 
   // 승인하기
   const acceptStu = async (user_id) => {
+    let obj = {
+      user_id: user_id,
+      sub_num: subNumList
+    }
     try {
-      const res = await axios.post(
-        `${baseUrl}/CodeBridge/class/accept?user_id=${user_id}`
-      );
-      if (res.data == "success") {
-        alert("전환 성공");
-        window.location.reload();
-      } else {
-        alert("전환 실패");
-      }
+      const res = await axios.post(`${baseUrl}/CodeBridge/class/accept`, obj);
+      // if (res.data == "success") {
+      //   alert("전환 성공");
+      //   window.location.reload();
+      // } else {
+      //   alert("전환 실패");
+      // }
     } catch (error) {
       alert(`통신오류 ${error}`);
     }

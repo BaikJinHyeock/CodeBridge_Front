@@ -8,7 +8,7 @@ const TestWrite = () => {
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
   const [test_title, setTest_title] = useState("");
-  const [test_level, setTest_level] = useState(0);
+  const [test_level, setTest_level] = useState(1);
   const [test_lang, setTest_lang] = useState("Java");
   const [test_description, setTest_description] = useState("");
   const [test_input, setTest_input] = useState("");
@@ -89,7 +89,7 @@ const TestWrite = () => {
             <span>테스트 난이도</span>
             <select
               className="form-control"
-              onChange={(e) => setTest_level(e.target.value === "하" ? 0 : e.target.value === "중" ? 1 : 2)}
+              onChange={(e) => setTest_level(e.target.value === "하" ? 1 : e.target.value === "중" ? 2 : 3)}
             >
               <option >하</option>
               <option >중</option>
