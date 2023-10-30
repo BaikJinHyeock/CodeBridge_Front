@@ -164,26 +164,32 @@ const Nav = () => {
 
         <div className={style.right_container}>
           <ul className={style.nomal}>
-            {/* {id ? (
+            {id ? (
               <li className={style.right_container_profile_text}>
-                {isClass || userInfo.hasclass ? (
-                  <li className={style.right_container_profile_text}>
-                    <Link to={"/DashBoard"}>대시보드</Link>
-                  </li>
-                ) : (
-                  <li>
-                    <button onClick={() => alert("반이 없습니다")}>
-                      대시보드
-                    </button>
-                  </li>
-                )}
+                {isClass || userInfo.hasclass ?
+                  (userInfo.user_type == 1 ?
+                    <li className={style.right_container_profile_text}>
+                      <Link to={"/DashAdmin"}>대시보드</Link>
+                    </li>
+                    :
+                    <li className={style.right_container_profile_text}>
+                      <Link to={"/DashBoard"}>대시보드</Link>
+                    </li>
+                  )
+                  : (
+                    <li>
+                      <button onClick={() => alert("반이 없습니다")}>
+                        대시보드
+                      </button>
+                    </li>
+                  )}
               </li>
             ) : (
               <li>
                 <Link to={"/Login"}>로그인</Link>
               </li>
-            )} */}
-            {id ? (
+            )}
+            {/* {id ? (
               <li className={style.right_container_profile_text}>
                 {(isClass || userInfo.hasclass) && userInfo.user_type === 1 ? (
                   <li className={style.right_container_profile_text}>
@@ -199,7 +205,7 @@ const Nav = () => {
               <li>
                 <Link to={"/Login"}>로그인</Link>
               </li>
-            )}
+            )} */}
 
             {id ? (
               <li

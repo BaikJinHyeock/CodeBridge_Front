@@ -29,10 +29,10 @@ const DashAdmin = () => {
         `${baseUrl}/CodeBridge/class/getstu?class_num=${userInfo.hasclass}`
       );
       const approvedList = res.data.filter((item) => item.approved === 1);
-      const unApprovedList = res.data.filter((item) => item.approved === 0);
+      const unApprovedList = res.data.filter((item) => item.approved === 0 && item.teacher === 0);
       setApprovedList(approvedList);
       setUnApprovedList(unApprovedList);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   console.log("승인리스트", approvedList);

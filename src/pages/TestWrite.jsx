@@ -8,7 +8,7 @@ const TestWrite = () => {
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
   const [test_title, setTest_title] = useState("");
-  const [test_level, setTest_level] = useState("0");
+  const [test_level, setTest_level] = useState(0);
   const [test_lang, setTest_lang] = useState("Java");
   const [test_description, setTest_description] = useState("");
   const [test_input, setTest_input] = useState("");
@@ -24,10 +24,10 @@ const TestWrite = () => {
       test_input: test_input,
       test_condition: testConditionList,
     };
-    console.log("test데이터 확인", obj);
+
+    console.log('obj 확인', obj);
 
     const res = await axios.post(`${baseUrl}/CodeBridge/test/write`, obj);
-    console.log("리스폰스 확인", res);
     // try {
     //   const res = await axios.post(`${baseUrl}/CodeBridge/test/write`, obj);
     //   console.log("리스폰스 확인", res);
@@ -58,7 +58,6 @@ const TestWrite = () => {
     setTestConditionList(updatedList);
   };
 
-  console.log('testConditionList확인', testConditionList);
 
 
   return (

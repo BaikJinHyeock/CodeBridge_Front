@@ -70,6 +70,7 @@ const TestList = () => {
 
   const [selectedTest, setSelectedTest] = useState(null); // 선택된 문제 정보 상태 추가
 
+
   // 고른 문제 출제하기
   const subTestList = async () => {
     const selectedTestNumsString = selectedTestNums.join(",");
@@ -79,16 +80,21 @@ const TestList = () => {
     };
     console.log("obj 확인", obj);
     try {
-      const response = await axios.post(
-        `${baseUrl}/CodeBridge/SubjecTtest/submit`,
+      const res = await axios.post(
+        `${baseUrl}/CodeBridge/subjecTtest/submit`,
         obj
       );
+
+      if (res.data == "success") {
+        alert('출제 완료')
+      } else {
+        alert('출제 실패')
+      }
     } catch (error) {
       console.error(error);
     }
   };
 
-  console.log("번호 확인", selectedTestNums);
 
   return (
     <div className={style.wrap_container}>
@@ -112,11 +118,10 @@ const TestList = () => {
               {level0Tests.map((item, index) => (
                 <div
                   key={index}
-                  className={`${style.test_list_item_wrapper} ${
-                    selectedTestNums.includes(item.test_num)
-                      ? style.selected
-                      : ""
-                  }`}
+                  className={`${style.test_list_item_wrapper} ${selectedTestNums.includes(item.test_num)
+                    ? style.selected
+                    : ""
+                    }`}
                   onClick={() => handleItemClick(item)}
                 >
                   <span>{item.test_title}</span>
@@ -144,16 +149,15 @@ const TestList = () => {
               {level1Tests.map((item, index) => (
                 <div
                   key={index}
-                  className={`${style.test_list_item_wrapper} ${
-                    selectedTestNums.includes(item.test_num)
-                      ? style.selected
-                      : ""
-                  }`}
+                  className={`${style.test_list_item_wrapper} ${selectedTestNums.includes(item.test_num)
+                    ? style.selected
+                    : ""
+                    }`}
                   onClick={() => handleItemClick(item)}
                 >
                   <span>{item.test_title}</span>
                   <div
-                    onClick={handleShow}
+                    onClick={() => handleShow(item)}
                     className={style.test_list_item_wrapper_level}
                   >
                     <svg
@@ -176,16 +180,15 @@ const TestList = () => {
               {level2Tests.map((item, index) => (
                 <div
                   key={index}
-                  className={`${style.test_list_item_wrapper} ${
-                    selectedTestNums.includes(item.test_num)
-                      ? style.selected
-                      : ""
-                  }`}
+                  className={`${style.test_list_item_wrapper} ${selectedTestNums.includes(item.test_num)
+                    ? style.selected
+                    : ""
+                    }`}
                   onClick={() => handleItemClick(item)}
                 >
                   <span>{item.test_title}</span>
                   <div
-                    onClick={handleShow}
+                    onClick={() => handleShow(item)}
                     className={style.test_list_item_wrapper_level}
                   >
                     <svg
@@ -211,13 +214,14 @@ const TestList = () => {
           </Modal.Header>
           <Modal.Body>
             <h5>문제 내용</h5>
-            <p>{selectedTest && selectedTest.test_contents}</p>
+            <p>{selectedTest && selectedTest.test_description}</p>
             <h5>제한 조건</h5>
-            <div
-              dangerouslySetInnerHTML={{
-                __html: selectedTest && selectedTest.test_condition,
-              }}
-            />
+            <ul>
+              {selectedTest &&
+                selectedTest.test_condition.split(",").map((testCase, index) => (
+                  <li key={index}>{testCase.trim()}</li>
+                ))}
+            </ul>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
