@@ -82,9 +82,9 @@ const TestList_student = () => {
         {props.tested == 1 ?
           (
             props.istested ?
-              <>
+              <button>
                 테스트완료
-              </>
+              </button>
               :
               <Link to={`/TestDetail?sub_num=${props.sub_num}`}>
                 <button type="button" className={style.test_btn}>

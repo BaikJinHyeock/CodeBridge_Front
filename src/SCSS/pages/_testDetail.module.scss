@@ -5,6 +5,7 @@
     display: grid;
     grid-template-columns: 0.5fr 2fr 5fr;
     width: 100%;
+    overflow: none;
 
     .test_list_container {
         display: flex;
@@ -65,9 +66,15 @@
         .code_sub_btn {
             background-color: $main-color;
             color: $font-sub-color1;
-            width: 100px;
-            padding: 1rem;
+            width: 100%;
+            padding: 1.2rem;
             cursor: pointer;
+            margin-bottom: 20px;
+            transition-duration: 150ms;
+
+            &:hover{
+                background-color: $sub-color;
+            }
         }
 
         .disabled {
@@ -80,6 +87,7 @@
         button:disabled {
             background-color: rgb(73, 72, 126);
             cursor: not-allowed;
+            color: $font-sub-color1;
         }
 
 

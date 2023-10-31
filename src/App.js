@@ -62,6 +62,7 @@ function App() {
       location.pathname !== "/ClassWrite" &&
       location.pathname !== "/ClassDetail" &&
       location.pathname !== "/TestWrite" &&
+      location.pathname !== "/TestDetail" &&
       location.pathname !== "/TestList/student" &&
       location.pathname !== "/TestList/teacher" &&
       location.pathname !== "/MarkList" &&
