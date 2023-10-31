@@ -6,6 +6,7 @@ import "./main.css";
 import Join from "./pages/Join";
 import Login from "./pages/Login";
 import Main from "./pages/Main";
+import Curriculum from "./pages/Curriculum";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import SetInfo from "./pages/SetInfo";
@@ -45,7 +46,8 @@ function App() {
       location.pathname !== "/TestWrite" &&
       location.pathname !== "/SetInfo" &&
       location.pathname !== "/SubWrite" &&
-      location.pathname !== "/Team"
+      location.pathname !== "/Team" &&
+      location.pathname !== "/Curriculum"
     );
   };
 
@@ -87,6 +89,7 @@ function App() {
           <Route path="/Login" element={<Login />}></Route>
           <Route path="/Join" element={<Join />}></Route>
           <Route path="/Team" element={<Team />}></Route>
+          <Route path="/Curriculum" element={<Curriculum />}></Route>
 
           <Route path="/DashBoard" element={<DashBoard />}></Route>
           <Route path="/DashAdmin" element={<DashAdmin />}></Route>

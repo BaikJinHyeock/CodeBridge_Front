@@ -144,7 +144,7 @@ const Nav = () => {
           </Link>
           <ul>
             <li>
-              <Link to={"#"}>교육과정</Link>
+              <Link to={"Curriculum"}>교육과정</Link>
             </li>
             <li>
               <Link to={"/Team"}>팀 소개</Link>
@@ -331,7 +331,7 @@ const Nav = () => {
           <div className={style.mobile_silde_container_second}>
             <ul>
               <li>
-                <Link to={"#"}>교육과정</Link>
+                <Link to={"/Curriculum"}>교육과정</Link>
               </li>
               <li>
                 <Link to={"/Team"}>팀 소개</Link>
