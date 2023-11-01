@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import style from "../SCSS/pages/_dashRightBoxTeacher.module.scss";
 import axios from 'axios'
 import { useSelector } from "react-redux";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 const DashRightBoxTeacher = () => {
 
@@ -38,15 +40,29 @@ const DashRightBoxTeacher = () => {
     }
   }
 
+  // 학생 모든 정보 불러오기
+
 
   const StudentList = ({ props }) => {
     return (
-      <li>
+      <li onClick={handleShow}>
         {props.user_name}
         <p>{props.user_id}</p>
       </li>
     );
   };
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+
+  const handleShow = () => {
+    setShow(true);
+
+
+  }
+
+
 
   return (
     <div className={style.right_wrap_container}>
@@ -75,11 +91,39 @@ const DashRightBoxTeacher = () => {
 
         <ul className={style.content_box2_list}>
           {stuList.map((item, index) =>
-
             <StudentList key={index} props={item} />
           )}
-
         </ul>
+
+        <Modal show={show} onHide={handleClose}>
+          <style>{`.modal-dialog {top : 15%} `}</style>
+          <style>{`.modal-content {width : 600px} `}</style>
+          <Modal.Header closeButton>
+            <Modal.Title>학생정보</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>학생 이름</p>
+            <p>학생 아이디</p>
+            <p>ide url</p>
+
+
+
+
+
+
+
+
+          </Modal.Body>
+
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleClose}>
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </div>
   );

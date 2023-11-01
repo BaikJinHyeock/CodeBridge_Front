@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import style from "../SCSS/pages/_dashadmin.module.scss";
 import DashRightBoxTeacher from "../components/DashRightBoxTeacher";
 import Profile from "../components/Profile";
+import { Button } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
 
 const DashAdmin = () => {
   // 스프링 주소
@@ -18,6 +20,25 @@ const DashAdmin = () => {
     setUserInfo(combinedInfo.userInfo);
   }, [combinedInfo]);
 
+  useEffect(() => {
+    getStudent();
+  }, [userInfo])
+
+  const [stuList, setStuList] = useState([]);
+
+  // 반 학생 리스트 긁어오기
+  const getStudent = async () => {
+    try {
+      const res = await axios.get(`${baseUrl}/CodeBridge/class/getClassStu?class_num=${userInfo.hasclass}`);
+      console.log('받아온 학생 리스트 확인', res.data);
+      setStuList(res.data)
+    } catch (error) {
+    }
+  }
+
+
+
+
   // 신청학생 정보 긁어오기
 
   const [approvedList, setApprovedList] = useState([]);
@@ -28,7 +49,6 @@ const DashAdmin = () => {
       const res = await axios.get(
         `${baseUrl}/CodeBridge/class/getstu?class_num=${userInfo.hasclass}`
       );
-      console.log('받아온 리스트', res.data);
       const approvedList = res.data.filter((item) => item.approved === 1);
       const unApprovedList = res.data.filter((item) => item.approved === 0 && item.isteacher === 0);
       setApprovedList(approvedList);
@@ -47,8 +67,6 @@ const DashAdmin = () => {
     }
   }
 
-  console.log("승인리스트", approvedList);
-  console.log("미승인", unApprovedList);
 
   useEffect(() => {
     getStuList();
@@ -97,6 +115,102 @@ const DashAdmin = () => {
       </div>
     );
   };
+
+  const [ideUrlList, setIdeUrlList] = useState([]);
+
+  // 부여 안된 ide주소 긁어오기
+  const getIdeUrl = async () => {
+    try {
+      const res = await axios.get(`${baseUrl}/CodeBridge/member/getIdeUrl`);
+      setIdeUrlList(res.data)
+    } catch (error) {
+
+    }
+  }
+
+  const IDEItem = ({ props, user_id }) => {
+    console.log('모달 아이디 확인', user_id);
+
+    // ide 부여
+    const giveIde = async () => {
+
+
+      const confirmSubmit = window.confirm("IDE를 부여 하시겠습니까?");
+
+      if (confirmSubmit) {
+        let obj = {
+          server_url: props,
+          user_id: selectUser
+        }
+        console.log('obj확인', obj);
+        try {
+          const res = await axios.post(`${baseUrl}/CodeBridge/member/giveIde`, obj);
+          console.log('응답화기이니이인', res.data);
+          if (res.data == "success") {
+            alert("부여 완료")
+            window.location.reload();
+          } else {
+            alert("부여 실패")
+          }
+        } catch (error) {
+
+        }
+      }
+    }
+
+    return (
+      <div onClick={giveIde}>
+        ide : {props}
+      </div>
+    )
+  }
+
+  useEffect(() => {
+    getIdeUrl();
+  }, [])
+
+  // 모달 관련
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => {
+    setShow(true);
+  };
+
+  const [selectUser, setSelectUser] = useState("");
+
+
+
+
+  // ide 관련 프롭스
+  const StudentIDE = ({ props }) => {
+
+    const clickItem = () => {
+      handleShow()
+      setSelectUser(props.user_id)
+    }
+
+
+
+    return (
+      <div className={style.ide_box}>
+        <p>{props.user_name}</p>
+        <div className={style.ide_url_content}>
+          <span>ide 주소 : </span>
+          {props.server_url != null ?
+            <p>
+              {props.server_url}
+            </p>
+            :
+            <div className={style.give_btn} onClick={clickItem}>
+              부여하기
+            </div>
+          }
+        </div>
+      </div>
+    )
+  }
+
+
 
   return (
     <div className={style.wrap_container}>
@@ -172,6 +286,41 @@ const DashAdmin = () => {
             ))}
           </div>
         </div>
+
+        <div className={style.ide_wrapper}>
+          <h4>ide 현황</h4>
+          {stuList.map((item, index) => (
+            <StudentIDE key={index} props={item} />
+          ))}
+
+
+          <Modal show={show} onHide={handleClose} style={{ top: "15%" }}>
+            <Modal.Header closeButton>
+              <Modal.Title>IDE 리스트</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <style>{`.modal-content { 
+    width: 600px;
+    max-height: 700px;
+    overflow: scroll;
+  } `}</style>
+
+              {ideUrlList.map((item, index) =>
+                <IDEItem key={index} props={item} />
+              )}
+
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+              <Button variant="primary" onClick={handleClose}>
+                Save Changes
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </div>
+
       </div>
       <DashRightBoxTeacher />
     </div>

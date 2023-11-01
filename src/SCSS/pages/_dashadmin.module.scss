@@ -239,7 +239,7 @@
                 h4 {
                     margin-bottom: 20px;
                 }
-                
+
                 .wrap_accept_list {
                     display: flex;
                     gap: 0.5rem;
@@ -312,5 +312,29 @@
             }
 
         }
+
+        .ide_wrapper {
+            margin-top: 5%;
+            background-color: $font-sub-color1;
+            padding: 32px;
+            border-radius: 10px;
+            box-shadow: $box-shadow;
+
+        }
     }
+}
+
+.ide_box {
+
+    .ide_url_content {
+        display: flex;
+
+
+
+        .give_btn {
+            cursor: pointer;
+            background-color: aqua;
+        }
+    }
+
 }
