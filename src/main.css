@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css");
 @import url("https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css");
 * {
@@ -102,6 +103,20 @@ video {
   vertical-align: baseline;
   box-sizing: border-box;
   list-style: none;
+}
+
+*::-webkit-scrollbar {
+  width: 5px; /* 스크롤바의 너비 */
+}
+
+*::-webkit-scrollbar-thumb {
+  height: 30%; /* 스크롤바의 길이 */
+  background: #06aed5; /* 스크롤바의 색상 */
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(33, 122, 244, 0.1); /*스크롤바 뒷 배경 색상*/
 }
 
 /* HTML5 display-role reset for older browsers */

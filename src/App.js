@@ -6,7 +6,6 @@ import "./main.css";
 import Join from "./pages/Join";
 import Login from "./pages/Login";
 import Main from "./pages/Main";
-import Curriculum from "./pages/Curriculum";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import SetInfo from "./pages/SetInfo";
@@ -15,6 +14,7 @@ import Team from "./pages/Team";
 import ClassRoom from "./pages/ClassRoom";
 import ClassDetail from "./pages/ClassDetail";
 import ClassWrite from "./pages/ClassWrite";
+import ClassList from "./pages/ClassList";
 
 import DashBoard from "./pages/DashBoard";
 import DashAdmin from "./pages/DashAdmin";
@@ -47,7 +47,7 @@ function App() {
       location.pathname !== "/SetInfo" &&
       location.pathname !== "/SubWrite" &&
       location.pathname !== "/Team" &&
-      location.pathname !== "/Curriculum"
+      location.pathname !== "/ClassList"
     );
   };
 
@@ -67,6 +67,7 @@ function App() {
       location.pathname !== "/TestDetail" &&
       location.pathname !== "/TestList/student" &&
       location.pathname !== "/TestList/teacher" &&
+      location.pathname !== "/TestSetList" &&
       location.pathname !== "/MarkList" &&
       location.pathname !== "/MarkDetail" &&
       location.pathname !== "/SetInfo" &&
@@ -89,7 +90,6 @@ function App() {
           <Route path="/Login" element={<Login />}></Route>
           <Route path="/Join" element={<Join />}></Route>
           <Route path="/Team" element={<Team />}></Route>
-          <Route path="/Curriculum" element={<Curriculum />}></Route>
 
           <Route path="/DashBoard" element={<DashBoard />}></Route>
           <Route path="/DashAdmin" element={<DashAdmin />}></Route>
@@ -103,6 +103,7 @@ function App() {
           <Route path="/ClassDetail" element={<ClassDetail />}></Route>
           <Route path="/ClassRoom" element={<ClassRoom />}></Route>
           <Route path="/ClassWrite" element={<ClassWrite />}></Route>
+          <Route path="/ClassList" element={<ClassList />}></Route>
 
           <Route path="/SubWrite" element={<SubWrite />}></Route>
 
