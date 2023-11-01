@@ -1,13 +1,49 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
 import style from "../SCSS/pages/_dashRightBoxTeacher.module.scss";
+import axios from 'axios'
+import { useSelector } from "react-redux";
 
 const DashRightBoxTeacher = () => {
-  const StudentList = () => {
+
+  // 스프링 주소
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
+  // redux 값 뺴오기
+  const combinedInfo = useSelector(state => state.combinedInfo);
+
+  const [teacherInfo, setTeacherInfo] = useState([]);
+  const [classInfo, setClassInfo] = useState([]);
+
+
+  useEffect(() => {
+    setTeacherInfo(combinedInfo.teacherInfo)
+    setClassInfo(combinedInfo.classInfo)
+  }, [combinedInfo]);
+
+
+  useEffect(() => {
+    getStuList();
+  }, [classInfo])
+
+  const [stuList, setStuList] = useState([]);
+
+  // 반 학생 리스트 긁어오기
+  const getStuList = async () => {
+    console.log('반번호 ? ', classInfo.class_num);
+    try {
+      const res = await axios.get(`${baseUrl}/CodeBridge/class/getClassStu?class_num=${classInfo.class_num}`);
+      console.log('받아온 학생 리스트 확인', res.data);
+      setStuList(res.data)
+    } catch (error) {
+    }
+  }
+
+
+  const StudentList = ({ props }) => {
     return (
       <li>
-        백진혁
-        <p>me335097@gmail.com</p>
+        {props.user_name}
+        <p>{props.user_id}</p>
       </li>
     );
   };
@@ -38,11 +74,11 @@ const DashRightBoxTeacher = () => {
         </span>
 
         <ul className={style.content_box2_list}>
-          <StudentList />
-          <StudentList />
-          <StudentList />
-          <StudentList />
-          <StudentList />
+          {stuList.map((item, index) =>
+
+            <StudentList key={index} props={item} />
+          )}
+
         </ul>
       </div>
     </div>

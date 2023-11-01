@@ -10,11 +10,12 @@ const DashLeftBox = () => {
   const combinedInfo = useSelector(state => state.combinedInfo);
 
   const [userInfo, setUserInfo] = useState([]);
+  const [classInfo, setClassInfo] = useState([]);
 
   useEffect(() => {
     setUserInfo(combinedInfo.userInfo)
+    setClassInfo(combinedInfo.classInfo)
   }, [combinedInfo]);
-
 
   const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState("dashboard");
@@ -35,7 +36,7 @@ const DashLeftBox = () => {
   };
   const moveMyClass = () => {
     setActiveButton("classRoom"); // "classRoom" 버튼을 활성화
-    navigate("/ClassRoom");
+    navigate(`/ClassRoom?class_num=${classInfo.class_num}`);
   };
 
   const moveTest = () => {
