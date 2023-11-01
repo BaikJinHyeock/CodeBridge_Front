@@ -57,7 +57,7 @@ const TestList_teacher = () => {
                         테스트 출제하기
                     </button>
                     :
-                    <Link to={`/testsetlist?sub_num=${props.sub_num}`}>
+                    <Link to={`/TestSetList?sub_num=${props.sub_num}`}>
                         <button type="button" className={style.test_btn}>
                             테스트 출제하기
                         </button>

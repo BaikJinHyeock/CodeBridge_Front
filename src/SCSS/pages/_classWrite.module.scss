@@ -225,6 +225,39 @@
       }
     }
   }
+
+  @media all and (max-width:1023px) {
+    .first_container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+
+      .left_container {
+        width: 100%;
+        padding: 36px;
+      }
+      .right_container{
+        width: 100%;
+        padding: 36px;
+      }
+    }
+    .second_container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+
+      .left_container {
+        width: 100%;
+        padding: 36px;
+      }
+      .right_container{
+        width: 100%;
+        padding: 36px;
+      }
+    }
+  }
 }
 
 .sub_item_box {
@@ -235,8 +268,8 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  
-  &::after{
+
+  &::after {
     content: "";
     clear: both;
     display: block;
@@ -248,14 +281,15 @@
     left: 0;
   }
 
-  &:nth-child(even){
+  &:nth-child(even) {
     background-color: $bg-grayScale;
-}
+  }
+
   &:hover {
     background-color: #06afd5b0;
   }
 
-  .sub_item_box_num{
+  .sub_item_box_num {
     position: absolute;
     right: 1rem;
     top: 1rem;
@@ -263,17 +297,19 @@
     font-weight: 700;
     color: #999;
   }
-  .sub_item_box_detail{
+
+  .sub_item_box_detail {
     display: flex;
     align-items: center;
     gap: 1rem;
 
-    span{
+    span {
       font-size: 14px;
       font-weight: 700;
       color: #999;
     }
-    h5{
+
+    h5 {
       color: $sub-color;
       font-weight: 600;
       font-size: 14px;
@@ -358,7 +394,8 @@
 
   // 이미지 크롭 관련 css 끝
 }
-.selectedSubItem{
+
+.selectedSubItem {
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
   font-weight: 400;
@@ -367,11 +404,12 @@
   border: var(--bs-border-width) solid var(--bs-border-color);
   cursor: pointer;
 }
+
 .subject {
   font-size: 14px;
   padding: 10px 16px;
 
-  &:hover{
+  &:hover {
     background-color: $main-color;
     color: $font-sub-color1;
   }

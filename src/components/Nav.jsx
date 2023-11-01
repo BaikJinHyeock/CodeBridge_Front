@@ -12,6 +12,7 @@ import { updateAllInfo } from "../actions/updateAllInfo";
 const Nav = () => {
   // 스프링 주소
   const baseUrl = process.env.REACT_APP_BASE_URL;
+  
 
   // 로그인했으면 상단 로그인,회원가입변경
   const id = sessionStorage.getItem("memberId");
@@ -39,6 +40,9 @@ const Nav = () => {
   };
 
   useEffect(() => {
+    if(active === false){
+      setActive(true);
+    }
     memberSearching();
     isClassed();
   }, []);
@@ -110,9 +114,9 @@ const Nav = () => {
   };
 
   // 사이드바 작동 토글
-  const [active, setAtive] = useState(true);
+  const [active, setActive] = useState(true);
   const toggleActive = () => {
-    setAtive(!active);
+    setActive(!active);
   };
 
   return (
@@ -144,7 +148,7 @@ const Nav = () => {
           </Link>
           <ul>
             <li>
-              <Link to={"Curriculum"}>교육과정</Link>
+              <Link to={"/ClassList"}>교육과정</Link>
             </li>
             <li>
               <Link to={"/Team"}>팀 소개</Link>
@@ -331,17 +335,22 @@ const Nav = () => {
           <div className={style.mobile_silde_container_second}>
             <ul>
               <li>
-                <Link to={"/Curriculum"}>교육과정</Link>
+                <Link to={"/ClassList"}>교육과정</Link>
               </li>
               <li>
                 <Link to={"/Team"}>팀 소개</Link>
               </li>
-              <li>
-                <Link to={"/ClassWrite"}>강의실/과목</Link>
-              </li>
-              <li>
-                <Link to={"/TestWrite"}>테스트</Link>
-              </li>
+
+              {id && userInfo.user_type === 1 && (
+                <>
+                  <li>
+                    <Link to={"/ClassWrite"}>강의실/과목</Link>
+                  </li>
+                  <li>
+                    <Link to={"/TestWrite"}>테스트</Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
 

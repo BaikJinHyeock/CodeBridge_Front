@@ -3,7 +3,7 @@
 .wrap_container {
   background-color: $wrap-bg;
   width: 100%;
-  overflow: scroll;
+  overflow-y: scroll;
   height: calc(100vh - 4rem);
   display: flex;
 
@@ -15,7 +15,7 @@
       background-color: #ffffff;
       padding: 24px;
       border-radius: 8px;
-      box-shadow: 1px 1px 14px rgba(153, 153, 153, 0.0823529412);
+      box-shadow: $box-shadow;
 
       h4 {
         padding: 6px;
@@ -34,7 +34,7 @@
           background-color: $base-color;
           padding: 16px;
           border-radius: 8px;
-          box-shadow: 1px 1px 14px rgba(153, 153, 153, 0.0823529412);
+          box-shadow: $box-shadow;
           transition-duration: 200ms;
 
           div {

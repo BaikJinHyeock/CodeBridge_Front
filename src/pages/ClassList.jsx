@@ -1,7 +1,7 @@
 import React from 'react'
-import style from "../SCSS/pages/_curriculum.module.scss"
+import style from "../SCSS/pages/_classList.module.scss"
 
-const Curriculum = () => {
+const ClassList = () => {
   return (
     <div className={style.wrap_container}>
       <div className={style.main_banner}>
@@ -56,4 +56,4 @@ const Curriculum = () => {
   )
 }
 
-export default Curriculum
+export default ClassList

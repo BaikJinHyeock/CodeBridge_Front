@@ -122,6 +122,7 @@
           button {
             background-color: $error-color;
             color: $font-sub-color1;
+            white-space: pre;
           }
         }
       }
@@ -139,6 +140,23 @@
       &:hover {
         background-color: $sub-color;
       }
+    }
+  }
+}
+@media all and (max-width:1023px) {
+  .wrap_container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+
+    .left_container {
+      width: 100%;
+      padding: 36px;
+    }
+    .right_container{
+      width: 100%;
+      padding: 36px;
     }
   }
 }
