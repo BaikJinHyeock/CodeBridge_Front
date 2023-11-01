@@ -24,7 +24,11 @@ const Login = () => {
     console.log("리스폰스 확인", response);
     console.log(response.data);
     if (response.data === "Y") {
+      const res = await axios.get(`http://localhost:8085/CodeBridge/member/memberInfoTeacher?user_id=${id}`);
+      console.log('받아온 유저정보 확인', res.data[0]);
       sessionStorage.setItem("memberId", id);
+      sessionStorage.setItem("user_name", res.data[0].user_name)
+      sessionStorage.setItem("user_nick", res.data[0].user_nick)
       window.location.href = "/";
     } else if (response.data === "N") {
       return alert("입력하신 정보가 없습니다.");

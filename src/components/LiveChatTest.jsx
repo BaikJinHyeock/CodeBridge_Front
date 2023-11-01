@@ -8,7 +8,7 @@ class LiveChatTest extends Component {
         this.state = {
             messages: [],
             message: '',
-            name: sessionStorage.getItem("memberId") || '',
+            name: sessionStorage.getItem("user_nick") || '',
         };
         this.stompClient = null;
     }
@@ -69,7 +69,7 @@ class LiveChatTest extends Component {
                 <div>
                     {this.state.messages.map((message, index) => (
                         <div key={index}>
-                            {message.name}: {message.content}
+                            {message.name}({sessionStorage.getItem("user_name")}): {message.content}
                         </div>
                     ))}
                 </div>
