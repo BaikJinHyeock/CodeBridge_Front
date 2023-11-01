@@ -8,7 +8,7 @@ class LiveChatTest extends Component {
         this.state = {
             messages: [],
             message: '',
-            name: '',
+            name: sessionStorage.getItem("memberId") || '',
         };
         this.stompClient = null;
     }
@@ -54,12 +54,7 @@ class LiveChatTest extends Component {
 
             <div>
                 <div>
-                    <input
-                        type="text"
-                        placeholder="Name"
-                        value={this.state.name}
-                        onChange={(e) => this.setState({ name: e.target.value })}
-                    />
+                {sessionStorage.getItem("memberId")}
                 </div>
                 <div>
                     <input
