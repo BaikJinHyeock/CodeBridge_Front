@@ -60,8 +60,9 @@ class LiveChatTest extends Component {
                     </span> */}
                     {this.state.messages.map((message, index) => (
                         <div key={index} className={style.wrap_container_top_detail}>
-                            <span>{message.name}({sessionStorage.getItem("user_name")})</span> 
-                            <div>{message.content}</div>
+                            {/* <p>{}<span className={style.wrap_container_top_detail_nick}>{sessionStorage.getItem("user_name")}</span></p>  */}
+                            <p>{sessionStorage.getItem("user_name")}<span className={style.wrap_container_top_detail_nick}>{message.name}</span></p> 
+                            <p className={style.wrap_container_top_content}>{message.content}</p>
                         </div>
                     ))}
                 </div>
