@@ -14,6 +14,7 @@ export const ClassRoom = () => {
 
   const [userInfo, setUserInfo] = useState([]);
   const [classInfo, setClassInfo] = useState([]);
+  
 
   // console.log('클래스룸 에서 유저인포', userInfo);
   // console.log('클래스룸 에서 classInfo', classInfo);
