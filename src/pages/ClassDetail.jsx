@@ -67,7 +67,7 @@ const ClassDetail = () => {
       if (res.data == "registed") {
         setIsRegist(true);
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -80,6 +80,7 @@ const ClassDetail = () => {
     let obj = {
       class_num: class_num,
       user_id: sessionStorage.getItem("memberId"),
+      user_name: sessionStorage.getItem("user_name")
     };
     try {
       const res = await axios.post(`${baseUrl}/CodeBridge/class/regist`, obj);
