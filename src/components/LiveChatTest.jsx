@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
+import style from "../SCSS/pages/_chat.module.scss";
 
 class LiveChatTest extends Component {
     constructor(props) {
@@ -52,11 +53,20 @@ class LiveChatTest extends Component {
     render() {
         return (
 
-            <div>
-                <div>
-                {sessionStorage.getItem("memberId")}
+            <div className={style.wrap_container}>
+                <div className={style.wrap_container_top}>
+                    {/* <span>
+                        {sessionStorage.getItem("memberId")}
+                    </span> */}
+                    {this.state.messages.map((message, index) => (
+                        <div key={index} className={style.wrap_container_top_detail}>
+                            {/* <p>{}<span className={style.wrap_container_top_detail_nick}>{sessionStorage.getItem("user_name")}</span></p>  */}
+                            <p>{sessionStorage.getItem("user_name")}<span className={style.wrap_container_top_detail_nick}>{message.name}</span></p> 
+                            <p className={style.wrap_container_top_content}>{message.content}</p>
+                        </div>
+                    ))}
                 </div>
-                <div>
+                <div className={style.wrap_container_bottom}>
                     <input
                         type="text"
                         placeholder="Message"
@@ -64,14 +74,6 @@ class LiveChatTest extends Component {
                         onChange={(e) => this.setState({ message: e.target.value })}
                     />
                     <button onClick={this.sendMessage}>Send</button>
-                </div>
-                <div><h2>채팅로그</h2></div>
-                <div>
-                    {this.state.messages.map((message, index) => (
-                        <div key={index}>
-                            {message.name}({sessionStorage.getItem("user_name")}): {message.content}
-                        </div>
-                    ))}
                 </div>
             </div>
 
