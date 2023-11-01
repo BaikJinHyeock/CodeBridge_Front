@@ -52,6 +52,32 @@ const Main = () => {
     );
   };
 
+  
+  // 슬라이더 관련
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [imageSlide, setImageSlide] = useState(4.5);
+  
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (windowWidth <= 768) {
+      setImageSlide(2.5);
+    } else {
+      setImageSlide(4.5);
+    }
+  }, [windowWidth]);
+  // 슬라이더 관련
+
   const ClassContent = ({ props }) => {
     return (
       <div className={style.main_slide_content_box}>
@@ -92,7 +118,7 @@ const Main = () => {
         <div className={style.main_slide}>
           <h2>강의실 둘러보기</h2>
           <Swiper
-            slidesPerView={4.5}
+            slidesPerView={imageSlide}
             spaceBetween={36}
             freeMode={true}
             modules={[FreeMode]}
