@@ -33,6 +33,7 @@ import SubWrite from "./pages/SubWrite";
 import TestList_student from "./pages/TestList_student";
 import TestList_teacher from "./pages/TestList_teacher";
 import LiveChat from "./components/LiveChat";
+import LiveChatTest from "./components/LiveChatTest";
 
 function App() {
   const location = useLocation();
@@ -125,6 +126,8 @@ function App() {
 
           <Route path="/LiveChat" element={<LiveChat />}></Route>
 
+          <Route path="/LiveChatTest" element={<LiveChatTest />}></Route>
+          
 
         </Routes>
       </div>

@@ -110,7 +110,7 @@ const TestDetail = () => {
     });
 
     try {
-      const response_py = await axios.post("http://127.0.0.1:5000/", obj);
+      const response_py = await axios.post("http://127.0.0.1:5000/mark", obj);
       console.log('파이썬 응답 확인', response_py.data);
       const updatedGptRes = [...gptRes];
       updatedGptRes[selectedTestIndex] = response_py.data;
