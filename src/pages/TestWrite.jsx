@@ -58,6 +58,24 @@ const TestWrite = () => {
     setTestConditionList(updatedList);
   };
 
+  const [gptTest, setGptTest] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const gtpTestWrite = async () => {
+    console.log('함수진입');
+    setIsLoading(true);
+
+    try {
+      const res = await axios.post("http://127.0.0.1:5000/test");
+      console.log('파이썬 응답 확인', res);
+      setGptTest(res.data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false); // 호출 완료 시 로딩 종료
+    }
+  }
+
 
 
   return (
@@ -68,6 +86,16 @@ const TestWrite = () => {
           테스트 내용에 대해
           <br /> 작성해주세요
         </h1>
+        {isLoading && <div className={style.loading_text}>GPT 문제 출제중</div>}
+        {gptTest && (
+          <div className={style.gpt_answer_wrapper}>
+            <p>gpt 출제문제</p>
+            {gptTest.split('\n').map((line, index) => (
+              <div key={index}>{line}</div>
+            ))}
+          </div>
+        )}
+
       </div>
 
       <div className={style.right_container}>
@@ -180,6 +208,7 @@ const TestWrite = () => {
 
         </form>
         <button className={style.sub_btn} type="submit" onClick={testSub}>시험등록</button>
+        <button className={style.sub_btn} type="button" onClick={gtpTestWrite}>AI 문제출제</button>
 
       </div>
     </div>

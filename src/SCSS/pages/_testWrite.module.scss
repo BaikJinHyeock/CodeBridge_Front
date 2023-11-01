@@ -1,5 +1,19 @@
 @import "../abstracts/variables";
 
+@keyframes loadingAnimation {
+  0% {
+    content: '.';
+  }
+
+  33% {
+    content: '..';
+  }
+
+  66% {
+    content: '...';
+  }
+}
+
 .wrap_container {
   max-width: 1320px;
   width: 1320px;
@@ -23,6 +37,21 @@
       font-weight: 700;
       margin: 16px 0;
     }
+
+    .loading_text {
+      font-size: 30px;
+    }
+
+    .loading_text::after {
+      font-size: 30px;
+      content: '.';
+      animation: loadingAnimation 1s infinite;
+    }
+
+    .gpt_answer_wrapper {
+      background-color: aliceblue;
+    }
+
   }
 
   .right_container {
@@ -78,7 +107,7 @@
           gap: 16px;
           align-items: center;
 
-          span{
+          span {
             white-space: pre;
             width: 5%;
           }
@@ -89,7 +118,8 @@
             //   width: 20%;
             // }
           }
-          button{
+
+          button {
             background-color: $error-color;
             color: $font-sub-color1;
           }
