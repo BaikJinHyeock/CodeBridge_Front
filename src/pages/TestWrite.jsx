@@ -21,7 +21,7 @@ const TestWrite = () => {
       test_level: test_level,
       test_lang: test_lang,
       test_description: test_description,
-      test_input: test_input,
+      // test_input: test_input,
       test_condition: testConditionList,
     };
 
@@ -121,7 +121,7 @@ const TestWrite = () => {
             />
           </div>
 
-          <div className={style.input_box}>
+          {/* <div className={style.input_box}>
             <span>입력 예시</span>
             <textarea
               name=""
@@ -130,7 +130,7 @@ const TestWrite = () => {
               value={test_input}
               onChange={(e) => setTest_input(e.target.value)}
             />
-          </div>
+          </div> */}
 
           <div className={style.input_box}>
             <span className={style.span_tag}>
