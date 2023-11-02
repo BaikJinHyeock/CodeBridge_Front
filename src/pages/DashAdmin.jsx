@@ -81,12 +81,12 @@ const DashAdmin = () => {
     }
     try {
       const res = await axios.post(`${baseUrl}/CodeBridge/class/accept`, obj);
-      // if (res.data == "success") {
-      //   alert("전환 성공");
-      //   window.location.reload();
-      // } else {
-      //   alert("전환 실패");
-      // }
+      if (res.data == "success") {
+        alert("전환 성공");
+        window.location.reload();
+      } else {
+        alert("전환 실패");
+      }
     } catch (error) {
       alert(`통신오류 ${error}`);
     }
@@ -128,7 +128,7 @@ const DashAdmin = () => {
     }
   }
 
-  const IDEItem = ({ props, user_id }) => {
+  const IDEItem = ({ index, props, user_id }) => {
     console.log('모달 아이디 확인', user_id);
 
     // ide 부여
@@ -159,8 +159,11 @@ const DashAdmin = () => {
     }
 
     return (
-      <div onClick={giveIde}>
-        ide : {props}
+      <div>
+        <p>
+          {index + 1} : {props}
+        </p>
+        <button type="button" onClick={giveIde}>부여하기</button>
       </div>
     )
   }
@@ -201,7 +204,7 @@ const DashAdmin = () => {
             </td>
             :
             <td className={style.give_btn} onClick={clickItem}>
-              <button type="button">부여하기</button>              
+              <button type="button">부여하기</button>
             </td>
           }
         </tr>
@@ -211,132 +214,127 @@ const DashAdmin = () => {
 
 
 
-return (
-  <div className={style.wrap_container}>
-    <div className={style.right_container}>
-      <Profile />
-      <div className={style.right_container_wrap}>
-        <div className={style.right_container_wrap_info}>
-          <h4>강의실 정보</h4>
-          <div className={style.right_container_wrap_info_table}>
-            <table className={style.setTable}>
-              <tbody>
-                <tr>
-                  <td>교육 명</td>
-                  <td>
-                    <div className={style.setTable_userId}>
-                      <div className={style.setTable_userId_originId}>
-                        <p>데이터디자인 엔지니어 양성과정</p>
+  return (
+    <div className={style.wrap_container}>
+      <div className={style.right_container}>
+        <Profile />
+        <div className={style.right_container_wrap}>
+          <div className={style.right_container_wrap_info}>
+            <h4>강의실 정보</h4>
+            <div className={style.right_container_wrap_info_table}>
+              <table className={style.setTable}>
+                <tbody>
+                  <tr>
+                    <td>교육 명</td>
+                    <td>
+                      <div className={style.setTable_userId}>
+                        <div className={style.setTable_userId_originId}>
+                          <p>데이터디자인 엔지니어 양성과정</p>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                </tr>
+                    </td>
+                  </tr>
 
-                <tr>
-                  <td>교육 대상</td>
-                  <td>
-                    <div className={style.setTable_userPw}>
-                      <div className={style.setTable_userPw_originId}>
-                        <p>취업을 준비하는 대학 졸업(예정)자</p>
+                  <tr>
+                    <td>교육 대상</td>
+                    <td>
+                      <div className={style.setTable_userPw}>
+                        <div className={style.setTable_userPw_originId}>
+                          <p>취업을 준비하는 대학 졸업(예정)자</p>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                </tr>
+                    </td>
+                  </tr>
 
-                <tr>
-                  <td>교육 기간</td>
-                  <td>
-                    <div className={style.setTable_userPw}>
-                      <div className={style.setTable_userPw_originId}>
-                        <p>2023. 04. 27 ~ 2023. 11. 27</p>
+                  <tr>
+                    <td>교육 기간</td>
+                    <td>
+                      <div className={style.setTable_userPw}>
+                        <div className={style.setTable_userPw_originId}>
+                          <p>2023. 04. 27 ~ 2023. 11. 27</p>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                </tr>
+                    </td>
+                  </tr>
 
-                <tr>
-                  <td>교육 설명</td>
-                  <td>
-                    <div className={style.setTable_userNum}>
-                      <div className={style.setTable_userNum_originId}>
-                        <p>num</p>
+                  <tr>
+                    <td>교육 설명</td>
+                    <td>
+                      <div className={style.setTable_userNum}>
+                        <div className={style.setTable_userNum_originId}>
+                          <p>num</p>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div className={style.ide_wrapper}>
-          <h4>IDE 현황</h4>
-          <div className={style.right_container_wrap_info_table}>
-            <table className={style.setTable}>
-              <thead>
-                <tr>
-                  <td>이름</td>
-                  <td>IDE URL</td>
-                  <td></td>
-                </tr>
-              </thead>
-              {stuList.map((item, index) => (
-                <StudentIDE key={index} props={item} />
-              ))}
-            </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
+          <div className={style.ide_wrapper}>
+            <h4>IDE 현황</h4>
+            <div className={style.right_container_wrap_info_table}>
+              <table className={style.setTable}>
+                <thead>
+                  <tr>
+                    <td>이름</td>
+                    <td>IDE URL</td>
+                    <td></td>
+                  </tr>
+                </thead>
+                {stuList.map((item, index) => (
+                  <StudentIDE key={index} props={item} />
+                ))}
+              </table>
+            </div>
 
-          <Modal show={show} onHide={handleClose} style={{ top: "15%" }}>
-            <Modal.Header closeButton>
-              <Modal.Title>IDE 리스트</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <style>{`.modal-content { 
+            <Modal show={show} onHide={handleClose} style={{ top: "15%" }}>
+              <Modal.Header closeButton>
+                <Modal.Title>IDE 리스트</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <style>{`.modal-content { 
                   width: 600px;
                   max-height: 700px;
                   overflow: scroll;
                 } `}</style>
 
-              {ideUrlList.map((item, index) =>
-                <IDEItem key={index} props={item} />
-              )}
-
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
-                Close
-              </Button>
-              <Button variant="primary" onClick={handleClose}>
-                Save Changes
-              </Button>
-            </Modal.Footer>
-          </Modal>
+                {ideUrlList.map((item, index) =>
+                  <IDEItem key={index} props={item} index={index} />
+                )}
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                  닫기
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          </div>
         </div>
+
+        <div className={style.right_container_wrap_bottom}>
+          <div className={style.right_container_wrap_student}>
+            <h4>학생 관리</h4>
+            {approvedList.map((item, index) => (
+              <ApprovedItem key={index} props={item} />
+            ))}
+          </div>
+
+          <div className={style.right_container_wrap_accept}>
+            <h4>강의실 신청 현황</h4>
+            {unApprovedList.map((item, index) => (
+              <UnApprovedItem key={index} props={item} />
+            ))}
+          </div>
+        </div>
+
+
+
       </div>
-
-      <div className={style.right_container_wrap_bottom}>
-        <div className={style.right_container_wrap_student}>
-          <h4>학생 관리</h4>
-          {approvedList.map((item, index) => (
-            <ApprovedItem key={index} props={item} />
-          ))}
-        </div>
-
-        <div className={style.right_container_wrap_accept}>
-          <h4>강의실 신청 현황</h4>
-          {unApprovedList.map((item, index) => (
-            <UnApprovedItem key={index} props={item} />
-          ))}
-        </div>
-      </div>
-
-
-
+      <DashRightBoxTeacher />
     </div>
-    <DashRightBoxTeacher />
-  </div>
-);
+  );
 };
 
 export default DashAdmin;

@@ -16,8 +16,8 @@
 
     }
 
-    
-    .main_container_right{
+
+    .main_container_right {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -26,40 +26,79 @@
         background-color: $base-color;
         position: relative;
 
-        .main_container_right_buttons{
+        .main_container_right_buttons {
             width: 100%;
             display: flex;
             gap: 0.5rem;
             justify-content: space-between;
             padding: 0.5rem;
 
-            button{
-                &:first-child{
+            button {
+                &:first-child {
                     font-size: 14px;
                     font-weight: 600;
                     background-color: $main-color;
                     color: $font-sub-color1;
                     width: 50%;
 
-                    &:hover{
+                    &:hover {
                         background-color: $sub-color;
                     }
                 }
-                &:last-child{
+
+            }
+
+            .stu_help_btn {
+                font-size: 14px;
+                font-weight: 600;
+                background-color: $error-color;
+                color: $font-sub-color1;
+                width: 50%;
+            }
+
+            .teacher_help_btn_wrapper {
+                position: relative;
+
+                button {
                     font-size: 14px;
                     font-weight: 600;
                     background-color: $error-color;
                     color: $font-sub-color1;
-                    width: 50%;
+                    width: 100%;
+                }
+
+                >div {
+                    position: absolute;
+                    width: 20px;
+                    height: 20px;
+                    background-color: #1800f5;
+                    border-radius: 50%;
+                    right: 0%;
+                    top: 0%
                 }
             }
         }
         .main_container_right_chat{
-            width: 100%;
+            width: auto;
             height: 95%;
             padding: 0.5rem;
             margin-bottom: 2.5rem;
             overflow-y: auto;
+
+            .main_container_right_chat_detail{
+                position: absolute;
+                bottom: 0;
+                display: grid;
+                grid-template-columns: 5fr 1fr;
+                gap: 0.5rem;
+
+            }
         }
     }
+}
+
+button:disabled {
+    background-color: rgb(73, 72, 126);
+    cursor: not-allowed;
+    color: $font-sub-color1;
 }
