@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import style from "../SCSS/pages/_classRoom.module.scss";
 import axios from 'axios';
 import { useSelector } from "react-redux";
@@ -197,6 +197,16 @@ export const ClassRoom = () => {
 
 
   // 채팅 컴포넌트
+  const scrollRef = useRef();
+  console.log(scrollRef.current);
+
+  useEffect(()=> {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop =
+      scrollRef.current.scrollHeight;
+    }
+  },[messages])
+
   const LiveChatTest = () => {
 
     return (
@@ -204,15 +214,10 @@ export const ClassRoom = () => {
         <div className={style.wrap_container_top}>
           {messages.map((message, index) => (
             <div key={index} className={style.wrap_container_top_detail}>
-              <p>
-                <span className={style.wrap_container_top_detail_nick}>{message.nick}({message.name})</span>
-              </p>
-              <p className={style.wrap_container_top_content}>{message.content}</p>
+              <p className={style.wrap_container_top_detail_nick}><span>{message.nick}</span> ({message.name})</p>
+              <span className={style.wrap_container_top_content}>{message.content}</span>
             </div>
           ))}
-        </div>
-        <div className={style.wrap_container_bottom}>
-
         </div>
       </div>
     );
@@ -311,7 +316,7 @@ export const ClassRoom = () => {
         </Modal>
 
 
-        <div className={style.main_container_right_chat}>
+        <div className={style.main_container_right_chat} ref={scrollRef}>
           <div className={style.main_container_right_chat_detail}>
             <input
               type="text"
@@ -319,7 +324,7 @@ export const ClassRoom = () => {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
             />
-            <button onClick={sendMessage}>Send</button>
+            <button onClick={sendMessage} type="button">Send</button>
           </div>
           {/* LiveChatTest 컴포넌트를 직접 여기에 넣습니다. */}
           <LiveChatTest />
