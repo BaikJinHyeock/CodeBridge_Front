@@ -16,6 +16,8 @@ const DashRightBoxTeacher = () => {
   const [teacherInfo, setTeacherInfo] = useState([]);
   const [classInfo, setClassInfo] = useState([]);
 
+  console.log('classInfo 확인', classInfo);
+
 
   useEffect(() => {
     setTeacherInfo(combinedInfo.teacherInfo)
@@ -42,10 +44,20 @@ const DashRightBoxTeacher = () => {
 
   // 학생 모든 정보 불러오기
 
+  const [selectStu, setSelectStu] = useState("");
+
+  console.log('선택 학생 확인', selectStu);
 
   const StudentList = ({ props }) => {
+
+    const clickName = () => {
+      setSelectStu(props)
+      getStudentScore(props)
+      handleShow();
+    }
+
     return (
-      <li onClick={handleShow}>
+      <li onClick={clickName}>
         {props.user_name}
         <p>{props.user_id}</p>
       </li>
@@ -58,8 +70,32 @@ const DashRightBoxTeacher = () => {
 
   const handleShow = () => {
     setShow(true);
+  }
 
+  // 과목별 학생 성적 가져오기
 
+  const [scoreList, setScoreList] = useState([]);
+  const getStudentScore = async (props) => {
+    let obj = {
+      class_num: classInfo.class_num,
+      user_id: props.user_id
+    }
+    try {
+      const res = await axios.post(`${baseUrl}/CodeBridge/mark/markresult`, obj);
+      console.log('응답', res.data);
+      setScoreList(res.data)
+    } catch (error) {
+    }
+  }
+
+  const ScoreItem = ({props}) => {
+
+    return (
+      <div>
+        <p>과목명 : {props.sub_title}</p>
+        <p>점수 : {props.mark_score}</p>
+      </div>
+    );
   }
 
 
@@ -102,15 +138,12 @@ const DashRightBoxTeacher = () => {
             <Modal.Title>학생정보</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p>학생 이름</p>
-            <p>학생 아이디</p>
-            <p>ide url</p>
-
-
-
-
-
-
+            <p>학생 이름 : {selectStu.user_name}</p>
+            <p>학생 아이디 : {selectStu.user_id}</p>
+            <p>성적확인</p>
+            {scoreList.map((item, index) =>
+              <ScoreItem key={index} props={item} />
+            )}
 
 
           </Modal.Body>
