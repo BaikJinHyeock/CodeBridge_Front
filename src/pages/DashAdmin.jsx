@@ -192,106 +192,99 @@ const DashAdmin = () => {
 
 
     return (
-      <div className={style.ide_box}>
-        <p>{props.user_name}</p>
-        <div className={style.ide_url_content}>
-          <span>ide 주소 : </span>
+      <tbody>
+        <tr>
+          <td>{props.user_name}</td>
           {props.server_url != null ?
-            <p>
+            <td>
               {props.server_url}
-            </p>
+            </td>
             :
-            <div className={style.give_btn} onClick={clickItem}>
-              부여하기
-            </div>
+            <td className={style.give_btn} onClick={clickItem}>
+              <button type="button">부여하기</button>              
+            </td>
           }
-        </div>
-      </div>
+        </tr>
+      </tbody>
     )
   }
 
 
 
-  return (
-    <div className={style.wrap_container}>
-      <div className={style.right_container}>
-        <Profile />
-        <div className={style.right_container_wrap}>
-          <div className={style.right_container_wrap_info}>
-            <h4>강의실 정보</h4>
-            <div className={style.right_container_wrap_info_table}>
-              <table className={style.setTable}>
-                <tbody>
-                  <tr>
-                    <td>교육 명</td>
-                    <td>
-                      <div className={style.setTable_userId}>
-                        <div className={style.setTable_userId_originId}>
-                          <p>데이터디자인 엔지니어 양성과정</p>
-                        </div>
+return (
+  <div className={style.wrap_container}>
+    <div className={style.right_container}>
+      <Profile />
+      <div className={style.right_container_wrap}>
+        <div className={style.right_container_wrap_info}>
+          <h4>강의실 정보</h4>
+          <div className={style.right_container_wrap_info_table}>
+            <table className={style.setTable}>
+              <tbody>
+                <tr>
+                  <td>교육 명</td>
+                  <td>
+                    <div className={style.setTable_userId}>
+                      <div className={style.setTable_userId_originId}>
+                        <p>데이터디자인 엔지니어 양성과정</p>
                       </div>
-                    </td>
-                  </tr>
+                    </div>
+                  </td>
+                </tr>
 
-                  <tr>
-                    <td>교육 대상</td>
-                    <td>
-                      <div className={style.setTable_userPw}>
-                        <div className={style.setTable_userPw_originId}>
-                          <p>취업을 준비하는 대학 졸업(예정)자</p>
-                        </div>
+                <tr>
+                  <td>교육 대상</td>
+                  <td>
+                    <div className={style.setTable_userPw}>
+                      <div className={style.setTable_userPw_originId}>
+                        <p>취업을 준비하는 대학 졸업(예정)자</p>
                       </div>
-                    </td>
-                  </tr>
+                    </div>
+                  </td>
+                </tr>
 
-                  <tr>
-                    <td>교육 기간</td>
-                    <td>
-                      <div className={style.setTable_userPw}>
-                        <div className={style.setTable_userPw_originId}>
-                          <p>2023. 04. 27 ~ 2023. 11. 27</p>
-                        </div>
+                <tr>
+                  <td>교육 기간</td>
+                  <td>
+                    <div className={style.setTable_userPw}>
+                      <div className={style.setTable_userPw_originId}>
+                        <p>2023. 04. 27 ~ 2023. 11. 27</p>
                       </div>
-                    </td>
-                  </tr>
+                    </div>
+                  </td>
+                </tr>
 
-                  <tr>
-                    <td>교육 설명</td>
-                    <td>
-                      <div className={style.setTable_userNum}>
-                        <div className={style.setTable_userNum_originId}>
-                          <p>num</p>
-                        </div>
+                <tr>
+                  <td>교육 설명</td>
+                  <td>
+                    <div className={style.setTable_userNum}>
+                      <div className={style.setTable_userNum_originId}>
+                        <p>num</p>
                       </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <div className={style.right_container_wrap_bottom}>
-          <div className={style.right_container_wrap_student}>
-            <h4>학생 관리</h4>
-            {approvedList.map((item, index) => (
-              <ApprovedItem key={index} props={item} />
-            ))}
-          </div>
-
-          <div className={style.right_container_wrap_accept}>
-            <h4>강의실 신청 현황</h4>
-            {unApprovedList.map((item, index) => (
-              <UnApprovedItem key={index} props={item} />
-            ))}
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
         <div className={style.ide_wrapper}>
-          <h4>ide 현황</h4>
-          {stuList.map((item, index) => (
-            <StudentIDE key={index} props={item} />
-          ))}
+          <h4>IDE 현황</h4>
+          <div className={style.right_container_wrap_info_table}>
+            <table className={style.setTable}>
+              <thead>
+                <tr>
+                  <td>이름</td>
+                  <td>IDE URL</td>
+                  <td></td>
+                </tr>
+              </thead>
+              {stuList.map((item, index) => (
+                <StudentIDE key={index} props={item} />
+              ))}
+            </table>
+          </div>
 
 
           <Modal show={show} onHide={handleClose} style={{ top: "15%" }}>
@@ -300,10 +293,10 @@ const DashAdmin = () => {
             </Modal.Header>
             <Modal.Body>
               <style>{`.modal-content { 
-    width: 600px;
-    max-height: 700px;
-    overflow: scroll;
-  } `}</style>
+                  width: 600px;
+                  max-height: 700px;
+                  overflow: scroll;
+                } `}</style>
 
               {ideUrlList.map((item, index) =>
                 <IDEItem key={index} props={item} />
@@ -320,11 +313,30 @@ const DashAdmin = () => {
             </Modal.Footer>
           </Modal>
         </div>
-
       </div>
-      <DashRightBoxTeacher />
+
+      <div className={style.right_container_wrap_bottom}>
+        <div className={style.right_container_wrap_student}>
+          <h4>학생 관리</h4>
+          {approvedList.map((item, index) => (
+            <ApprovedItem key={index} props={item} />
+          ))}
+        </div>
+
+        <div className={style.right_container_wrap_accept}>
+          <h4>강의실 신청 현황</h4>
+          {unApprovedList.map((item, index) => (
+            <UnApprovedItem key={index} props={item} />
+          ))}
+        </div>
+      </div>
+
+
+
     </div>
-  );
+    <DashRightBoxTeacher />
+  </div>
+);
 };
 
 export default DashAdmin;
