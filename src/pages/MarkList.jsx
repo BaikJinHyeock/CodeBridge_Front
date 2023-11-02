@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Profile from "../components/Profile";
 import style from "../SCSS/pages/_markList.module.scss";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from 'axios';
 
 const MarkList = () => {
+
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const class_num = params.get("class_num");
 
 
   // 스프링 주소
@@ -35,10 +39,8 @@ const MarkList = () => {
   // 반 목록 긁어오기
   const getSubs = async () => {
     try {
-      const response = await axios.get(
-        `${baseUrl}/CodeBridge/sub/getsub?class_num=${classInfo.class_num}`
-      );
-      setSubList(response.data); // 데이터를 상태에 저장
+      const res = await axios.get(`${baseUrl}/CodeBridge/sub/getsub?class_num=${class_num}`);
+      setSubList(res.data); // 데이터를 상태에 저장
     } catch (error) {
       console.error(error);
     }
@@ -47,7 +49,7 @@ const MarkList = () => {
   // 총점 가져오기
   const getTotalScore = async () => {
     try {
-      const res = await axios.get(`${baseUrl}/CodeBridge/sub/total-score?class_num=${classInfo.class_num}`);
+      const res = await axios.get(`${baseUrl}/CodeBridge/sub/total-score?class_num=${class_num}`);
       setTotalScoreList(res.data)
     } catch (error) {
       console.error(error);
@@ -58,7 +60,7 @@ const MarkList = () => {
   // 과목별 학생 성적 가져오기
   const getStudentScore = async () => {
     let obj = {
-      class_num: classInfo.class_num,
+      class_num: class_num,
       user_id: sessionStorage.getItem("memberId")
     }
     try {
@@ -75,7 +77,7 @@ const MarkList = () => {
     getSubs();
     getTotalScore();
     getStudentScore();
-  }, [classInfo]);
+  }, []);
 
 
   const [combinedArray, setCombinedArray] = useState([]);
