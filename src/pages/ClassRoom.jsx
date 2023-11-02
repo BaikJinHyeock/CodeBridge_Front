@@ -41,12 +41,19 @@ export const ClassRoom = () => {
   const StudentItem = ({ props }) => {
     const handleOpenLink = () => {
       window.open('http://59.0.249.27:8071', '_blank');
+      setReqStuName("");
     }
+
+    const isHelpRequested = reqStuName === props.user_name;
 
     return (
       <div>
         <div>
-          학생이름 :  <span onClick={handleOpenLink} style={{ cursor: 'pointer', textDecoration: 'underline' }}>{props.user_name}</span>
+          학생이름 :
+          <span onClick={handleOpenLink} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+            {props.user_name}
+          </span>
+          {isHelpRequested && <span style={{ marginLeft: '5px', color: 'red' }}>도움!</span>}
         </div>
       </div>
     );
@@ -83,7 +90,16 @@ export const ClassRoom = () => {
             console.log('messageData 확인', messageData);
             addMessage(messageData);
           });
+
+          // 도움 요청 응답을 받아서 studentName 상태에 저장
+          stompClient.subscribe('/topic/helpResponse', (message) => {
+            console.log('도움요청 데이터', message.body);
+            // const messageData = JSON.parse(message.body);
+            setReqStuName(message.body); // 받은 값을 studentName 상태에 저장
+          });
+
           setIsSubscribed(true)
+
         }
         resolve();
       }, (error) => {
@@ -114,6 +130,27 @@ export const ClassRoom = () => {
       console.error(error);
     }
   };
+
+  const [reqStuName, setReqStuName] = useState(null);
+
+  console.log('reqStuName 확인', reqStuName);
+
+  const requestHelp = async () => {
+    try {
+      await initializeWebSocket(); // 소켓 연결 기다리기
+
+      console.log('도움요청 진입');
+
+      stompClient.send('/app/chat.requestHelp', {}, sessionStorage.getItem("user_name"));
+
+
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
 
   // 채팅 컴포넌트
   const LiveChatTest = () => {
@@ -153,7 +190,7 @@ export const ClassRoom = () => {
       <div className={style.main_container_right}>
         <div className={style.main_container_right_buttons}>
           <button type="button">화면공유</button>
-          <button type="button">도움요청</button>
+          <button type="button" onClick={requestHelp}>도움요청</button>
         </div>
         <div className={style.main_container_right_chat}>
           <input
