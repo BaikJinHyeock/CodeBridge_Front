@@ -1,19 +1,18 @@
 @import "../abstracts/variables";
 
-@keyframes loadingAnimation {
-  0% {
-    content: '.';
-  }
+@keyframes fontColor {
+	0% {
+    color: $error-color; 
+	}
 
-  33% {
-    content: '..';
-  }
+	50% {
+    color: $font-sub-color1;
+	}
 
-  66% {
-    content: '...';
-  }
+	100% {
+    color: $error-color;
+	}
 }
-
 .wrap_container {
   max-width: 1320px;
   width: 1320px;
@@ -38,20 +37,47 @@
       margin: 16px 0;
     }
 
-    .loading_text {
-      font-size: 30px;
-    }
+    .loading_box {
 
-    .loading_text::after {
-      font-size: 30px;
-      content: '.';
-      animation: loadingAnimation 1s infinite;
-    }
+      .loading_text {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        font-size: 18px;
+        font-weight: 500;
+        color: $main-color;
 
-    .gpt_answer_wrapper {
-      background-color: aliceblue;
-    }
+        span {
+          animation : fontColor 1.5s infinite linear;
+        }
+      }
+      .gpt_answer_wrapper{
+        padding: 0.5rem 0;
 
+        h4{
+          font-size: 20px;
+          font-weight: 600;
+          color: $main-color;
+        }
+        ul{
+          padding: 0.5rem 0;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          li{
+            font-size: 16px;
+            font-weight: 500;
+
+            &:first-child{
+              font-size: 18px;
+              font-weight: 700;
+            }
+          }
+        }
+      }
+
+    }
   }
 
   .right_container {
@@ -136,6 +162,7 @@
       background-color: $main-color;
       transition-duration: 150ms;
       float: right;
+      margin-left: 16px;
 
       &:hover {
         background-color: $sub-color;
@@ -143,6 +170,7 @@
     }
   }
 }
+
 @media all and (max-width:1023px) {
   .wrap_container {
     display: flex;
@@ -154,7 +182,8 @@
       width: 100%;
       padding: 36px;
     }
-    .right_container{
+
+    .right_container {
       width: 100%;
       padding: 36px;
     }

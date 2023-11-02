@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import style from "../SCSS/pages/_testWrite.module.scss";
 import axios from "axios";
+import Spinner from 'react-bootstrap/Spinner';
 
 const TestWrite = () => {
 
@@ -63,6 +64,7 @@ const TestWrite = () => {
 
   const gtpTestWrite = async () => {
     console.log('함수진입');
+    setGptTest("");
     setIsLoading(true);
 
     try {
@@ -86,15 +88,26 @@ const TestWrite = () => {
           테스트 내용에 대해
           <br /> 작성해주세요
         </h1>
-        {isLoading && <div className={style.loading_text}>GPT 문제 출제중</div>}
-        {gptTest && (
-          <div className={style.gpt_answer_wrapper}>
-            <p>gpt 출제문제</p>
-            {gptTest.split('\n').map((line, index) => (
-              <div key={index}>{line}</div>
-            ))}
+        <div className={style.loading_box}>
+          {/* {isLoading && <h4 className={style.loading_text}>AI 문제 출제중</h4>} */}
+          {isLoading &&
+          <div class="d-flex align-items-center" className={style.loading_text}>
+            <span role="status">AI문제 출제중...</span>
+            <div class="spinner-border ms-auto text-danger" aria-hidden="true"></div>
           </div>
-        )}
+
+          }
+          {gptTest && (
+            <div className={style.gpt_answer_wrapper}>
+              <h4>AI 출제문제</h4  >
+              <ul>
+                {gptTest.split('\n').map((line, index) => (
+                  <li key={index}>{line}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
 
       </div>
 
@@ -178,7 +191,7 @@ const TestWrite = () => {
 
             {testConditionList.map((item, index) => (
               <div className={style.input_cur} key={item.id}>
-                <span>문제 {index + 1}</span>
+                <span>조건 {index + 1}</span>
                 <input
                   type="text"
                   name="content"
