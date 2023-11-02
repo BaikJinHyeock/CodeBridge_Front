@@ -81,12 +81,12 @@ const DashAdmin = () => {
     }
     try {
       const res = await axios.post(`${baseUrl}/CodeBridge/class/accept`, obj);
-      // if (res.data == "success") {
-      //   alert("전환 성공");
-      //   window.location.reload();
-      // } else {
-      //   alert("전환 실패");
-      // }
+      if (res.data == "success") {
+        alert("전환 성공");
+        window.location.reload();
+      } else {
+        alert("전환 실패");
+      }
     } catch (error) {
       alert(`통신오류 ${error}`);
     }

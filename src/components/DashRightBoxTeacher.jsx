@@ -82,7 +82,7 @@ const DashRightBoxTeacher = () => {
     }
     try {
       const res = await axios.post(`${baseUrl}/CodeBridge/mark/markresult`, obj);
-      console.log('응답', res.data);
+      console.log('성적확인', res.data);
       setScoreList(res.data)
     } catch (error) {
     }

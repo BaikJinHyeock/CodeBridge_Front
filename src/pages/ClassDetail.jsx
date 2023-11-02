@@ -126,23 +126,26 @@ const ClassDetail = () => {
         <div className={style.left_container_profile}>
           <div className={style.left_container_profile_img}>
             <img
-              src="https://i.pinimg.com/564x/d7/94/c3/d794c38660990eca6134e885c59c7470.jpg"
+              src={teacherInfo.user_pic}
               alt="profile"
             />
           </div>
           <h4>{teacherInfo.user_name} 강사</h4>
           <ul>
             <li>
-              <p>44개 국가 대상 인력양성특강</p>
+              <p>무역학 학사</p>
             </li>
             <li>
-              <p>인공지능 사관학교 총괄 PL</p>
+              <p>(현) 혁신성장 청년인재집중양성과정 강사</p>
             </li>
             <li>
-              <p>전남대 등 5개 대학 총괄</p>
+              <p>(현) K-디지털 핵심실무인재 양성사업 강사</p>
             </li>
             <li>
-              <p>8개반 취업률 91.2% 달성</p>
+              <p>PAS 광고기획 인턴</p>
+            </li>
+            <li>
+              <p>JA Korea 대학생경제교육봉사 회장단(Ujat) 운영</p>
             </li>
           </ul>
         </div>

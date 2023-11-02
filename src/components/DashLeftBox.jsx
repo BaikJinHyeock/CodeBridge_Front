@@ -50,7 +50,7 @@ const DashLeftBox = () => {
 
   const moveMark = () => {
     setActiveButton("markList"); // "markList" 버튼을 활성화
-    navigate("/MarkList");
+    navigate(`/MarkList?class_num=${classInfo.class_num}`);
   };
   const moveSetInfo = () => {
     setActiveButton("setInfo"); // "setInfo" 버튼을 활성화
