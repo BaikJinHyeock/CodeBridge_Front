@@ -131,7 +131,23 @@ const ClassDetail = () => {
             />
           </div>
           <h4>{teacherInfo.user_name} 강사</h4>
-
+          <ul>
+            <li>
+              <p>무역학 학사</p>
+            </li>
+            <li>
+              <p>(현) 혁신성장 청년인재집중양성과정 강사</p>
+            </li>
+            <li>
+              <p>(현) K-디지털 핵심실무인재 양성사업 강사</p>
+            </li>
+            <li>
+              <p>PAS 광고기획 인턴</p>
+            </li>
+            <li>
+              <p>JA Korea 대학생경제교육봉사 회장단(Ujat) 운영</p>
+            </li>
+          </ul>
         </div>
       </div>
 
