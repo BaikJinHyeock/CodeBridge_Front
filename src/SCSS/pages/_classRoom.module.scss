@@ -55,11 +55,20 @@
             }
         }
         .main_container_right_chat{
-            width: 100%;
+            width: auto;
             height: 95%;
             padding: 0.5rem;
             margin-bottom: 2.5rem;
             overflow-y: auto;
+
+            .main_container_right_chat_detail{
+                position: absolute;
+                bottom: 0;
+                display: grid;
+                grid-template-columns: 5fr 1fr;
+                gap: 0.5rem;
+
+            }
         }
     }
 }

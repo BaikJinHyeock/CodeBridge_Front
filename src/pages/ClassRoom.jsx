@@ -115,6 +115,7 @@ export const ClassRoom = () => {
   };
 
   const sendMessage = async () => {
+    setMessage("");
     try {
       await initializeWebSocket(); // 소켓 연결 기다리기
 
@@ -193,13 +194,15 @@ export const ClassRoom = () => {
           <button type="button" onClick={requestHelp}>도움요청</button>
         </div>
         <div className={style.main_container_right_chat}>
-          <input
-            type="text"
-            placeholder="Message"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
-          <button onClick={sendMessage}>Send</button>
+          <div className={style.main_container_right_chat_detail}>
+            <input
+              type="text"
+              placeholder="Message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
+            <button onClick={sendMessage}>Send</button>
+          </div>
           {/* LiveChatTest 컴포넌트를 직접 여기에 넣습니다. */}
           <LiveChatTest />
         </div>
