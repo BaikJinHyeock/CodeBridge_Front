@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import style from "../SCSS/pages/_classRoom.module.scss";
-import LiveChatTest from "../components/LiveChatTest";
 import axios from 'axios';
 import { useSelector } from "react-redux";
+import Stomp from 'stompjs';
+import SockJS from 'sockjs-client';
 
 export const ClassRoom = () => {
 
@@ -14,24 +15,16 @@ export const ClassRoom = () => {
 
   const [userInfo, setUserInfo] = useState([]);
   const [classInfo, setClassInfo] = useState([]);
-  
-
-  // console.log('클래스룸 에서 유저인포', userInfo);
-  // console.log('클래스룸 에서 classInfo', classInfo);
-
+  const [stuList, setStuList] = useState([]);
 
   useEffect(() => {
     setUserInfo(combinedInfo.userInfo)
     setClassInfo(combinedInfo.classInfo)
   }, [combinedInfo]);
 
-
-
   useEffect(() => {
     getStuList();
   }, [classInfo])
-
-  const [stuList, setStuList] = useState([]);
 
   // 반 학생 리스트 긁어오기
   const getStuList = async () => {
@@ -44,8 +37,6 @@ export const ClassRoom = () => {
     }
   }
 
-
-
   // 학생 정보 컴포넌트
   const StudentItem = ({ props }) => {
     const handleOpenLink = () => {
@@ -57,7 +48,92 @@ export const ClassRoom = () => {
         <div>
           학생이름 :  <span onClick={handleOpenLink} style={{ cursor: 'pointer', textDecoration: 'underline' }}>{props.user_name}</span>
         </div>
-      </div >
+      </div>
+    );
+  }
+
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState('');
+
+
+  let stompClient = null;
+
+  useEffect(() => {
+    if (!stompClient || !stompClient.connected) {
+      initializeWebSocket();
+    }
+  }, []);
+
+  // let isSubscribed = false;
+  const [isSubscribed, setIsSubscribed] = useState(false);
+
+  const initializeWebSocket = async () => {
+    if (stompClient && stompClient.connected) return; // 이미 연결된 상태면 무시
+
+    const socket = new SockJS("http://localhost:8085/CodeBridge/websocket");
+    stompClient = Stomp.over(socket);
+
+    return new Promise((resolve, reject) => {
+
+      stompClient.connect({}, () => {
+        if (!isSubscribed) { // 이전에 구독하지 않았다면
+          stompClient.subscribe('/topic/public', (message) => {
+            console.log('여기 몇번호출');
+            const messageData = JSON.parse(message.body);
+            console.log('messageData 확인', messageData);
+            addMessage(messageData);
+          });
+          setIsSubscribed(true)
+        }
+        resolve();
+      }, (error) => {
+        reject(error);
+      });
+    });
+  };
+
+  const addMessage = (messageData) => {
+    if (!messages.some(message => message.messageId === messageData.messageId)) {
+      setMessages(prevMessages => [...prevMessages, messageData]);
+    }
+  };
+
+  const sendMessage = async () => {
+    try {
+      await initializeWebSocket(); // 소켓 연결 기다리기
+
+      const messageData = {
+        name: sessionStorage.getItem("user_name"),
+        nick: sessionStorage.getItem("user_nick"),
+        content: message,
+        messageId: Date.now()
+      };
+
+      stompClient.send('/app/chat.sendMessage', {}, JSON.stringify(messageData));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // 채팅 컴포넌트
+  const LiveChatTest = () => {
+
+    return (
+      <div className={style.wrap_container}>
+        <div className={style.wrap_container_top}>
+          {messages.map((message, index) => (
+            <div key={index} className={style.wrap_container_top_detail}>
+              <p>
+                <span className={style.wrap_container_top_detail_nick}>{message.nick}({message.name})</span>
+              </p>
+              <p className={style.wrap_container_top_content}>{message.content}</p>
+            </div>
+          ))}
+        </div>
+        <div className={style.wrap_container_bottom}>
+
+        </div>
+      </div>
     );
   }
 
@@ -74,13 +150,20 @@ export const ClassRoom = () => {
           )}
         </div>
       }
-      {/* <iframe src="http://59.0.249.27:8071/"></iframe> */}
       <div className={style.main_container_right}>
         <div className={style.main_container_right_buttons}>
           <button type="button">화면공유</button>
           <button type="button">도움요청</button>
         </div>
         <div className={style.main_container_right_chat}>
+          <input
+            type="text"
+            placeholder="Message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+          <button onClick={sendMessage}>Send</button>
+          {/* LiveChatTest 컴포넌트를 직접 여기에 넣습니다. */}
           <LiveChatTest />
         </div>
       </div>
