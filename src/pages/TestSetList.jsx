@@ -6,6 +6,7 @@ import { Button } from "react-bootstrap";
 import Profile from "../components/Profile";
 import axios from "axios";
 import { useLocation } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 const TestList = () => {
   const location = useLocation();
@@ -71,6 +72,7 @@ const TestList = () => {
   const [selectedTest, setSelectedTest] = useState(null); // 선택된 문제 정보 상태 추가
 
 
+  const navigate = useNavigate();
   // 고른 문제 출제하기
   const subTestList = async () => {
     const selectedTestNumsString = selectedTestNums.join(",");
@@ -84,9 +86,9 @@ const TestList = () => {
         `${baseUrl}/CodeBridge/subjecTtest/submit`,
         obj
       );
-
       if (res.data == "success") {
         alert('출제 완료')
+        navigate("/DashAdmin");
       } else {
         alert('출제 실패')
       }
