@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import style from "../SCSS/pages/_classWrite.module.scss";
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import QuillCompo from "../components/QuillCompo";
 import { useSelector } from 'react-redux';
 
@@ -17,6 +17,8 @@ const SubWrite = () => {
     const [language, setLanguage] = useState("Java"); // 기본값으로 Java를 설정합니다.
 
 
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -42,7 +44,7 @@ const SubWrite = () => {
             console.log('응답 확인', response);
             if (response) {
                 alert('작성 성공')
-                window.location.reload();
+                navigate("/");
             } else {
                 alert('작성 실패')
             }
@@ -100,8 +102,15 @@ const SubWrite = () => {
                             >
                                 <option value="Java">Java</option>
                                 <option value="Python">Python</option>
+                                <option value="JavaScript">JavaScript</option>
+                                <option value="HTML/CSS">HTML/CSS</option>
                                 <option value="React">React</option>
+                                <option value="Hadoop">Hadoop</option>
                                 <option value="Spring">Spring</option>
+                                <option value="Node.js">Node.js</option>
+                                <option value="크롤링">크롤링</option>
+                                <option value="M.L">M.L</option>
+                                <option value="D.L">D.L</option>
                             </select>
                         </div>
                         {/* <div className={style.input_box}>
