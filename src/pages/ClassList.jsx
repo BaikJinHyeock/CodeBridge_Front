@@ -1,7 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import style from "../SCSS/pages/_classList.module.scss"
+import axios from 'axios';
+
 
 const ClassList = () => {
+
+  const [classlist, setClasslist] = useState("");
+
+  useEffect(() => {
+    getClass();
+  }, [])
+
+  const getClass = async () => {
+    const response = await axios.get(
+      "http://localhost:8085/CodeBridge/class/get-class-list");
+      console.log('조회 후 데이터', response.data);
+      setClasslist(response.data[0])
+
+  }
+
+
   return (
     <div className={style.wrap_container}>
       <div className={style.main_banner}>
