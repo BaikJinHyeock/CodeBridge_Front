@@ -21,10 +21,9 @@ const ClassWrite = () => {
   const [target, setTarget] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [content, setContent] = useState("");
   const [findLang, setFindLang] = useState();
   const [findLangList, setFindLangList] = useState([]);
-  const [additionalInputs, setAdditionalInputs] = useState([{},]);
+  const [additionalInputs, setAdditionalInputs] = useState([{ sub_num: "", content: "" }]);
   const [subNumList, setSubNumList] = useState([]);
 
   console.log("주차 값 확인", additionalInputs);
@@ -48,12 +47,6 @@ const ClassWrite = () => {
       alert("값이 모두 입력되지 않았습니다. 모든 필수 항목을 입력해주세요.");
       return;
     }
-
-    // 주차와 내용을 ":"로 구분하고, 각 쌍을 ","로 구분하여 문자열로 만듦
-    // const curriculumString = additionalInputs
-    //   .map((input) => `${input.week}::${input.content}`)
-    //   .join(",, ");
-
 
     const croppedImageDataUrl = await handleSaveCroppedImage(croppedImage);
 
@@ -109,6 +102,7 @@ const ClassWrite = () => {
   const handleClose = () => setShow(false);
 
   const [selectedWeekIndex, setSelectedWeekIndex] = useState(null);
+
   const handleShow = (index) => {
     setSelectedWeekIndex(index);
     setShow(true);
@@ -132,9 +126,11 @@ const ClassWrite = () => {
   }, []);
 
   const SubItem = ({ props, handleSubItemClick }) => {
+
     const handleItemClick = () => {
       handleSubItemClick(props); // 클릭 시 부모 컴포넌트의 함수 호출
     };
+
     return (
       <div className={style.sub_item_box} onClick={handleItemClick}>
         <span className={style.sub_item_box_num}>No.{props.sub_num}</span>
@@ -150,9 +146,8 @@ const ClassWrite = () => {
   // ...
   const handleSubItemClick = (item, index) => {
     const updatedInputs = [...additionalInputs];
-    updatedInputs[
-      index
-    ].content = `${item.sub_title} `;
+    updatedInputs[index].sub_num = item.sub_num; // sub_num 추가
+    updatedInputs[index].content = `${item.sub_title} `;
     setAdditionalInputs(updatedInputs);
     // 이전의 subNumList를 가져와서 새로운 값을 추가
     setSubNumList((prevSubNumList) => [...prevSubNumList, item.sub_num]);
