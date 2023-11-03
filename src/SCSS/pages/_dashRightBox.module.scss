@@ -8,6 +8,7 @@
   justify-content: flex-start;
   height: calc(100vh - 4rem);
   width: 20%;
+  overflow-y: auto;
 
   .content_box1 {
     box-shadow: $box-shadow;

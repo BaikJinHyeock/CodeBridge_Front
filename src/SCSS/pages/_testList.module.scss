@@ -3,13 +3,13 @@
 .wrap_container {
   background-color: $wrap-bg;
   width: 100%;
-  overflow-y: scroll;
   height: calc(100vh - 4rem);
   display: flex;
 
   .right_container {
     width: 80%;
     padding: 32px 64px;
+    overflow-y: auto;
 
     .right_container_grid_box {
       background-color: #ffffff;
