@@ -11,6 +11,7 @@ const TestDetail = () => {
 
   // 스프링 주소
   const baseUrl = process.env.REACT_APP_BASE_URL;
+  const pyUrl = process.env.REACT_APP_PY_URL;
 
 
   const location = useLocation();
@@ -59,7 +60,7 @@ const TestDetail = () => {
       sub_code: testCode,
     };
     const response = await axios.post(
-      "http://localhost:8085/CodeBridge/code/submit",
+      `${baseUrl}/CodeBridge/code/submit`,
       subTest
     );
 
@@ -110,7 +111,7 @@ const TestDetail = () => {
     });
 
     try {
-      const response_py = await axios.post("http://127.0.0.1:5000/mark", obj);
+      const response_py = await axios.post(`${pyUrl}/mark`, obj);
       console.log('파이썬 응답 확인', response_py.data);
       const updatedGptRes = [...gptRes];
       updatedGptRes[selectedTestIndex] = response_py.data;
