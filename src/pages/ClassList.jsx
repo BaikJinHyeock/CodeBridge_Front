@@ -3,6 +3,7 @@ import style from "../SCSS/pages/_classList.module.scss"
 import axios from 'axios';
 
 
+
 const ClassList = () => {
 
   const [classlist, setClasslist] = useState("");
@@ -12,12 +13,30 @@ const ClassList = () => {
   }, [])
 
   const getClass = async () => {
-    const response = await axios.get(
-      "http://localhost:8085/CodeBridge/class/get-class-list");
+    try {
+      const response = await axios.get(
+        "http://localhost:8085/CodeBridge/class/get-class-list");
       console.log('조회 후 데이터', response.data);
-      setClasslist(response.data[0])
+      setClasslist(response.data)
+    } catch (error) {
 
+    }
   }
+
+  const ClassContent = () => {
+    return (
+      <div className={style.wrap_container_main_box}>
+        <div className={style.wrap_container_main_box_text}>
+          <h1>SW캠프 데이터 디자인반</h1>
+          <span>교육대상 | 비전공자, 취준생</span>
+          <span>교육기간 | 2023. 04. 27 ~ 2023. 11. 27</span>
+        </div>
+        <div className={style.wrap_container_main_box_img}>
+          <img src="https://smhrd.or.kr/wp-content/uploads/2023/05/aac_ban.png" alt="#" />
+        </div>
+      </div>
+    );
+  };
 
 
   return (
@@ -34,41 +53,24 @@ const ClassList = () => {
       <div className={style.wrap_container_main}>
         <h4>전체</h4>
 
-        {/* div박스 반복 */}
+
         <div className={style.wrap_container_main_box}>
           <div className={style.wrap_container_main_box_text}>
             <h1>SW캠프 데이터 디자인반</h1>
             <span>교육대상 | 비전공자, 취준생</span>
             <span>교육기간 | 2023. 04. 27 ~ 2023. 11. 27</span>
           </div>
-
           <div className={style.wrap_container_main_box_img}>
             <img src="https://smhrd.or.kr/wp-content/uploads/2023/05/aac_ban.png" alt="#" />
           </div>
         </div>
-        {/* div박스 반복 */}
-        <div className={style.wrap_container_main_box}>
-          <div className={style.wrap_container_main_box_text}>
-            <h1>SW캠프 데이터 디자인반</h1>
-            <span>교육대상 | 비전공자, 취준생</span>
-            <span>교육기간 | 2023. 04. 27 ~ 2023. 11. 27</span>
-          </div>
 
-          <div className={style.wrap_container_main_box_img}>
-            <img src="https://smhrd.or.kr/wp-content/uploads/2023/05/aac_ban.png" alt="#" />
-          </div>
-        </div>
-        <div className={style.wrap_container_main_box}>
-          <div className={style.wrap_container_main_box_text}>
-            <h1>SW캠프 데이터 디자인반</h1>
-            <span>교육대상 | 비전공자, 취준생</span>
-            <span>교육기간 | 2023. 04. 27 ~ 2023. 11. 27</span>
-          </div>
+        {classlist.map((item, index) =>
 
-          <div className={style.wrap_container_main_box_img}>
-            <img src="https://smhrd.or.kr/wp-content/uploads/2023/05/aac_ban.png" alt="#" />
-          </div>
-        </div>
+          <ClassContent key={index} props={item} />
+
+        )}
+
       </div>
     </div>
   )
