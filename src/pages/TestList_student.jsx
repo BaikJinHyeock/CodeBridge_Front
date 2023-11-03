@@ -86,7 +86,8 @@ const TestList_student = () => {
                 테스트완료
               </button>
               :
-              <Link to={`/TestDetail?sub_num=${props.sub_num}`}>
+              // <Link to={`/TestDetail?sub_num=${props.sub_num}`}>
+              <Link to={`/TestReady?sub_num=${props.sub_num}`}>
                 <button type="button" className={style.test_btn}>
                   테스트
                 </button>

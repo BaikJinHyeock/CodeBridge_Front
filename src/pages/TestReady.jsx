@@ -1,7 +1,12 @@
 import React from 'react'
 import style from "../SCSS/pages/_testReady.module.scss";
+import { useLocation } from 'react-router-dom';
 
 const TestReady = () => {
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const sub_num = params.get("sub_num");
+
     return (
         <div className={style.wrap_container}>
             <div className={style.wrap_container_box}>
@@ -12,9 +17,9 @@ const TestReady = () => {
                 <div className={style.wrap_container_box_list}>
                     <h5>점수 흭득 방법</h5>
                     <span>
-                        코딩 테스트에서 각 문제는 한 개 이상의 제한 조건을 가지게됩니다. <br/>
-                        제한 조건을 모두 만족하면 최대 점수를 획득할 수 있고, <br/>
-                        부분적인 제한 조건을 만족하면 해당 부분 점수를 얻게 됩니다. <br/>
+                        코딩 테스트에서 각 문제는 한 개 이상의 제한 조건을 가지게됩니다. <br />
+                        제한 조건을 모두 만족하면 최대 점수를 획득할 수 있고, <br />
+                        부분적인 제한 조건을 만족하면 해당 부분 점수를 얻게 됩니다. <br />
                         모든 문제를 해결한 후 총 점수를 계산하여 최종 점수를 흭득하게됩니다.
                     </span>
                 </div>
@@ -39,12 +44,14 @@ const TestReady = () => {
                         <li> "시험 시작" 버튼을 클릭하면 시험이 시작됩니다. 유의사항을 숙지하고 시작하세요.</li>
                     </ul>
                 </div>
+                {/* <Link to={`/TestDetail?sub_num=${sub_num}`}> */}
                 <button type='button'>
                     시험시작
                 </button>
+                {/* </Link> */}
             </div>
 
-        </div>
+        </div >
     )
 }
 
