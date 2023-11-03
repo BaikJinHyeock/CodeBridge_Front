@@ -155,7 +155,7 @@ const Join = () => {
   };
 
   const nickcheck = async (e) => {
-    if (nick.length < 2 || nick.length > 10 || koreanVowelRegex.test(nick[0])) {
+    if (nick.length < 2 || nick.length > 20 || koreanVowelRegex.test(nick[0])) {
       setNickCheckMsg("닉네임을 입력해주세요");
       setCheck6(0);
     } else {
