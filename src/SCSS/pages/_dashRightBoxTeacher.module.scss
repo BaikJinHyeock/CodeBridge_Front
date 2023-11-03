@@ -87,7 +87,24 @@
         }
     }
 }
+.modal_title{
+    font-size: 16px;
+    margin-bottom: 4px;
+    font-weight: 500;
+    color: #999999;
+}
+.info_modal{
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    align-items: flex-end;
 
-.modal-dialog{
-    top: 10%;
+    span{
+        font-size: 18px;
+        font-weight: 800;
+    }
+    p{
+        font-size: 14px;
+        color: #999999;
+    }
 }

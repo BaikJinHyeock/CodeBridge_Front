@@ -88,7 +88,7 @@ const DashRightBoxTeacher = () => {
     }
   }
 
-  const ScoreItem = ({props}) => {
+  const ScoreItem = ({ props }) => {
 
     return (
       <div>
@@ -138,8 +138,11 @@ const DashRightBoxTeacher = () => {
             <Modal.Title>학생정보</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p>학생 이름 : {selectStu.user_name}</p>
-            <p>학생 아이디 : {selectStu.user_id}</p>
+            <h4 className={style.modal_title}>학생</h4>
+            <div className={style.info_modal}>
+              <span>{selectStu.user_name}</span>
+              <p>{selectStu.user_id}</p>
+            </div>
             <p>성적확인</p>
             {scoreList.map((item, index) =>
               <ScoreItem key={index} props={item} />
@@ -151,9 +154,6 @@ const DashRightBoxTeacher = () => {
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
-            </Button>
-            <Button variant="primary" onClick={handleClose}>
-              Save Changes
             </Button>
           </Modal.Footer>
         </Modal>

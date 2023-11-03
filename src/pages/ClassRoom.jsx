@@ -137,6 +137,10 @@ export const ClassRoom = () => {
   };
 
   const sendMessage = async () => {
+    if (message === null || message.trim() === "") {
+      // 메시지가 비어있거나 null이면 함수 실행을 막음
+      return;
+    }
     setMessage("");
     try {
       await initializeWebSocket(); // 소켓 연결 기다리기
@@ -200,12 +204,12 @@ export const ClassRoom = () => {
   const scrollRef = useRef();
   console.log(scrollRef.current);
 
-  useEffect(()=> {
+  useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop =
-      scrollRef.current.scrollHeight;
+        scrollRef.current.scrollHeight;
     }
-  },[messages])
+  }, [messages])
 
   const LiveChatTest = () => {
 

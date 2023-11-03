@@ -159,9 +159,9 @@ const DashAdmin = () => {
     }
 
     return (
-      <div>
+      <div className={style.ide_modal}>
         <p>
-          {index + 1} : {props}
+          {index + 1} . {props}
         </p>
         <button type="button" onClick={giveIde}>부여하기</button>
       </div>
@@ -297,7 +297,7 @@ const DashAdmin = () => {
                 <style>{`.modal-content { 
                   width: 600px;
                   max-height: 700px;
-                  overflow: scroll;
+                  overflow-y: scroll;
                 } `}</style>
 
                 {ideUrlList.map((item, index) =>
