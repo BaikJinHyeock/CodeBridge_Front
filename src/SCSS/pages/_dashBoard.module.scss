@@ -108,8 +108,8 @@
               cursor: pointer;
             }
           }
-          
-          &::before{
+
+          &::before {
             content: "";
             display: block;
             clear: both;
@@ -160,7 +160,31 @@
         }
       }
     }
+
+
+    @media all and (max-width:1280px) {
+      .main_content {
+        display: flex;
+        justify-content: space-between;
+        gap: 36px;
+        flex-direction: column;
+
+        .main_content_left {
+          width: 100%;
+        }
+        .main_content_right{
+          width: 100%;
+        }
+      }
+    }
   }
+  
+@media (max-width:1024px) {
+
+  .right_container {
+    width: 100%;
+  }
+}
 }
 
 .curriList_item {
@@ -230,10 +254,7 @@
     }
   }
 }
-img{
-  width: 100%;
-}
 
-@media (max-width: 768px) {
-  
+img {
+  width: 100%;
 }

@@ -474,11 +474,13 @@ const ClassWrite = () => {
                   <Modal.Title>과목 목록</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <style>{`.modal-content { 
-    width: 600px;
-    max-height: 700px;
-    overflow-y: auto;
-  } `}</style>
+                  <style>
+                    {`.modal-content { 
+                      width: 600px;
+                      max-height: 700px;
+                      overflow-y: auto;
+                    } `}
+                  </style>
 
                   <div>
                     <form onSubmit={subListByName}>
@@ -515,9 +517,6 @@ const ClassWrite = () => {
                 <Modal.Footer>
                   <Button variant="secondary" onClick={handleClose}>
                     Close
-                  </Button>
-                  <Button variant="primary" onClick={handleClose}>
-                    Save Changes
                   </Button>
                 </Modal.Footer>
               </Modal>
