@@ -24,6 +24,7 @@
       // color: #999;
       margin-bottom: 20px;
     }
+
     .profile_box {
       width: 120px;
       height: 120px;
@@ -35,9 +36,11 @@
         width: 100%;
       }
     }
+
     p {
       font-weight: 700;
     }
+
     span {
       color: #999;
       font-size: 14px;
@@ -80,6 +83,7 @@
           top: 50%;
           transform: translateY(-50%);
         }
+
         &:nth-child(2)::after {
           content: "";
           clear: both;
@@ -101,6 +105,7 @@
           font-size: 14px;
           font-weight: 600;
         }
+
         p {
           font-size: 20px;
           color: $sub-color;
@@ -109,5 +114,12 @@
         }
       }
     }
+  }
+}
+
+@media (max-width:1024px) {
+
+  .right_wrap_container {
+    display: none;
   }
 }
