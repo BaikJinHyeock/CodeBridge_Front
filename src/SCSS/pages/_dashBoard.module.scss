@@ -172,19 +172,26 @@
         .main_content_left {
           width: 100%;
         }
-        .main_content_right{
+
+        .main_content_right {
           width: 100%;
         }
       }
     }
   }
-  
-@media (max-width:1024px) {
 
-  .right_container {
-    width: 100%;
+  @media (max-width:1024px) {
+
+    .right_container {
+      width: 100%;
+    }
   }
-}
+  @media (max-width:768) {
+
+    .right_container {
+      width: 100%;
+    }
+  }
 }
 
 .curriList_item {

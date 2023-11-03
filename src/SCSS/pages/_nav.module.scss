@@ -212,7 +212,7 @@
 
       .toggle_box_buttons {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-around;
         padding-top: 12px;
         gap: 0.5rem;
 
@@ -289,8 +289,8 @@
   //   }
   // }
   .Wrap_container {
-    display: none;
-    min-height: 4rem;
+    // display: none;
+    // min-height: 4rem;
   }
 
   .mobile {
