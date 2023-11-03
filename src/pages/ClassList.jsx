@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const ClassList = () => {
 
-  const [classlist, setClasslist] = useState("");
+  const [classlist, setClasslist] = useState([]);
 
   useEffect(() => {
     getClass();
@@ -23,16 +23,16 @@ const ClassList = () => {
     }
   }
 
-  const ClassContent = () => {
+  const ClassContent = ({props}) => {
     return (
       <div className={style.wrap_container_main_box}>
         <div className={style.wrap_container_main_box_text}>
-          <h1>SW캠프 데이터 디자인반</h1>
-          <span>교육대상 | 비전공자, 취준생</span>
-          <span>교육기간 | 2023. 04. 27 ~ 2023. 11. 27</span>
+          <h1>{props.class_title}</h1>
+          <span>교육대상 | {props.class_target}</span>
+          <span>교육기간 | {props.class_startdate} ~ {props.class_enddate}</span>
         </div>
         <div className={style.wrap_container_main_box_img}>
-          <img src="https://smhrd.or.kr/wp-content/uploads/2023/05/aac_ban.png" alt="#" />
+          <img src={props.img_url} alt="#" />
         </div>
       </div>
     );
@@ -52,18 +52,6 @@ const ClassList = () => {
 
       <div className={style.wrap_container_main}>
         <h4>전체</h4>
-
-
-        <div className={style.wrap_container_main_box}>
-          <div className={style.wrap_container_main_box_text}>
-            <h1>SW캠프 데이터 디자인반</h1>
-            <span>교육대상 | 비전공자, 취준생</span>
-            <span>교육기간 | 2023. 04. 27 ~ 2023. 11. 27</span>
-          </div>
-          <div className={style.wrap_container_main_box_img}>
-            <img src="https://smhrd.or.kr/wp-content/uploads/2023/05/aac_ban.png" alt="#" />
-          </div>
-        </div>
 
         {classlist.map((item, index) =>
 
