@@ -80,12 +80,12 @@
         height: 250px;
         display: contents;
 
-        img{
+        img {
           width: 100%;
           height: 100%;
         }
       }
-      
+
 
 
 
@@ -152,7 +152,8 @@
 
   .right_container {
     width: 75%;
-    padding: 32px 0;
+    margin: 32px 0;
+    overflow-y: auto;
 
     .main_content {
       background-color: $font-sub-color1;
@@ -176,7 +177,7 @@
         width: 100%;
 
         tr {
-          &:nth-child(5) {
+          &:nth-child(6) {
             td {
               &:last-child {
                 button {
@@ -204,54 +205,6 @@
               width: 25%;
             }
 
-            // 회원 이름 변경
-            .setTable_userId {
-              border-collapse: collapse;
-
-              .setTable_userId_originId {
-                display: flex;
-                justify-content: flex-start;
-                gap: 8px;
-                align-items: center;
-
-                svg {
-                  cursor: pointer;
-                }
-              }
-
-              form {
-                width: 20rem;
-                display: none;
-                flex-direction: column;
-
-                div {
-                  &:first-child {
-                    position: relative;
-
-                    span {
-                      position: absolute;
-                      left: 0;
-                      bottom: -1rem;
-                      font-size: 12px;
-                      font-weight: 600;
-                      color: #ff0000;
-                    }
-                  }
-
-                  &:last-child {
-                    display: flex;
-                    gap: 12px;
-                    justify-content: flex-end;
-
-                    button {
-                      font-size: 12px;
-                    }
-                  }
-                }
-              }
-            }
-
-            // 회원 이름 변경완료
 
             // 회원 비밀번호 변경
             .setTable_userPw {
@@ -363,6 +316,67 @@
             }
 
             // 회원 휴대폰번호 변경완료
+          }
+
+          // 회원 약력 변경
+          .setTable_wrap {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            .setTable_userhis {
+              border-collapse: collapse;
+              padding: 0.5rem 0;
+
+              &:first-child{
+                border-right: 1px solid rgba(0, 0, 0, 0.1);
+                width: 90%;
+              }
+
+              .setTable_userNum_his {
+                display: flex;
+                justify-content: flex-start;
+                gap: 8px;
+                align-items: flex-start;
+
+                svg {
+                  margin: 16px 0;
+                  cursor: pointer;
+                }
+              }
+
+              form {
+                width: 20rem;
+                display: none;
+                flex-direction: column;
+
+                div {
+                  &:first-child {
+                    position: relative;
+
+                    span {
+                      position: absolute;
+                      left: 0;
+                      bottom: -1rem;
+                      font-size: 12px;
+                      font-weight: 600;
+                      color: #ff0000;
+                    }
+                  }
+
+                  &:last-child {
+                    display: flex;
+                    gap: 12px;
+                    justify-content: flex-end;
+
+                    button {
+                      font-size: 12px;
+                    }
+                  }
+                }
+              }
+            }
+
+            // 회원 약력 변경완료
           }
         }
       }

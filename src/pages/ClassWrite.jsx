@@ -491,7 +491,7 @@ const ClassWrite = () => {
                   <style>{`.modal-content { 
     width: 600px;
     max-height: 700px;
-    overflow: scroll;
+    overflow-y: auto;
   } `}</style>
 
                   <div>
