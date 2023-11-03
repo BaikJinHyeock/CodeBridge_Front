@@ -8,8 +8,18 @@ import Modal from "react-bootstrap/Modal";
 import Image from "react-bootstrap/Image";
 import { storage } from "../Firebase";
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
+import QuillCompo_test from "../components/QuillCompo_test";
+import { useSelector } from "react-redux";
 
 const SetInfo = () => {
+
+  // 스프링 주소
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
+  const quillValue = useSelector((state) => state.quill.quillValue);
+
+  console.log('퀼 밸류 확인', quillValue);
+
   const [password, setPassword] = useState("");
   const [password_check, setPassword_check] = useState("");
   const [name1, setName1] = useState("");
@@ -39,24 +49,18 @@ const SetInfo = () => {
       memberSearching();
     }
   }, []);
-  
+
   // 회원정보 조회
   const memberSearching = async () => {
     console.log("로그인이 되어있나", id);
-    let mem = {
-      user_id: id,
-    };
-    const response = await axios.post(
-      "http://localhost:8085/CodeBridge/member/memcheck",
-      mem
-      );
-      console.log('조회 후 데이터', response.data[0]);
-      setInfoList(response.data[0]);
-    };
-    
-    console.log('인포리스트 확인', infoList.user_name);
-    
-    const koreanVowelRegex = /^[ㅏ-ㅣ]/;
+    const res = await axios.get(`${baseUrl}/CodeBridge/member/memberInfoTeacher?user_id=${id}`);
+    console.log('조회 후 데이터', res.data[0]);
+    setInfoList(res.data[0]);
+  };
+
+  console.log('인포리스트 확인', infoList.user_name);
+
+  const koreanVowelRegex = /^[ㅏ-ㅣ]/;
   // const namecheck = async (e) => {
   //   if (name1.length < 2 || name1.length > 5 || koreanVowelRegex.test(name1[0])) {
   //     setNameCheckMsg("이름을 정확하게 입력해주세요");
@@ -85,9 +89,9 @@ const SetInfo = () => {
   //     return alert("잘못입력된 정보가 있습니다.");
   //   }
   // };
-  
+
   const nickcheck = async (e) => {
-    if (nick.length < 2 || nick.length > 10 || koreanVowelRegex.test(nick[0]) ) {
+    if (nick.length < 2 || nick.length > 10 || koreanVowelRegex.test(nick[0])) {
       setNickCheckMsg("닉네임을 제대로 입력해주세요");
       setCheck6(0);
     } else {
@@ -103,7 +107,7 @@ const SetInfo = () => {
         user_nick: nick,
       };
       const response = await axios.post(
-        "http://localhost:8085/CodeBridge/member/nickedit",
+        `${baseUrl}/CodeBridge/member/nickedit`,
         mem
       );
       if (response.data === 1) {
@@ -133,7 +137,7 @@ const SetInfo = () => {
         user_phone: phone,
       };
       const response = await axios.post(
-        "http://localhost:8085/CodeBridge/member/phoneedit",
+        `${baseUrl}/CodeBridge/member/phoneedit`,
         mem
       );
       if (response.data === 1) {
@@ -175,7 +179,7 @@ const SetInfo = () => {
         user_pw: password,
       };
       const response = await axios.post(
-        "http://localhost:8085/CodeBridge/member/passwordedit",
+        `${baseUrl}/CodeBridge/member/passwordedit`,
         mem
       );
       if (response.data === 1) {
@@ -187,6 +191,25 @@ const SetInfo = () => {
     }
   };
 
+  const editHis = async (e) => {
+    e.preventDefault();
+    let obj = {
+      user_id: id,
+      user_his: quillValue
+    };
+    try {
+      const res = await axios.post(`${baseUrl}/CodeBridge/member/hisedit`, obj);
+      console.log('약력 수정 결과', res.data);
+    } catch (error) {
+
+    }
+
+
+
+  };
+
+
+
   const idDelete = async (e) => {
     e.preventDefault();
     const confirmDelete = window.confirm("삭제하시겠습니까?");
@@ -195,7 +218,7 @@ const SetInfo = () => {
         user_id: id,
       };
       const response = await axios.post(
-        "http://localhost:8085/CodeBridge/member/iddelete",
+        `${baseUrl}/CodeBridge/member/iddelete`,
         mem
       );
       if (response.data === 1) {
@@ -204,7 +227,7 @@ const SetInfo = () => {
         alert("성공적으로 삭제되었습니다.");
       }
     } else {
-      return ;
+      return;
     }
   };
 
@@ -221,6 +244,12 @@ const SetInfo = () => {
   };
   const onNum = () => {
     setOnButton("userNum");
+  };
+
+  const [activeHis, setActiveHis] = useState(false);
+
+  const onHis = () => {
+    setActiveHis(!activeHis);
   };
 
   /* 이미지 크롭 스크립트 */
@@ -298,7 +327,7 @@ const SetInfo = () => {
       user_pic: savedUrl
     };
     const response = await axios.post(
-      "http://localhost:8085/CodeBridge/member/changepic",
+      `${baseUrl}/CodeBridge/member/changepic`,
       obj
     );
     console.log('응답 확인', response.data);
@@ -407,19 +436,19 @@ const SetInfo = () => {
               onClick={handleCropperClick}
             >
               <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  fill="white"
-                  class="bi bi-pencil-square"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                  <path
-                    fill-rule="evenodd"
-                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
-                  />
-                </svg>
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                fill="white"
+                class="bi bi-pencil-square"
+                viewBox="0 0 16 16"
+              >
+                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path
+                  fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+                />
+              </svg>
             </div>
             <div className={style.preview_img}>
               {croppedImage && (
@@ -643,6 +672,45 @@ const SetInfo = () => {
                   </td>
                 </tr>
 
+                {infoList.user_type == 1 &&
+                  <tr>
+                    <td>약력</td>
+                    <td>
+                      <div className={style.setTable_userNum}>
+                        <div className={style.setTable_userNum_originId}>
+
+                          {activeHis == false ?
+                            <>
+                              <span
+                                dangerouslySetInnerHTML={{ __html: infoList.user_his }}
+                              ></span>
+                            </>
+                            :
+                            <div className={style.setTable_userNum_editId}>
+                              <div class="input-group mb-3">
+                                <QuillCompo_test />
+                              </div>
+                              <div>
+                                <button
+                                  className={style.accept_button}
+                                  type="button"
+                                  onClick={editHis}
+                                >
+                                  수정 완료
+                                </button>
+                              </div>
+                            </div>
+                          }
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"
+                            onClick={onHis}>
+                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                          </svg>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                }
                 <tr>
                   <td>계정 삭제</td>
                   <td>
