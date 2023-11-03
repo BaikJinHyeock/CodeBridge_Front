@@ -200,6 +200,10 @@ const SetInfo = () => {
     try {
       const res = await axios.post(`${baseUrl}/CodeBridge/member/hisedit`, obj);
       console.log('약력 수정 결과', res.data);
+      if (res.data == 'success') {
+        alert('수정완료')
+        window.location.reload();
+      }
     } catch (error) {
 
     }
@@ -320,8 +324,6 @@ const SetInfo = () => {
   };
 
   const changePic = async (e) => {
-    console.log('제출함수 진입');
-    console.log('url확인!!', savedUrl);
     let obj = {
       user_id: sessionStorage.getItem("memberId"),
       user_pic: savedUrl
@@ -331,6 +333,9 @@ const SetInfo = () => {
       obj
     );
     console.log('응답 확인', response.data);
+    if (response.data == "success") {
+      window.location.reload();
+    }
   };
 
   useEffect(() => {

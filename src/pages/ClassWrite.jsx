@@ -24,16 +24,14 @@ const ClassWrite = () => {
   const [content, setContent] = useState("");
   const [findLang, setFindLang] = useState();
   const [findLangList, setFindLangList] = useState([]);
-  const [additionalInputs, setAdditionalInputs] = useState([
-    { week: "", content: "" },
-  ]);
+  const [additionalInputs, setAdditionalInputs] = useState([{},]);
   const [subNumList, setSubNumList] = useState([]);
 
   console.log("주차 값 확인", additionalInputs);
   console.log("과목넘버들 확인", subNumList);
 
   const handleAddInput = () => {
-    setAdditionalInputs([...additionalInputs, { week: "", content: "" }]);
+    setAdditionalInputs([...additionalInputs, {}]);
   };
 
   const handleInputChange = (index, event) => {
@@ -52,9 +50,9 @@ const ClassWrite = () => {
     }
 
     // 주차와 내용을 ":"로 구분하고, 각 쌍을 ","로 구분하여 문자열로 만듦
-    const curriculumString = additionalInputs
-      .map((input) => `${input.week}::${input.content}`)
-      .join(",, ");
+    // const curriculumString = additionalInputs
+    //   .map((input) => `${input.week}::${input.content}`)
+    //   .join(",, ");
 
 
     const croppedImageDataUrl = await handleSaveCroppedImage(croppedImage);
@@ -66,7 +64,7 @@ const ClassWrite = () => {
       img_url: croppedImageDataUrl,
       class_content: quillValue,
       class_target: target,
-      curriculum: curriculumString,
+      curriculum: additionalInputs,
       class_startdate: startDate,
       class_enddate: endDate,
       sub_num: subNumList.join(","),
@@ -448,14 +446,7 @@ const ClassWrite = () => {
 
                 {additionalInputs.map((input, index) => (
                   <div key={index} className={style.input_cur}>
-                    <input
-                      type="text"
-                      name="week"
-                      value={input.week}
-                      placeholder="주차"
-                      class="form-control"
-                      onChange={(e) => handleInputChange(index, e)}
-                    />
+                    <p>{index + 1} 주차</p>
                     {input.content ? (
                       <div
                         className={style.selectedSubItem}
