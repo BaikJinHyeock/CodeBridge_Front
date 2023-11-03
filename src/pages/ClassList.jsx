@@ -7,6 +7,9 @@ import { Link } from 'react-router-dom';
 
 const ClassList = () => {
 
+  // 스프링 주소
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   const [classlist, setClasslist] = useState([]);
 
   useEffect(() => {
@@ -16,7 +19,7 @@ const ClassList = () => {
   const getClass = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8085/CodeBridge/class/get-class-list");
+        `${baseUrl}/CodeBridge/class/get-class-list`);
       console.log('조회 후 데이터', response.data);
       setClasslist(response.data)
     } catch (error) {
