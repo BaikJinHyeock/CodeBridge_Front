@@ -15,6 +15,8 @@ const ClassDetail = () => {
   const [toarray, setToarray] = useState([]);
   const [teacherInfo, setTeacherInfo] = useState([]);
   const [subDetailList, setsubDetailList] = useState([]);
+  const [curriArray, setCurriArray] = useState([]);
+
 
   // 반 정보, 선생님 정보 긁어오기
   const classSearch = async (e) => {
@@ -22,9 +24,13 @@ const ClassDetail = () => {
       .get(`${baseUrl}/CodeBridge/class/findnum?class_num=${class_num}`)
       .then((res) => {
         setInfoList(res.data[0]);
-        setToarray(JSON.parse(res.data[0].curriculum));
-        const toarray = JSON.parse(res.data[0].curriculum);
-        const selectedItems = toarray.map((item) => item[1]);
+        const curriculumArray = res.data[0].curriculum.match(/\[(\d+): ([^\]]+)]/g).map(item => {
+          const match = item.match(/\[(\d+): ([^\]]+)]/);
+          return [parseInt(match[1], 10), match[2]];
+        });
+        setCurriArray(curriculumArray)
+        // setToarray(JSON.parse(res.data[0].curriculum));
+        const selectedItems = curriculumArray.map((item) => item[0]);
         console.log("classSearch에서 아이템:", selectedItems);
         axios
           .post(`${baseUrl}/CodeBridge/sub/get-sub-list`, selectedItems)
@@ -94,19 +100,7 @@ const ClassDetail = () => {
     }
   };
 
-  // const getSubDetail = async () => {
-  //   const selectedItems = toarray.map(item => item[1]);
-  //   console.log('Selected Items:', selectedItems);
-  //   try {
-  //     console.log('함수진입');
-  //     const res = await axios.post(`${baseUrl}/CodeBridge/sub/get-sub-list`, selectedItems)
-  //   } catch (error) {
-  //   }
-  // }
 
-  // useEffect(() => {
-  //   getSubDetail();
-  // }, [toarray])
 
   const [selectedSubIndex, setSelectedSubIndex] = useState(null);
 
@@ -163,8 +157,8 @@ const ClassDetail = () => {
           <h5>커리큘럼</h5>
           <div className={style.right_container_wrap}>
             <div className={style.right_container_wrap_left}>
-              {toarray &&
-                toarray.map((item, index) => {
+              {curriArray &&
+                curriArray.map((item, index) => {
                   return (
                     // <p key={index}>
                     //   {`${weekDetails}: 언어: ${language}, 강사: ${instructor}, 강의 명: ${lesson}`}
@@ -178,7 +172,8 @@ const ClassDetail = () => {
                           selectedSubIndex === index ? "#06afd5b0" : "",
                       }}
                     >
-                      {item[0]}주차 {item[2]}
+                      {/* {item[0]}주차 {item[2]} */}
+                      {item[1]}
                     </span>
                   );
                 })}
