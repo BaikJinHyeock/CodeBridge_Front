@@ -98,8 +98,10 @@ const DashAdmin = () => {
     };
     return (
       <div className={style.wrap_accept_list}>
-        <span>{props.user_name}</span>
-        <span>{props.user_id}</span>
+        <div className={style.wrap_accept_list_box}>
+          <span>{props.user_name}</span>
+          <span>{props.user_id}</span>
+        </div>
         <button type="button" onClick={handleAcceptClick}>
           승인하기
         </button>

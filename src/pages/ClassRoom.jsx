@@ -61,6 +61,7 @@ export const ClassRoom = () => {
 
   // 학생 정보 컴포넌트
   const StudentItem = ({ props }) => {
+    console.log('props 확인', props);
     const handleOpenLink = () => {
       window.open(props.server_url);
       setReqStuName("");
@@ -69,17 +70,16 @@ export const ClassRoom = () => {
     const isHelpRequested = reqStuName === props.user_name;
 
     return (
-      <div>
-        <div>
-          학생이름 :
-          <span onClick={handleOpenLink} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
-            {props.user_name}
-          </span>
+      <tr>
+        <td onClick={handleOpenLink}>
+          {props.user_name}
+        </td>
+        <td>
           {isHelpRequested &&
             <Badge bg="danger">Help</Badge>
           }
-        </div>
-      </div>
+        </td>
+      </tr>
     );
   }
 
@@ -157,6 +157,9 @@ export const ClassRoom = () => {
   };
 
   const [reqStuName, setReqStuName] = useState(null);
+
+  console.log('reqStuName 확인', reqStuName);
+  
   const requestHelp = async () => {
     try {
       await initializeWebSocket(); // 소켓 연결 기다리기
@@ -237,23 +240,24 @@ export const ClassRoom = () => {
           {userInfo.user_type == 0 ?
             <>
               {teacherLive === undefined ?
-                <button type="button" onClick={clickTeacher} disabled={teacherLive === undefined}>강사화면</button>
+                <button type="button" onClick={clickTeacher} disabled={teacherLive === undefined} className={style.main_container_right_buttons_first}>강사화면</button>
                 :
-                <button type="button" onClick={clickTeacher}>강사화면</button>
+                <button type="button" onClick={clickTeacher} className={style.main_container_right_buttons_first}>강사화면</button>
               }
               <button type="button" className={style.stu_help_btn} onClick={requestHelp}>도움요청</button>
             </>
             :
             <>
               {teacherLive === undefined ?
-                <button type="button" onClick={handleShow2}>공유시작</button>
+                <button type="button" onClick={handleShow2} className={style.main_container_right_buttons_first}>공유시작</button>
                 :
                 <button type="button" onClick={handleShow2}>공유중</button>
               }
               <div className={style.teacher_help_btn_wrapper}>
-                <button type="button" onClick={handleShow}>도움주기</button>
+                <button type="button" onClick={handleShow} className={style.teacher_help_btn_wrapper_help}>도움주기</button>
                 {reqStuName &&
-                  <div>
+                  <div className={style.teacher_help_btn_wrapper_circle}>
+                    <span>HELP!</span>
                   </div>
                 }
               </div>
@@ -304,13 +308,21 @@ export const ClassRoom = () => {
             <style>{`.modal-content { 
                   width: 600px;
                   max-height: 700px;
-                  overflow: scroll;
+                  overflow-y: scroll;
                 } `}</style>
-
-            {stuList.map((item, index) =>
-              <StudentItem key={index} props={item} />
-            )}
-
+            <table className={style.ide_table}>
+              <thead>
+                <tr>
+                  <td>이름</td>
+                  <td>도움요청</td>
+                </tr>
+              </thead>
+              <tbody>
+                {stuList.map((item, index) =>
+                  <StudentItem key={index} props={item} />
+                )}
+              </tbody>
+            </table>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>

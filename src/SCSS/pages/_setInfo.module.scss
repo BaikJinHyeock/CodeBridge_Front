@@ -3,7 +3,6 @@
 .wrap_container {
   background-color: $wrap-bg;
   width: 100%;
-  overflow: scroll;
   height: calc(100vh - 4rem);
   display: flex;
   gap: 36px;

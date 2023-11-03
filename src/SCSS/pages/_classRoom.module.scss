@@ -1,5 +1,33 @@
 @import "../abstracts/variables";
 
+@keyframes circleBg {
+    0% {
+        background-color: #e5e7eb;
+    }
+
+    50% {
+        background-color: $error-color;
+    }
+
+    100% {
+        background-color: #e5e7eb;
+    }
+}
+
+@keyframes circleColor {
+    0% {
+        color: #e5e7eb;
+    }
+
+    50% {
+        color: $error-color;
+    }
+
+    100% {
+        color: #e5e7eb;
+    }
+}
+
 .main_container {
     width: 100%;
     height: calc(100vh - 67px);
@@ -33,7 +61,7 @@
             justify-content: space-between;
             padding: 0.5rem;
 
-            button {
+            .main_container_right_buttons_first {
                 &:first-child {
                     font-size: 14px;
                     font-weight: 600;
@@ -58,8 +86,9 @@
 
             .teacher_help_btn_wrapper {
                 position: relative;
+                width: 50%;
 
-                button {
+                .teacher_help_btn_wrapper_help {
                     font-size: 14px;
                     font-weight: 600;
                     background-color: $error-color;
@@ -67,14 +96,27 @@
                     width: 100%;
                 }
 
-                >div {
+                .teacher_help_btn_wrapper_circle {
+                    animation: circleBg 2s infinite linear;
                     position: absolute;
-                    width: 20px;
-                    height: 20px;
-                    background-color: #1800f5;
-                    border-radius: 50%;
-                    right: 0%;
-                    top: 0%
+                    width: 95%;
+                    height: 1.5px;
+                    background-color: $main-color;
+                    border-radius: 1px;
+                    left: 50%;
+                    bottom: -0.8rem;
+                    transform: translate(-50%, 0);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    span {
+                        animation: circleColor 2s infinite linear;
+                        font-size: 12px;
+                        font-weight: 600;
+                        background-color: #e5e7eb;
+                        padding: 0 0.3rem;
+                    }
                 }
             }
         }
@@ -102,7 +144,7 @@
                     outline: none;
                     height: 1.8rem;
                     border-radius: 5px;
-                    border:none;
+                    border: none;
                 }
 
                 button {
@@ -122,23 +164,25 @@
         }
     }
 }
-.wrap_container{
-    
-    .wrap_container_top_detail{
+
+.wrap_container {
+
+    .wrap_container_top_detail {
         display: flex;
         flex-direction: column;
         gap: 0.4rem;
         margin-bottom: 12px;
 
-        .wrap_container_top_detail_nick{
+        .wrap_container_top_detail_nick {
             font-size: 12px;
             color: #999;
 
-            span{
+            span {
                 font-size: 14px;
             }
         }
-        .wrap_container_top_content{
+
+        .wrap_container_top_content {
             background-color: $font-sub-color1;
             padding: 0.4rem;
             border-radius: 0 10px 10px 10px;
@@ -152,4 +196,54 @@ button:disabled {
     background-color: rgb(73, 72, 126);
     cursor: not-allowed;
     color: $font-sub-color1;
+}
+
+.ide_table {
+    margin: 16px 0;
+    width: 80%;
+
+    thead {
+        tr {
+            td {
+                padding: 0.8rem;
+                font-size: 14px;
+                color: #999;
+
+                &:first-child {
+                    border-right: 1px solid rgba(0, 0, 0, 0.06);
+                    font-size: 14px;
+                    color: #999;
+                }
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            td {
+                padding: 0.5rem 1rem;
+                font-size: 14px;
+                font-weight: 700;
+
+                &:first-child {
+                    border-right: 1px solid rgba(0, 0, 0, 0.06);
+                    cursor: pointer;
+                }
+
+                &:last-child {
+                    button {
+                        font-size: 12px;
+                        background-color: $main-color;
+                        color: $font-sub-color1;
+                        padding: 6px 12px;
+                        transition-duration: 150ms;
+
+                        &:hover {
+                            background-color: $sub-color;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

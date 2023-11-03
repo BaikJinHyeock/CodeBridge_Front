@@ -307,7 +307,7 @@
                     padding: 0.5rem;
 
                     span {
-                        font-size: 12px;
+                        font-size: 14px;
                         font-weight: 700;
                     }
 
@@ -347,9 +347,20 @@
                     align-items: center;
                     padding: 0.5rem;
 
-                    span {
-                        font-size: 12px;
-                        font-weight: 700;
+                    .wrap_accept_list_box {
+                        display: flex;
+                        justify-content: flex-start;
+                        align-items: center;
+                        gap: 0.5rem;
+
+                        span {
+                            font-size: 14px;
+                            font-weight: 700;
+
+                            &:last-child{
+                                color: #999999;
+                            }
+                        }
                     }
 
                     button {
@@ -394,8 +405,8 @@
         }
     }
 
-    &:not(:last-child){
-        &::after{
+    &:not(:last-child) {
+        &::after {
             display: block;
             content: "";
             clear: both;

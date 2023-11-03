@@ -91,10 +91,14 @@ const DashRightBoxTeacher = () => {
   const ScoreItem = ({ props }) => {
 
     return (
-      <div>
-        <p>과목명 : {props.sub_title}</p>
-        <p>점수 : {props.mark_score}</p>
-      </div>
+      // <div>
+      //   <p>과목명 : {props.sub_title}</p>
+      //   <p>점수 : {props.mark_score}</p>
+      // </div>
+      <tr>
+        <td>{props.sub_title}</td>
+        <td>{props.mark_score}</td>
+      </tr>
     );
   }
 
@@ -143,10 +147,20 @@ const DashRightBoxTeacher = () => {
               <span>{selectStu.user_name}</span>
               <p>{selectStu.user_id}</p>
             </div>
-            <p>성적확인</p>
-            {scoreList.map((item, index) =>
-              <ScoreItem key={index} props={item} />
-            )}
+            <h4 className={style.modal_title}>성적확인</h4>
+            <table className={style.info_modal_table}>
+              <thead>
+                <tr>
+                  <td>과목명</td>
+                  <td>점수</td>
+                </tr>
+              </thead>
+              <tbody>
+                {scoreList.map((item, index) =>
+                  <ScoreItem key={index} props={item} />
+                )}
+              </tbody>
+            </table>
 
 
           </Modal.Body>

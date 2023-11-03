@@ -20,6 +20,7 @@ const MarkList = () => {
 
   const [userInfo, setUserInfo] = useState([]);
   const [classInfo, setClassInfo] = useState([]);
+  console.log("유저인포", userInfo);
 
 
   useEffect(() => {
@@ -133,8 +134,11 @@ const MarkList = () => {
       <div className={style.right_container}>
         <Profile />
         <div className={style.right_container_grid_box}>
+          {userInfo.user_type == 1 ? (
           <h4>과목별 채점하기</h4>
-
+          ) : (
+          <h4>과목별 점수보기</h4>
+          )}
           <div className={style.right_container_grid_box_detail}>
             {combinedArray.map((item, index) =>
               <SetTestList key={index} props={item} />
