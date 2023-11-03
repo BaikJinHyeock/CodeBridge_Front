@@ -7,6 +7,7 @@ const TestWrite = () => {
 
   // 스프링 주소
   const baseUrl = process.env.REACT_APP_BASE_URL;
+  const pyUrl = process.env.REACT_APP_PY_URL;
 
   const [test_title, setTest_title] = useState("");
   const [test_level, setTest_level] = useState(1);
@@ -68,7 +69,7 @@ const TestWrite = () => {
     setIsLoading(true);
 
     try {
-      const res = await axios.post("http://127.0.0.1:5000/test");
+      const res = await axios.post(`${pyUrl}/test`);
       console.log('파이썬 응답 확인', res);
       setGptTest(res.data);
     } catch (error) {

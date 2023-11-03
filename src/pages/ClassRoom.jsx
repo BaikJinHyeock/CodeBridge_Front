@@ -99,7 +99,7 @@ export const ClassRoom = () => {
 
   const initializeWebSocket = async () => {
     if (stompClient && stompClient.connected) return; // 이미 연결된 상태면 무시
-    const socket = new SockJS("http://localhost:8085/CodeBridge/websocket");
+    const socket = new SockJS(`${baseUrl}/CodeBridge/websocket`);
     stompClient = Stomp.over(socket);
     return new Promise((resolve, reject) => {
       stompClient.connect({}, () => {

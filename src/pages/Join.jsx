@@ -89,7 +89,7 @@ const Join = () => {
         user_id: id,
       };
       const response = await axios
-        .post("http://localhost:8085/CodeBridge/member/idCheck", obj)
+        .post(`${baseUrl}/CodeBridge/member/idCheck`, obj)
         .then((res) => {
           console.log("res", res.data);
           const resMessge = res.data;
