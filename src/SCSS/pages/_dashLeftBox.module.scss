@@ -75,3 +75,20 @@
     color: $main-color;
   }
 }
+
+@media (max-width:1024px) {
+
+  .left_wrap_container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .left_top{
+      flex-direction: row;
+    }
+  }
+}
