@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import style from "../SCSS/pages/_classList.module.scss"
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 
@@ -23,7 +24,7 @@ const ClassList = () => {
     }
   }
 
-  const ClassContent = ({props}) => {
+  const ClassContent = ({ props }) => {
     return (
       <div className={style.wrap_container_main_box}>
         <div className={style.wrap_container_main_box_text}>
@@ -54,9 +55,9 @@ const ClassList = () => {
         <h4>전체</h4>
 
         {classlist.map((item, index) =>
-
-          <ClassContent key={index} props={item} />
-
+          <Link to={`/ClassDetail?class_num=${item.class_num}`}>
+            <ClassContent key={index} props={item} />
+          </Link>
         )}
 
       </div>

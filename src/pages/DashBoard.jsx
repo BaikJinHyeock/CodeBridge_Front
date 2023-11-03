@@ -25,13 +25,25 @@ const DashBoard = () => {
 
 
   const [toarray, setToarray] = useState([]);
+  const [curriArray, setCurriArray] = useState([]);
 
   useEffect(() => {
     if (combinedInfo.classInfo && combinedInfo.classInfo.curriculum) {
-      const parsedCurriculum = JSON.parse(combinedInfo.classInfo.curriculum);
-      setToarray(parsedCurriculum);
 
-      const selectedItems = parsedCurriculum.map(item => item[1]);
+      const curriculumArray = combinedInfo.classInfo.curriculum.match(/\[(\d+): ([^\]]+)]/g).map(item => {
+        const match = item.match(/\[(\d+): ([^\]]+)]/);
+        return [parseInt(match[1], 10), match[2]];
+      });
+      setCurriArray(curriculumArray)
+      // setToarray(JSON.parse(res.data[0].curriculum));
+      const selectedItems = curriculumArray.map((item) => item[0]);
+
+
+
+      // const parsedCurriculum = JSON.parse(combinedInfo.classInfo.curriculum);
+      // setToarray(parsedCurriculum);
+
+      // const selectedItems = parsedCurriculum.map(item => item[1]);
       console.log('classSearch에서 아이템:', selectedItems);
       axios.post(`${baseUrl}/CodeBridge/sub/get-sub-list`, selectedItems)
         .then((res) => {
@@ -41,7 +53,6 @@ const DashBoard = () => {
         })
 
 
-      console.log('toarray 확인', parsedCurriculum);
     }
   }, [combinedInfo]);
 
@@ -59,11 +70,11 @@ const DashBoard = () => {
         className={`${style.curriList_item} ${isSelected ? style.selected : ''}`}
         onClick={onClick}
       >
-        <div>
+        {/* <div>
           <span>{props[0]}</span>
-        </div>
+        </div> */}
         <div onClick={() => handleSubClick(index)}>
-          <span>{props[2]}</span>
+          <span>{props[1]}</span>
         </div>
       </div >
     );
@@ -96,11 +107,10 @@ const DashBoard = () => {
       return "[]"
     }
     let todo = JSON.parse(window.localStorage.getItem("todoList") ?? handleSetInit());
-    
+
     setTodoList(todo)
     setSequance(Number(sequance))
   }, [])
-  console.log('todoListㅐ확인', todoList);
 
   const handleTodoAdd = (item) => {
     if (sequance === null) {
@@ -120,7 +130,7 @@ const DashBoard = () => {
 
     setTodoList(todo);
     refTodoItem.current.value = "";
-    
+
     setSequance(sequance + 1);
 
   }
@@ -133,9 +143,9 @@ const DashBoard = () => {
   }
   const handleTodoDelete = (id) => {
     let todo = [...todoList]
-    todo = todo.filter((val)=> val.id !== id);
+    todo = todo.filter((val) => val.id !== id);
 
-    window.localStorage.setItem("todoList",JSON.stringify(todo));
+    window.localStorage.setItem("todoList", JSON.stringify(todo));
     setTodoList(todo);
   }
 
@@ -190,7 +200,7 @@ const DashBoard = () => {
         <div className={style.main_content}>
           <div className={style.main_content_left}>
             <h4>커리큘럼</h4>
-            {toarray && toarray.map((item, index) => {
+            {curriArray && curriArray.map((item, index) => {
               const isSelected = index === selectedSubIndex;
 
               return (
