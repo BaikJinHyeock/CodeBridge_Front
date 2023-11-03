@@ -32,6 +32,7 @@ import Profile from "./components/Profile";
 import SubWrite from "./pages/SubWrite";
 import TestList_student from "./pages/TestList_student";
 import TestList_teacher from "./pages/TestList_teacher";
+import TestReady from "./pages/TestReady";
 import LiveChat from "./components/LiveChat";
 import LiveChatTest from "./components/LiveChatTest";
 
@@ -44,6 +45,7 @@ function App() {
       location.pathname !== "/Join" &&
       location.pathname !== "/ClassWrite" &&
       location.pathname !== "/ClassDetail" &&
+      location.pathname !== "/TestReady" &&
       location.pathname !== "/TestWrite" &&
       location.pathname !== "/SetInfo" &&
       location.pathname !== "/SubWrite" &&
@@ -53,7 +55,11 @@ function App() {
   };
 
   const RenderHeader = () => {
-    return location.pathname !== "/Login" && location.pathname !== "/Join";
+    return (
+      location.pathname !== "/Login" &&
+      location.pathname !== "/Join" &&
+      location.pathname !== "/TestReady"
+    );
   };
   const RenderFooter = () => {
     return (
@@ -66,6 +72,7 @@ function App() {
       location.pathname !== "/ClassDetail" &&
       location.pathname !== "/TestWrite" &&
       location.pathname !== "/TestDetail" &&
+      location.pathname !== "/TestReady" &&
       location.pathname !== "/TestList/student" &&
       location.pathname !== "/TestList/teacher" &&
       location.pathname !== "/TestSetList" &&
@@ -119,6 +126,7 @@ function App() {
           <Route path="/TestSetList" element={<TestSetList />}></Route>
           <Route path="/TestWrite" element={<TestWrite />}></Route>
           <Route path="/TestDetail" element={<TestDetail />}></Route>
+          <Route path="/TestReady" element={<TestReady />}></Route>
 
           <Route path="/MarkList" element={<MarkList />}></Route>
           <Route path="/MarkDetail" element={<MarkDetail />}></Route>
@@ -127,7 +135,7 @@ function App() {
           <Route path="/LiveChat" element={<LiveChat />}></Route>
 
           <Route path="/LiveChatTest" element={<LiveChatTest />}></Route>
-          
+
 
         </Routes>
       </div>
