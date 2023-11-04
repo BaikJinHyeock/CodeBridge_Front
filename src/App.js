@@ -33,8 +33,6 @@ import SubWrite from "./pages/SubWrite";
 import TestList_student from "./pages/TestList_student";
 import TestList_teacher from "./pages/TestList_teacher";
 import TestReady from "./pages/TestReady";
-import LiveChat from "./components/LiveChat";
-import LiveChatTest from "./components/LiveChatTest";
 
 function App() {
   const location = useLocation();
@@ -47,6 +45,7 @@ function App() {
       location.pathname !== "/ClassDetail" &&
       location.pathname !== "/TestReady" &&
       location.pathname !== "/TestWrite" &&
+      location.pathname !== "/TestDetail" &&
       location.pathname !== "/SetInfo" &&
       location.pathname !== "/SubWrite" &&
       location.pathname !== "/Team" &&
@@ -130,12 +129,6 @@ function App() {
 
           <Route path="/MarkList" element={<MarkList />}></Route>
           <Route path="/MarkDetail" element={<MarkDetail />}></Route>
-
-
-          <Route path="/LiveChat" element={<LiveChat />}></Route>
-
-          <Route path="/LiveChatTest" element={<LiveChatTest />}></Route>
-
 
         </Routes>
       </div>

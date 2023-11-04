@@ -3,7 +3,8 @@ import style from "../SCSS/pages/_classWrite.module.scss";
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import QuillCompo from "../components/QuillCompo";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateQuillValue } from '../actions/quillActions';
 
 const SubWrite = () => {
 
@@ -11,6 +12,7 @@ const SubWrite = () => {
     const baseUrl = process.env.REACT_APP_BASE_URL;
 
     const quillValue = useSelector((state) => state.quill.quillValue);
+    const dispatch = useDispatch();
 
     const [title, setTitle] = useState("");
     const [teacher, setTeacher] = useState("");
@@ -44,7 +46,8 @@ const SubWrite = () => {
             console.log('응답 확인', response);
             if (response) {
                 alert('작성 성공')
-                navigate("/");
+                dispatch(updateQuillValue());
+                window.location.reload();
             } else {
                 alert('작성 실패')
             }

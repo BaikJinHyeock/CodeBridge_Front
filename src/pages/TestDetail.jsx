@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import style from "../SCSS/pages/_testDetail.module.scss";
-import CompilerTest from "../components/CompilerTest";
 import axios from "axios";
 import { useLocation, useParams } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
@@ -178,14 +177,14 @@ const TestDetail = () => {
 
   const finalSubmit = async () => {
     let obj = {
-      sub_num : sub_num,
-      user_id : sessionStorage.getItem("memberId")
+      sub_num: sub_num,
+      user_id: sessionStorage.getItem("memberId")
     }
     try {
       const res = await axios.post(`${baseUrl}/CodeBridge/mark/submit`, obj);
-      if (res.data == "success"){
+      if (res.data == "success") {
         alert("제출완료")
-      }else{
+      } else {
         alert("제출실패")
       }
 
@@ -195,21 +194,22 @@ const TestDetail = () => {
   }
 
   return (
-    <div className={style.wrap_container}>
-      <div className={style.test_list_container}>
-        {testList.map((test, index) => (
-          <div key={index}>
-            <div
-              onClick={() => selectall(index)}
-              className={`${style.test_list_container_item} ${selectedTestIndex === index ? style.active : ""
-                }`}
-            >
-              {`${index + 1}번 문제`}
+    <>
+      <div className={style.wrap_container}>
+        <div className={style.test_list_container}>
+          {testList.map((test, index) => (
+            <div key={index}>
+              <div
+                onClick={() => selectall(index)}
+                className={`${style.test_list_container_item} ${selectedTestIndex === index ? style.active : ""
+                  }`}
+              >
+                {`${index + 1}번 문제`}
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-      <div className={style.test_condition}>
+          ))}
+        </div>
+        <div className={style.test_condition}>
 
         {testList[selectedTestIndex] &&
           <>
@@ -229,11 +229,11 @@ const TestDetail = () => {
             </div>
             <div className={style.test_condition_explan}>
               <h4>제한사항</h4>
-              <ul>
-                {testList[selectedTestIndex].test_condition.split(",").map((testCase, index) => (
-                  <li key={index}>{testCase.trim()}</li>
+              <p>
+                {testList[selectedTestIndex].test_condition.split('brbr').map((testCase, index) => (
+                  <span key={index}>{testCase.trim()}<br /></span>
                 ))}
-              </ul>
+              </p>
             </div>
             <textarea
               className="form-control"
@@ -256,62 +256,73 @@ const TestDetail = () => {
             </button>
 
 
-            <Modal show={show} onHide={handleClose} style={{ top: "55%", left: "50%", transform: "translate(-50%, -50%)", zIndex: 99999 }}>
-              <Modal.Header closeButton>
-                <Modal.Title>채점 결과</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                {gptRes[selectedTestIndex] == null ? (
-                  <Button variant="primary" disabled>
-                    <Spinner
-                      as="span"
-                      animation="grow"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                    />
-                    <span> </span>채점중...
+              <Modal show={show} onHide={handleClose} style={{ top: "55%", left: "50%", transform: "translate(-50%, -50%)", zIndex: 99999 }}>
+                <Modal.Header closeButton>
+                  <Modal.Title>채점 결과</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  {gptRes[selectedTestIndex] == null ? (
+                    <Button variant="primary" disabled>
+                      <Spinner
+                        as="span"
+                        animation="grow"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                      />
+                      <span> </span>채점중...
+                    </Button>
+                  ) : (
+                    <div>
+                      {gptRes[selectedTestIndex].split('\n').map((line, index) => (
+                        <div key={index}>
+                          {line.includes('성공') ? (
+                            <div><span style={{ color: 'blue' }}>{line}</span></div>
+                          ) : line.includes('실패') ? (
+                            <div><span style={{ color: 'red' }}>{line}</span></div>
+                          ) : (
+                            <div>{line}</div>
+                          )}
+                        </div>
+                      ))}
+                      <p>획득 점수 : {test_score[selectedTestIndex]}</p>
+                    </div>
+                  )}
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleClose}>
+                    닫기
                   </Button>
-                ) : (
-                  <div>
-                    {gptRes[selectedTestIndex].split('\n').map((line, index) => (
-                      <div key={index}>
-                        {line.includes('성공') ? (
-                          <div><span style={{ color: 'blue' }}>{line}</span></div>
-                        ) : line.includes('실패') ? (
-                          <div><span style={{ color: 'red' }}>{line}</span></div>
-                        ) : (
-                          <div>{line}</div>
-                        )}
-                      </div>
-                    ))}
-                    <p>획득 점수 : {test_score[selectedTestIndex]}</p>
-                  </div>
-                )}
-              </Modal.Body>
-              <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                  닫기
-                </Button>
-              </Modal.Footer>
-            </Modal>
+                </Modal.Footer>
+              </Modal>
 
 
-          </>
-        }
+            </>
+          }
 
 
-        <button onClick={finalSubmit}>
-          시험종료
-        </button>
+          <button onClick={finalSubmit}>
+            시험종료
+          </button>
 
+        </div>
+        <div className={style.test_compiler}>
+          <iframe src="http://59.0.234.207:8083/?folder=/home/smhrd/test" />
+
+        </div>
       </div>
-      <div className={style.test_compiler}>
-        {/* <CompilerTest className={style.div_box} submittedCode={recieveCode} /> */}
-        <iframe src="http://59.0.234.207:8083/?folder=/home/smhrd/test" />
 
+
+      <div className={style.mobile}>
+        <div>
+          <h1>웹 해상도에서만 서비스 제공 중</h1>
+          <p>
+            죄송합니다. 현재 CodeBridge 서비스는 모바일 해상도에서 이용할 수 없습니다.
+            데스크탑에서 접속해주시기 바랍니다.
+          </p>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
