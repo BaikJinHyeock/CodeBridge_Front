@@ -16,14 +16,16 @@ const Team = () => {
         <video
           className={style.banner_video}
           ref={videoRef}
-          src="./img/teamBanner.mp4"
+          // src="./img/teamBanner.mp4"
           autoPlay
           loop
           muted
           playsInline
           play
           onCanPlay={() => setPlayBackRate()}
-        ></video>
+        >
+          <source src="https://firebasestorage.googleapis.com/v0/b/codebridge-969ab.appspot.com/o/image%2FteamBanner.mp4?alt=media&token=6816b4cb-44b6-4e6d-8a0e-83aad6ffceba&_gl=1*7tyj42*_ga*MTU2ODg3Nzc4Mi4xNjk0MDY2NDIz*_ga_CW55HF8NVT*MTY5OTA2OTAwNS4xNi4xLjE2OTkwNjkxMzYuNjAuMC4w"/>
+        </video>
         <div className={style.banner_text}>
           <h1>Who we are?</h1>
           <h5>Code Bridge</h5>

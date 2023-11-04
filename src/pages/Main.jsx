@@ -99,12 +99,14 @@ const Main = () => {
       <div className={style.main_banner}>
         <video
           className={style.banner_video}
-          src="./img/mainBanner.mp4"
+          // src="./img/mainBanner.mp4"
           autoPlay
           loop
           muted
           playsInline
-        ></video>
+        >
+          <source src="https://firebasestorage.googleapis.com/v0/b/codebridge-969ab.appspot.com/o/image%2FmainBanner.mp4?alt=media&token=b2d0475e-91ba-433b-8aed-2071c453a6c9&_gl=1*66q53h*_ga*MTU2ODg3Nzc4Mi4xNjk0MDY2NDIz*_ga_CW55HF8NVT*MTY5OTA2OTAwNS4xNi4xLjE2OTkwNjkwNTQuMTEuMC4w"/>
+        </video>
         <div className={style.banner_text}>
           <h1>Code Bridge</h1>
           <h5>Learning Management System</h5>
