@@ -63,6 +63,12 @@
                 color: $font-color;
                 font-weight: 600;
             }
+            ul{
+                li{
+                    font-weight: 600;
+                    line-height: 1.2rem;
+                }
+            }
         }
 
         .code_sub_btn {

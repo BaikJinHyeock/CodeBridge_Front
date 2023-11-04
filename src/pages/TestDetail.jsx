@@ -231,7 +231,7 @@ const TestDetail = () => {
               <div className={style.test_condition_explan}>
                 <h4>제한사항</h4>
                 <ul>
-                  {testList[selectedTestIndex].test_condition.split(",").map((testCase, index) => (
+                  {testList[selectedTestIndex].test_condition.split(",,").map((testCase, index) => (
                     <li key={index}>{testCase.trim()}</li>
                   ))}
                 </ul>
