@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import style from "../SCSS/pages/_testDetail.module.scss";
-import CompilerTest from "../components/CompilerTest";
 import axios from "axios";
 import { useLocation, useParams } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
@@ -308,7 +307,6 @@ const TestDetail = () => {
 
         </div>
         <div className={style.test_compiler}>
-          {/* <CompilerTest className={style.div_box} submittedCode={recieveCode} /> */}
           <iframe src="http://59.0.234.207:8083/?folder=/home/smhrd/test" />
 
         </div>
