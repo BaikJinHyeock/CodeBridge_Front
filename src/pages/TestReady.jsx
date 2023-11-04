@@ -1,11 +1,17 @@
 import React from 'react'
 import style from "../SCSS/pages/_testReady.module.scss";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const TestReady = () => {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const sub_num = params.get("sub_num");
+
+    const navigate = useNavigate();
+
+    const clickReady = () => {
+        navigate(`/TestDetail?sub_num=${sub_num}`)
+    }
 
     return (
         <div className={style.wrap_container}>
@@ -45,7 +51,7 @@ const TestReady = () => {
                     </ul>
                 </div>
                 {/* <Link to={`/TestDetail?sub_num=${sub_num}`}> */}
-                <button type='button'>
+                <button type='button' onClick={clickReady}>
                     시험시작
                 </button>
                 {/* </Link> */}
