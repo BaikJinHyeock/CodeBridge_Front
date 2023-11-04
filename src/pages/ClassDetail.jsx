@@ -202,6 +202,7 @@ const ClassDetail = () => {
             교육과정 등록
           </button>
         )}
+        <button type="button" className={style.complete_button}>반 삭제</button>
       </div>
     </div>
   );
