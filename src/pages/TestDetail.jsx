@@ -178,14 +178,14 @@ const TestDetail = () => {
 
   const finalSubmit = async () => {
     let obj = {
-      sub_num : sub_num,
-      user_id : sessionStorage.getItem("memberId")
+      sub_num: sub_num,
+      user_id: sessionStorage.getItem("memberId")
     }
     try {
       const res = await axios.post(`${baseUrl}/CodeBridge/mark/submit`, obj);
-      if (res.data == "success"){
+      if (res.data == "success") {
         alert("제출완료")
-      }else{
+      } else {
         alert("제출실패")
       }
 
@@ -229,11 +229,11 @@ const TestDetail = () => {
             </div>
             <div className={style.test_condition_explan}>
               <h4>제한사항</h4>
-              <ul>
-                {testList[selectedTestIndex].test_condition.split(",").map((testCase, index) => (
-                  <li key={index}>{testCase.trim()}</li>
+              <p>
+                {testList[selectedTestIndex].test_condition.split('brbr').map((testCase, index) => (
+                  <span key={index}>{testCase.trim()}<br /></span>
                 ))}
-              </ul>
+              </p>
             </div>
             <textarea
               className="form-control"

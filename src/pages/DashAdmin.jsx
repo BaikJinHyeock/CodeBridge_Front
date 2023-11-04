@@ -259,7 +259,7 @@ const DashAdmin = () => {
                     </td>
                   </tr>
 
-                  <tr>
+                  {/* <tr>
                     <td>교육 설명</td>
                     <td>
                       <div className={style.setTable_userNum}>
@@ -268,7 +268,7 @@ const DashAdmin = () => {
                         </div>
                       </div>
                     </td>
-                  </tr>
+                  </tr> */}
                 </tbody>
               </table>
             </div>
