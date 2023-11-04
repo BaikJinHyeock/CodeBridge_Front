@@ -27,6 +27,7 @@
       position: absolute;
       right: -2rem;
     }
+
     .profile_wrap_container {
       position: relative;
 
@@ -41,6 +42,7 @@
           height: 100%;
         }
       }
+
       .profile_img_edit {
         width: 32px;
         height: 32px;
@@ -56,16 +58,35 @@
         cursor: pointer;
       }
     }
+
     p {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 28px;
+      white-space: pre;
+
       span {
         font-size: 24px;
         font-weight: 700;
         color: $sub-color;
         font-family: "Pretendard Variable";
       }
-      font-size: 20px;
-      font-weight: 700;
-      line-height: 28px;
+    }
+  }
+
+  @media (max-width:768px) {
+
+    .profile_box_after {
+      p {
+        font-size: 16px;
+
+        span {
+          font-size: 20px;
+        }
+      }
+    }
+    h1{
+      font-size: 24px;
     }
   }
 }

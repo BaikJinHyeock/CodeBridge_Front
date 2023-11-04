@@ -357,7 +357,7 @@
                             font-size: 14px;
                             font-weight: 700;
 
-                            &:last-child{
+                            &:last-child {
                                 color: #999999;
                             }
                         }
@@ -383,6 +383,38 @@
 
         }
 
+    }
+
+    @media (max-width:1024px) {
+        .right_container {
+            width: 100%;
+
+        }
+    }
+
+    @media (max-width:768px) {
+        .right_container {
+            padding: 4rem 64px;
+
+            .right_container_wrap {
+                flex-direction: column;
+
+                .right_container_wrap_info {
+                    width: 100%;
+                    margin-bottom: 0;
+                }
+
+                .ide_wrapper {
+                    width: 100%;
+                }
+            }
+
+            .right_container_wrap_bottom {
+                display: grid;
+                gap: 32px;
+                grid-template-columns: 1fr;
+            }
+        }
     }
 }
 

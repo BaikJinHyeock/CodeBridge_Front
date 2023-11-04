@@ -184,12 +184,14 @@
 
     .right_container {
       width: 100%;
+      margin-bottom: 64px;
     }
   }
-  @media (max-width:768) {
+  @media (max-width:768px) {
 
     .right_container {
       width: 100%;
+      margin-bottom: 64px;
     }
   }
 }

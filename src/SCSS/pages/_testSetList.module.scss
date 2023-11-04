@@ -41,7 +41,6 @@
     .right_container_list_grid {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      gap: 36px;
 
       .right_container_list_grid_box {
         padding: 24px;
@@ -113,14 +112,35 @@
           .test_list_item_wrapper_level {
             width: 36px;
             height: 36px;
-            z-index: 9999;
+            z-index: 99;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
           }
         }
+      }
+    }
+  }
 
+  @media (max-width:1024px) {
+    .right_container {
+      width: 100%;
+      margin-bottom: 4rem;
+    }
+  }
+
+  @media (max-width:768px) {
+    .right_container {
+      width: 100%;
+      margin: 4rem 0;
+    }
+
+    .right_container_list {
+
+      .right_container_list_grid {
+        display: grid;
+        grid-template-columns: 1fr;
       }
     }
   }

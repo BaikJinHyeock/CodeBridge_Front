@@ -7,6 +7,7 @@
   display: flex;
   gap: 36px;
   padding: 36px;
+  overflow-y: auto;
 
   .left_container {
     width: 25%;
@@ -153,7 +154,6 @@
   .right_container {
     width: 75%;
     margin: 32px 0;
-    overflow-y: auto;
 
     .main_content {
       background-color: $font-sub-color1;
@@ -177,7 +177,7 @@
         width: 100%;
 
         tr {
-          &:nth-child(6) {
+          &:last-child {
             td {
               &:last-child {
                 button {
@@ -327,7 +327,7 @@
               border-collapse: collapse;
               padding: 0.5rem 0;
 
-              &:first-child{
+              &:first-child {
                 border-right: 1px solid rgba(0, 0, 0, 0.1);
                 width: 90%;
               }
@@ -397,6 +397,20 @@
           }
         }
       }
+    }
+  }
+}
+
+@media (max-width:768px) {
+  .wrap_container {
+    flex-direction: column;
+    gap: 0;
+
+    .left_container {
+      width: 100%;
+    }
+    .right_container{
+      width: 100%;
     }
   }
 }
