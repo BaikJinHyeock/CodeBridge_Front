@@ -12,11 +12,11 @@ const ClassDetail = () => {
   const class_num = params.get("class_num");
 
   const [infoList, setInfoList] = useState([]);
-  const [toarray, setToarray] = useState([]);
   const [teacherInfo, setTeacherInfo] = useState([]);
   const [subDetailList, setsubDetailList] = useState([]);
   const [curriArray, setCurriArray] = useState([]);
 
+  console.log('subDetailList확인', subDetailList);
 
   // 반 정보, 선생님 정보 긁어오기
   const classSearch = async (e) => {
@@ -24,12 +24,12 @@ const ClassDetail = () => {
       .get(`${baseUrl}/CodeBridge/class/findnum?class_num=${class_num}`)
       .then((res) => {
         setInfoList(res.data[0]);
+        console.log('infoList 확인', res.data[0]);
         const curriculumArray = res.data[0].curriculum.match(/\[(\d+): ([^\]]+)]/g).map(item => {
           const match = item.match(/\[(\d+): ([^\]]+)]/);
           return [parseInt(match[1], 10), match[2]];
         });
         setCurriArray(curriculumArray)
-        // setToarray(JSON.parse(res.data[0].curriculum));
         const selectedItems = curriculumArray.map((item) => item[0]);
         console.log("classSearch에서 아이템:", selectedItems);
         axios
@@ -92,6 +92,7 @@ const ClassDetail = () => {
       const res = await axios.post(`${baseUrl}/CodeBridge/class/regist`, obj);
       if (res.data == "success") {
         alert("등록 성공");
+        window.location.reload();
       } else {
         alert("등록 실패");
       }

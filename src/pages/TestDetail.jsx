@@ -212,49 +212,49 @@ const TestDetail = () => {
         </div>
         <div className={style.test_condition}>
 
-          {testList[selectedTestIndex] &&
-            <>
-              <div className={style.test_condition_explan}>
-                <h4>배점</h4>
-                <p>
-                  {testList[selectedTestIndex].test_level === 1 ? "10" :
-                    testList[selectedTestIndex].test_level === 2 ? "20" :
-                      testList[selectedTestIndex].test_level === 3 ? "30" : ""}
-                  점
-                </p>
-                <p>맞춘 제한사항에 비례하여 점수가 부여됩니다</p>
-              </div>
-              <div className={style.test_condition_explan}>
-                <h4>문제설명</h4>
-                <p>{testList[selectedTestIndex].test_description}</p>
-              </div>
-              <div className={style.test_condition_explan}>
-                <h4>제한사항</h4>
-                <ul>
-                  {testList[selectedTestIndex].test_condition.split(",,").map((testCase, index) => (
-                    <li key={index}>{testCase.trim()}</li>
-                  ))}
-                </ul>
-              </div>
-              <textarea
-                className="form-control"
-                placeholder="Problem description"
-                value={subTestCode[selectedTestIndex] || ''}
-                onChange={(e) => updateSubTestCode(selectedTestIndex, e.target.value)}
-              />
-              <button
-                className={`${style.code_sub_btn} ${isSubmitDisabled[selectedTestIndex] ? style.disabled : ""}`}
-                onClick={() => handleShow(selectedTestIndex)}
-                disabled={isSubmitDisabled[selectedTestIndex]} // 이 부분을 추가하세요
-              >
-                제출하기
-              </button>
-              <button
-                onClick={() => realhandleShow(selectedTestIndex)}
-                disabled={!isSubmitDisabled[selectedTestIndex]}
-              >
-                결과확인
-              </button>
+        {testList[selectedTestIndex] &&
+          <>
+            <div className={style.test_condition_explan}>
+              <h4>배점</h4>
+              <p>
+                {testList[selectedTestIndex].test_level === 1 ? "10" :
+                  testList[selectedTestIndex].test_level === 2 ? "20" :
+                    testList[selectedTestIndex].test_level === 3 ? "30" : ""}
+                점
+              </p>
+              <p>맞춘 제한사항에 비례하여 점수가 부여됩니다</p>
+            </div>
+            <div className={style.test_condition_explan}>
+              <h4>문제설명</h4>
+              <p>{testList[selectedTestIndex].test_description}</p>
+            </div>
+            <div className={style.test_condition_explan}>
+              <h4>제한사항</h4>
+              <p>
+                {testList[selectedTestIndex].test_condition.split('brbr').map((testCase, index) => (
+                  <span key={index}>{testCase.trim()}<br /></span>
+                ))}
+              </p>
+            </div>
+            <textarea
+              className="form-control"
+              placeholder="Problem description"
+              value={subTestCode[selectedTestIndex] || ''}
+              onChange={(e) => updateSubTestCode(selectedTestIndex, e.target.value)}
+            />
+            <button
+              className={`${style.code_sub_btn} ${isSubmitDisabled[selectedTestIndex] ? style.disabled : ""}`}
+              onClick={() => handleShow(selectedTestIndex)}
+              disabled={isSubmitDisabled[selectedTestIndex]} // 이 부분을 추가하세요
+            >
+              제출하기
+            </button>
+            <button
+              onClick={() => realhandleShow(selectedTestIndex)}
+              disabled={!isSubmitDisabled[selectedTestIndex]}
+            >
+              결과확인
+            </button>
 
 
               <Modal show={show} onHide={handleClose} style={{ top: "55%", left: "50%", transform: "translate(-50%, -50%)", zIndex: 99999 }}>

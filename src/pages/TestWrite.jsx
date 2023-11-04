@@ -92,10 +92,10 @@ const TestWrite = () => {
         <div className={style.loading_box}>
           {/* {isLoading && <h4 className={style.loading_text}>AI 문제 출제중</h4>} */}
           {isLoading &&
-          <div class="d-flex align-items-center" className={style.loading_text}>
-            <span role="status">AI문제 출제중...</span>
-            <div class="spinner-border ms-auto text-danger" aria-hidden="true"></div>
-          </div>
+            <div class="d-flex align-items-center" className={style.loading_text}>
+              <span role="status">AI문제 출제중...</span>
+              <div class="spinner-border ms-auto text-danger" aria-hidden="true"></div>
+            </div>
 
           }
           {gptTest && (

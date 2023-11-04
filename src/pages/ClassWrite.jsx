@@ -5,18 +5,21 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import Cropper from "react-cropper";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { storage } from "../Firebase";
 import style from "../SCSS/pages/_classWrite.module.scss";
 import QuillCompo from "../components/QuillCompo";
 import Image from "react-bootstrap/Image";
+import { updateQuillValue } from "../actions/quillActions";
 
 const ClassWrite = () => {
   // 스프링 주소
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
   const quillValue = useSelector((state) => state.quill.quillValue);
+  const dispatch = useDispatch();
+
   const [title, setTitle] = useState("");
   const [target, setTarget] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -72,6 +75,8 @@ const ClassWrite = () => {
       console.log("응답 확인", response.data);
       if (response.data == "success") {
         alert("작성 완료");
+        dispatch(updateQuillValue());
+        window.location.reload();
       } else {
         alert("작성 실패");
       }
@@ -145,6 +150,12 @@ const ClassWrite = () => {
 
   // ...
   const handleSubItemClick = (item, index) => {
+    const isAlreadySelected = additionalInputs.some(input => input.sub_num === item.sub_num);
+
+    if (isAlreadySelected) {
+      alert("이미 선택한 과목입니다.");
+      return;
+    }
     const updatedInputs = [...additionalInputs];
     updatedInputs[index].sub_num = item.sub_num; // sub_num 추가
     updatedInputs[index].content = `${item.sub_title} `;
