@@ -109,6 +109,22 @@ const ClassDetail = () => {
     setSelectedSubIndex(index);
   };
 
+  const classdelete = async () => {
+    console.log("class_num=" + class_num);
+    
+    try {
+      const res = await axios.post(`${baseUrl}/CodeBridge/class/delete?class_num=${class_num}`);
+      console.log("클래스삭제결과", res);
+      if (res.data === 1) {
+        alert("삭제 성공");
+        window.location.href = "/";
+      } else {
+        alert("삭제 실패");
+      }
+    } catch (error) {
+      alert(`통신오류 ${error}`);
+    }
+  };
   return (
     <div className={style.wrap_container}>
       <div className={style.left_container}>
@@ -202,7 +218,7 @@ const ClassDetail = () => {
             교육과정 등록
           </button>
         )}
-        <button type="button" className={style.complete_button}>반 삭제</button>
+        <button type="button" className={style.complete_button} onClick={classdelete}>반 삭제</button>
       </div>
     </div>
   );
