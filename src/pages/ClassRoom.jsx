@@ -159,7 +159,7 @@ export const ClassRoom = () => {
   const [reqStuName, setReqStuName] = useState(null);
 
   console.log('reqStuName 확인', reqStuName);
-  
+
   const requestHelp = async () => {
     try {
       await initializeWebSocket(); // 소켓 연결 기다리기
@@ -231,122 +231,135 @@ export const ClassRoom = () => {
   }
 
   return (
-    <div className={style.main_container}>
-      <div className={style.left_container_wrapper}>
-        <iframe src={`${userInfo.server_url}`}></iframe>
-      </div>
-      <div className={style.main_container_right}>
-        <div className={style.main_container_right_buttons}>
-          {userInfo.user_type == 0 ?
-            <>
-              {teacherLive === undefined ?
-                <button type="button" onClick={clickTeacher} disabled={teacherLive === undefined} className={style.main_container_right_buttons_first}>강사화면</button>
-                :
-                <button type="button" onClick={clickTeacher} className={style.main_container_right_buttons_first}>강사화면</button>
-              }
-              <button type="button" className={style.stu_help_btn} onClick={requestHelp}>도움요청</button>
-            </>
-            :
-            <>
-              {teacherLive === undefined ?
-                <button type="button" onClick={handleShow2} className={style.main_container_right_buttons_first}>공유시작</button>
-                :
-                <button type="button" onClick={handleShow2}>공유중</button>
-              }
-              <div className={style.teacher_help_btn_wrapper}>
-                <button type="button" onClick={handleShow} className={style.teacher_help_btn_wrapper_help}>도움주기</button>
-                {reqStuName &&
-                  <div className={style.teacher_help_btn_wrapper_circle}>
-                    <span>HELP!</span>
-                  </div>
-                }
-              </div>
-            </>
-          }
+    <>
+      <div className={style.main_container}>
+        <div className={style.left_container_wrapper}>
+          <iframe src={`${userInfo.server_url}`}></iframe>
         </div>
+        <div className={style.main_container_right}>
+          <div className={style.main_container_right_buttons}>
+            {userInfo.user_type == 0 ?
+              <>
+                {teacherLive === undefined ?
+                  <button type="button" onClick={clickTeacher} disabled={teacherLive === undefined} className={style.main_container_right_buttons_first}>강사화면</button>
+                  :
+                  <button type="button" onClick={clickTeacher} className={style.main_container_right_buttons_first}>강사화면</button>
+                }
+                <button type="button" className={style.stu_help_btn} onClick={requestHelp}>도움요청</button>
+              </>
+              :
+              <>
+                {teacherLive === undefined ?
+                  <button type="button" onClick={handleShow2} className={style.main_container_right_buttons_first}>공유시작</button>
+                  :
+                  <button type="button" onClick={handleShow2}>공유중</button>
+                }
+                <div className={style.teacher_help_btn_wrapper}>
+                  <button type="button" onClick={handleShow} className={style.teacher_help_btn_wrapper_help}>도움주기</button>
+                  {reqStuName &&
+                    <div className={style.teacher_help_btn_wrapper_circle}>
+                      <span>HELP!</span>
+                    </div>
+                  }
+                </div>
+              </>
+            }
+          </div>
 
 
 
 
-        <Modal show={show2} onHide={handleClose2} style={{ top: "15%" }}>
-          <Modal.Header closeButton>
-            <Modal.Title>주소 입력</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <style>{`.modal-content { 
+          <Modal show={show2} onHide={handleClose2} style={{ top: "15%" }}>
+            <Modal.Header closeButton>
+              <Modal.Title>주소 입력</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <style>{`.modal-content { 
                   width: 600px;
                   max-height: 700px;
                   overflow: scroll;
                 } `}</style>
 
-            <input
-              type="text"
-              placeholder="Message"
-              value={teacherLiveInput}
-              onChange={(e) => setTeacherLiveInput(e.target.value)}
-            />
-            {/* <button onClick={sendTeacherLive}>Send</button> */}
+              <input
+                type="text"
+                placeholder="Message"
+                value={teacherLiveInput}
+                onChange={(e) => setTeacherLiveInput(e.target.value)}
+              />
+              {/* <button onClick={sendTeacherLive}>Send</button> */}
 
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={sendTeacherLive}>
-              적용하기
-            </Button>
-          </Modal.Footer>
-        </Modal>
-
-
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={sendTeacherLive}>
+                적용하기
+              </Button>
+            </Modal.Footer>
+          </Modal>
 
 
 
 
-        <Modal show={show} onHide={handleClose} style={{ top: "15%" }}>
-          <Modal.Header closeButton>
-            <Modal.Title>IDE 리스트</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <style>{`.modal-content { 
+
+
+          <Modal show={show} onHide={handleClose} style={{ top: "15%" }}>
+            <Modal.Header closeButton>
+              <Modal.Title>IDE 리스트</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <style>{`.modal-content { 
                   width: 600px;
                   max-height: 700px;
                   overflow-y: scroll;
                 } `}</style>
-            <table className={style.ide_table}>
-              <thead>
-                <tr>
-                  <td>이름</td>
-                  <td>도움요청</td>
-                </tr>
-              </thead>
-              <tbody>
-                {stuList.map((item, index) =>
-                  <StudentItem key={index} props={item} />
-                )}
-              </tbody>
-            </table>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              닫기
-            </Button>
-          </Modal.Footer>
-        </Modal>
+              <table className={style.ide_table}>
+                <thead>
+                  <tr>
+                    <td>이름</td>
+                    <td>도움요청</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {stuList.map((item, index) =>
+                    <StudentItem key={index} props={item} />
+                  )}
+                </tbody>
+              </table>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                닫기
+              </Button>
+            </Modal.Footer>
+          </Modal>
 
 
-        <div className={style.main_container_right_chat} ref={scrollRef}>
-          <div className={style.main_container_right_chat_detail}>
-            <input
-              type="text"
-              placeholder="Message"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-            />
-            <button onClick={sendMessage} type="button">Send</button>
+          <div className={style.main_container_right_chat} ref={scrollRef}>
+            <div className={style.main_container_right_chat_detail}>
+              <input
+                type="text"
+                placeholder="Message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+              />
+              <button onClick={sendMessage} type="button">Send</button>
+            </div>
+            {/* LiveChatTest 컴포넌트를 직접 여기에 넣습니다. */}
+            <LiveChatTest />
           </div>
-          {/* LiveChatTest 컴포넌트를 직접 여기에 넣습니다. */}
-          <LiveChatTest />
         </div>
       </div>
-    </div>
+
+      <div className={style.mobile}>
+        <div>
+          <h1>웹 해상도에서만 서비스 제공 중</h1>
+          <p>
+            죄송합니다. 현재 CodeBridge 서비스는 모바일 해상도에서 이용할 수 없습니다.
+            데스크탑에서 접속해주시기 바랍니다.
+          </p>
+        </div>
+      </div>
+    </>
+
   );
 };
 

@@ -163,6 +163,7 @@ table {
 
 #root {
   width: 100%;
+  min-width: 768px;
 }
 
 a {
