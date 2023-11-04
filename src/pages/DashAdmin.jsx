@@ -161,12 +161,17 @@ const DashAdmin = () => {
     }
 
     return (
-      <div className={style.ide_modal}>
-        <p>
-          {index + 1} . {props}
-        </p>
-        <button type="button" onClick={giveIde}>부여하기</button>
-      </div>
+      // <div className={style.ide_modal}>
+      //   <p>
+      //     {index + 1} . {props}
+      //   </p>
+      //   <button type="button" onClick={giveIde}>부여하기</button>
+      // </div>
+      <tr>
+        <td>{index + 1}</td>
+        <td>{props}</td>
+        <td><button type="button" onClick={giveIde}>부여하기</button></td>
+      </tr>
     )
   }
 
@@ -291,6 +296,7 @@ const DashAdmin = () => {
               </table>
             </div>
 
+            {/* IDE 모달창 수정중 */}
             <Modal show={show} onHide={handleClose} style={{ top: "15%" }}>
               <Modal.Header closeButton>
                 <Modal.Title>IDE 리스트</Modal.Title>
@@ -302,9 +308,22 @@ const DashAdmin = () => {
                   overflow-y: scroll;
                 } `}</style>
 
-                {ideUrlList.map((item, index) =>
-                  <IDEItem key={index} props={item} index={index} />
-                )}
+
+                <table className={style.setTable}>
+                  <thead>
+                    <tr>
+                      <td>Number</td>
+                      <td>IDE URL</td>
+                      <td>URL부여</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {ideUrlList.map((item, index) =>
+                      <IDEItem key={index} props={item} index={index} />
+                    )}
+                  </tbody>
+                </table>
+
               </Modal.Body>
               <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
