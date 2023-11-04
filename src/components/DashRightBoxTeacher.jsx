@@ -137,7 +137,6 @@ const DashRightBoxTeacher = () => {
 
         <Modal show={show} onHide={handleClose}>
           <style>{`.modal-dialog {top : 15%} `}</style>
-          <style>{`.modal-content {width : 600px} `}</style>
           <Modal.Header closeButton>
             <Modal.Title>학생정보</Modal.Title>
           </Modal.Header>

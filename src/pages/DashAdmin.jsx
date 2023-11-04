@@ -303,9 +303,8 @@ const DashAdmin = () => {
               </Modal.Header>
               <Modal.Body>
                 <style>{`.modal-content { 
-                  width: 600px;
                   max-height: 700px;
-                  overflow-y: scroll;
+                  overflow-y: auto;
                 } `}</style>
 
 
