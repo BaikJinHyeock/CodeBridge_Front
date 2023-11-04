@@ -6,6 +6,10 @@ import style from "../SCSS/pages/_login.module.scss";
 // import "../main.css";
 
 const Login = () => {
+
+    // 스프링 주소
+    const baseUrl = process.env.REACT_APP_BASE_URL;
+
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -18,13 +22,13 @@ const Login = () => {
     };
     console.log("member 확인", member);
     const response = await axios.post(
-      "http://localhost:8085/CodeBridge/member/login",
+      `${baseUrl}/CodeBridge/member/login`,
       member
     );
     console.log("리스폰스 확인", response);
     console.log(response.data);
     if (response.data === "Y") {
-      const res = await axios.get(`http://localhost:8085/CodeBridge/member/memberInfoTeacher?user_id=${id}`);
+      const res = await axios.get(`${baseUrl}/CodeBridge/member/memberInfoTeacher?user_id=${id}`);
       console.log('받아온 유저정보 확인', res.data[0]);
       sessionStorage.setItem("memberId", id);
       sessionStorage.setItem("user_name", res.data[0].user_name)
