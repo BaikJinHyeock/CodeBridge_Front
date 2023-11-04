@@ -126,33 +126,21 @@ const TestList_student = () => {
 
 
   return (
-    <>
-      <div className={style.wrap_container}>
-        <div className={style.right_container}>
-          <Profile />
-          <div className={style.right_container_grid_box}>
-            <h4>테스트 관리</h4>
+    <div className={style.wrap_container}>
+      <div className={style.right_container}>
+        <Profile />
+        <div className={style.right_container_grid_box}>
+          <h4>테스트 관리</h4>
 
-            <div className={style.right_container_grid_box_detail}>
-              {mergedList.map((item, index) => (
-                <TestItem key={index} props={item} />
-              ))}
-            </div>
+          <div className={style.right_container_grid_box_detail}>
+            {mergedList.map((item, index) => (
+              <TestItem key={index} props={item} />
+            ))}
           </div>
         </div>
-        <DashRightBox />
       </div>
-
-      <div className={style.mobile}>
-        <div>
-          <h1>웹 해상도에서만 서비스 제공 중</h1>
-          <p>
-            죄송합니다. 현재 CodeBridge 서비스는 모바일 해상도에서 이용할 수 없습니다.
-            데스크탑에서 접속해주시기 바랍니다.
-          </p>
-        </div>
-      </div>
-    </>
+      <DashRightBox />
+    </div>
   );
 };
 

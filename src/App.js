@@ -47,6 +47,7 @@ function App() {
       location.pathname !== "/ClassDetail" &&
       location.pathname !== "/TestReady" &&
       location.pathname !== "/TestWrite" &&
+      location.pathname !== "/TestDetail" &&
       location.pathname !== "/SetInfo" &&
       location.pathname !== "/SubWrite" &&
       location.pathname !== "/Team" &&
