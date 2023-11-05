@@ -20,7 +20,6 @@ const ClassList = () => {
     try {
       const response = await axios.get(
         `${baseUrl}/CodeBridge/class/get-class-list`);
-      console.log('조회 후 데이터', response.data);
       setClasslist(response.data)
     } catch (error) {
 

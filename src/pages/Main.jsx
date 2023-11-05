@@ -20,7 +20,6 @@ const Main = () => {
   const getClassList = async () => {
     try {
       const res = await axios.get(`${baseUrl}/CodeBridge/class/get-class-list`)
-      console.log('메인 res확인', res.data);
       serClassList(res.data);
     } catch (error) {
 

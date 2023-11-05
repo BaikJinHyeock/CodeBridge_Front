@@ -17,7 +17,6 @@ const TestList_student = () => {
   const [userInfo, setUserInfo] = useState([]);
   const [classInfo, setClassInfo] = useState([]);
 
-  console.log('클래스 인포', classInfo);
 
 
   useEffect(() => {
@@ -25,31 +24,9 @@ const TestList_student = () => {
     setClassInfo(combinedInfo.classInfo)
   }, [combinedInfo]);
 
-  useEffect(() => {
-    getTested()
-  }, []);
-
-  // 학생이 시험 봤는지에 대한 메서드
 
   const [isTested, setIsTested] = useState([]);
 
-  const getTested = async () => {
-    let obj = {
-      sub_num: '20, 19',
-      user_id: sessionStorage.getItem("memberId")
-    }
-    try {
-      const response = await axios.post(
-        `${baseUrl}/CodeBridge/sub/istested`, obj
-      );
-      console.log("tesded응답", response.data);
-      setIsTested(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  console.log('isTested확인', isTested);
 
 
   const [subList, setSubList] = useState([]); // 데이터를 저장할 상태 추가
@@ -60,14 +37,28 @@ const TestList_student = () => {
       const response = await axios.get(
         `${baseUrl}/CodeBridge/sub/getsub?class_num=${classInfo.class_num}`
       );
-      console.log("subList", response.data);
+      const subNumString = response.data.map(item => item.sub_num).join(',');
       setSubList(response.data); // 데이터를 상태에 저장
+
+      let obj = {
+        sub_num: subNumString,
+        user_id: sessionStorage.getItem("memberId")
+      }
+      try {
+        const response = await axios.post(
+          `${baseUrl}/CodeBridge/sub/istested`, obj
+        );
+        setIsTested(response.data);
+      } catch (error) {
+
+      }
+
+
     } catch (error) {
       console.error("데이터 가져오기에 실패했습니다.", error);
     }
   };
 
-  console.log('섭리스트 확인', subList);
 
   useEffect(() => {
     getSubs();
@@ -121,7 +112,6 @@ const TestList_student = () => {
   // mergeLists 함수를 호출하여 두 리스트를 합칩니다.
   const mergedList = mergeLists(subList, isTested);
 
-  console.log('mergedList 확인', mergedList);
 
 
 

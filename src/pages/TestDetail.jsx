@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import style from "../SCSS/pages/_testDetail.module.scss";
 import axios from "axios";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import { Button } from "react-bootstrap";
 import Spinner from 'react-bootstrap/Spinner';
@@ -12,6 +12,7 @@ const TestDetail = () => {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const pyUrl = process.env.REACT_APP_PY_URL;
 
+  const navigate = useNavigate();
 
   const location = useLocation();
   const params = new URLSearchParams(location.search);
@@ -32,7 +33,6 @@ const TestDetail = () => {
     }
   };
 
-  console.log('testList확인', testList);
 
   useEffect(() => {
     getTestList();
@@ -63,7 +63,6 @@ const TestDetail = () => {
       subTest
     );
 
-    console.log("리스폰스 확인", response);
   };
 
   const selectall = (index) => {
@@ -88,7 +87,6 @@ const TestDetail = () => {
 
   const [test_score, setTestScore] = useState([]);
 
-  console.log('점수 확인', test_score);
 
   const [gptRes, setGptRes] = useState([]);
 
@@ -101,21 +99,19 @@ const TestDetail = () => {
       sub_code: subTestCode[selectedTestIndex],
       test_conditions: selectedTest.test_condition
     };
-    console.log('obj 확인', obj);
 
     setIsSubmitDisabled(prevState => {
       const updatedDisabled = [...prevState];
       updatedDisabled[selectedTestIndex] = true;
       return updatedDisabled;
     });
-
+    console.time('채점시간')
     try {
       const response_py = await axios.post(`${pyUrl}/mark`, obj);
-      console.log('파이썬 응답 확인', response_py.data);
       const updatedGptRes = [...gptRes];
       updatedGptRes[selectedTestIndex] = response_py.data;
       setGptRes(updatedGptRes);
-
+      console.timeEnd("채점시간")
       const testCases = response_py.data.split('테스트케이스');
       let successCount = 0;
 
@@ -126,7 +122,7 @@ const TestDetail = () => {
       }
 
       const testScore = (successCount > 0)
-        ? selectedTest.test_level * 10 * (successCount / (testCases.length - 1))
+        ? (selectedTest.test_level * 10 * (successCount / (testCases.length - 1))).toFixed(1)
         : 0;
 
       setTestScore(prevScores => {
@@ -135,18 +131,17 @@ const TestDetail = () => {
         return updatedScores;
       });
 
-      console.log('점수 확인 안에서', testScore);
 
       let mark_result = {
         sub_num: sub_num,
         test_num: selectedTest.test_num,
         user_id: sessionStorage.getItem("memberId"),
+        sub_code: subTestCode[selectedTestIndex],
         mark_result: response_py.data,
         mark_score: testScore
       }
 
       const response = await axios.post(`${baseUrl}/CodeBridge/mark/result`, mark_result);
-      console.log('스프링 결과 확인', response.data);
 
     } catch (error) {
       console.error(error);
@@ -176,6 +171,11 @@ const TestDetail = () => {
   };
 
   const finalSubmit = async () => {
+    const confirmSubmit = window.confirm("정말 종료하시겠습니까?");
+
+    if (!confirmSubmit) {
+      return;
+    }
     let obj = {
       sub_num: sub_num,
       user_id: sessionStorage.getItem("memberId")
@@ -184,6 +184,7 @@ const TestDetail = () => {
       const res = await axios.post(`${baseUrl}/CodeBridge/mark/submit`, obj);
       if (res.data == "success") {
         alert("제출완료")
+        navigate("/DashBoard")
       } else {
         alert("제출실패")
       }
@@ -197,63 +198,71 @@ const TestDetail = () => {
     <>
       <div className={style.wrap_container}>
         <div className={style.test_list_container}>
-          {testList.map((test, index) => (
-            <div key={index}>
-              <div
-                onClick={() => selectall(index)}
-                className={`${style.test_list_container_item} ${selectedTestIndex === index ? style.active : ""
-                  }`}
-              >
-                {`${index + 1}번 문제`}
+          <div>
+            {testList.map((test, index) => (
+              <div key={index}>
+                <div
+                  onClick={() => selectall(index)}
+                  className={`${style.test_list_container_item} ${selectedTestIndex === index ? style.active : ""
+                    }`}
+                >
+                  {`${index + 1}번 문제`}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          <div>
+            <button onClick={finalSubmit} className={style.final_submit_btn}>
+              시험종료
+            </button>
+          </div>
         </div>
         <div className={style.test_condition}>
 
-        {testList[selectedTestIndex] &&
-          <>
-            <div className={style.test_condition_explan}>
-              <h4>배점</h4>
-              <p>
-                {testList[selectedTestIndex].test_level === 1 ? "10" :
-                  testList[selectedTestIndex].test_level === 2 ? "20" :
-                    testList[selectedTestIndex].test_level === 3 ? "30" : ""}
-                점
-              </p>
-              <p>맞춘 제한사항에 비례하여 점수가 부여됩니다</p>
-            </div>
-            <div className={style.test_condition_explan}>
-              <h4>문제설명</h4>
-              <p>{testList[selectedTestIndex].test_description}</p>
-            </div>
-            <div className={style.test_condition_explan}>
-              <h4>제한사항</h4>
-              <p>
-                {testList[selectedTestIndex].test_condition.split('brbr').map((testCase, index) => (
-                  <span key={index}>{testCase.trim()}<br /></span>
-                ))}
-              </p>
-            </div>
-            <textarea
-              className="form-control"
-              placeholder="Problem description"
-              value={subTestCode[selectedTestIndex] || ''}
-              onChange={(e) => updateSubTestCode(selectedTestIndex, e.target.value)}
-            />
-            <button
-              className={`${style.code_sub_btn} ${isSubmitDisabled[selectedTestIndex] ? style.disabled : ""}`}
-              onClick={() => handleShow(selectedTestIndex)}
-              disabled={isSubmitDisabled[selectedTestIndex]} // 이 부분을 추가하세요
-            >
-              제출하기
-            </button>
-            <button
-              onClick={() => realhandleShow(selectedTestIndex)}
-              disabled={!isSubmitDisabled[selectedTestIndex]}
-            >
-              결과확인
-            </button>
+          {testList[selectedTestIndex] &&
+            <>
+              <div className={style.test_condition_explan}>
+                <h4>배점</h4>
+                <p className={style.score_ptag}>
+                  {testList[selectedTestIndex].test_level === 1 ? "10" :
+                    testList[selectedTestIndex].test_level === 2 ? "20" :
+                      testList[selectedTestIndex].test_level === 3 ? "30" : ""}
+                  점
+                </p>
+                <p>맞춘 제한사항에 비례하여 점수가 부여됩니다</p>
+              </div>
+              <div className={style.test_condition_explan}>
+                <h4>문제설명</h4>
+                <p>{testList[selectedTestIndex].test_description}</p>
+              </div>
+              <div className={style.test_condition_explan}>
+                <h4>제한사항</h4>
+                <p className={style.condition_ptag}>
+                  {testList[selectedTestIndex].test_condition.split('brbr').map((testCase, index) => (
+                    <span key={index}>{testCase.trim()}<br /></span>
+                  ))}
+                </p>
+              </div>
+              <textarea
+                className={style.sub_code_area}
+                placeholder="답안 입력"
+                value={subTestCode[selectedTestIndex] || ''}
+                onChange={(e) => updateSubTestCode(selectedTestIndex, e.target.value)}
+              />
+              <button
+                className={`${style.code_sub_btn} ${isSubmitDisabled[selectedTestIndex] ? style.disabled : ""}`}
+                onClick={() => handleShow(selectedTestIndex)}
+                disabled={isSubmitDisabled[selectedTestIndex]} // 이 부분을 추가하세요
+              >
+                제출하기
+              </button>
+              <button
+                className={style.check_result_btn}
+                onClick={() => realhandleShow(selectedTestIndex)}
+                disabled={!isSubmitDisabled[selectedTestIndex]}
+              >
+                결과확인
+              </button>
 
 
               <Modal show={show} onHide={handleClose} style={{ top: "55%", left: "50%", transform: "translate(-50%, -50%)", zIndex: 99999 }}>
@@ -301,9 +310,7 @@ const TestDetail = () => {
           }
 
 
-          <button onClick={finalSubmit}>
-            시험종료
-          </button>
+
 
         </div>
         <div className={style.test_compiler}>

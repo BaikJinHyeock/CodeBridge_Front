@@ -16,9 +16,6 @@ const DashRightBoxTeacher = () => {
   const [teacherInfo, setTeacherInfo] = useState([]);
   const [classInfo, setClassInfo] = useState([]);
 
-  console.log('classInfo 확인', classInfo);
-
-
   useEffect(() => {
     setTeacherInfo(combinedInfo.teacherInfo)
     setClassInfo(combinedInfo.classInfo)
@@ -33,10 +30,8 @@ const DashRightBoxTeacher = () => {
 
   // 반 학생 리스트 긁어오기
   const getStuList = async () => {
-    console.log('반번호 ? ', classInfo.class_num);
     try {
       const res = await axios.get(`${baseUrl}/CodeBridge/class/getClassStu?class_num=${classInfo.class_num}`);
-      console.log('받아온 학생 리스트 확인', res.data);
       setStuList(res.data)
     } catch (error) {
     }
@@ -45,8 +40,6 @@ const DashRightBoxTeacher = () => {
   // 학생 모든 정보 불러오기
 
   const [selectStu, setSelectStu] = useState("");
-
-  console.log('선택 학생 확인', selectStu);
 
   const StudentList = ({ props }) => {
 
@@ -82,7 +75,6 @@ const DashRightBoxTeacher = () => {
     }
     try {
       const res = await axios.post(`${baseUrl}/CodeBridge/mark/markresult`, obj);
-      console.log('성적확인', res.data);
       setScoreList(res.data)
     } catch (error) {
     }

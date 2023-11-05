@@ -32,6 +32,8 @@ const Nav = () => {
 
   const logOut = () => {
     sessionStorage.removeItem("memberId");
+    sessionStorage.removeItem("user_name");
+    sessionStorage.removeItem("user_nick");
     setIsProfileVisible(!isProfileVisible);
     window.location.href = "/";
   };
@@ -90,7 +92,6 @@ const Nav = () => {
       const response = await axios.get(
         `${baseUrl}/CodeBridge/class/findbyid?user_id=${id}`
       );
-      console.log("결과 ", response.data);
       setIsClass(response.data);
     } catch (error) {
       console.error(error);

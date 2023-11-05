@@ -30,7 +30,6 @@ const DashAdmin = () => {
   const getStudent = async () => {
     try {
       const res = await axios.get(`${baseUrl}/CodeBridge/class/getClassStu?class_num=${userInfo.hasclass}`);
-      console.log('받아온 학생 리스트 확인', res.data);
       setStuList(res.data)
     } catch (error) {
     }
@@ -131,7 +130,6 @@ const DashAdmin = () => {
   }
 
   const IDEItem = ({ index, props, user_id }) => {
-    console.log('모달 아이디 확인', user_id);
 
     // ide 부여
     const giveIde = async () => {
@@ -144,10 +142,8 @@ const DashAdmin = () => {
           server_url: props,
           user_id: selectUser
         }
-        console.log('obj확인', obj);
         try {
           const res = await axios.post(`${baseUrl}/CodeBridge/member/giveIde`, obj);
-          console.log('응답화기이니이인', res.data);
           if (res.data == "success") {
             alert("부여 완료")
             window.location.reload();

@@ -20,16 +20,12 @@ const Login = () => {
       user_id: id,
       user_pw: password,
     };
-    console.log("member 확인", member);
     const response = await axios.post(
       `${baseUrl}/CodeBridge/member/login`,
       member
     );
-    console.log("리스폰스 확인", response);
-    console.log(response.data);
     if (response.data === "Y") {
       const res = await axios.get(`${baseUrl}/CodeBridge/member/memberInfoTeacher?user_id=${id}`);
-      console.log('받아온 유저정보 확인', res.data[0]);
       sessionStorage.setItem("memberId", id);
       sessionStorage.setItem("user_name", res.data[0].user_name)
       sessionStorage.setItem("user_nick", res.data[0].user_nick)

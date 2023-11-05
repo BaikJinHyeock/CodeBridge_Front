@@ -29,9 +29,6 @@ const ClassWrite = () => {
   const [additionalInputs, setAdditionalInputs] = useState([{ sub_num: "", content: "" }]);
   const [subNumList, setSubNumList] = useState([]);
 
-  console.log("주차 값 확인", additionalInputs);
-  console.log("과목넘버들 확인", subNumList);
-
   const handleAddInput = () => {
     setAdditionalInputs([...additionalInputs, {}]);
   };
@@ -65,14 +62,12 @@ const ClassWrite = () => {
       class_enddate: endDate,
       sub_num: subNumList.join(","),
     };
-    console.log("obj확인", obj);
 
     try {
       const response = await axios.post(
         `${baseUrl}/CodeBridge/class/write`,
         obj
       );
-      console.log("응답 확인", response.data);
       if (response.data == "success") {
         alert("작성 완료");
         dispatch(updateQuillValue());
@@ -171,7 +166,6 @@ const ClassWrite = () => {
   const handleRemoveInput = (index) => {
     const updatedInputs = [...additionalInputs];
     const removedItem = updatedInputs.splice(index, 1)[0]; // 삭제된 항목을 가져옴
-    console.log("리무브아이템 확인", removedItem);
     setAdditionalInputs(updatedInputs);
 
     // 정규표현식을 사용하여 content에서 sub_num을 추출

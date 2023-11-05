@@ -29,12 +29,10 @@ const TestList_teacher = () => {
 
 
     const getSubs = async () => {
-        console.log('반 번호 확인', classInfo);
         try {
             const response = await axios.get(
                 `${baseUrl}/CodeBridge/sub/getsub?class_num=${classInfo.class_num}`
             );
-            console.log("response.data", response.data);
             setSubList(response.data); // 데이터를 상태에 저장
         } catch (error) {
             console.error("데이터 가져오기에 실패했습니다.", error);
@@ -46,7 +44,6 @@ const TestList_teacher = () => {
     }, [classInfo]);
 
     const TestItem = ({ props }) => {
-        console.log('props확인', props);
         return (
             <div className={style.item}>
                 <div>

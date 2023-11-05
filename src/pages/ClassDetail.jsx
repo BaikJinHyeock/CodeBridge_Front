@@ -22,7 +22,6 @@ const ClassDetail = () => {
     setUserInfo(combinedInfo.userInfo)
   }, [combinedInfo]);
 
-  console.log('유저인포 확인', userInfo);
 
 
   const [infoList, setInfoList] = useState([]);
@@ -30,15 +29,12 @@ const ClassDetail = () => {
   const [subDetailList, setsubDetailList] = useState([]);
   const [curriArray, setCurriArray] = useState([]);
 
-  console.log('subDetailList확인', subDetailList);
-
   // 반 정보, 선생님 정보 긁어오기
   const classSearch = async (e) => {
     await axios
       .get(`${baseUrl}/CodeBridge/class/findnum?class_num=${class_num}`)
       .then((res) => {
         setInfoList(res.data[0]);
-        console.log('infoList 확인', res.data[0]);
         const curriculumArray = res.data[0].curriculum.match(/\[(\d+): ([^\]]+)]/g).map(item => {
           const match = item.match(/\[(\d+): ([^\]]+)]/);
           return [parseInt(match[1], 10), match[2]];
@@ -46,7 +42,6 @@ const ClassDetail = () => {
         setCurriArray(curriculumArray)
 
         const selectedItems = curriculumArray.map((item) => item[0]);
-        console.log("classSearch에서 아이템:", selectedItems);
         axios
           .post(`${baseUrl}/CodeBridge/sub/get-sub-list`, selectedItems)
           .then((res) => {
@@ -84,7 +79,6 @@ const ClassDetail = () => {
       const res = await axios.get(`${baseUrl}/CodeBridge/class/registed`, {
         params: obj,
       });
-      console.log("등록여부", res.data);
       if (res.data == "registed") {
         setIsRegist(true);
       }
@@ -119,21 +113,15 @@ const ClassDetail = () => {
   };
 
 
-
-
-  console.log('selectedSubIndex확', selectedSubIndex);
-
   // 클릭 이벤트 핸들러
   const handleSubClick = (index) => {
     setSelectedSubIndex(index);
   };
 
   const classdelete = async () => {
-    console.log("class_num=" + class_num);
 
     try {
       const res = await axios.post(`${baseUrl}/CodeBridge/class/delete?class_num=${class_num}`);
-      console.log("클래스삭제결과", res);
       if (res.data === 1) {
         alert("삭제 성공");
         window.location.href = "/";

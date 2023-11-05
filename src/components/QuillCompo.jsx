@@ -50,7 +50,6 @@ const QuillCompo = ({ update }) => {
             editor.insertEmbed(range.index, "image", url);
             // URL 삽입 후 커서를 이미지 뒷 칸으로 이동
             editor.setSelection(range.index + 1);
-            console.log("url 확인", url);
             setImageUrl(url);
           });
         });
@@ -94,7 +93,6 @@ const QuillCompo = ({ update }) => {
 
   const handleSaveCroppedImage = async (croppedImageDataUrl) => {
     const imageUrl = await uploadImageToFirebase(croppedImageDataUrl);
-    console.log('유알엘 확인', imageUrl);
     setSavedUrl(imageUrl);
     return imageUrl;
   };

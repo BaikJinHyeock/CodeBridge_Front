@@ -37,13 +37,11 @@ const SubWrite = () => {
                 sub_lang: language,
                 sub_content: quillValue
             };
-            console.log("값 확인", obj);
 
             const response = await axios.post(
                 `${baseUrl}/CodeBridge/sub/write`,
                 obj
             );
-            console.log('응답 확인', response);
             if (response) {
                 alert('작성 성공')
                 dispatch(updateQuillValue());

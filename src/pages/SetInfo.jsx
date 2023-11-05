@@ -18,7 +18,6 @@ const SetInfo = () => {
 
   const quillValue = useSelector((state) => state.quill.quillValue);
 
-  console.log('퀼 밸류 확인', quillValue);
 
   const [password, setPassword] = useState("");
   const [password_check, setPassword_check] = useState("");
@@ -52,13 +51,10 @@ const SetInfo = () => {
 
   // 회원정보 조회
   const memberSearching = async () => {
-    console.log("로그인이 되어있나", id);
     const res = await axios.get(`${baseUrl}/CodeBridge/member/memberInfoTeacher?user_id=${id}`);
-    console.log('조회 후 데이터', res.data[0]);
     setInfoList(res.data[0]);
   };
 
-  console.log('인포리스트 확인', infoList.user_name);
 
   const koreanVowelRegex = /^[ㅏ-ㅣ]/;
   // const namecheck = async (e) => {
@@ -199,7 +195,6 @@ const SetInfo = () => {
     };
     try {
       const res = await axios.post(`${baseUrl}/CodeBridge/member/hisedit`, obj);
-      console.log('약력 수정 결과', res.data);
       if (res.data == 'success') {
         alert('수정완료')
         window.location.reload();
@@ -319,7 +314,6 @@ const SetInfo = () => {
 
   const handleSaveCroppedImage = async (croppedImageDataUrl) => {
     const imageUrl = await uploadImageToFirebase(croppedImageDataUrl);
-    console.log('유알엘 확인', imageUrl);
     setSavedUrl(imageUrl);
   };
 
@@ -332,7 +326,6 @@ const SetInfo = () => {
       `${baseUrl}/CodeBridge/member/changepic`,
       obj
     );
-    console.log('응답 확인', response.data);
     if (response.data == "success") {
       window.location.reload();
     }

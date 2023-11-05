@@ -27,7 +27,6 @@ const TestWrite = () => {
       test_condition: testConditionList,
     };
 
-    console.log('obj 확인', obj);
 
     const res = await axios.post(`${baseUrl}/CodeBridge/test/write`, obj);
     // try {
@@ -64,13 +63,11 @@ const TestWrite = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const gtpTestWrite = async () => {
-    console.log('함수진입');
     setGptTest("");
     setIsLoading(true);
 
     try {
       const res = await axios.post(`${pyUrl}/test`);
-      console.log('파이썬 응답 확인', res);
       setGptTest(res.data);
     } catch (error) {
       console.error(error);

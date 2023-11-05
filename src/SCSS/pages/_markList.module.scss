@@ -92,3 +92,21 @@ button {
     background-color: $sub-color;
   }
 }
+
+// 채점결과 css
+.detail_mark_box {
+
+  .sub_code_box {
+    border: solid;
+    border-width: thin;
+    padding: 4px;
+    border-radius: 4px;
+    background-color: beige;
+
+    pre {
+      overflow-y: hidden;
+    }
+  }
+
+
+}

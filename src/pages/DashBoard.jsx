@@ -44,7 +44,6 @@ const DashBoard = () => {
       // setToarray(parsedCurriculum);
 
       // const selectedItems = parsedCurriculum.map(item => item[1]);
-      console.log('classSearch에서 아이템:', selectedItems);
       axios.post(`${baseUrl}/CodeBridge/sub/get-sub-list`, selectedItems)
         .then((res) => {
           setsubDetailList(res.data);
@@ -149,7 +148,6 @@ const DashBoard = () => {
     setTodoList(todo);
   }
 
-  console.log("확인" + window.localStorage.getItem("todoList"));
   const todo = window.localStorage.getItem("todoList");
 
   return (

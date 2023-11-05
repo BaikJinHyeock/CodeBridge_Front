@@ -16,24 +16,13 @@ const MarkDetail = () => {
       user_id: "admin@naver.com",
     };
 
-    console.log("subTest확", subTest);
 
     const response = await axios.post(
       `${baseUrl}/CodeBridge/test/mark`,
       subTest
     );
 
-    console.log("response확", response);
 
-    /* const mark_code_list = response.data;
-        console.log('리스트 확인 ', mark_code_list); */
-
-    /*         for (let mark_code of mark_code_list) {
-                    console.time("걸린시간")
-                    const response_py = await axios.post("http://127.0.0.1:5000/", mark_code);
-                    console.log('파이썬 응답 확인', response_py.data);
-                    console.timeEnd("걸린시간")
-                } */
   };
 
   const MarkItenm = () => {
