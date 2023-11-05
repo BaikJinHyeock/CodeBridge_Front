@@ -75,6 +75,12 @@ const TestList = () => {
   const navigate = useNavigate();
   // 고른 문제 출제하기
   const subTestList = async () => {
+
+    if (selectedTestNums.length === 0) {
+      alert("선택한 과목이 없습니다. 과목을 선택해주세요.");
+      return;
+    }
+
     const selectedTestNumsString = selectedTestNums.join(",");
     let obj = {
       sub_num: parseInt(sub_num),

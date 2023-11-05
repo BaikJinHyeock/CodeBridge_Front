@@ -81,7 +81,7 @@ const DashBoard = () => {
   };
 
 
-  const [selectedSubIndex, setSelectedSubIndex] = useState(null);
+  const [selectedSubIndex, setSelectedSubIndex] = useState(0);
 
 
   // 클릭 이벤트 핸들러
@@ -214,8 +214,12 @@ const DashBoard = () => {
             <h4>커리큘럼 미리보기</h4>
             {selectedSubIndex !== null && (
               <div>
-                <span
-                  dangerouslySetInnerHTML={{ __html: subDetailList[selectedSubIndex].sub_content }}></span>
+                {subDetailList[selectedSubIndex] != null &&
+                  <span
+                    dangerouslySetInnerHTML={{ __html: subDetailList[selectedSubIndex].sub_content }}>
+
+                  </span>
+                }
               </div>
             )}
           </div>

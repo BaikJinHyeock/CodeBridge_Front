@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import style from "../SCSS/pages/_classDetail.module.scss";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const ClassDetail = () => {
   // 스프링 주소
@@ -10,6 +11,19 @@ const ClassDetail = () => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const class_num = params.get("class_num");
+
+  const combinedInfo = useSelector(state => state.combinedInfo);
+
+  const [userInfo, setUserInfo] = useState([]);
+  const [selectedSubIndex, setSelectedSubIndex] = useState(0);
+
+
+  useEffect(() => {
+    setUserInfo(combinedInfo.userInfo)
+  }, [combinedInfo]);
+
+  console.log('유저인포 확인', userInfo);
+
 
   const [infoList, setInfoList] = useState([]);
   const [teacherInfo, setTeacherInfo] = useState([]);
@@ -30,6 +44,7 @@ const ClassDetail = () => {
           return [parseInt(match[1], 10), match[2]];
         });
         setCurriArray(curriculumArray)
+
         const selectedItems = curriculumArray.map((item) => item[0]);
         console.log("classSearch에서 아이템:", selectedItems);
         axios
@@ -77,10 +92,12 @@ const ClassDetail = () => {
   };
 
   useEffect(() => {
-    console.log("이팩트실행");
     classSearch();
     isRegisted();
   }, [class_num]);
+
+
+
 
   const registClass = async () => {
     let obj = {
@@ -103,7 +120,8 @@ const ClassDetail = () => {
 
 
 
-  const [selectedSubIndex, setSelectedSubIndex] = useState(null);
+
+  console.log('selectedSubIndex확', selectedSubIndex);
 
   // 클릭 이벤트 핸들러
   const handleSubClick = (index) => {
@@ -112,7 +130,7 @@ const ClassDetail = () => {
 
   const classdelete = async () => {
     console.log("class_num=" + class_num);
-    
+
     try {
       const res = await axios.post(`${baseUrl}/CodeBridge/class/delete?class_num=${class_num}`);
       console.log("클래스삭제결과", res);
@@ -197,31 +215,43 @@ const ClassDetail = () => {
             </div>
             {selectedSubIndex !== null && (
               <div className={style.right_container_wrap_right}>
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: subDetailList[selectedSubIndex].sub_content,
-                  }}
-                ></span>
+                {subDetailList[selectedSubIndex] != null &&
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: subDetailList[selectedSubIndex].sub_content,
+                    }}
+                  ></span>
+                }
               </div>
             )}
           </div>
         </div>
 
-        {isRegist ? (
-          // 버튼 비활성화 필요
-          <button type="button" className={style.complete_button}>등록됨</button>
-        ) : (
-          <button
-            type="button"
-            className={style.submit_button}
-            onClick={registClass}
-          >
-            교육과정 등록
-          </button>
-        )}
-        <button type="button" className={style.complete_button} onClick={classdelete}>반 삭제</button>
-      </div>
-    </div>
+        {userInfo.user_type == 1 ?
+          <>
+            {infoList.class_num == userInfo.hasclass &&
+              <button type="button" className={style.submit_button} onClick={classdelete}>반 삭제</button>
+            }
+          </>
+          :
+          <>
+            {
+              isRegist ? (
+                // 버튼 비활성화 필요
+                <button type="button" className={style.complete_button} > 등록됨</button>
+              ) : (
+                <button
+                  type="button"
+                  className={style.submit_button}
+                  onClick={registClass}
+                >
+                  교육과정 등록
+                </button>
+              )}
+          </>
+        }
+      </div >
+    </div >
   );
 };
 

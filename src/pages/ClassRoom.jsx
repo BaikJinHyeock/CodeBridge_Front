@@ -282,7 +282,8 @@ export const ClassRoom = () => {
 
               <input
                 type="text"
-                placeholder="Message"
+                placeholder="주소 입력"
+                className={style.start_live_input}
                 value={teacherLiveInput}
                 onChange={(e) => setTeacherLiveInput(e.target.value)}
               />
@@ -340,6 +341,11 @@ export const ClassRoom = () => {
                 placeholder="Message"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    sendMessage();
+                  }
+                }}
               />
               <button onClick={sendMessage} type="button">Send</button>
             </div>
