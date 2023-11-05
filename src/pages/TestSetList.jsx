@@ -34,7 +34,6 @@ const TestList = () => {
 
   // testList 난이도별로 분류
   const categorizeTestsByLevel = (tests) => {
-    console.log('난이도분류 tests확인', tests);
     const levelTests = [[], [], [], []];
     tests.forEach((test) => {
       levelTests[test.test_level].push(test);
@@ -75,12 +74,17 @@ const TestList = () => {
   const navigate = useNavigate();
   // 고른 문제 출제하기
   const subTestList = async () => {
+
+    if (selectedTestNums.length === 0) {
+      alert("선택한 과목이 없습니다. 과목을 선택해주세요.");
+      return;
+    }
+
     const selectedTestNumsString = selectedTestNums.join(",");
     let obj = {
       sub_num: parseInt(sub_num),
       test_num: selectedTestNums,
     };
-    console.log("obj 확인", obj);
     try {
       const res = await axios.post(
         `${baseUrl}/CodeBridge/subjecTtest/submit`,

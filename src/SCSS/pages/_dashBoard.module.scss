@@ -125,6 +125,7 @@
     }
 
     .main_content {
+      height: 600px;
       display: flex;
       justify-content: space-between;
       gap: 36px;
@@ -154,6 +155,7 @@
         box-shadow: $box-shadow;
         width: 70%;
         padding: 20px;
+        overflow: auto;
 
         h4 {
           margin-bottom: 20px;
@@ -265,5 +267,5 @@
 }
 
 img {
-  width: 100%;
+  max-width: 100%;
 }

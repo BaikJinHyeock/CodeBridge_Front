@@ -44,7 +44,6 @@ const DashBoard = () => {
       // setToarray(parsedCurriculum);
 
       // const selectedItems = parsedCurriculum.map(item => item[1]);
-      console.log('classSearch에서 아이템:', selectedItems);
       axios.post(`${baseUrl}/CodeBridge/sub/get-sub-list`, selectedItems)
         .then((res) => {
           setsubDetailList(res.data);
@@ -81,7 +80,7 @@ const DashBoard = () => {
   };
 
 
-  const [selectedSubIndex, setSelectedSubIndex] = useState(null);
+  const [selectedSubIndex, setSelectedSubIndex] = useState(0);
 
 
   // 클릭 이벤트 핸들러
@@ -149,7 +148,6 @@ const DashBoard = () => {
     setTodoList(todo);
   }
 
-  console.log("확인" + window.localStorage.getItem("todoList"));
   const todo = window.localStorage.getItem("todoList");
 
   return (
@@ -214,8 +212,12 @@ const DashBoard = () => {
             <h4>커리큘럼 미리보기</h4>
             {selectedSubIndex !== null && (
               <div>
-                <span
-                  dangerouslySetInnerHTML={{ __html: subDetailList[selectedSubIndex].sub_content }}></span>
+                {subDetailList[selectedSubIndex] != null &&
+                  <span
+                    dangerouslySetInnerHTML={{ __html: subDetailList[selectedSubIndex].sub_content }}>
+
+                  </span>
+                }
               </div>
             )}
           </div>

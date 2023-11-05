@@ -32,7 +32,6 @@ const Join = () => {
   const [check6, setCheck6] = useState("0");
 
   const JoinMember = async (e) => {
-    console.log("check1 확인", check1);
     if (!type) {
       alert("타입을 선택해 주세요");
     } else {
@@ -45,7 +44,6 @@ const Join = () => {
         check5 === 1 &&
         check6 === 1
       ) {
-        console.log("진입완료1");
 
         let obj = {
           user_id: id,
@@ -56,7 +54,6 @@ const Join = () => {
           user_type: type,
         };
 
-        console.log('obj 확인', obj);
 
         const response = await axios.post(
           `${baseUrl}/CodeBridge/member/join`,
@@ -64,7 +61,6 @@ const Join = () => {
         );
 
         alert("회원가입 성공");
-        console.log("리스폰스 확인", response);
         window.location.href = "/Login";
       } else {
         return alert("잘못입력된 정보가 있습니다.");
@@ -73,11 +69,9 @@ const Join = () => {
 
   };
 
-  console.log('type확', type);
 
   //아이디중복확인,형식 메소드
   const idValidation = async (e) => {
-    console.log("id 확인", id);
     const regExp =
       /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 
@@ -91,9 +85,7 @@ const Join = () => {
       const response = await axios
         .post(`${baseUrl}/CodeBridge/member/idCheck`, obj)
         .then((res) => {
-          console.log("res", res.data);
           const resMessge = res.data;
-          console.log("변수확인", resMessge);
           if (resMessge === "O") {
             setIdErrMsg("");
             setIdCheckMsg("사용 가능한 아이디입니다.");

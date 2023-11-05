@@ -61,7 +61,6 @@ export const ClassRoom = () => {
 
   // 학생 정보 컴포넌트
   const StudentItem = ({ props }) => {
-    console.log('props 확인', props);
     const handleOpenLink = () => {
       window.open(props.server_url);
       setReqStuName("");
@@ -105,14 +104,11 @@ export const ClassRoom = () => {
       stompClient.connect({}, () => {
         if (!isSubscribed) { // 이전에 구독하지 않았다면
           stompClient.subscribe('/topic/public', (message) => {
-            console.log('여기 몇번호출');
             const messageData = JSON.parse(message.body);
-            console.log('messageData 확인', messageData);
             addMessage(messageData);
           });
           // 도움 요청 응답을 받아서 studentName 상태에 저장
           stompClient.subscribe('/topic/helpResponse', (message) => {
-            console.log('도움요청 데이터', message.body);
             setReqStuName(message.body); // 받은 값을 studentName 상태에 저장
           });
           // 선생 라이브 주소
@@ -158,7 +154,6 @@ export const ClassRoom = () => {
 
   const [reqStuName, setReqStuName] = useState(null);
 
-  console.log('reqStuName 확인', reqStuName);
 
   const requestHelp = async () => {
     try {
@@ -198,14 +193,8 @@ export const ClassRoom = () => {
     setShow2(true);
   };
 
-
-
-  console.log('teacherLive 값 들어있음?', teacherLive);
-
-
   // 채팅 컴포넌트
   const scrollRef = useRef();
-  console.log(scrollRef.current);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -282,7 +271,8 @@ export const ClassRoom = () => {
 
               <input
                 type="text"
-                placeholder="Message"
+                placeholder="주소 입력"
+                className={style.start_live_input}
                 value={teacherLiveInput}
                 onChange={(e) => setTeacherLiveInput(e.target.value)}
               />
@@ -340,6 +330,11 @@ export const ClassRoom = () => {
                 placeholder="Message"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    sendMessage();
+                  }
+                }}
               />
               <button onClick={sendMessage} type="button">Send</button>
             </div>

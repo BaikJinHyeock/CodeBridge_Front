@@ -29,7 +29,7 @@ const DashRightBox = () => {
           />
         </div>
         <p>{teacherInfo.user_name}</p>
-        <span>교육기간 {classInfo.class_startdate} ~ {classInfo.class_enddate}</span>
+        <span>교육기간 <br/>{classInfo.class_startdate} ~ {classInfo.class_enddate}</span>
       </div>
 
       <div className={style.content_box2}>
@@ -37,15 +37,15 @@ const DashRightBox = () => {
         <div className={style.info_box_attend}>
           <div>
             <span>출석</span>
-            <p>19</p>
+            <p>2</p>
           </div>
           <div>
             <span>결석</span>
-            <p>1</p>
+            <p>0</p>
           </div>
           <div>
             <span>지각</span>
-            <p>3</p>
+            <p>0</p>
           </div>
         </div>
       </div>
