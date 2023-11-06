@@ -168,17 +168,17 @@ const ClassWrite = () => {
     const removedItem = updatedInputs.splice(index, 1)[0]; // 삭제된 항목을 가져옴
     setAdditionalInputs(updatedInputs);
 
-    // 정규표현식을 사용하여 content에서 sub_num을 추출
-    const subNumToRemove = removedItem.content.match(/과목 번호: (\d+)/);
-
-    // sub_num이 존재할 경우 subNumList에서 제거
-    if (subNumToRemove) {
-      const subNum = parseInt(subNumToRemove[1]);
-      setSubNumList((prevSubNumList) =>
-        prevSubNumList.filter((subNumItem) => subNumItem !== subNum)
-      );
+    if (removedItem && removedItem.content) { // content가 정의되어 있는지 확인
+      const subNumToRemove = removedItem.content.match(/과목 번호: (\d+)/);
+      if (subNumToRemove) {
+        const subNum = parseInt(subNumToRemove[1]);
+        setSubNumList((prevSubNumList) =>
+          prevSubNumList.filter((subNumItem) => subNumItem !== subNum)
+        );
+      }
     }
   };
+
 
   // 크로퍼 부분 시작
 
