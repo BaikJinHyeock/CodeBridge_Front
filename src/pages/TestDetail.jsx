@@ -5,12 +5,22 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import { Button } from "react-bootstrap";
 import Spinner from 'react-bootstrap/Spinner';
+import { useSelector } from "react-redux";
 
 const TestDetail = () => {
 
   // 스프링 주소
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const pyUrl = process.env.REACT_APP_PY_URL;
+
+  // redux 값 뺴오기
+  const combinedInfo = useSelector(state => state.combinedInfo);
+
+  const [userInfo, setUserInfo] = useState([]);
+
+  useEffect(() => {
+    setUserInfo(combinedInfo.userInfo)
+  }, [combinedInfo]);
 
   const navigate = useNavigate();
 
@@ -309,16 +319,11 @@ const TestDetail = () => {
             </>
           }
 
-
-
-
         </div>
         <div className={style.test_compiler}>
-          <iframe src="http://59.0.234.207:8083/?folder=/home/smhrd/test" />
-
+          <iframe src={`${userInfo.server_url}?folder=/home/smhrd/test/TestRoom`}></iframe>
         </div>
       </div>
-
 
       <div className={style.mobile}>
         <div>
