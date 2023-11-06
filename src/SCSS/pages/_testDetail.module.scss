@@ -74,12 +74,9 @@
             p {
                 color: $font-color;
                 font-weight: 600;
-            }
-
-            ul {
-                li {
-                    font-weight: 600;
+                span{
                     line-height: 1.2rem;
+                    margin-bottom: 12px;
                 }
             }
         }
