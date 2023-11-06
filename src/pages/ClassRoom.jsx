@@ -219,8 +219,6 @@ export const ClassRoom = () => {
     );
   }
 
-  console.log('user타입 확인', userInfo);
-
   return (
     <>
       <div className={style.main_container}>
