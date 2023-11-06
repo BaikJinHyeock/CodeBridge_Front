@@ -81,7 +81,6 @@ const DashRightBoxTeacher = () => {
   }
 
   const ScoreItem = ({ props }) => {
-
     return (
       // <div>
       //   <p>과목명 : {props.sub_title}</p>
@@ -90,6 +89,8 @@ const DashRightBoxTeacher = () => {
       <tr>
         <td>{props.sub_title}</td>
         <td>{props.mark_score}</td>
+        <td>{props.objection}</td>
+        
       </tr>
     );
   }
@@ -144,6 +145,7 @@ const DashRightBoxTeacher = () => {
                 <tr>
                   <td>과목명</td>
                   <td>점수</td>
+                  <td>이의신청</td>
                 </tr>
               </thead>
               <tbody>
