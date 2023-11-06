@@ -272,7 +272,7 @@ export const ClassRoom = () => {
               <style>{`.modal-content { 
                   width: 600px;
                   max-height: 700px;
-                  overflow: scroll;
+                  overflow-y: auto;
                 } `}</style>
 
               <input
@@ -305,7 +305,7 @@ export const ClassRoom = () => {
               <style>{`.modal-content { 
                   width: 600px;
                   max-height: 700px;
-                  overflow-y: scroll;
+                  overflow-y: auto;
                 } `}</style>
               <table className={style.ide_table}>
                 <thead>
