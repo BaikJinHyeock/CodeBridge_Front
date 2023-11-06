@@ -163,27 +163,34 @@ const MarkList = () => {
 
     return (
       <div className={style.detail_mark_box}>
-        <p>문제 설명</p>
-        <p>{props.test_description}</p>
-        <p>제출한 코드</p>
-        <div className={style.sub_code_box}>
-          <pre style={{ whiteSpace: 'pre-wrap' }}>{props.sub_code}</pre>
+        <div className={style.detail_mark_box_detail}>
+          <h4>문제 설명</h4>
+          <p>{props.test_description}</p>
         </div>
-        <p>채점 결과</p>
-        <div className={style.mark_result_box}>
-          {props.mark_result.split('\n').map((line, index) => (
-            <div key={index}>
-              {line.includes('성공') ? (
-                <div><span style={{ color: 'blue' }}>{line}</span></div>
-              ) : line.includes('실패') ? (
-                <div><span style={{ color: 'red' }}>{line}</span></div>
-              ) : (
-                <div>{line}</div>
-              )}
-            </div>
-          ))}
+        <div className={style.detail_mark_box_detail}>
+          <h4>제출한 코드</h4>
+          <div className={style.sub_code_box}>
+            <pre style={{ whiteSpace: 'pre-wrap' }}>{props.sub_code}</pre>
+          </div>
         </div>
-        <hr />
+        <div className={style.detail_mark_box_detail}>
+          <h4>채점 결과</h4>
+          <div className={style.mark_result_box}>
+            {props.mark_result.split('\n').map((line, index) => (
+              <div key={index} className={style.mark_result_box_detail}>
+                {line.includes('성공') ? (
+                  <span style={{ color: 'blue' }}>{line}</span>
+                ) : line.includes('실패') ? (
+                  <span style={{ color: 'red' }}>{line}</span>
+                ) : (
+                  <div>{line}</div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <button type="button">이의제기</button>
       </div>
     )
   }
@@ -206,14 +213,19 @@ const MarkList = () => {
               <SetTestList key={index} props={item} />
             )}
           </div>
-
+          {/* */}
           <Modal show={show} onHide={handleClose} style={{ top: "55%", left: "50%", transform: "translate(-50%, -50%)", zIndex: 99999 }}>
             <Modal.Header closeButton>
               <Modal.Title>채점 결과</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+              <style>{`.modal-content { 
+                  max-height: 700px;
+                  overflow-y: auto;
+                } `}</style>
+
               {detailMarkResult.map((item, index) =>
-                <MarkDetailItem key={index} props={item} />
+                <MarkDetailItem key={index} props={item} style={{ width: "100%" }} />
               )}
 
 
