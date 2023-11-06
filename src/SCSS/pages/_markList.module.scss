@@ -95,18 +95,64 @@ button {
 
 // 채점결과 css
 .detail_mark_box {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 46px;
+  position: relative;
 
-  .sub_code_box {
-    border: solid;
-    border-width: thin;
-    padding: 4px;
-    border-radius: 4px;
-    background-color: beige;
+  .detail_mark_box_detail {
+    h4 {
+      font-size: 16px;
+      color: $main-color;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
 
-    pre {
-      overflow-y: hidden;
+    .mark_result_box_detail {
+      span {
+        line-height: 1.5rem;
+        font-weight: 600;
+      }
+    }
+
+
+    .sub_code_box {
+      border: solid;
+      border-width: thin;
+      padding: 4px;
+      border-radius: 4px;
+      background-color: beige;
+
+      pre {
+        overflow-y: hidden;
+      }
     }
   }
 
+  &:not(:last-child) {
+    position: relative;
 
+    &::after {
+      content: "";
+      clear: both;
+      display: block;
+      width: 100%;
+      height: 1px;
+      background-color: #cccccc;
+      position: absolute;
+      right: 0;
+      left: 50%;
+      bottom: -1.5rem;
+      transform: translateX(-50%);
+    }
+  }
+
+  button{
+    transition-duration: 150ms;
+    &:hover{
+      background-color: $main-color;
+      color: $font-sub-color1;
+    }
+  }
 }
