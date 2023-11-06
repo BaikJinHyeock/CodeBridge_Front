@@ -219,11 +219,17 @@ export const ClassRoom = () => {
     );
   }
 
+  console.log('user타입 확인', userInfo);
+
   return (
     <>
       <div className={style.main_container}>
         <div className={style.left_container_wrapper}>
-          <iframe src={`${userInfo.server_url}`}></iframe>
+          {userInfo.user_type == 1 ?
+            <iframe src={`${userInfo.server_url}?folder=/home/smhrd/class/ClassRoomTeacher`}></iframe>
+            :
+            <iframe src={`${userInfo.server_url}?folder=/home/smhrd/class/ClassRoom`}></iframe>
+          }
         </div>
         <div className={style.main_container_right}>
           <div className={style.main_container_right_buttons}>

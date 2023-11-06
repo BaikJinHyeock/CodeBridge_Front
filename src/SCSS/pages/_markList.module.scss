@@ -148,11 +148,18 @@ button {
     }
   }
 
-  button{
+  button {
     transition-duration: 150ms;
-    &:hover{
+
+    &:hover {
       background-color: $main-color;
       color: $font-sub-color1;
     }
+  }
+
+  button:disabled {
+    background-color: rgb(73, 72, 126);
+    cursor: not-allowed;
+    color: $font-sub-color1;
   }
 }

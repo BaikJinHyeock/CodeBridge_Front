@@ -158,8 +158,30 @@ const MarkList = () => {
     }
   }
 
-
   const MarkDetailItem = ({ props, index }) => {
+
+    const ClickObjection = (index) => {
+      objectionBtn(index);
+    }
+
+    const objectionBtn = async (index) => {
+      let obj = {
+        sub_num: props.sub_num,
+        test_num: props.test_num,
+        user_id: props.user_id
+      }
+      try {
+        const res = await axios.post(`${baseUrl}/CodeBridge/mark/mark-objection`, obj);
+        if (res.data == "success") {
+          alert("이의신청 완료")
+          window.location.reload();
+        }
+      } catch (error) {
+
+      }
+    }
+
+
 
     return (
       <div className={style.detail_mark_box}>
@@ -189,11 +211,15 @@ const MarkList = () => {
             ))}
           </div>
         </div>
-
-        <button type="button">이의제기</button>
-      </div>
+        {props.objection == 1 ?
+          < button type="button" onClick={ClickObjection} disabled={props.objectio != 1}>이의제기 완료</button>
+          :
+          < button type="button" onClick={ClickObjection}>이의제기</button>
+        }
+      </div >
     )
   }
+
 
 
 
