@@ -215,27 +215,32 @@ const ClassDetail = () => {
           </div>
         </div>
 
-        {userInfo.user_type == 1 ?
-          <>
-            {infoList.class_num == userInfo.hasclass &&
-              <button type="button" className={style.submit_button} onClick={classdelete}>반 삭제</button>
-            }
-          </>
-          :
+        {userInfo &&
           <>
             {
-              isRegist ? (
-                // 버튼 비활성화 필요
-                <button type="button" className={style.complete_button} > 등록됨</button>
-              ) : (
-                <button
-                  type="button"
-                  className={style.submit_button}
-                  onClick={registClass}
-                >
-                  교육과정 등록
-                </button>
-              )}
+              userInfo.user_type == 1 ?
+                <>
+                  {infoList.class_num == userInfo.hasclass &&
+                    <button type="button" className={style.submit_button} onClick={classdelete}>반 삭제</button>
+                  }
+                </>
+                :
+                <>
+                  {
+                    isRegist ? (
+                      // 버튼 비활성화 필요
+                      <button type="button" className={style.complete_button} > 등록됨</button>
+                    ) : (
+                      <button
+                        type="button"
+                        className={style.submit_button}
+                        onClick={registClass}
+                      >
+                        교육과정 등록
+                      </button>
+                    )}
+                </>
+            }
           </>
         }
       </div >
