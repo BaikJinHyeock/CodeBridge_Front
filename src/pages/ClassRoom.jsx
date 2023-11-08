@@ -176,7 +176,8 @@ export const ClassRoom = () => {
 
   // 강사화면 메서드
   const clickTeacher = () => {
-    window.open(teacherLive);
+    window.open("http://211.33.239.178:2051/?folder=/home/smhrd/class/ClassRoomTeacher");
+    // window.open(teacherLive);
   }
 
   // 모달 관련
@@ -233,11 +234,12 @@ export const ClassRoom = () => {
           <div className={style.main_container_right_buttons}>
             {userInfo.user_type == 0 ?
               <>
-                {teacherLive === undefined ?
+                {/* {teacherLive === undefined ?
                   <button type="button" onClick={clickTeacher} disabled={teacherLive === undefined} className={style.main_container_right_buttons_first}>강사화면</button>
                   :
                   <button type="button" onClick={clickTeacher} className={style.main_container_right_buttons_first}>강사화면</button>
-                }
+                } */}
+                <button type="button" onClick={clickTeacher} className={style.main_container_right_buttons_first}>강사화면</button>
                 <button type="button" className={style.stu_help_btn} onClick={requestHelp}>도움요청</button>
               </>
               :

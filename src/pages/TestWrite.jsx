@@ -27,20 +27,17 @@ const TestWrite = () => {
       test_condition: testConditionList,
     };
 
-
-    const res = await axios.post(`${baseUrl}/CodeBridge/test/write`, obj);
-    // try {
-    //   const res = await axios.post(`${baseUrl}/CodeBridge/test/write`, obj);
-    //   console.log("리스폰스 확인", res);
-    //   if (res.data == "1") {
-    //     alert("시험등록성공");
-    //     window.location.href = "/";
-    //   } else {
-    //     return alert("시험등록실패!");
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    try {
+      const res = await axios.post(`${baseUrl}/CodeBridge/test/write`, obj);
+      if (res.data == "1") {
+        alert("시험등록성공");
+        window.location.href = "/";
+      } else {
+        return alert("시험등록실패!");
+      }
+    } catch (error) {
+      console.error(error);
+    }
 
   };
 

@@ -222,12 +222,12 @@ const TestList = () => {
             <h5>문제 내용</h5>
             <p>{selectedTest && selectedTest.test_description}</p>
             <h5>제한 조건</h5>
-            <ul>
+            <div>
               {selectedTest &&
-                selectedTest.test_condition.split(",").map((testCase, index) => (
-                  <li key={index}>{testCase.trim()}</li>
+                selectedTest.test_condition.split('brbr').map((testCase, index) => (
+                  <p key={index}>{testCase}</p>
                 ))}
-            </ul>
+            </div>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
