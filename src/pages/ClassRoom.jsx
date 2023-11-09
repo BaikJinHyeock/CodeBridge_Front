@@ -176,7 +176,7 @@ export const ClassRoom = () => {
 
   // 강사화면 메서드
   const clickTeacher = () => {
-    window.open("http://211.33.239.178:2051/?folder=/home/smhrd/class/ClassRoomTeacher");
+    window.open("http://211.227.224.186:2031/?folder=/home/smhrd/class/ClassRoomTeacher");
     // window.open(teacherLive);
   }
 
