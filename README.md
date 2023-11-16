@@ -31,7 +31,7 @@ Flask : https://github.com/2023-SMHRD-SW-DataDesign-1/CodeBridge_Python.git
 ## 📚 기술스택
 | 분야           | 사용 기술                       | 비고 |
 | -------------- | ------------------------------- | ---- |
-| 프론트엔드      | React                           |
+| 프론트엔드      | React, SCSS                      |
 | 백엔드          | Spring Boot, Flask             |
 | DB             | MySql                          |
 | 웹 개발환경     | WSL2, Docker, CodeServer       |
