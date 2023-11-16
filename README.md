@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+# 📎 CodeBridge(팀명: LMS)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
 
-### `npm start`
+## 👀 서비스 소개
+* 서비스명:  온라인 페어코딩 기반 코딩교육 및 레벨 테스트 플랫폼
+* 서비스설명:
+현재 시장에서 코딩 교육과 관련 산업이 빠르게 성장하고 있으며, 교육부가 2025년부터 초, 중등 교육 과정에서 코딩을 필수과목으로 지정하면서 코딩 교육 산업이 더욱 주목받고 있다. <br>
+이로 인해 개발자의 수요가 계속해서 증가하고 있으며, 이러한 시장 동향에 맞춰 온라인 코딩 교육 플랫품을 개발하고자 한다.
+<br>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 📅 프로젝트 기간
+2023.10.13 ~ 2023.11.10 (4주)
+<br>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## ⭐ 주요 기능
+1. 웹 개발환경
+- CodeServer
+- 페어코딩
+2. 문제 자동 생성/채점
+- 챗gptAPI
+<br>
 
-### `npm test`
+## 📚 기술스택
+| 분야           | 사용 기술                       | 비고 |
+| -------------- | ------------------------------- | ---- |
+| 프론트엔드      | React                           |
+| 백엔드          | Spring Boot                     |
+| DB             | MySql                           |
+| 배포           | AWS EC2, Route53, LoadBalancer  |
+| 협업           | VSCODE, Notion, Slack           |
+| DESIGN         | PhotoShop                       |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<br>
 
-### `npm run build`
+## ⚙ 시스템 아키텍처
+![cb아키텍쳐](https://github.com/2023-SMHRD-SW-DataDesign-1/CodeBridge_Front/assets/134501995/e463c1d6-c23e-483d-8d67-7f7125d93af6)
+<br>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 📌 ER다이어그램
+![cberd](https://github.com/2023-SMHRD-SW-DataDesign-1/CodeBridge_Front/assets/134501995/dc38dc5e-413d-4677-bd9b-7b09a54ddaa9)
+<br>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
